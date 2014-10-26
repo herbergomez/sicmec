@@ -1,0 +1,250 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/general :: headerFragment">
+	
+</head>
+<body>
+	<div th:replace="fragments/general :: navFragment"></div>
+	
+	<div class="container" style="min-height: 600px; overflow: auto;">
+		<div class="row">
+			<div class="col-md-12 col-xs-12">
+				<button class="btn btn-primary" th:text="#{admin.pacientes.add}"
+					data-toggle="modal" data-target="#modalAgregarPaciente">
+				
+				</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 col-xs-12">
+				<div th:if="${success}" class="alert alert-info alert-dismissible" role="alert">
+  					<button type="button" class="close" data-dismiss="alert">
+  						<span aria-hidden="true">&times;</span>
+  						<span class="sr-only">Close</span>
+  					</button>
+  					<strong th:utext="#{general.alerta.atencion}"></strong>
+  					<p th:utext="#{admin.pacientes.alertas.agregar.exito}"></p>
+				</div>
+			</div>	
+			<div th:if="${upSuccess}" class="alert alert-info alert-dismissible" role="alert">
+  					<button type="button" class="close" data-dismiss="alert">
+  						<span aria-hidden="true">&times;</span>
+  						<span class="sr-only">Close</span>
+  					</button>
+  					<strong th:utext="#{general.alerta.atencion}"></strong>
+  					<p th:utext="#{admin.pacientes.alertas.modificar.exito}"></p>
+		   </div>
+		</div>
+		
+		<div class="row">
+		  <div class="col-md-12 col-xs-12">
+		     <div class="widget-box">
+		  	   <div class="widget-title">
+					<span class="icon">
+						<i class="fa fa-pacientes"></i>
+					</span>
+					<h5 th:utext="#{admin.pacientes.title}"></h5>
+				</div>
+				<div class="widget-content">
+					<div class="table-responsive">
+					  <table class="table table-hover table-striped table-bordered datatables">
+					     <thead>
+								<tr class="head">
+									<th></th>
+									<th th:text="#{admin.pacientes.nombres}"></th>
+									<th th:text="#{admin.pacientes.apellidos}"></th>
+									<th th:text="#{admin.pacientes.departamento}"></th>
+									<th th:text="#{admin.pacientes.municipio}"></th>
+									<th th:text="#{admin.pacientes.telefono}"></th>
+									<th th:utext="#{admin.pacientes.sexo}"></th>
+									<th th:utext="#{admin.pacientes.direccion}"></th>
+								</tr>	
+							</thead>
+							<tbody>
+							 <tr th:each="paciente : ${pacientes}">
+							       <td>
+										<div class="btn-group">
+  										<!--<button type="button" class="btn btn-danger onDelete "
+  											    data-id="${paciente.idSicPaciente}">
+  												<i class="fa fa-trash-o"></i>
+  											</button>-->
+   											<button type="button" class="btn btn-default onUpdate" th:attr="data-id=${paciente.idSicPaciente}">
+   												<i class="fa fa-pencil-square-o"></i>
+   											</button>
+										</div>
+									</td>																
+								 <td th:text="${paciente.fkSicPersona.nombre}"></td>
+								 <td th:text="${paciente.fkSicPersona.apellido}"></td>
+								 <td th:text="${paciente.fkSicMunicipio.fkSicDepartamento.nombreDepartamento}"></td>
+								 <td th:text="${paciente.fkSicMunicipio.nombreMunicipio}"></td>
+								 <td th:text="${paciente.telefonoPaciente}"></td>
+								 <td th:text="${paciente.sexoPaciente}"></td>
+								 <td th:text="${paciente.direccionPaciente}"></td>
+							 </tr>
+							</tbody>
+					   </table>
+					</div>
+				</div>
+		    </div>	
+		  </div>
+		</div>
+	</div>
+	<div class="modal fade" id="modalAgregarPaciente" tabindex="-1" role="dialog" aria-labelledby="modalAgregarPaciente" aria-hidden="true">
+  	<div class="modal-dialog">
+    	<div class="modal-content">
+      		<form id="agregarPacienteForm" th:action="@{/admin/pacientes/addPaciente}" method="post" >
+      		    <div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        			<h4 class="modal-title" th:text="#{admin.pacientes.addmodal.titulo}"></h4>
+      			</div>
+      			<div class="modal-body">
+        		<div class="form-group">
+        			<label for="nombres" th:text="#{admin.pacientes.nombres}"></label>
+    				<input type="text" class="form-control" id="nombres" name="nombres" th:placeholder="#{admin.pacientes.nombres}" />
+        		</div>
+        		<div class="form-group">
+        			<label for="apellidos" th:text="#{admin.pacientes.apellidos}"></label>
+    				<input type="text" class="form-control" id="apellidos" name="apellidos" th:placeholder="#{admin.pacientes.apellidos}" />
+        		</div>
+        		<div class="form-group">
+        			<label for="mail" th:utext="#{admin.pacientes.mail}"></label>
+    				<input type="text" class="form-control" id="mail" name="mail" th:placeholder="#{admin.pacientes.mail}" />
+        		</div>
+        		<div class="form-group">
+        		        		       		
+        		 <div class="row">
+		          <div class="col-md-5 col-xs-2">
+        			<label for="fnacimiento" th:utext="#{admin.pacientes.fnacimiento}"></label>
+    				<input type="date"  class="form-control" id="fnacimiento" name="fnacimiento"/>
+        		  </div>
+        		  <div class="col-md-5">
+        			<label for="sexo" th:utext="#{admin.pacientes.sexo}"></label>
+    				<select class="form-control" id="sexo" name="sexo">
+    					<!-- <option th:each="rol:${roles}" th:value="${rol.idSicRol}" th:text="${rol.nombreRol}"></option> -->
+    				    <option th:text="Masculino"></option>
+    				    <option th:text="Femenino"></option>
+    				</select>				
+        		  </div>
+        		 </div>
+        		
+        		<div class="row">
+		          <div class="col-md-5 col-xs-2">
+        			<label for="departamento" th:utext="#{admin.pacientes.departamento}"></label>
+    				<select class="form-control" id="departamento" name="departamento" >
+    					<option></option>
+    				   <option th:each="departamento:${departamentos}" th:attr="data-id=${departamento.idSicDepartamento}"  th:value="${departamento.idSicDepartamento}" th:text="${departamento.nombreDepartamento}"></option>
+    				</select>
+        		  </div>
+        		  <div class="col-md-5">
+        			<label for="municipio" th:utext="#{admin.pacientes.municipio}"></label>
+    				<select class="form-control" id="municipio" name="municipio">
+    					 
+    				</select>				
+        		  </div>
+        		 </div>
+        		 
+        		 <div class="form-group">
+        			<label for="telefono" th:utext="#{admin.pacientes.telefono}"></label>
+    				<input type="text" class="form-control" id="telefono" name="telefono" th:placeholder="#{admin.pacientes.telefono}" />
+        		</div> 
+        		<div class="form-group">
+        			<label for="direccion" th:utext="#{admin.pacientes.direccion}"></label>
+    				<input type="text" class="form-control" id="direccion" name="direccion" th:placeholder="#{admin.pacientes.direccion}" />
+        		</div> 
+        		</div>
+        		</div>
+        	  <div class="modal-footer">
+        		<button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{general.btn.cancelar}"></button>
+        		<button type="submit" class="btn btn-primary" th:text="#{general.btn.guardar}"></button>
+      		  </div>
+      		</form>
+    	</div>
+    </div>
+    </div>	
+    
+    
+    
+    <div class="modal fade" id="modalUpdatePaciente" tabindex="-1" role="dialog" aria-labelledby="modalUpdatePaciente" aria-hidden="true">
+  	<div class="modal-dialog">
+    	<div class="modal-content">
+      		<form id="modificarPacienteForm" th:action="@{/admin/pacientes/upPaciente}" method="post" >
+      			
+      		    <div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        			<h4 class="modal-title" th:text="#{admin.pacientes.upmodal.titulo}"></h4>
+      			</div>
+      			<div class="modal-body">
+      			
+      			<input type="text" id="idUp" name="idUp" style="display: none;"/>
+      			
+        		<div class="form-group">
+        			<label for="nombresUp" th:text="#{admin.pacientes.nombres}"></label>
+    				<input type="text" class="form-control" id="nombresUp" name="nombresUp" th:placeholder="#{admin.pacientes.nombres}" />
+        		</div>
+        		<div class="form-group">
+        			<label for="apellidosUp" th:text="#{admin.pacientes.apellidos}"></label>
+    				<input type="text" class="form-control" id="apellidosUp" name="apellidosUp" th:placeholder="#{admin.pacientes.apellidos}" />
+        		</div>
+        		<div class="form-group">
+        			<label for="mailUp" th:utext="#{admin.pacientes.mail}"></label>
+    				<input type="text" class="form-control" id="mailUp" name="mailUp" th:placeholder="#{admin.pacientes.mail}" />
+        		</div>
+        		<div class="form-group">
+        		        		       		
+        		 <div class="row">
+		          <div class="col-md-5 col-xs-2">
+        			<label for="fnacimientoUp" th:utext="#{admin.pacientes.fnacimiento}"></label>
+    				<input type="date"  class="form-control" id="fnacimientoUp" name="fnacimientoUp"/>
+        		  </div>
+        		  <div class="col-md-5">
+        			<label for="sexoUp" th:utext="#{admin.pacientes.sexo}"></label>
+    				<select class="form-control" id="sexoUp" name="sexoUp">
+    					<!-- <option th:each="rol:${roles}" th:value="${rol.idSicRol}" th:text="${rol.nombreRol}"></option> -->
+    				    <option value="Masculino" th:text="Masculino"></option>
+    				    <option value="Femenino" th:text="Femenino"></option>
+    				</select>				
+        		  </div>
+        		 </div>
+        		
+        		<div class="row">
+		          <div class="col-md-5 col-xs-2">
+        			<label for="departamentoUp" th:utext="#{admin.pacientes.departamento}"></label>
+    				<select class="form-control" id="departamentoUp" name="departamentoUp" >
+    					<option></option>
+    				   <option th:each="departamento:${departamentos}" th:attr="data-id=${departamento.idSicDepartamento}"  th:value="${departamento.idSicDepartamento}" th:text="${departamento.nombreDepartamento}"></option>
+    				</select>
+        		  </div>
+        		  <div class="col-md-5">
+        			<label for="municipioUp" th:utext="#{admin.pacientes.municipio}"></label>
+    				<select class="form-control" id="municipioUp" name="municipioUp">
+    					 
+    				</select>				
+        		  </div>
+        		 </div>
+        		 
+        		 <div class="form-group">
+        			<label for="telefonoUp" th:utext="#{admin.pacientes.telefono}"></label>
+    				<input type="text" class="form-control" id="telefonoUp" name="telefonoUp" th:placeholder="#{admin.pacientes.telefono}" />
+        		</div> 
+        		<div class="form-group">
+        			<label for="direccionUp" th:utext="#{admin.pacientes.direccion}"></label>
+    				<input type="text" class="form-control" id="direccionUp" name="direccionUp" th:placeholder="#{admin.pacientes.direccion}" />
+        		</div> 
+        		</div>
+        		</div>
+        	  <div class="modal-footer">
+        		<button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{general.btn.cancelar}"></button>
+        		<button type="submit" class="btn btn-primary" th:text="#{general.btn.guardar}"></button>
+      		  </div>
+      		</form>
+    	</div>
+    </div>
+    </div>	
+    
+	<div th:replace="fragments/general :: footerFragment"></div>
+	<div th:replace="fragments/general :: jsFragment"></div>
+
+<script type="text/javascript" th:src="@{/resources/js/administracionPacientes.js}"></script>
+</body>
+</html>

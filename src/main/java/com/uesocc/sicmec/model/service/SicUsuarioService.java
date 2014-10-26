@@ -5,7 +5,6 @@ package com.uesocc.sicmec.model.service;
 
 import com.uesocc.sicmec.framework.general.BaseService;
 import com.uesocc.sicmec.model.dto.SicUsuarioDto;
-import com.uesocc.sicmec.model.entity.SicUsuario;
 
 /**
  * @author pablo portillo
@@ -14,4 +13,10 @@ import com.uesocc.sicmec.model.entity.SicUsuario;
 public interface SicUsuarioService extends BaseService<SicUsuarioDto, Integer> 
 {
 
+	/**
+	 * @param nombreUsuario
+	 * @return True si el nombre usuario esta libre y false si el nombre de usuario a sido usado
+	 */
+	boolean validacionDenombreUsuario(String nombreUsuario);
+	
 }

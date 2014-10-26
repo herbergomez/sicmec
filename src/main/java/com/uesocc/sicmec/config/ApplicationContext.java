@@ -23,7 +23,6 @@ import nz.net.ultraq.web.thymeleaf.LayoutDialect;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
@@ -166,14 +165,6 @@ public class ApplicationContext extends WebMvcConfigurerAdapter {
 		resolver.setCharacterEncoding(env.getRequiredProperty("DEFAULT_ENCODING"));
 		return resolver;
 	}
-
-    @Bean
-    public CharacterEncodingFilter characterEncodingFilter() {
-        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
-        characterEncodingFilter.setEncoding("UTF-8");
-        characterEncodingFilter.setForceEncoding(true);
-        return characterEncodingFilter;
-    }
 	
 	//Mail sender
 	

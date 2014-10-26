@@ -1,9 +1,126 @@
 /**
- * 
+ * Autor: Pablo Portillo
  */
 
 $( document ).ready(function() {
-  
+	
+$('#agregarUsuarioForm').validate({
+		errorElement: "span",
+		rules: {
+		   nombre: 
+		   {
+		     	required: true,
+		     	maxlength: 20,
+		     	minlength: 3
+		   },
+		   apellido: 
+		   {
+		        required: true,
+		        maxlength: 20,
+		     	minlength: 3
+		   },
+		   usuario: 
+		   {
+			    required: true,
+			    maxlength: 20,
+		     	minlength: 3,
+		     	remote: 
+		     	{
+		    		type: "POST",
+		    		url: "/sicmec/Utils/validarUsername",
+	                	data : 
+	                	{
+	                        usuario: function() 
+	                        { return $("#usuario").val(); }
+	                	}
+		     	}
+		   },
+		   pass: 
+		   {
+			    required: true,
+			    maxlength: 10,
+		     	minlength: 6
+		   },
+		   passConfirm: 
+		   {
+			    required: true,
+			    equalTo: pass
+		   },
+		   mail: 
+		   {
+			    required: true,
+			    email: true
+		   },
+		   
+		   rol:
+		   {
+			   required: true
+		   }
+		  },
+		messages : 
+		{
+			usuario:
+			{
+				remote : "Este usuario ya existe."
+			}
+		},
+		highlight: function(element) {
+			$(element).closest('.form-group')
+			.removeClass('has-success').addClass('has-error');
+		},
+		success: function(element) {
+			element.addClass('help-inline')
+			.closest('.form-group')
+			.removeClass('has-error').addClass('has-success');
+		}
+		 
+	});
+	
+$('#modificarUsuarioForm').validate({
+	errorElement: "span",
+	rules: {
+		nombreUp: 
+	   {
+	     	required: true,
+	     	maxlength: 20,
+	     	minlength: 3
+	   },
+	   apellidoUp: 
+	   {
+	        required: true,
+	        maxlength: 20,
+	     	minlength: 3
+	   },
+	   mailUp: 
+	   {
+		    required: true,
+		    email: true
+	   },
+	   rolUp:
+	   {
+		   required: true
+	   },
+	   fxAct:
+	   {
+		   required: true
+	   },
+	   fxDes:
+	   {
+		   required: true
+	   }
+	  },
+	highlight: function(element) {
+		$(element).closest('.form-group')
+		.removeClass('has-success').addClass('has-error');
+	},
+	success: function(element) {
+		element.addClass('help-inline')
+		.closest('.form-group')
+		.removeClass('has-error').addClass('has-success');
+	}
+	 
+});
+
 	$(".datatables").DataTable({
 		"scrollY": "350px",
         "scrollCollapse": false,

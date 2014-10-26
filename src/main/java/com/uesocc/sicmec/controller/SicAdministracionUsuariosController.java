@@ -19,10 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.uesocc.sicmec.model.dto.SicPersonaDto;
 import com.uesocc.sicmec.model.dto.SicUsuarioDto;
-import com.uesocc.sicmec.model.entity.SicUsuario;
 import com.uesocc.sicmec.model.serviceImpl.SicPersonaServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicRolServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicUsuarioServiceImpl;

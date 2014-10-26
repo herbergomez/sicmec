@@ -105,4 +105,18 @@ public class SicUsuarioServiceImpl implements SicUsuarioService {
 		return list_dto;
 	}
 
+	@Override
+	public boolean validacionDenombreUsuario(String nombreUsuario) {
+		// TODO Auto-generated method stub
+		
+		if(sicUsuarioRepository.findAllBynombreUsuario(nombreUsuario).isEmpty())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 }
