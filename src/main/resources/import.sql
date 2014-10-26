@@ -1,4 +1,17 @@
---------------------DEPARTAMENTOS------------------------------------
+--------------------ESTADOS PARA USUARIOS Y PACIENTES -----------------
+INSERT INTO sic_estado_usuario (descripcion)
+		 VALUES ('Activo');
+INSERT INTO sic_estado_usuario (descripcion)
+		 VALUES ('Inactivo');
+		 
+INSERT INTO sic_estado_paciente (descripcion)
+		 VALUES ('Activo');
+INSERT INTO sic_estado_paciente (descripcion)
+		 VALUES ('Inactivo');
+INSERT INTO sic_estado_paciente (descripcion)
+		 VALUES ('Muerte');
+		 
+--------------------DEPARTAMENTOS--------------------------------------
 INSERT INTO sic_departamento(nombre_departamento)
 		 VALUES ('Ahuachapán');
 INSERT INTO sic_departamento( nombre_departamento)

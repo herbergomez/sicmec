@@ -69,9 +69,12 @@ public class SicPaciente implements Serializable {
     @JoinColumn(name = "fk_sic_persona", referencedColumnName = "id_sic_persona", nullable = false)
     @ManyToOne(optional = false)
     private SicPersona fkSicPersona;
-    @JoinColumn(name = "fk_sic_municipio", referencedColumnName = "id_sic_municipio")
-    @ManyToOne
+    @JoinColumn(name = "fk_sic_municipio", referencedColumnName = "id_sic_municipio",nullable = false)
+    @ManyToOne(optional = false)
     private SicMunicipio fkSicMunicipio;
+    @JoinColumn(name = "id_sic_paciente", referencedColumnName = "id_sic_estado_paciente", nullable = false)
+    @ManyToOne(optional = false)
+    private SicEstadoPaciente sicEstadoPaciente;
 
     public SicPaciente() {
     }

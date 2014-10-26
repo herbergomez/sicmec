@@ -26,6 +26,7 @@ public class SicUsuarioDto implements Serializable {
     private String modicadoPor;
     private SicRolDto SicRol;
     private SicPersonaDto SicPersona;
+    private SicEstadoUsuarioDto sicEstadoUsuario;
     
 	/**
 	 * @return the idSicUsuario
@@ -158,6 +159,18 @@ public class SicUsuarioDto implements Serializable {
 				+ ", fxCreado=" + fxCreado + ", creadoPor=" + creadoPor
 				+ ", fxModicado=" + fxModicado + ", modicadoPor=" + modicadoPor
 				+ ", SicRol=" + SicRol + ", SicPersona=" + SicPersona + "]";
+	}
+	/**
+	 * @return the sicEstadoUsuario
+	 */
+	public SicEstadoUsuarioDto getSicEstadoUsuario() {
+		return sicEstadoUsuario;
+	}
+	/**
+	 * @param sicEstadoUsuario the sicEstadoUsuario to set
+	 */
+	public void setSicEstadoUsuario(SicEstadoUsuarioDto sicEstadoUsuario) {
+		this.sicEstadoUsuario = sicEstadoUsuario;
 	}
 
 

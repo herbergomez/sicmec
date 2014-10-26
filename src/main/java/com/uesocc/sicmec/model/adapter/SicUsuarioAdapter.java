@@ -24,6 +24,7 @@ public class SicUsuarioAdapter implements
 		// TODO Auto-generated method stub
 		SicPersonaAdapter adp = new SicPersonaAdapter();
 		SicRolAdapter adpp = new SicRolAdapter();
+		SicEstadoUsuarioAdapter addp = new SicEstadoUsuarioAdapter();
 		
 		SicUsuario entidad = new SicUsuario();
 		entidad.setIdSicUsuario((obj.getIdSicUsuario()!=null) ? SicDataTypeFormat.toIntValue(obj.getIdSicUsuario()):null);
@@ -36,6 +37,7 @@ public class SicUsuarioAdapter implements
 		entidad.setFxDesactivacion((obj.getFxDesactivacion()!=null) ? SicDataTypeFormat.toDateValue(obj.getFxDesactivacion()):new Date());
 		entidad.setFkSicPersona(adp.dtoToEntity(obj.getSicPersona()));
 		entidad.setFkSicRol(adpp.dtoToEntity(obj.getSicRol()));
+		entidad.setFkSicEstadoUsuario(addp.dtoToEntity(obj.getSicEstadoUsuario()));
 		
 		return entidad;
 	}
@@ -47,6 +49,7 @@ public class SicUsuarioAdapter implements
 		SimpleDateFormat normalFormat = new SimpleDateFormat("yyyy-MM-dd");
 		SicPersonaAdapter adp = new SicPersonaAdapter();
 		SicRolAdapter adpp = new SicRolAdapter();
+		SicEstadoUsuarioAdapter addp = new SicEstadoUsuarioAdapter();
 		
 		SicUsuarioDto dto = new SicUsuarioDto();
 		dto.setIdSicUsuario((obj.getIdSicUsuario()!=null) ? SicDataTypeFormat.toStringValue(obj.getIdSicUsuario().toString()):"");
@@ -59,6 +62,7 @@ public class SicUsuarioAdapter implements
 		dto.setFxDesactivacion((obj.getFxDesactivacion()!=null) ? normalFormat.format(obj.getFxDesactivacion()):normalFormat.format(new Date()));
 		dto.setSicPersona(adp.entityToDto(obj.getFkSicPersona()));
 		dto.setSicRol(adpp.entityToDto(obj.getFkSicRol()));
+		dto.setSicEstadoUsuario(addp.entityToDto(obj.getFkSicEstadoUsuario()));
 		
 		return dto;
 	}

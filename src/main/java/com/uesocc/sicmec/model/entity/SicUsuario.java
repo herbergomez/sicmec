@@ -70,12 +70,15 @@ public class SicUsuario implements Serializable {
     private Date fxModicado;
     @Column(name = "modicado_por", length = 50)
     private String modicadoPor;
-    @JoinColumn(name = "fk_sic_rol", referencedColumnName = "id_sic_rol")
-    @ManyToOne
+    @JoinColumn(name = "fk_sic_rol", referencedColumnName = "id_sic_rol", nullable = false)
+    @ManyToOne(optional = false)
     @JsonBackReference
     private SicRol fkSicRol;
-    @JoinColumn(name = "fk_sic_persona", referencedColumnName = "id_sic_persona")
-    @ManyToOne
+    @JoinColumn(name = "fk_sic_estado_usuario", referencedColumnName = "id_sic_estado_usuario", nullable = false)
+    @ManyToOne(optional = false)
+    private SicEstadoUsuario fkSicEstadoUsuario;
+    @JoinColumn(name = "fk_sic_persona", referencedColumnName = "id_sic_persona", nullable = false)
+    @ManyToOne(optional = false)
     @JsonBackReference
     private SicPersona fkSicPersona;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkSicUsuario")
@@ -201,5 +204,19 @@ public class SicUsuario implements Serializable {
     public String toString() {
         return "com.uesocc.sicmec.model.entity.SicUsuario[ idSicUsuario=" + idSicUsuario + " ]";
     }
+
+	/**
+	 * @return the fkSicEstadoUsuario
+	 */
+	public SicEstadoUsuario getFkSicEstadoUsuario() {
+		return fkSicEstadoUsuario;
+	}
+
+	/**
+	 * @param fkSicEstadoUsuario the fkSicEstadoUsuario to set
+	 */
+	public void setFkSicEstadoUsuario(SicEstadoUsuario fkSicEstadoUsuario) {
+		this.fkSicEstadoUsuario = fkSicEstadoUsuario;
+	}
     
 }

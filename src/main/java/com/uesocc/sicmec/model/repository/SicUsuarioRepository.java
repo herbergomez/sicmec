@@ -25,4 +25,5 @@ public interface SicUsuarioRepository extends
 	
 	List<SicUsuario> findAllBynombreUsuario(String nombreUsuario);
 	
+	
 }
