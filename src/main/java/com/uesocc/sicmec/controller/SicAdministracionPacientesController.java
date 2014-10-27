@@ -49,7 +49,7 @@ public class SicAdministracionPacientesController {
 	public String defaultRequest(Model model){
 		model.addAttribute("departamentos", sicDepartamentoServiceImpl.findAll());
 		model.addAttribute("municipios",sicMunicipioServiceImpl.findAll() );
-		model.addAttribute("pacientes", sicPacienteServiceImpl.findAll());
+		model.addAttribute("pacientes", sicPacienteServiceImpl.findAllByEstado("Activo"));
 		model.addAttribute("estados", sicEstadoPacienteServiceImpl.findAll());
 		return "/admin/administracionPacientes";		
 	}
@@ -158,4 +158,39 @@ public class SicAdministracionPacientesController {
 		List<SicMunicipioDto> lst = sicMunicipioServiceImpl.getMunicipiosPorDepartamento(id);
 		return lst;
 	}
+	@RequestMapping(value="/delPaciente/{id}",method=RequestMethod.GET)
+	public String delPaciente(@PathVariable(value="id")int id,RedirectAttributes redirectAttributes)
+	{
+		
+		try
+		{
+			SicPacienteDto paciente = sicPacienteServiceImpl.findById(id); 
+				if(paciente.getFkSicEstadoPaciente().getDescripcion().equals("Activo"))
+				{
+					paciente.setFkSicEstadoPaciente(sicEstadoPacienteServiceImpl.findOneByDescripcion("Muerte"));
+					sicPacienteServiceImpl.insert(paciente);
+					redirectAttributes.addFlashAttribute("deleteSuccess",true);
+				}
+				else
+				{
+					redirectAttributes.addFlashAttribute("deleteError",true);
+					redirectAttributes.addFlashAttribute("deleteMessage","Este usuario ya se encuentra Muerto");
+				}
+				
+				return "redirect:/admin/pacientes";
+		}
+		catch (Exception ex)
+		{
+			
+			LOGGER.error("Error al dar de baja al Paciente ");
+			LOGGER.error("ERROR "+ex.getMessage());
+			ex.printStackTrace();
+			redirectAttributes.addFlashAttribute("deleteError",true);
+			redirectAttributes.addFlashAttribute("deleteMessage","Error al bloquear usuario");
+			
+			return "redirect:/admin/pacientes";
+			
+		}
+	}
+	
 }

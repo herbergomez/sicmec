@@ -1,5 +1,7 @@
 package com.uesocc.sicmec.model.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,5 +14,6 @@ import com.uesocc.sicmec.model.entity.SicPaciente;
 @Repository
 public interface SicPacienteRepository extends 
 				JpaRepository<SicPaciente, Integer> {
-
+	
+	List<SicPaciente> findAllByfkSicEstadoPaciente_descripcion(String descripcion);
 }

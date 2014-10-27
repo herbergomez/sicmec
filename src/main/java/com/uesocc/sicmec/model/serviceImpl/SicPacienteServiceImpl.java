@@ -82,4 +82,19 @@ public class SicPacienteServiceImpl implements SicPacienteService  {
 		return list_dto;
 	}
 
+	@Override
+	public List<SicPacienteDto> findAllByEstado(String descripcion) {
+		// TODO Auto-generated method stub
+		SicPacienteAdapter adp = new SicPacienteAdapter();
+		List<SicPaciente> list = sicPacienteRepository.findAllByfkSicEstadoPaciente_descripcion(descripcion);
+		List<SicPacienteDto> list_dto = new ArrayList<SicPacienteDto>();
+		
+		for (SicPaciente paciente : list) 
+		{
+			list_dto.add(adp.entityToDto(paciente));
+		}
+		
+		return list_dto;
+	}
+
 }

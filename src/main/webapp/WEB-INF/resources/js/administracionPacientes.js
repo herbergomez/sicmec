@@ -92,11 +92,11 @@ $( document ).ready(function() {
 		 
 	});
 	$(".datatables").DataTable({
-		"scrollY":        "250px",
-        "scrollCollapse": true,
+		"scrollY":        "350px",
+        "scrollCollapse": false,
         "aoColumns": 
         	[
-        	 { "sWidth": "5%", "sClass": "center", "bSortable": false },
+        	 { "sWidth": "10%", "sClass": "center", "bSortable": false },
         	 { "sWidth": "10%" },
         	 { "sWidth": "10%" },
         	 { "sWidth": "10%" },
@@ -128,7 +128,55 @@ $( document ).ready(function() {
                     "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                 } ,
-                "fnDrawCallback": function( oSettings ) {},
+                "fnDrawCallback": function( oSettings ) {
+                	$(".onUpdate").click(function(){
+                		var id = $(this).data("id");
+                		//alert(id);
+                		
+                		$.ajax
+                		({
+                			type: "GET",
+                			url:"/sicmec/admin/pacientes/getPaciente/"+id,
+                			success:function(result)
+                			{
+                				$("#idUp").val(result.idSicPaciente);
+                				$("#nombresUp").val(result.fkSicPersona.nombre);
+                				$("#apellidosUp").val(result.fkSicPersona.apellido);
+                				$("#mailUp").val(result.fkSicPersona.email);
+                				$("#telefonoUp").val(result.telefonoPaciente);
+                				var sexo=result.sexoPaciente;
+                				var val="";
+                				if (sexo=="M"){
+                					val="Masculino";
+                				} else {
+                					if (sexo=="F"){
+                						val="Femenino";
+                					}
+                				}
+                				$("#sexoUp").val(val);
+                				$("#direccionUp").val(result.direccionPaciente);
+                				$("#fnacimientoUp").val(result.fxNacimiento);
+                				var idMuni= result.fkSicMunicipio.idSicMunicipio;
+                				var idDepa= result.fkSicMunicipio.fkSicDepartamento.idSicDepartamento;
+                				getMuniByDep(idDepa,idMuni);
+                				$("#departamentoUp").val(result.fkSicMunicipio.fkSicDepartamento.idSicDepartamento);
+                				$("#modalUpdatePaciente").modal("show");
+                			},
+                			error: function (xhr, ajaxOptions, thrownError) 
+                			{
+                				alert("unable to find server..")
+                		    }
+                		});
+                	});
+                	$(".onDelete").click(function(){
+                		var id = $(this).data("id");
+                		
+                		$("#AreYouSureConfirm").attr("href","/sicmec/admin/pacientes/delPaciente/"+id);
+                		$("#modalEliminarPaciente").modal('show');
+                		
+                	});
+                	
+                },
             }   
 	});
 
@@ -170,6 +218,13 @@ $(".onUpdate").click(function(){
 			alert("unable to find server..")
 	    }
 	});
+});
+$(".onDelete").click(function(){
+	var id = $(this).data("id");
+	
+	$("#AreYouSureConfirm").attr("href","/sicmec/admin/pacientes/delPaciente/"+id);
+	$("#modalEliminarPaciente").modal('show');
+	
 });
 $("#departamento").change(function()
 {
@@ -262,5 +317,21 @@ function getMuniByDep(idDepa,idMuni){
 			$("#municipio option").remove();
 	    }
 	});
-};
+ };
 });
+
+function onDeleteValidate()
+{
+	if($("#okdelete").is(':checked'))
+	{
+		$("#AreYouSureConfirm").removeAttr("onclick");
+		$("#AreYouSureConfirm").addClass("btn-primary");
+		
+	}
+	else
+	{
+		$("#AreYouSureConfirm").attr("href","#");
+		$("#AreYouSureConfirm").attr("onclick","return false;");
+		$("#AreYouSureConfirm").removeClass("btn-primary");
+	}
+};
