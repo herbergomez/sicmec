@@ -22,6 +22,7 @@ public class SicPacienteDto implements Serializable{
     private SicTipoPatologiaDto fkSicTipoPatologia;
     private SicPersonaDto fkSicPersona;
     private SicMunicipioDto fkSicMunicipio;
+    private SicEstadoPacienteDto fkSicEstadoPaciente;
 	/**
 	 * @return the idSicPaciente
 	 */
@@ -130,6 +131,18 @@ public class SicPacienteDto implements Serializable{
 	public void setFkSicMunicipio(SicMunicipioDto fkSicMunicipio) {
 		this.fkSicMunicipio = fkSicMunicipio;
 	}
+	/**
+	 * @return the fkSicEstadoPaciente
+	 */
+	public SicEstadoPacienteDto getFkSicEstadoPaciente() {
+		return fkSicEstadoPaciente;
+	}
+	/**
+	 * @param fkSicEstadoPaciente the fkSicEstadoPaciente to set
+	 */
+	public void setFkSicEstadoPaciente(SicEstadoPacienteDto fkSicEstadoPaciente) {
+		this.fkSicEstadoPaciente = fkSicEstadoPaciente;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -141,7 +154,10 @@ public class SicPacienteDto implements Serializable{
 				+ ", sexoPaciente=" + sexoPaciente + ", fxNacimiento="
 				+ fxNacimiento + ", fkSicTipoPatologia=" + fkSicTipoPatologia
 				+ ", fkSicPersona=" + fkSicPersona + ", fkSicMunicipio="
-				+ fkSicMunicipio + "]";
-	}
+				+ fkSicMunicipio + ", fkSicEstadoPaciente="
+				+ fkSicEstadoPaciente + "]";
+	}	
+	
+
     
 }

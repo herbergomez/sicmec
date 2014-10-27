@@ -119,4 +119,19 @@ public class SicUsuarioServiceImpl implements SicUsuarioService {
 		}
 	}
 
+	@Override
+	public List<SicUsuarioDto> findAllByEstado(String descripcion) {
+		// TODO Auto-generated method stub
+		SicUsuarioAdapter adp = new SicUsuarioAdapter();
+		List<SicUsuario> list = sicUsuarioRepository.findAllByfkSicEstadoUsuario_descripcion(descripcion);
+		List<SicUsuarioDto> list_dto = new ArrayList<SicUsuarioDto>();
+		
+		for (SicUsuario sicUsuario : list) 
+		{
+			list_dto.add(adp.entityToDto(sicUsuario));
+		}
+		
+		return list_dto;
+	}
+
 }

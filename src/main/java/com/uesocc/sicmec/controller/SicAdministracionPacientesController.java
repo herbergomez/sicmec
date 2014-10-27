@@ -18,6 +18,7 @@ import com.uesocc.sicmec.model.dto.SicMunicipioDto;
 import com.uesocc.sicmec.model.dto.SicPacienteDto;
 import com.uesocc.sicmec.model.dto.SicPersonaDto;
 import com.uesocc.sicmec.model.serviceImpl.SicDepartamentoServiceImpl;
+import com.uesocc.sicmec.model.serviceImpl.SicEstadoPacienteServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicMunicipioServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicPacienteServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicPersonaServiceImpl;
@@ -41,12 +42,15 @@ public class SicAdministracionPacientesController {
 	private SicPersonaServiceImpl sicPersonaServiceImpl;
 	@Autowired
 	private SicPacienteServiceImpl sicPacienteServiceImpl;
+	@Autowired
+	private SicEstadoPacienteServiceImpl sicEstadoPacienteServiceImpl;
 	
 	@RequestMapping(value="",method=RequestMethod.GET)
 	public String defaultRequest(Model model){
 		model.addAttribute("departamentos", sicDepartamentoServiceImpl.findAll());
 		model.addAttribute("municipios",sicMunicipioServiceImpl.findAll() );
 		model.addAttribute("pacientes", sicPacienteServiceImpl.findAll());
+		model.addAttribute("estados", sicEstadoPacienteServiceImpl.findAll());
 		return "/admin/administracionPacientes";		
 	}
 	
@@ -54,7 +58,6 @@ public class SicAdministracionPacientesController {
 	public String addUser(
 			@RequestParam(value="nombres")String nombres,
 			@RequestParam(value="apellidos")String apellidos,
-			//@RequestParam(value="edad")BigInteger edad,
 			@RequestParam(value="sexo")String sexo,
 			@RequestParam(value="municipio")int idmunicipio,
 			@RequestParam(value="departamento")int iddepartamento,
@@ -65,7 +68,6 @@ public class SicAdministracionPacientesController {
 			RedirectAttributes redirectAttributes) throws ParseException {
 		
 		LOGGER.debug("Creando nuevo paciente");
-		
 		String sex="";
 		if (sexo.equals("Masculino")){
 			sex="M";
@@ -83,10 +85,10 @@ public class SicAdministracionPacientesController {
 		paciente.setSexoPaciente(sex);
 		paciente.setTelefonoPaciente(telefono);
 		paciente.setFxNacimiento(fechaNacimiento);
-
+		paciente.setFkSicEstadoPaciente(sicEstadoPacienteServiceImpl.findOneByDescripcion("Activo"));
 		paciente.setFkSicPersona(sicPersonaServiceImpl.insert(persona));
 		paciente.setFkSicMunicipio(sicMunicipioServiceImpl.findById(idmunicipio));
-				
+		
 		LOGGER.info(paciente);
 		sicPacienteServiceImpl.insert(paciente);
 		

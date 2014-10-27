@@ -25,5 +25,6 @@ public interface SicUsuarioRepository extends
 	
 	List<SicUsuario> findAllBynombreUsuario(String nombreUsuario);
 	
+	List<SicUsuario> findAllByfkSicEstadoUsuario_descripcion(String descripcion);
 	
 }

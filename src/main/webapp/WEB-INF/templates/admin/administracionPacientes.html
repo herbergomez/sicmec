@@ -143,7 +143,14 @@
     				</select>				
         		  </div>
         		 </div>
-        		 
+        		 <div class="row">
+		          <div class="col-md-5 col-xs-2">
+        			<label for="estado" th:utext="#{admin.pacientes.estado}"></label>
+    				<select class="form-control" id="estado" name="estado" >
+    				   <option th:each="estado:${estados}" th:attr="data-id=${estado.idSicEstadoPaciente}"  th:value="${estado.descripcion}" th:text="${estado.descripcion}"></option>
+    				</select>
+        		  </div>
+        		 </div>
         		 <div class="form-group">
         			<label for="telefono" th:utext="#{admin.pacientes.telefono}"></label>
     				<input type="text" class="form-control" id="telefono" name="telefono" th:placeholder="#{admin.pacientes.telefono}" />

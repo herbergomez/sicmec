@@ -5,6 +5,7 @@
 package com.uesocc.sicmec.model.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -15,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -40,9 +42,9 @@ public class SicEstadoPaciente implements Serializable {
     @Basic(optional = false)
     @Column(name = "descripcion", nullable = false, length = 50)
     private String descripcion;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "sicEstadoPaciente")
-    private SicPaciente sicPaciente;
-
+    @OneToMany(mappedBy = "fkSicEstadoPaciente")
+    private List<SicPaciente> sicPacienteList;
+    
     public SicEstadoPaciente() {
     }
 
@@ -69,14 +71,6 @@ public class SicEstadoPaciente implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public SicPaciente getSicPaciente() {
-        return sicPaciente;
-    }
-
-    public void setSicPaciente(SicPaciente sicPaciente) {
-        this.sicPaciente = sicPaciente;
     }
 
     @Override

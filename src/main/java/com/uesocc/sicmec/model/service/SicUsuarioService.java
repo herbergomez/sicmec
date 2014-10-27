@@ -3,6 +3,8 @@
  */
 package com.uesocc.sicmec.model.service;
 
+import java.util.List;
+
 import com.uesocc.sicmec.framework.general.BaseService;
 import com.uesocc.sicmec.model.dto.SicUsuarioDto;
 
@@ -19,4 +21,5 @@ public interface SicUsuarioService extends BaseService<SicUsuarioDto, Integer>
 	 */
 	boolean validacionDenombreUsuario(String nombreUsuario);
 	
+	List<SicUsuarioDto> findAllByEstado(String descripcion);
 }

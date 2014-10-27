@@ -158,34 +158,63 @@ $('#modificarUsuarioForm').validate({
                     "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                 }
-            }   
-	});
-	
-	$(".onUpdate").click(function(){
-		var id = $(this).data("id");
-		//alert(id);
-		
-		$.ajax
-		({
-			type: "GET",
-			url:"/sicmec/admin/usuarios/getUser/"+id,
-			success:function(result)
-			{
-				$("#id").val(result.idSicUsuario);
-				$("#nombreUp").val(result.sicPersona.nombre);
-				$("#apellidoUp").val(result.sicPersona.apellido);
-				$("#mailUp").val(result.sicPersona.email);
-				$("#rolUp").val(result.sicRol.idSicRol);
-				$("#fxAct").val(result.fxActivacion);
-				$("#fxDes").val(result.fxDesactivacion);
-				
-				$("#modalUpdateUsuario").modal("show");
-			},
-			error: function (xhr, ajaxOptions, thrownError) 
-			{
-				alert("unable to find server..")
-		    }
-		});
+            },
+    		"fnDrawCallback" : function() 
+    		{
+    		
+    			$(".onUpdate").click(function(){
+    				var id = $(this).data("id");
+    				//alert(id);
+    				
+    				$.ajax
+    				({
+    					type: "GET",
+    					url:"/sicmec/admin/usuarios/getUser/"+id,
+    					success:function(result)
+    					{
+    						$("#id").val(result.idSicUsuario);
+    						$("#nombreUp").val(result.sicPersona.nombre);
+    						$("#apellidoUp").val(result.sicPersona.apellido);
+    						$("#mailUp").val(result.sicPersona.email);
+    						$("#rolUp").val(result.sicRol.idSicRol);
+    						$("#fxAct").val(result.fxActivacion);
+    						$("#fxDes").val(result.fxDesactivacion);
+    						
+    						$("#modalUpdateUsuario").modal("show");
+    					},
+    					error: function (xhr, ajaxOptions, thrownError) 
+    					{
+    						alert("unable to find server..")
+    				    }
+    				});
+    			});
+    			
+
+    			$(".onDelete").click(function(){
+    				var id = $(this).data("id");
+    				
+    				$("#AreYouSureConfirm").attr("href","/sicmec/admin/usuarios/delUser/"+id);
+    				$("#modalEliminarUsuario").modal('show');
+    				
+    			});
+    			
+    		}   
 	});
 		
 });
+
+function onDeleteValidate()
+{
+	if($("#okdelete").is(':checked'))
+	{
+		$("#AreYouSureConfirm").removeAttr("onclick");
+		$("#AreYouSureConfirm").addClass("btn-primary");
+		
+	}
+	else
+	{
+		$("#AreYouSureConfirm").attr("href","#");
+		$("#AreYouSureConfirm").attr("onclick","return false;");
+		$("#AreYouSureConfirm").removeClass("btn-primary");
+	}
+};

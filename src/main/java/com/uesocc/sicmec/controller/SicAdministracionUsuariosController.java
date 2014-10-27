@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.uesocc.sicmec.model.dto.SicPersonaDto;
 import com.uesocc.sicmec.model.dto.SicUsuarioDto;
+import com.uesocc.sicmec.model.serviceImpl.SicEstadoUsuarioServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicPersonaServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicRolServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicUsuarioServiceImpl;
@@ -42,12 +43,14 @@ public class SicAdministracionUsuariosController
 	private SicRolServiceImpl sicRolServiceImpl;
 	@Autowired
 	private SicPersonaServiceImpl sicPersonaServiceImpl;
+	@Autowired
+	private SicEstadoUsuarioServiceImpl sicEstadoUsuarioServiceImpl;
 	
 	@RequestMapping(value="",method=RequestMethod.GET)
 	public String defaultRequest(Model model)
 	{
 		model.addAttribute("roles", sicRolServiceImpl.findAll());
-		model.addAttribute("usuarios", sicUsuarioServiceImpl.findAll());
+		model.addAttribute("usuarios", sicUsuarioServiceImpl.findAllByEstado("Activo"));
 		
 		return "/admin/administracionUsuarios";
 	}
@@ -84,6 +87,7 @@ public class SicAdministracionUsuariosController
 		user.setFxModicado(format.format(new Date()));
 		user.setSicPersona(sicPersonaServiceImpl.insert(persona));
 		user.setSicRol(sicRolServiceImpl.findById(rol));
+		user.setSicEstadoUsuario(sicEstadoUsuarioServiceImpl.findOneByDescripcion("Activo"));
 		
 		LOGGER.info(user);
 		sicUsuarioServiceImpl.insert(user);
@@ -138,4 +142,40 @@ public class SicAdministracionUsuariosController
 	{
 		return sicUsuarioServiceImpl.findById(id);
 	}
+	
+	@RequestMapping(value="/delUser/{id}",method=RequestMethod.GET)
+	public String delUser(@PathVariable(value="id")int id,RedirectAttributes redirectAttributes)
+	{
+		
+		try
+		{
+			SicUsuarioDto user = sicUsuarioServiceImpl.findById(id); 
+				if(user.getSicEstadoUsuario().getDescripcion().equals("Activo"))
+				{
+					user.setSicEstadoUsuario(sicEstadoUsuarioServiceImpl.findOneByDescripcion("Inactivo"));
+					sicUsuarioServiceImpl.insert(user);
+					redirectAttributes.addFlashAttribute("deleteSuccess",true);
+				}
+				else
+				{
+					redirectAttributes.addFlashAttribute("deleteError",true);
+					redirectAttributes.addFlashAttribute("deleteMessage","Este usuario ya se encuentra desactivado");
+				}
+				
+				return "redirect:/admin/usuarios";
+		}
+		catch (Exception ex)
+		{
+			
+			LOGGER.error("Error al desactivar usuario ");
+			LOGGER.error("ERROR "+ex.getMessage());
+			ex.printStackTrace();
+			redirectAttributes.addFlashAttribute("deleteError",true);
+			redirectAttributes.addFlashAttribute("deleteMessage","Error al bloquear usuario");
+			
+			return "redirect:/admin/usuarios";
+			
+		}
+	}
+	
 }

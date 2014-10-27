@@ -6,6 +6,7 @@ import java.util.Date;
 
 import com.uesocc.sicmec.framework.general.BaseAdapter;
 import com.uesocc.sicmec.framework.general.SicDataTypeFormat;
+import com.uesocc.sicmec.model.entity.SicEstadoPaciente;
 import com.uesocc.sicmec.model.entity.SicPaciente;
 import com.uesocc.sicmec.model.dto.SicPacienteDto;
 
@@ -22,6 +23,7 @@ public class SicPacienteAdapter implements
 		// TODO Auto-generated method stub
 		SicPersonaAdapter adp = new SicPersonaAdapter();
 		SicMunicipioAdapter adpm = new SicMunicipioAdapter();
+		SicEstadoPacienteAdapter adpa = new SicEstadoPacienteAdapter();
 		
 		SicPaciente entidad = new SicPaciente();
 		entidad.setIdSicPaciente((obj.getIdSicPaciente()!=null)? SicDataTypeFormat.toIntValue(obj.getIdSicPaciente()):null);
@@ -30,9 +32,10 @@ public class SicPacienteAdapter implements
 		entidad.setTelefonoPaciente((obj.getTelefonoPaciente()!=null)?SicDataTypeFormat.toStringValue(obj.getTelefonoPaciente()):"");
 		entidad.setSexoPaciente((obj.getSexoPaciente()!=null)?SicDataTypeFormat.toStringValue(obj.getSexoPaciente()):"");
 		entidad.setFxNacimiento((obj.getFxNacimiento()!=null)?SicDataTypeFormat.toDateValue(obj.getFxNacimiento()):new Date());
-		
 		entidad.setFkSicPersona(adp.dtoToEntity(obj.getFkSicPersona()));
 		entidad.setFkSicMunicipio(adpm.dtoToEntity(obj.getFkSicMunicipio()));
+    	entidad.setFkSicEstadoPaciente(adpa.dtoToEntity(obj.getFkSicEstadoPaciente()));
+    	
 		return entidad;
 	}
 
@@ -41,6 +44,7 @@ public class SicPacienteAdapter implements
 		SimpleDateFormat normalFormat = new SimpleDateFormat("yyyy-MM-dd");
 		SicPersonaAdapter adp = new SicPersonaAdapter();
 		SicMunicipioAdapter adpm = new SicMunicipioAdapter();
+		SicEstadoPacienteAdapter adpa = new SicEstadoPacienteAdapter();
 		
 		SicPacienteDto dto = new SicPacienteDto();
 		dto.setIdSicPaciente((obj.getIdSicPaciente()!=null)?SicDataTypeFormat.toStringValue(obj.getIdSicPaciente().toString()):"");
@@ -52,6 +56,7 @@ public class SicPacienteAdapter implements
 		
 		dto.setFkSicPersona(adp.entityToDto(obj.getFkSicPersona()));
 		dto.setFkSicMunicipio(adpm.entityToDto(obj.getFkSicMunicipio()));
+		dto.setFkSicEstadoPaciente(adpa.entityToDto(obj.getFkSicEstadoPaciente()));
 		
 		return dto;
 	}
