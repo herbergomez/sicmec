@@ -1,4 +1,4 @@
-spring
+SICMEC sistema de control y monitoreo de pacientes con enfermedades cronicas (Spring Framework)
 ===========
 
 Descripción Tecnica:
