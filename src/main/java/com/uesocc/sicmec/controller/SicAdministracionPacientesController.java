@@ -49,15 +49,18 @@ public class SicAdministracionPacientesController {
 	public String defaultRequest(Model model){
 		model.addAttribute("departamentos", sicDepartamentoServiceImpl.findAll());
 		model.addAttribute("municipios",sicMunicipioServiceImpl.findAll() );
-		model.addAttribute("pacientes", sicPacienteServiceImpl.findAllByEstado("Activo"));
+		model.addAttribute("pacientes", sicPacienteServiceImpl.findAll());
 		model.addAttribute("estados", sicEstadoPacienteServiceImpl.findAll());
 		return "/admin/administracionPacientes";		
 	}
 	
 	@RequestMapping(value="/addPaciente",method=RequestMethod.POST)
 	public String addUser(
+			@RequestParam(value="expediente")String expediente,
 			@RequestParam(value="nombres")String nombres,
 			@RequestParam(value="apellidos")String apellidos,
+			@RequestParam(value="dui")String dui,
+			@RequestParam(value="estado")String estado,
 			@RequestParam(value="sexo")String sexo,
 			@RequestParam(value="municipio")int idmunicipio,
 			@RequestParam(value="departamento")int iddepartamento,
@@ -81,6 +84,7 @@ public class SicAdministracionPacientesController {
 		persona.setEmail(mail);
 		
 		SicPacienteDto paciente = new SicPacienteDto();
+		paciente.setFkExpediente(expediente);
 		paciente.setDireccionPaciente(direccion);
 		paciente.setSexoPaciente(sex);
 		paciente.setTelefonoPaciente(telefono);

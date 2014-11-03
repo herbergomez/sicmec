@@ -1,17 +1,25 @@
 package com.uesocc.sicmec.model.serviceImpl;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.uesocc.sicmec.model.adapter.SicPacienteAdapter;
 import com.uesocc.sicmec.model.dto.SicPacienteDto;
 import com.uesocc.sicmec.model.entity.SicPaciente;
 import com.uesocc.sicmec.model.repository.SicPacienteRepository;
 import com.uesocc.sicmec.model.service.SicPacienteService;
 
+/**
+ * @author xps
+ *
+ */
 @Service
 public class SicPacienteServiceImpl implements SicPacienteService  {
 	
@@ -88,10 +96,15 @@ public class SicPacienteServiceImpl implements SicPacienteService  {
 		SicPacienteAdapter adp = new SicPacienteAdapter();
 		List<SicPaciente> list = sicPacienteRepository.findAllByfkSicEstadoPaciente_descripcion(descripcion);
 		List<SicPacienteDto> list_dto = new ArrayList<SicPacienteDto>();
-		
-		for (SicPaciente paciente : list) 
+		for (SicPaciente sicPaciente : list) 
 		{
-			list_dto.add(adp.entityToDto(paciente));
+			String sexo=sicPaciente.getSexoPaciente();
+			if (sexo.equals("M")){
+				sicPaciente.setSexoPaciente("Masculino");
+			} else {
+				sicPaciente.setSexoPaciente("Femenino");
+			}	
+			list_dto.add(adp.entityToDto(sicPaciente));
 		}
 		
 		return list_dto;
