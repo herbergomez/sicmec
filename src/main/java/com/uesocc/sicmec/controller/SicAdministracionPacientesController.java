@@ -56,8 +56,11 @@ public class SicAdministracionPacientesController {
 	
 	@RequestMapping(value="/addPaciente",method=RequestMethod.POST)
 	public String addUser(
+			@RequestParam(value="expediente")String expediente,
 			@RequestParam(value="nombres")String nombres,
 			@RequestParam(value="apellidos")String apellidos,
+			@RequestParam(value="dui")String dui,
+			@RequestParam(value="estado")String estado,
 			@RequestParam(value="sexo")String sexo,
 			@RequestParam(value="municipio")int idmunicipio,
 			@RequestParam(value="departamento")int iddepartamento,
@@ -81,6 +84,7 @@ public class SicAdministracionPacientesController {
 		persona.setEmail(mail);
 		
 		SicPacienteDto paciente = new SicPacienteDto();
+		paciente.setFkExpediente(expediente);
 		paciente.setDireccionPaciente(direccion);
 		paciente.setSexoPaciente(sex);
 		paciente.setTelefonoPaciente(telefono);
@@ -158,4 +162,39 @@ public class SicAdministracionPacientesController {
 		List<SicMunicipioDto> lst = sicMunicipioServiceImpl.getMunicipiosPorDepartamento(id);
 		return lst;
 	}
+	@RequestMapping(value="/delPaciente/{id}",method=RequestMethod.GET)
+	public String delPaciente(@PathVariable(value="id")int id,RedirectAttributes redirectAttributes)
+	{
+		
+		try
+		{
+			SicPacienteDto paciente = sicPacienteServiceImpl.findById(id); 
+				if(paciente.getFkSicEstadoPaciente().getDescripcion().equals("Activo"))
+				{
+					paciente.setFkSicEstadoPaciente(sicEstadoPacienteServiceImpl.findOneByDescripcion("Muerte"));
+					sicPacienteServiceImpl.insert(paciente);
+					redirectAttributes.addFlashAttribute("deleteSuccess",true);
+				}
+				else
+				{
+					redirectAttributes.addFlashAttribute("deleteError",true);
+					redirectAttributes.addFlashAttribute("deleteMessage","Este usuario ya se encuentra Muerto");
+				}
+				
+				return "redirect:/admin/pacientes";
+		}
+		catch (Exception ex)
+		{
+			
+			LOGGER.error("Error al dar de baja al Paciente ");
+			LOGGER.error("ERROR "+ex.getMessage());
+			ex.printStackTrace();
+			redirectAttributes.addFlashAttribute("deleteError",true);
+			redirectAttributes.addFlashAttribute("deleteMessage","Error al bloquear usuario");
+			
+			return "redirect:/admin/pacientes";
+			
+		}
+	}
+	
 }

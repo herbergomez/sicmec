@@ -23,6 +23,7 @@ public class SicPacienteDto implements Serializable{
     private SicPersonaDto fkSicPersona;
     private SicMunicipioDto fkSicMunicipio;
     private SicEstadoPacienteDto fkSicEstadoPaciente;
+    private String edad;
 	/**
 	 * @return the idSicPaciente
 	 */
@@ -143,6 +144,19 @@ public class SicPacienteDto implements Serializable{
 	public void setFkSicEstadoPaciente(SicEstadoPacienteDto fkSicEstadoPaciente) {
 		this.fkSicEstadoPaciente = fkSicEstadoPaciente;
 	}
+	
+	/**
+	 * @return the edad
+	 */
+	public String getEdad() {
+		return edad;
+	}
+	/**
+	 * @param edad the edad to set
+	 */
+	public void setEdad(String edad) {
+		this.edad = edad;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -155,9 +169,8 @@ public class SicPacienteDto implements Serializable{
 				+ fxNacimiento + ", fkSicTipoPatologia=" + fkSicTipoPatologia
 				+ ", fkSicPersona=" + fkSicPersona + ", fkSicMunicipio="
 				+ fkSicMunicipio + ", fkSicEstadoPaciente="
-				+ fkSicEstadoPaciente + "]";
-	}	
+				+ fkSicEstadoPaciente + ", edad=" + edad + "]";
+	}
 	
-
-    
+	    
 }
