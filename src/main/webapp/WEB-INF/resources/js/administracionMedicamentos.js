@@ -12,6 +12,7 @@ $( document ).ready(function() {
         	 { "sWidth": "10%", "sClass": "center", "bSortable": false },
         	 { "sWidth": "10%" },
         	 { "sWidth": "10%" },
+        	 { "sWidth": "10%" },
             ],
             language: {
                 "sProcessing":     "Procesando...",

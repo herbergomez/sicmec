@@ -17,6 +17,19 @@ public class SicDrugDto implements Serializable{
 	private String idDrug;
 	private String drugName;
 	private String drugDescription;
+	private String estado;
+	/**
+	 * @return the estado
+	 */
+	public String getEstado() {
+		return estado;
+	}
+	/**
+	 * @param estado the estado to set
+	 */
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 	/**
 	 * @return the idDrug
 	 */
@@ -60,6 +73,6 @@ public class SicDrugDto implements Serializable{
 	@Override
 	public String toString() {
 		return "SicDrugDto [idDrug=" + this.idDrug + ", drugName="
-				+ this.drugName + ", description=" + this.drugDescription + "]";
+				+ this.drugName + "estado="+ this.estado +", description=" + this.drugDescription + "]";
 	}
 }

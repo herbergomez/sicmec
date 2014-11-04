@@ -58,6 +58,7 @@
 									<tr class="head">
 										<th></th>
 										<th th:text="#{admin.drugs.nombre}"></th>
+										<th th:text="#{admin.drugs.estado}"></th>
 										<th th:text="#{admin.drugs.descripcion}"></th>										
 									</tr>
 								</thead>
@@ -78,6 +79,8 @@
 											</div>
 										</td>
 										<td th:text="${drug.drugName}"></td>
+										<td th:if="${drug.estado == '1'}" th:text="#{admin.drugs.si}"></td>
+										<td th:if="${drug.estado == '0'}" th:text="#{admin.drugs.no}"></td>
 										<td th:text="${drug.drugDescription}"></td>
 									</tr>
 								</tbody>

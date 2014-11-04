@@ -48,6 +48,8 @@ public class SicDrugController {
 		SicDrugDto oDrug = new SicDrugDto();
 		oDrug.setDrugName(sNombre);
 		oDrug.setDrugDescription(sDescripcion);
+		//Valor por defecto para un medicamento creado, 1 significa activo y 0 falso
+		oDrug.setEstado("1");
 		
 		LOGGER.info("Agregando: "+oDrug);
 		
