@@ -4,6 +4,7 @@
 
 $( document ).ready(function() {
   
+	/*DataTable definition*/
 	$(".datatables").DataTable({
 		"scrollY": "350px",
         "scrollCollapse": false,
@@ -39,6 +40,36 @@ $( document ).ready(function() {
                 }
             }   
 	});
+	
+	/*Validation of new drug*/
+	$('#addDrugForm').validate({
+		errorElement: "span",
+		rules: {
+		   nombre: 
+		   {
+		     	required: true,
+		     	maxlength: 20,
+		     	minlength: 3
+		   },
+		   descripcion: 
+		   {
+		        required: false,
+		        maxlength: 20,
+		     	minlength: 3
+		   }
+		  },
+		highlight: function(element) {
+			$(element).closest('.form-group')
+			.removeClass('has-success').addClass('has-error');
+		},
+		success: function(element) {
+			element.addClass('help-inline')
+			.closest('.form-group')
+			.removeClass('has-error').addClass('has-success');
+		}
+		 
+	});
+	
 	
 	/*$(".onUpdate").click(function(){
 		var id = $(this).data("id");

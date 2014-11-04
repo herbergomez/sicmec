@@ -97,7 +97,7 @@
 	<div class="modal fade" id="modalAgregarMedicamento" tabindex="-1" role="dialog" aria-labelledby="modalAgregarUsuario" aria-hidden="true">
   	<div class="modal-dialog">
     	<div class="modal-content">
-    	<form th:action="@{/admin/drugs/addDrug}" method="post" >
+    	<form id="agregarMedicamentoForm" th:action="@{/admin/drugs/addDrug}" method="post" >
       			<div class="modal-header">
         			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         			<h4 class="modal-title" th:text="#{admin.drugs.addmodal.titulo}"></h4>

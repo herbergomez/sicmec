@@ -3,7 +3,7 @@
  */
 
 $( document ).ready(function() {
-	$('#agregarPacienteForm').validate({
+	$('#agregarMedicamentoForm').validate({
 		errorElement: "span",
 		rules: {
 		   nombres: 
