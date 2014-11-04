@@ -5,8 +5,6 @@
 package com.uesocc.sicmec.model.entity;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -22,11 +20,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.PostLoad;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -52,9 +48,8 @@ public class SicPaciente implements Serializable {
     @Column(name = "id_sic_paciente", nullable = false)
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer idSicPaciente;
-    @Basic(optional = false)
-    @Column(name = "fk_expediente", nullable = false)
-    private int fkExpediente;
+    @Column(name = "numero_expediente")
+    private String numeroExpediente;
     @Basic(optional = false)
     @Column(name = "telefono_paciente", nullable = false, length = 10)
     private String telefonoPaciente;
@@ -79,9 +74,11 @@ public class SicPaciente implements Serializable {
     @JoinColumn(name = "fk_sic_estado_paciente", referencedColumnName = "id_sic_estado_paciente", nullable = false)
     @ManyToOne(optional = false)
     private SicEstadoPaciente fkSicEstadoPaciente;
-    //Variable temporal para guardar la edad
-    @Transient
-    private Integer edad;
+    @Column(name = "dui_paciente")
+    private String duiPaciente;
+    @JoinColumn(name = "fk_sic_contacto_paciente", referencedColumnName = "id_sic_contacto_paciente")
+    @ManyToOne
+    private SicContactoPaciente fkSicContactoPaciente;
     
     public SicPaciente() {
     }
@@ -90,9 +87,8 @@ public class SicPaciente implements Serializable {
         this.idSicPaciente = idSicPaciente;
     }
 
-    public SicPaciente(Integer idSicPaciente, int fkExpediente, String telefonoPaciente) {
+    public SicPaciente(Integer idSicPaciente, String telefonoPaciente) {
         this.idSicPaciente = idSicPaciente;
-        this.fkExpediente = fkExpediente;
         this.telefonoPaciente = telefonoPaciente;
     }
 
@@ -104,13 +100,6 @@ public class SicPaciente implements Serializable {
         this.idSicPaciente = idSicPaciente;
     }
 
-    public int getFkExpediente() {
-        return fkExpediente;
-    }
-
-    public void setFkExpediente(int fkExpediente) {
-        this.fkExpediente = fkExpediente;
-    }
 
     public String getTelefonoPaciente() {
         return telefonoPaciente;
@@ -175,22 +164,9 @@ public class SicPaciente implements Serializable {
 
     public void setFkSicMunicipio(SicMunicipio fkSicMunicipio) {
         this.fkSicMunicipio = fkSicMunicipio;
-    }    
-    /**
-	 * @return the edad
-	 */
-	public Integer getEdad() {
-		return edad;
-	}
+    }
 
-	/**
-	 * @param edad the edad to set
-	 */
-	public void setEdad(Integer edad) {
-		this.edad = edad;
-	}
-
-	@Override
+    @Override
     public int hashCode() {
         int hash = 0;
         hash += (idSicPaciente != null ? idSicPaciente.hashCode() : 0);
@@ -228,30 +204,47 @@ public class SicPaciente implements Serializable {
 	public void setFkSicEstadoPaciente(SicEstadoPaciente fkSicEstadoPaciente) {
 		this.fkSicEstadoPaciente = fkSicEstadoPaciente;
 	}
-    @PostLoad
-	/**
-	 * Metodo encargado de calcular la edad en base a la fecha de Naciemiento.
-	 *
-	 */
-	public void calcularEdad(){
-        Date fNac= null;
-        try {
-            fNac = new SimpleDateFormat("yyyy-MM-dd").parse(fxNacimiento.toString());
-        } catch (Exception ex){
-            System.out.println("Error al dar formato a fecha."); 
-        }
-        Calendar fechaNacimiento = Calendar.getInstance();
-        Calendar fechaActual = Calendar.getInstance();
-        fechaNacimiento.setTime(fNac);
-        
-        int años = fechaActual.get(Calendar.YEAR)-fechaNacimiento.get(Calendar.YEAR);
-        int meses = fechaActual.get(Calendar.MONTH)-fechaNacimiento.get(Calendar.MONTH);
-        int dias = fechaActual.get(Calendar.DATE)-fechaNacimiento.get(Calendar.DATE);
 
-        
-        if (meses < 0||meses==0&&dias<0){
-            años--;
-        }
-        this.setEdad(años);
-    }
+	/**
+	 * @return the numeroExpediente
+	 */
+	public String getNumeroExpediente() {
+		return numeroExpediente;
+	}
+
+	/**
+	 * @param numeroExpediente the numeroExpediente to set
+	 */
+	public void setNumeroExpediente(String numeroExpediente) {
+		this.numeroExpediente = numeroExpediente;
+	}
+
+	/**
+	 * @return the duiPaciente
+	 */
+	public String getDuiPaciente() {
+		return duiPaciente;
+	}
+
+	/**
+	 * @param duiPaciente the duiPaciente to set
+	 */
+	public void setDuiPaciente(String duiPaciente) {
+		this.duiPaciente = duiPaciente;
+	}
+
+	/**
+	 * @return the fkSicContactoPaciente
+	 */
+	public SicContactoPaciente getFkSicContactoPaciente() {
+		return fkSicContactoPaciente;
+	}
+
+	/**
+	 * @param fkSicContactoPaciente the fkSicContactoPaciente to set
+	 */
+	public void setFkSicContactoPaciente(SicContactoPaciente fkSicContactoPaciente) {
+		this.fkSicContactoPaciente = fkSicContactoPaciente;
+	}
+    
 }

@@ -46,7 +46,9 @@ public class SicMedicamento implements Serializable {
     private String descripcionMedicamento;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkSicMedicamento")
     private List<SicTratamientoMedicamento> sicTratamientoMedicamentoList;
-
+    @Column(name = "estado_medicamento")
+    private String estadoMedicamento;
+    
     public SicMedicamento() {
     }
 
@@ -111,5 +113,19 @@ public class SicMedicamento implements Serializable {
     public String toString() {
         return "com.uesocc.sicmec.model.entity.SicMedicamento[ idSicMedicamento=" + idSicMedicamento + " ]";
     }
+
+	/**
+	 * @return the estadoMedicamento
+	 */
+	public String getEstadoMedicamento() {
+		return estadoMedicamento;
+	}
+
+	/**
+	 * @param estadoMedicamento the estadoMedicamento to set
+	 */
+	public void setEstadoMedicamento(String estadoMedicamento) {
+		this.estadoMedicamento = estadoMedicamento;
+	}
     
 }

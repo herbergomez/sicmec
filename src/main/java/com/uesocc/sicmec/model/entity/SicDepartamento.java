@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -40,6 +42,9 @@ public class SicDepartamento implements Serializable {
     private Integer idSicDepartamento;
     @Column(name = "nombre_departamento", length = 50)
     private String nombreDepartamento;
+    @JoinColumn(name = "fk_sic_pais", referencedColumnName = "id_sic_pais")
+    @ManyToOne
+    private SicPais fkSicPais;
     @OneToMany(mappedBy = "fkSicDepartamento")
     private List<SicMunicipio> sicMunicipioList;
 
@@ -99,5 +104,19 @@ public class SicDepartamento implements Serializable {
     public String toString() {
         return "com.uesocc.sicmec.model.entity.SicDepartamento[ idSicDepartamento=" + idSicDepartamento + " ]";
     }
+
+	/**
+	 * @return the fkSicPais
+	 */
+	public SicPais getFkSicPais() {
+		return fkSicPais;
+	}
+
+	/**
+	 * @param fkSicPais the fkSicPais to set
+	 */
+	public void setFkSicPais(SicPais fkSicPais) {
+		this.fkSicPais = fkSicPais;
+	}
     
 }

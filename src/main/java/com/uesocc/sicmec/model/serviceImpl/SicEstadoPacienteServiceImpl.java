@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.uesocc.sicmec.model.adapter.SicEstadoPacienteAdapter;
-import com.uesocc.sicmec.model.adapter.SicEstadoUsuarioAdapter;
 import com.uesocc.sicmec.model.dto.SicEstadoPacienteDto;
-import com.uesocc.sicmec.model.dto.SicEstadoUsuarioDto;
 import com.uesocc.sicmec.model.entity.SicEstadoPaciente;
 import com.uesocc.sicmec.model.repository.SicEstadoPacienteRepository;
 import com.uesocc.sicmec.model.service.SicEstadoPacienteService;

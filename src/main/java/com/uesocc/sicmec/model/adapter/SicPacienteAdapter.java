@@ -27,16 +27,11 @@ public class SicPacienteAdapter implements
 		
 		SicPaciente entidad = new SicPaciente();
 		entidad.setIdSicPaciente((obj.getIdSicPaciente()!=null)? SicDataTypeFormat.toIntValue(obj.getIdSicPaciente()):null);
-		
-		
-		entidad.setFkExpediente((obj.getFkExpediente()!=null)?SicDataTypeFormat.toIntValue(obj.getFkExpediente()):null);
-		
-		
+		//entidad.setFkExpediente((obj.getFkExpediente()!=null)?SicDataTypeFormat.toIntValue(obj.getFkExpediente()):null);
 		entidad.setDireccionPaciente((obj.getDireccionPaciente()!=null)? SicDataTypeFormat.toStringValue(obj.getDireccionPaciente()):"");
 		entidad.setTelefonoPaciente((obj.getTelefonoPaciente()!=null)?SicDataTypeFormat.toStringValue(obj.getTelefonoPaciente()):"");
 		entidad.setSexoPaciente((obj.getSexoPaciente()!=null)?SicDataTypeFormat.toStringValue(obj.getSexoPaciente()):"");
 		entidad.setFxNacimiento((obj.getFxNacimiento()!=null)?SicDataTypeFormat.toDateValue(obj.getFxNacimiento()):new Date());
-		entidad.setEdad((obj.getEdad()!=null)?SicDataTypeFormat.toIntValue(obj.getEdad()):null);
 		entidad.setFkSicPersona(adp.dtoToEntity(obj.getFkSicPersona()));
 		entidad.setFkSicMunicipio(adpm.dtoToEntity(obj.getFkSicMunicipio()));
     	entidad.setFkSicEstadoPaciente(adpa.dtoToEntity(obj.getFkSicEstadoPaciente()));
@@ -53,17 +48,11 @@ public class SicPacienteAdapter implements
 		
 		SicPacienteDto dto = new SicPacienteDto();
 		dto.setIdSicPaciente((obj.getIdSicPaciente()!=null)?SicDataTypeFormat.toStringValue(obj.getIdSicPaciente().toString()):"");
-		
-		
-		dto.setFkExpediente((new Integer(obj.getFkExpediente())!=null)?SicDataTypeFormat.toStringValue(new Integer(obj.getFkExpediente()).toString()):"");
-		
-		
-		
+	//	dto.setFkExpediente((obj.getFkExpediente()!=null)?SicDataTypeFormat.toStringValue(obj.getFkExpediente().toString()):"");
 		dto.setDireccionPaciente((obj.getDireccionPaciente()!=null)?SicDataTypeFormat.toStringValue(obj.getDireccionPaciente()):"");
 		dto.setTelefonoPaciente((obj.getTelefonoPaciente()!=null)?SicDataTypeFormat.toStringValue(obj.getTelefonoPaciente()):"");
 		dto.setSexoPaciente((obj.getSexoPaciente()!=null)?SicDataTypeFormat.toStringValue(obj.getSexoPaciente()):"");
 		dto.setFxNacimiento((obj.getFxNacimiento()!=null) ? normalFormat.format(obj.getFxNacimiento()):normalFormat.format(new Date()));
-		dto.setEdad((obj.getEdad()!=null)?SicDataTypeFormat.toStringValue(obj.getEdad().toString()):"0");
 		
 		dto.setFkSicPersona(adp.entityToDto(obj.getFkSicPersona()));
 		dto.setFkSicMunicipio(adpm.entityToDto(obj.getFkSicMunicipio()));
