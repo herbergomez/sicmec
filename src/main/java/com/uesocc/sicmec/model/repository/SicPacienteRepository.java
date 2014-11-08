@@ -16,11 +16,10 @@ public interface SicPacienteRepository extends
 				JpaRepository<SicPaciente, Integer> {
 	
 	List<SicPaciente> findAllByfkSicEstadoPaciente_descripcion(String descripcion);
-	
 	/**
-	 * @param exp
-	 * @return Lista de pacientes/paciente que se corresponden con este expediente
-	 */
-	List<SicPaciente> findAllBynumeroExpediente(String exp);
+	* @param exp
+	* @return Lista de pacientes/paciente que se corresponden con este expediente
+	*/
+	List<SicPaciente> findAllBynumeroExpediente(String numeroExpediente);
 	
 }

@@ -3,8 +3,10 @@ package com.uesocc.sicmec.model.serviceImpl;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.uesocc.sicmec.model.adapter.SicPacienteAdapter;
 import com.uesocc.sicmec.model.dto.SicPacienteDto;
 import com.uesocc.sicmec.model.entity.SicPaciente;
@@ -106,33 +108,37 @@ public class SicPacienteServiceImpl implements SicPacienteService  {
 	}
 
 	@Override
-	public SicPacienteDto findOneBynumeroExpediente(String exp) 
+	public SicPacienteDto findOneBynumeroExpediente(String exp)
 	{
-		// TODO Auto-generated method stub
-		SicPacienteAdapter adp = new SicPacienteAdapter();
-		List<SicPaciente> list = sicPacienteRepository.findAllBynumeroExpediente(exp);
-		
+	// TODO Auto-generated method stub
+	SicPacienteAdapter adp = new SicPacienteAdapter();
+	List<SicPaciente> list = sicPacienteRepository.findAllBynumeroExpediente(exp);
 		if (!list.isEmpty())
 		{
 			SicPacienteDto pac = adp.entityToDto(list.get(0));
-			
 			String sexo=pac.getSexoPaciente();
-			
 			if (sexo.equals("M"))
 			{
 				pac.setSexoPaciente("Masculino");
-			} 
-			else 
+			}
+			else
 			{
 				pac.setSexoPaciente("Femenino");
 			}
-			
 			return pac;
 		}
 		else
 		{
-			return null;
-		}	
+	return null;
+	}
 	}
 
+	@Override
+	public boolean validacionExpedientePaciente(String expediente) {
+		if (sicPacienteRepository.findAllBynumeroExpediente(expediente).isEmpty()){
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

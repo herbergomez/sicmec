@@ -81,6 +81,19 @@ public class SicDepartamentoServiceImpl implements SicDepartamentoService {
 		return list_dto;
 	} 
 	
-	
+	@Override
+	public List<SicDepartamentoDto> getDepartamentosPorPais(int idPais) {
+		// TODO Auto-generated method stub
+		SicDepartamentoAdapter adp = new SicDepartamentoAdapter();
+		List<SicDepartamento> list = sicDepartamentoRepository.findAllByfkSicPais_idSicPais(idPais);
+		List<SicDepartamentoDto> list_dto = new ArrayList<SicDepartamentoDto>();
+		
+		for (SicDepartamento sicDepartamento : list) 
+		{
+			list_dto.add(adp.entityToDto(sicDepartamento));
+		}
+		
+		return list_dto;
+	} 
 
 }

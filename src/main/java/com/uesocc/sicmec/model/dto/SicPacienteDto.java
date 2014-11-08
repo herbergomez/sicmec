@@ -1,6 +1,8 @@
 package com.uesocc.sicmec.model.dto;
 
 import java.io.Serializable;
+
+import com.uesocc.sicmec.model.entity.SicContactoPaciente;
 /**
  * @author Herber
  *
@@ -14,16 +16,18 @@ public class SicPacienteDto implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private String idSicPaciente;
-    private String fkExpediente;
+    private String numExpediente;
     private String telefonoPaciente;
     private String direccionPaciente;
     private String sexoPaciente;
     private String fxNacimiento;
-    private SicTipoPatologiaDto fkSicTipoPatologia;
     private SicPersonaDto fkSicPersona;
     private SicMunicipioDto fkSicMunicipio;
-    private SicEstadoPacienteDto fkSicEstadoPaciente;
+    private String documentoIdentidad;
     private String edad;
+    private SicEstadoPacienteDto fkSicEstadoPaciente;
+    private SicContactoPacienteDto fkSicContactoPaciente;
+    private SicTipoPatologiaDto fkSicTipoPatologia;
 	/**
 	 * @return the idSicPaciente
 	 */
@@ -36,17 +40,18 @@ public class SicPacienteDto implements Serializable{
 	public void setIdSicPaciente(String idSicPaciente) {
 		this.idSicPaciente = idSicPaciente;
 	}
+	
 	/**
-	 * @return the fkExpediente
+	 * @return the numExpediente
 	 */
-	public String getFkExpediente() {
-		return fkExpediente;
+	public String getNumExpediente() {
+		return numExpediente;
 	}
 	/**
-	 * @param fkExpediente the fkExpediente to set
+	 * @param numExpediente the numExpediente to set
 	 */
-	public void setFkExpediente(String fkExpediente) {
-		this.fkExpediente = fkExpediente;
+	public void setNumExpediente(String numExpediente) {
+		this.numExpediente = numExpediente;
 	}
 	/**
 	 * @return the telefonoPaciente
@@ -151,6 +156,32 @@ public class SicPacienteDto implements Serializable{
 	public String getEdad() {
 		return edad;
 	}
+	
+	
+	/**
+	 * @return the documentoIdentidad
+	 */
+	public String getDocumentoIdentidad() {
+		return documentoIdentidad;
+	}
+	/**
+	 * @param documentoIdentidad the documentoIdentidad to set
+	 */
+	public void setDocumentoIdentidad(String documentoIdentidad) {
+		this.documentoIdentidad = documentoIdentidad;
+	}
+	/**
+	 * @return the fkSicContactoPaciente
+	 */
+	public SicContactoPacienteDto getFkSicContactoPaciente() {
+		return fkSicContactoPaciente;
+	}
+	/**
+	 * @param fkSicContactoPaciente the fkSicContactoPaciente to set
+	 */
+	public void setFkSicContactoPaciente(SicContactoPacienteDto fkSicContactoPaciente) {
+		this.fkSicContactoPaciente = fkSicContactoPaciente;
+	}
 	/**
 	 * @param edad the edad to set
 	 */
@@ -163,14 +194,15 @@ public class SicPacienteDto implements Serializable{
 	@Override
 	public String toString() {
 		return "SicPacienteDto [idSicPaciente=" + idSicPaciente
-				+ ", fkExpediente=" + fkExpediente + ", telefonoPaciente="
+				+ ", numExpediente=" + numExpediente + ", telefonoPaciente="
 				+ telefonoPaciente + ", direccionPaciente=" + direccionPaciente
 				+ ", sexoPaciente=" + sexoPaciente + ", fxNacimiento="
-				+ fxNacimiento + ", fkSicTipoPatologia=" + fkSicTipoPatologia
-				+ ", fkSicPersona=" + fkSicPersona + ", fkSicMunicipio="
-				+ fkSicMunicipio + ", fkSicEstadoPaciente="
-				+ fkSicEstadoPaciente + ", edad=" + edad + "]";
+				+ fxNacimiento + ", fkSicPersona=" + fkSicPersona
+				+ ", fkSicMunicipio=" + fkSicMunicipio
+				+ ", documentoIdentidad=" + documentoIdentidad + ", edad="
+				+ edad + ", fkSicEstadoPaciente=" + fkSicEstadoPaciente
+				+ ", fkSicContactoPaciente=" + fkSicContactoPaciente
+				+ ", fkSicTipoPatologia=" + fkSicTipoPatologia + "]";
 	}
-	
 	    
 }

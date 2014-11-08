@@ -63,8 +63,9 @@
 									<th th:text="#{admin.pacientes.expediente}"></th>
 									<th th:text="#{admin.pacientes.nombres}"></th>
 									<th th:text="#{admin.pacientes.apellidos}"></th>
-									<th th:text="#{admin.pacientes.dui}"></th>
+									<th th:text="#{admin.pacientes.docIdentidad}"></th>
 									<th th:text="#{admin.pacientes.edad}"></th>
+									<th th:text="#{admin.pacientes.pais}"></th>
 									<th th:text="#{admin.pacientes.departamento}"></th>
 									<th th:text="#{admin.pacientes.municipio}"></th>
 									<th th:text="#{admin.pacientes.telefono}"></th>
@@ -84,11 +85,12 @@
    											</button>
 										</div>
 									</td>
-								 <td th:text="${paciente.fkExpediente}"></td>																
+								 <td th:text="${paciente.numExpediente}"></td>																
 								 <td th:text="${paciente.fkSicPersona.nombre}"></td>
 								 <td th:text="${paciente.fkSicPersona.apellido}"></td>
-								 <td ></td>		
-								 <td th:text="${paciente.edad}"></td>		
+								 <td th:text="${paciente.documentoIdentidad}"></td>		
+								 <td th:text="${paciente.edad}"></td>	
+								 <td th:text="${paciente.fkSicMunicipio.fkSicDepartamento.fkSicPais.nombrePais}"></td>		
 								 <td th:text="${paciente.fkSicMunicipio.fkSicDepartamento.nombreDepartamento}"></td>
 								 <td th:text="${paciente.fkSicMunicipio.nombreMunicipio}"></td>
 								 <td th:text="${paciente.telefonoPaciente}"></td>
@@ -114,18 +116,27 @@
       			<div class="modal-body">
       			<div class="form-group">       		        		       		
         		 <div class="row">
-		          <div class="col-md-5 col-xs-2">
+		          <div class="col-md-4 col-xs-1">
 		            <div class="form-group">
         			  <label for="expediente" th:text="#{admin.pacientes.expediente}"></label>
     				  <input type="text" class="form-control" id="expediente" name="expediente" th:placeholder="#{admin.pacientes.expediente}" />
         		  	</div>
         		  </div>
-        		  <div class="col-md-5">
+        		  <div class="col-md-4 col-xs-1">
         			<div class="form-group">
         			<label for="estado" th:utext="#{admin.pacientes.estado}"></label>
     				<select class="form-control" id="estado" name="estado" >
     					<option></option>
     				   <option th:each="estado:${estados}" th:attr="data-id=${estado.idSicEstadoPaciente}"  th:value="${estado.idSicEstadoPaciente}" th:text="${estado.descripcion}"></option>
+    				</select>
+        		  </div>
+        		  </div>
+        		  <div class="col-md-4">
+        			<div class="form-group">
+        			<label for="estado" th:utext="#{admin.pacientes.patologia}"></label>
+    				<select class="form-control" id="patologia" name="patologia" >
+    					<option></option>
+    				  <option th:each="patologia:${patologias}" th:attr="data-id=${patologia.idSicTipoPatologia}"  th:value="${patologia.idSicTipoPatologia}" th:text="${patologia.nombreTipoPatologia}"></option>
     				</select>
         		  </div>
         		  </div>
@@ -140,8 +151,8 @@
     				<input type="text" class="form-control" id="apellidos" name="apellidos" th:placeholder="#{admin.pacientes.apellidos}" />
         		</div>
         		<div class="form-group">
-        			<label for="dui" th:text="#{admin.pacientes.dui}"></label>
-    				<input type="text" class="form-control" id="dui" name="dui" th:placeholder="#{admin.pacientes.dui}" />
+        			<label for="dui" th:text="#{admin.pacientes.docIdentidad}"></label>
+    				<input type="text" class="form-control" id="dui" name="dui" th:placeholder="#{admin.pacientes.docIdentidad}" />
         		</div>
         		
         		
@@ -167,17 +178,24 @@
         		 </div>
         		</div>
         		<div class="row">
-		          <div class="col-md-5 col-xs-2">
-        			<label for="departamento" th:utext="#{admin.pacientes.departamento}"></label>
-    				<select class="form-control" id="departamento" name="departamento" >
-    					<option></option>
-    				   <option th:each="departamento:${departamentos}" th:attr="data-id=${departamento.idSicDepartamento}"  th:value="${departamento.idSicDepartamento}" th:text="${departamento.nombreDepartamento}"></option>
+        		  <div class="col-md-4 col-xs-1">
+        			<label for="pais" th:utext="#{admin.pacientes.pais}"></label>
+    				<select class="form-control" id="pais" name="pais" >
+    				   <option></option> 
+    				   <option th:each="pais:${paises}" th:attr="data-id=${pais.idSicPais}"  th:value="${pais.idSicPais}" th:text="${pais.nombrePais}"></option>
     				</select>
         		  </div>
-        		  <div class="col-md-5">
+		          <div class="col-md-4 col-xs-1">
+        			<label for="departamento" th:utext="#{admin.pacientes.departamento}"></label>
+    				<select class="form-control" id="departamento" name="departamento" >
+    				   <option></option>
+    				  <!-- <option th:each="departamento:${departamentos}" th:attr="data-id=${departamento.idSicDepartamento}"  th:value="${departamento.idSicDepartamento}" th:text="${departamento.nombreDepartamento}"></option>-->
+    				</select>
+        		  </div>
+        		  <div class="col-md-4">
         			<label for="municipio" th:utext="#{admin.pacientes.municipio}"></label>
     				<select class="form-control" id="municipio" name="municipio">
-    					 
+    					
     				</select>				
         		  </div>
         		 </div>
@@ -196,19 +214,19 @@
       		 </div>
       		   <div class="form-group">
         			<label for="nombres" th:text="#{admin.pacientes.nombres}"></label>
-    				<input type="text" class="form-control" id="nombresResp" name="nombresResp" th:placeholder="#{admin.pacientes.nombres}" />
+    				<input type="text" class="form-control" id="nomContact" name="nomContact" th:placeholder="#{admin.pacientes.nombres}" />
         	   </div>
         	    <div class="form-group">
         			<label for="apellidos" th:text="#{admin.pacientes.apellidos}"></label>
-    				<input type="text" class="form-control" id="apellidosResp" name="apellidosResp" th:placeholder="#{admin.pacientes.apellidos}" />
+    				<input type="text" class="form-control" id="apContact" name="apContact" th:placeholder="#{admin.pacientes.apellidos}" />
         	   </div>
         	   <div class="form-group">
-        			<label for="dui" th:text="#{admin.pacientes.dui}"></label>
-    				<input type="text" class="form-control" id="duiResp" name="duiResp" th:placeholder="#{admin.pacientes.dui}" />
+        			<label for="dui" th:text="#{admin.pacientes.docIdentidad}"></label>
+    				<input type="text" class="form-control" id="duiContact" name="duiContact" th:placeholder="#{admin.pacientes.docIdentidad}" />
         	   </div>
         	   <div class="form-group">
         			<label for="telefono" th:text="#{admin.pacientes.telefono}"></label>
-    				<input type="text" class="form-control" id="telefonoResp" name="telefonoResp" th:placeholder="#{admin.pacientes.telefono}" />
+    				<input type="text" class="form-control" id="telContact" name="telContact" th:placeholder="#{admin.pacientes.telefono}" />
         	   </div>
         		
         		</div>        	 
@@ -238,18 +256,27 @@
       			<input type="text" id="idUp" name="idUp" style="display: none;"/>
       			<div class="form-group">       		        		       		
         		 <div class="row">
-		          <div class="col-md-5 col-xs-2">
+		          <div class="col-md-4 col-xs-1">
 		            <div class="form-group">
         			  <label for="expedienteUp" th:text="#{admin.pacientes.expediente}"></label>
     				  <input type="text" disabled="disabled" class="form-control" id="expedienteUp" name="expedienteUp" th:placeholder="#{admin.pacientes.expediente}" />
         		  	</div>
         		  </div>
-        		  <div class="col-md-5">
+        		  <div class="col-md-4 col-xs-1">
         			<div class="form-group">
         			<label for="estado" th:utext="#{admin.pacientes.estado}"></label>
     				<select class="form-control" id="estadoUp" name="estadoUp" >
     					<option></option>
     				   <option th:each="estado:${estados}" th:attr="data-id=${estado.idSicEstadoPaciente}"  th:value="${estado.idSicEstadoPaciente}" th:text="${estado.descripcion}"></option>
+    				</select>
+        		  </div>
+        		  </div>
+        		  <div class="col-md-4">
+        			<div class="form-group">
+        			<label for="estado" th:utext="#{admin.pacientes.patologia}"></label>
+    				<select class="form-control" id="patologiaUp" name="patologiaUp" >
+    					<option></option>
+    				  <option th:each="patologia:${patologias}" th:attr="data-id=${patologia.idSicTipoPatologia}"  th:value="${patologia.idSicTipoPatologia}" th:text="${patologia.nombreTipoPatologia}"></option>
     				</select>
         		  </div>
         		  </div>
@@ -264,8 +291,8 @@
     				<input type="text" class="form-control" id="apellidosUp" name="apellidosUp" th:placeholder="#{admin.pacientes.apellidos}" />
         		</div>
         		<div class="form-group">
-        			<label for="duiUp" th:text="#{admin.pacientes.dui}"></label>
-    				<input type="text" class="form-control" id="duiUp" name="duiUp" th:placeholder="#{admin.pacientes.dui}" />
+        			<label for="duiUp" th:text="#{admin.pacientes.docIdentidad}"></label>
+    				<input type="text" class="form-control" id="duiUp" name="duiUp" th:placeholder="#{admin.pacientes.docIdentidad}" />
         		</div>
         		
         		
@@ -291,14 +318,21 @@
         		 </div>
         		
         		<div class="row">
-		          <div class="col-md-5 col-xs-2">
+        		  <div class="col-md-4 col-xs-1">
+        			<label for="pais" th:utext="#{admin.pacientes.pais}"></label>
+    				<select class="form-control" id="paisUp" name="paisUp" >
+    				   <option></option> 
+    				   <option th:each="pais:${paises}" th:attr="data-id=${pais.idSicPais}"  th:value="${pais.idSicPais}" th:text="${pais.nombrePais}"></option>
+    				</select>
+        		  </div>
+		          <div class="col-md-4 col-xs-1">
         			<label for="departamentoUp" th:utext="#{admin.pacientes.departamento}"></label>
     				<select class="form-control" id="departamentoUp" name="departamentoUp" >
     					<option></option>
     				   <option th:each="departamento:${departamentos}" th:attr="data-id=${departamento.idSicDepartamento}"  th:value="${departamento.idSicDepartamento}" th:text="${departamento.nombreDepartamento}"></option>
     				</select>
         		  </div>
-        		  <div class="col-md-5">
+        		  <div class="col-md-4">
         			<label for="municipioUp" th:utext="#{admin.pacientes.municipio}"></label>
     				<select class="form-control" id="municipioUp" name="municipioUp">
     					 
@@ -321,19 +355,19 @@
       		 </div>
       		   <div class="form-group">
         			<label for="nombres" th:text="#{admin.pacientes.nombres}"></label>
-    				<input type="text" class="form-control" id="nombresRespUp" name="nombresRespUp" th:placeholder="#{admin.pacientes.nombres}" />
+    				<input type="text" class="form-control" id="nomContactUp" name="nomContactUp" th:placeholder="#{admin.pacientes.nombres}" />
         	   </div>
         	    <div class="form-group">
         			<label for="apellidos" th:text="#{admin.pacientes.apellidos}"></label>
-    				<input type="text" class="form-control" id="apellidosRespUp" name="apellidosRespUp" th:placeholder="#{admin.pacientes.apellidos}" />
+    				<input type="text" class="form-control" id="apContactUp" name="apContactUp" th:placeholder="#{admin.pacientes.apellidos}" />
         	   </div>
         	   <div class="form-group">
-        			<label for="dui" th:text="#{admin.pacientes.dui}"></label>
-    				<input type="text" class="form-control" id="duiRespUp" name="duiRespUp" th:placeholder="#{admin.pacientes.dui}" />
+        			<label for="dui" th:text="#{admin.pacientes.docIdentidad}"></label>
+    				<input type="text" class="form-control" id="duiContactUp" name="duiContactUp" th:placeholder="#{admin.pacientes.docIdentidad}" />
         	   </div>
         	   <div class="form-group">
         			<label for="telefono" th:text="#{admin.pacientes.telefono}"></label>
-    				<input type="text" class="form-control" id="telefonoRespUp" name="telefonoRespUp" th:placeholder="#{admin.pacientes.telefono}" />
+    				<input type="text" class="form-control" id="telContactUp" name="telContactUp" th:placeholder="#{admin.pacientes.telefono}" />
         	   </div>
         		</div>
         	  <div class="modal-footer">

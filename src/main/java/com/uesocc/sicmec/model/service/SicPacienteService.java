@@ -10,11 +10,12 @@ public interface SicPacienteService extends BaseService<SicPacienteDto, Integer>
 {
 
 	List<SicPacienteDto> findAllByEstado(String descripcion);
-	
 	/**
-	 * @param exp
-	 * @return paciente que se corresponda con este expediente
-	 */
+	* @param exp
+	* @return paciente que se corresponda con este expediente
+	*/
 	SicPacienteDto findOneBynumeroExpediente(String exp);
+	
+	boolean validacionExpedientePaciente(String expediente);
 	
 }

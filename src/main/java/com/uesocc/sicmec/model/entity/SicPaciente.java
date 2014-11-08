@@ -5,6 +5,8 @@
 package com.uesocc.sicmec.model.entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -20,9 +22,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PostLoad;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -30,14 +34,13 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author xtiyo
  */
-
 @Entity
 @Table(name = "sic_paciente", catalog = "sicmec_db", schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SicPaciente.findAll", query = "SELECT s FROM SicPaciente s"),
     @NamedQuery(name = "SicPaciente.findByIdSicPaciente", query = "SELECT s FROM SicPaciente s WHERE s.idSicPaciente = :idSicPaciente"),
-    //@NamedQuery(name = "SicPaciente.findByFkExpediente", query = "SELECT s FROM SicPaciente s WHERE s.fkExpediente = :fkExpediente"),
+   // @NamedQuery(name = "SicPaciente.findByFkExpediente", query = "SELECT s FROM SicPaciente s WHERE s.fkExpediente = :fkExpediente"),
     @NamedQuery(name = "SicPaciente.findByTelefonoPaciente", query = "SELECT s FROM SicPaciente s WHERE s.telefonoPaciente = :telefonoPaciente"),
     @NamedQuery(name = "SicPaciente.findByDireccionPaciente", query = "SELECT s FROM SicPaciente s WHERE s.direccionPaciente = :direccionPaciente"),
     @NamedQuery(name = "SicPaciente.findBySexoPaciente", query = "SELECT s FROM SicPaciente s WHERE s.sexoPaciente = :sexoPaciente"),
@@ -80,6 +83,8 @@ public class SicPaciente implements Serializable {
     @JoinColumn(name = "fk_sic_contacto_paciente", referencedColumnName = "id_sic_contacto_paciente")
     @ManyToOne
     private SicContactoPaciente fkSicContactoPaciente;
+    @Transient
+    private Integer edad;
     
     public SicPaciente() {
     }
@@ -247,5 +252,41 @@ public class SicPaciente implements Serializable {
 	public void setFkSicContactoPaciente(SicContactoPaciente fkSicContactoPaciente) {
 		this.fkSicContactoPaciente = fkSicContactoPaciente;
 	}
-    
+
+	/**
+	 * @return the edad
+	 */
+	public Integer getEdad() {
+		return edad;
+	}
+
+	/**
+	 * @param edad the edad to set
+	 */
+	public void setEdad(Integer edad) {
+		this.edad = edad;
+	}
+	/**
+	 * Metodo encargado de cargar de inicio la edad d eun paciente.
+	 */
+    @PostLoad
+    public void calcularEdad(){
+    	 Date fNac= null;
+         try {
+             fNac = new SimpleDateFormat("yyyy-MM-dd").parse(fxNacimiento.toString());
+         } catch (Exception ex){
+             System.out.println("Error al dar formato a fecha."); 
+         }
+         Calendar fechaNacimiento = Calendar.getInstance();
+         Calendar fechaActual = Calendar.getInstance();
+         fechaNacimiento.setTime(fNac);
+         int años = fechaActual.get(Calendar.YEAR)-fechaNacimiento.get(Calendar.YEAR);
+         int meses = fechaActual.get(Calendar.MONTH)-fechaNacimiento.get(Calendar.MONTH);
+         int dias = fechaActual.get(Calendar.DATE)-fechaNacimiento.get(Calendar.DATE);
+         
+         if (meses < 0||meses==0&&dias<0){
+             años--;
+         }
+         this.setEdad(años);
+    }
 }
