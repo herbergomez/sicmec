@@ -1,15 +1,10 @@
 package com.uesocc.sicmec.model.serviceImpl;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.uesocc.sicmec.model.adapter.SicPacienteAdapter;
 import com.uesocc.sicmec.model.dto.SicPacienteDto;
 import com.uesocc.sicmec.model.entity.SicPaciente;
@@ -108,6 +103,36 @@ public class SicPacienteServiceImpl implements SicPacienteService  {
 		}
 		
 		return list_dto;
+	}
+
+	@Override
+	public SicPacienteDto findOneBynumeroExpediente(String exp) 
+	{
+		// TODO Auto-generated method stub
+		SicPacienteAdapter adp = new SicPacienteAdapter();
+		List<SicPaciente> list = sicPacienteRepository.findAllBynumeroExpediente(exp);
+		
+		if (!list.isEmpty())
+		{
+			SicPacienteDto pac = adp.entityToDto(list.get(0));
+			
+			String sexo=pac.getSexoPaciente();
+			
+			if (sexo.equals("M"))
+			{
+				pac.setSexoPaciente("Masculino");
+			} 
+			else 
+			{
+				pac.setSexoPaciente("Femenino");
+			}
+			
+			return pac;
+		}
+		else
+		{
+			return null;
+		}	
 	}
 
 }

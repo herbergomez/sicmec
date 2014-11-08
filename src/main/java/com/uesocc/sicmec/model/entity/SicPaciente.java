@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author xtiyo
  */
+
 @Entity
 @Table(name = "sic_paciente", catalog = "sicmec_db", schema = "public")
 @XmlRootElement

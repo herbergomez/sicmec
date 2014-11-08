@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/general :: headerFragment">
+	
+</head>
+<body>
+	<div th:replace="fragments/general :: navFragment"></div>
+	
+	<div class="container" style="min-height: 600px; overflow: auto;">
+		
+		<div class="row">
+			<div class="col-md-12 col-xs-12">
+			 <div th:if="${paciente == null}" class="widget-box">
+			 	<div class="widget-content">
+					<label>
+						No se encontro paciente con este expediente...
+					</label>
+			 	</div>
+			 </div>
+			 <div th:if="${paciente != null}" class="widget-box" style="min-height: 600px; height: auto; background-color: white;">
+				<div class="widget-title">
+					<span class="icon">
+						<i class="fa fa-users"></i>
+					</span>
+					<h5 th:utext="#{admin.pacientes.detalle.title}"></h5>
+				</div>
+				<div class="widget-content" >
+					<div class="form-group" style="padding-left: inherit;">
+						<div class="form-inline" style="text-align: center;">
+    						<!-- <img src="..." alt="..." > -->
+    						<i class="fa fa-picture-o fa-5x img-circle"></i>
+    						<!-- <label th:text="#{admin.pacientes.detalle.nombre}"></label> -->
+    						<label style="font-size: xx-large;">Julio Pedro Escobar Martinez</label>
+  						</div>
+  					</div>	
+  					<div class="col-md-6">
+  					<div class="widget-box" style="background-color: white;">
+  					<div class="widget-title">
+						<span class="icon">
+						<i class="fa fa-asterisk"></i>
+						</span>
+						<h5>Información General</h5>
+					</div>
+  					<div class="widget-content">
+  						<table class="table table-hover table-striped">
+						  	<tbody>
+						  		<tr>
+						  			<td>
+						  				<label class="control-label" th:utext="#{admin.pacientes.detalle.exp}"></label>
+						  			</td>
+						  			<td>
+						  				<p class="form-control-static">FX1232014</p>
+						  			</td>
+						  		</tr>
+						  		<tr>
+						  			<td>
+						  				<label class="control-label" th:utext="#{admin.pacientes.detalle.dui}"></label>
+						  			</td>
+						  			<td>
+						  				<p class="form-control-static">908098009-4</p>
+						  			</td>
+						  		</tr>
+						  		<tr>
+						  			<td>
+						  				<label class="control-label" th:text="#{admin.pacientes.detalle.sex}"></label>
+						  			</td>
+						  			<td>
+						  				<p class="form-control-static">Masculino</p>
+						  			</td>
+						  		</tr>
+						  		
+						  		<tr>
+						  			<td>
+						  				<label class="control-label" th:text="#{admin.pacientes.detalle.pat}"></label>
+						  			</td>
+						  			<td>
+						  				<p class="form-control-static">Diabetes, Tipo 1</p>
+						  			</td>
+						  		</tr>
+						  		<tr>
+						  			<td>
+						  				<label class="control-label" th:text="#{admin.pacientes.detalle.estado}"></label>
+						  			</td>
+						  			<td>
+						  				<p class="form-control-static">Activo</p>
+						  			</td>
+						  		</tr>
+						  		<tr>
+						  			<td>
+						  				<label class="control-label" th:text="#{admin.pacientes.detalle.edad}"></label>
+						  			</td>
+						  			<td>
+						  				<p class="form-control-static">33</p>
+						  			</td>
+						  		</tr>
+						  		<tr>
+						  			<td>
+						  				<label class="control-label" th:text="#{admin.pacientes.detalle.mail}"></label>
+						  			</td>
+						  			<td>
+						  				<p class="form-control-static">asd@asd.com</p>
+						  			</td>
+						  		</tr>
+						  	</tbody>					
+  						</table>
+  						
+  					</div>
+  					</div>	
+  					</div>
+  					<div class="col-md-6">
+  					<div class="widget-box" style="background-color: white;">
+  					<div class="widget-title">
+					<span class="icon">
+						<i class="fa fa-check-square-o"></i>
+					</span>
+					<h5>Detalle de Contacto</h5>
+					</div>
+  					<div class="widget-content">
+  						<table class="table table-hover table-striped">
+  							<tr>
+  								<td>
+  									<label class="control-label" th:text="#{admin.pacientes.detalle.nombre}"></label>
+  								</td>
+  								<td>
+  									<p class="form-control-static">Marcos Marroquín</p>
+  								</td>
+  							</tr>
+  							<tr>
+  								<td>
+  									<label class="control-label" th:text="#{admin.pacientes.detalle.dui}"></label>
+  								</td>
+  								<td>
+  									<p class="form-control-static">098080980-5</p>
+  								</td>
+  							</tr>
+  							<tr>
+  								<td>
+  									<label class="control-label" th:utext="#{admin.pacientes.detalle.tel}"></label>
+  								</td>
+  								<td>
+  									<p class="form-control-static">2449-0372</p>
+  								</td>
+  							</tr>
+  						</table>
+  					</div>
+  					</div>	
+  					</div>
+  					<div class="row">
+  						<div class="pull-right" style="margin-right: 30px;">
+  							<button class="btn btn-primary" th:text="#{general.btn.imprimir}" onclick="window.print();"></button>
+  						</div>
+  					</div>
+				</div>
+			</div>	
+						
+			</div>
+		</div>
+			
+	</div>
+	
+
+	<div th:replace="fragments/general :: footerFragment"></div>
+	<div th:replace="fragments/general :: jsFragment"></div>
+
+<!-- <script type="text/javascript" th:src="@{/resources/js/administracionUsuarios.js}"></script>
+ -->
+	
+</body>
+</html>

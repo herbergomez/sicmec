@@ -122,7 +122,7 @@
     	<form id="agregarUsuarioForm" th:action="@{/admin/usuarios/addUser}" method="post" >
       			<div class="modal-header">
         			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        			<h4 class="modal-title" th:text="#{admin.usuarios.addmodal.titulo}"></h4>
+        			<h4 class="modal-title" th:text="#{admin.usuarios.addmodal.titulo}" style="font-style: normal;color: blue;"></h4>
       			</div>
       		<div class="modal-body">
         		<div class="form-group">
@@ -173,7 +173,7 @@
     	<form id="modificarUsuarioForm" th:action="@{/admin/usuarios/upUser}" method="post" >
       			<div class="modal-header">
         			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        			<h4 class="modal-title" th:utext="#{admin.usuarios.upmodal.titulo}"></h4>
+        			<h4 class="modal-title" th:utext="#{admin.usuarios.upmodal.titulo}"  style="font-style: normal;color: blue;"></h4>
       			</div>
       		<div class="modal-body">
       			<input type="text" id="id" name="id" style="display: none;"/>

@@ -52,7 +52,7 @@ public class SicUsuario implements Serializable {
     @Column(name = "id_sic_usuario", nullable = false)
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer idSicUsuario;
-    @Column(name = "nombre_usuario", length = 50)
+    @Column(name = "nombre_usuario", length = 50,unique=true)
     private String nombreUsuario;
     @Column(name = "fx_activacion")
     @Temporal(TemporalType.DATE)
