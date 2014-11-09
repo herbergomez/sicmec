@@ -31,7 +31,8 @@
     						<!-- <img src="..." alt="..." > -->
     						<i class="fa fa-picture-o fa-5x img-circle"></i>
     						<!-- <label th:text="#{admin.pacientes.detalle.nombre}"></label> -->
-    						<label style="font-size: xx-large;">Julio Pedro Escobar Martinez</label>
+    						<label style="font-size: xx-large;" th:text="${paciente.fkSicPersona.nombre}+', '+${paciente.fkSicPersona.apellido}">
+    						</label>
   						</div>
   					</div>	
   					<div class="col-md-6">
@@ -50,7 +51,7 @@
 						  				<label class="control-label" th:utext="#{admin.pacientes.detalle.exp}"></label>
 						  			</td>
 						  			<td>
-						  				<p class="form-control-static">FX1232014</p>
+						  				<p class="form-control-static" th:text="${paciente.numExpediente}"></p>
 						  			</td>
 						  		</tr>
 						  		<tr>
@@ -58,7 +59,7 @@
 						  				<label class="control-label" th:utext="#{admin.pacientes.detalle.dui}"></label>
 						  			</td>
 						  			<td>
-						  				<p class="form-control-static">908098009-4</p>
+						  				<p class="form-control-static" th:text="${paciente.documentoIdentidad}"></p>
 						  			</td>
 						  		</tr>
 						  		<tr>
@@ -66,16 +67,25 @@
 						  				<label class="control-label" th:text="#{admin.pacientes.detalle.sex}"></label>
 						  			</td>
 						  			<td>
-						  				<p class="form-control-static">Masculino</p>
+						  				<p class="form-control-static" th:text="${paciente.sexoPaciente}"></p>
 						  			</td>
 						  		</tr>
-						  		
+						  		<tr>
+						  			<td>
+						  				<label class="control-label" th:utext="#{admin.pacientes.detalle.dir}"></label>
+						  			</td>
+						  			<td>
+						  				<p class="form-control-static" th:text="${paciente.direccionPaciente}+',
+						  				'+${paciente.fkSicMunicipio.nombreMunicipio}+', '+${paciente.fkSicMunicipio.fkSicDepartamento.nombreDepartamento}
+						  				+', '+${paciente.fkSicMunicipio.fkSicDepartamento.fkSicPais.nombrePais}"></p>
+						  			</td>
+						  		</tr>
 						  		<tr>
 						  			<td>
 						  				<label class="control-label" th:text="#{admin.pacientes.detalle.pat}"></label>
 						  			</td>
 						  			<td>
-						  				<p class="form-control-static">Diabetes, Tipo 1</p>
+						  				<p class="form-control-static" th:text="${paciente.fkSicTipoPatologia.fkSicPatologia.nombrePatologia}+', '+${paciente.fkSicTipoPatologia.nombreTipoPatologia}"></p>
 						  			</td>
 						  		</tr>
 						  		<tr>
@@ -83,7 +93,7 @@
 						  				<label class="control-label" th:text="#{admin.pacientes.detalle.estado}"></label>
 						  			</td>
 						  			<td>
-						  				<p class="form-control-static">Activo</p>
+						  				<p class="form-control-static" th:text="${paciente.fkSicEstadoPaciente.descripcion}"></p>
 						  			</td>
 						  		</tr>
 						  		<tr>
@@ -91,7 +101,7 @@
 						  				<label class="control-label" th:text="#{admin.pacientes.detalle.edad}"></label>
 						  			</td>
 						  			<td>
-						  				<p class="form-control-static">33</p>
+						  				<p class="form-control-static" th:text="${paciente.edad}"></p>
 						  			</td>
 						  		</tr>
 						  		<tr>
@@ -99,7 +109,7 @@
 						  				<label class="control-label" th:text="#{admin.pacientes.detalle.mail}"></label>
 						  			</td>
 						  			<td>
-						  				<p class="form-control-static">asd@asd.com</p>
+						  				<p class="form-control-static" th:text="${paciente.fkSicPersona.email}"></p>
 						  			</td>
 						  		</tr>
 						  	</tbody>					
@@ -123,7 +133,8 @@
   									<label class="control-label" th:text="#{admin.pacientes.detalle.nombre}"></label>
   								</td>
   								<td>
-  									<p class="form-control-static">Marcos Marroquín</p>
+  									<p class="form-control-static" th:text="${paciente.fkSicContactoPaciente.nombreContacto}+', '+
+  									${paciente.fkSicContactoPaciente.apellidoContacto}"></p>
   								</td>
   							</tr>
   							<tr>
@@ -131,7 +142,7 @@
   									<label class="control-label" th:text="#{admin.pacientes.detalle.dui}"></label>
   								</td>
   								<td>
-  									<p class="form-control-static">098080980-5</p>
+  									<p class="form-control-static" th:text="${paciente.fkSicContactoPaciente.dui}"></p>
   								</td>
   							</tr>
   							<tr>
@@ -139,7 +150,7 @@
   									<label class="control-label" th:utext="#{admin.pacientes.detalle.tel}"></label>
   								</td>
   								<td>
-  									<p class="form-control-static">2449-0372</p>
+  									<p class="form-control-static" th:text="${paciente.fkSicContactoPaciente.telefono}"></p>
   								</td>
   							</tr>
   						</table>
