@@ -20,8 +20,8 @@ public class SicPatologiaAdapter implements BaseAdapter<SicPatologia, SicPatolog
 		entidad.setDescripcionPatologia((obj.getDescripcionPatologia()!=null)?SicDataTypeFormat.toStringValue(obj.getDescripcionPatologia()):"");
 		entidad.setCreadoPor((obj.getCreadoPor()!=null)?SicDataTypeFormat.toStringValue(obj.getCreadoPor()):"");
 		entidad.setModifcadoPor((obj.getModifcadoPor()!=null)?SicDataTypeFormat.toStringValue(obj.getModifcadoPor()):"");
-		entidad.setFxCreado((obj.getFxCreado()!=null) ?  SicDataTypeFormat.toDateTimeValue(obj.getFxCreado()):SicDataTypeFormat.toDateTimeValue(new Date().toString()));
-		entidad.setFxModicado((obj.getFxModicado()!=null) ? SicDataTypeFormat.toDateTimeValue(obj.getFxModicado()):SicDataTypeFormat.toDateTimeValue(new Date().toString()));
+	//	entidad.setFxCreado((obj.getFxCreado()!=null) ?  SicDataTypeFormat.toDateTimeValue(obj.getFxCreado()):SicDataTypeFormat.toDateTimeValue(new Date().toString()));
+	//	entidad.setFxModicado((obj.getFxModicado()!=null) ? SicDataTypeFormat.toDateTimeValue(obj.getFxModicado()):SicDataTypeFormat.toDateTimeValue(new Date().toString()));
 		return entidad;
 	}
 

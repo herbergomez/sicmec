@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.uesocc.sicmec.model.serviceImpl.SicPacienteServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicUsuarioServiceImpl;
 
 /**
@@ -23,6 +24,9 @@ public class SicUtilsController
 {
 	@Autowired
 	private SicUsuarioServiceImpl sicUsuarioServiceImpl;
+	@Autowired
+	private SicPacienteServiceImpl sicPacienteServiceImpl;
+
 
 	/**
 	 * @param nombreUsuario
@@ -35,6 +39,19 @@ public class SicUtilsController
 	{
 		
 		return sicUsuarioServiceImpl.validacionDenombreUsuario(nombreUsuario);
+		
+	}
+	/**
+	 * @param número de expediente
+	 * @return Verdadero si el número de expediente esta libre y 
+	 * falso si el número de expediente ya esta en uso
+	 */
+	@RequestMapping(value="/validarExpediente",method=RequestMethod.POST)
+	public @ResponseBody boolean validacionExpediente
+						(@RequestParam(value="expediente")String expediente)
+	{
+		
+		return sicPacienteServiceImpl.validacionExpedientePaciente(expediente);
 		
 	}
 }
