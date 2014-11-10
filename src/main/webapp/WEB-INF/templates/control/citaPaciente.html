@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/general :: headerFragment">
+	
+</head>
+<body>
+	<div th:replace="fragments/general :: navFragment"></div>
+	
+	<div class="container" style="min-height: 600px; overflow: auto;">
+		<div class="row">
+		
+			<div id="alertaError" class="alert alert-danger alert-dismissible" role="alert" style="display: none;">
+  				<button type="button" class="close">
+  					<span aria-hidden="true">&times;</span>
+  					<span class="sr-only">Close</span>
+  				</button>
+  				<strong th:utext="#{general.alerta.atencion}"></strong>
+  				<p th:utext="#{control.paciente.error}"></p>
+			</div>
+			
+		</div>
+		
+		
+		<div class="row">
+		  <div class="col-md-12 col-xs-12">
+		     <div class="widget-box">
+		  	   <div class="widget-title">
+					<span class="icon">
+						<i class="fa fa-ambulance"></i>
+					</span>
+					<h5 th:utext="#{control.paciente.title}"></h5>
+				</div>
+				<div class="widget-content">
+					<ul class="nav nav-tabs" role="tablist">
+  						<li role="presentation" class="active"><a href="#infoPaciente" role="tab" data-toggle="tab">Busqueda de pacientes</a></li>
+  						<li role="presentation"><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
+  						<li role="presentation"><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
+					</ul>
+				<div class="tab-content">
+					<div id="infoPaciente" role="tabpanel" class="tab-pane active">
+						<div class="row" style="margin-top: 1%;">
+							<div class="col-md-12 col-xs-12">
+								<div id="buscarExp" class="form-inline" method="post">
+									<div class="form-group">
+    									<div class="input-group">
+      										<div class="input-group-addon">
+      											<i class="fa fa-calendar"></i>
+      										</div>
+      										<input class="form-control" type="text" id="exp" name="exp" placeholder="Expediente" />
+    									</div>
+  									</div>
+										<button id="buscar" class="btn btn-primary" th:text="#{general.btn.buscar}">
+										</button>
+								</div>
+							</div>
+						</div>
+						<div class="table-responsive">
+					  	<table class="table table-hover table-striped table-bordered">
+					    	 <thead>
+									<tr class="head">
+										<th></th>
+										<th th:text="#{admin.pacientes.expediente}"></th>
+										<th th:text="#{admin.pacientes.nombres}"></th>
+										<th th:text="#{admin.pacientes.apellidos}"></th>
+										<th th:text="#{admin.pacientes.docIdentidad}"></th>
+										<th th:text="#{admin.pacientes.edad}"></th>
+									</tr>	
+								</thead>
+								<tbody id="tablaPacientes">
+							 
+								</tbody>
+					   	</table>
+						</div>
+					</div>
+				</div>
+					
+				</div>
+		    </div>	
+		  </div>
+		</div>
+	</div>
+	
+    
+    <div th:replace="fragments/general :: footerFragment"></div>
+	<div th:replace="fragments/general :: jsFragment"></div>
+
+<script type="text/javascript" th:src="@{/resources/js/citaPaciente.js}"></script>
+</body>
+</html>

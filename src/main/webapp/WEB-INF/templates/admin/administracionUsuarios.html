@@ -86,12 +86,12 @@
 								<tr th:each="usuario : ${usuarios}">
 									<td>
 										<div class="btn-group">
-  											<button type="button" class="btn btn-default onDelete" 
+  											<button type="button" class="btn btn-sm btn-default onDelete" 
   											data-toggle="tooltip" data-placement="left" title="Inactivar usuario"
   											th:attr="data-id=${usuario.idSicUsuario}">
   												<i class="fa fa-trash-o"></i>
   											</button>
-   											<button type="button" class="btn btn-default onUpdate" th:attr="data-id=${usuario.idSicUsuario}"
+   											<button type="button" class="btn btn-sm btn-default onUpdate" th:attr="data-id=${usuario.idSicUsuario}"
    											data-toggle="tooltip" data-placement="left" title="Editar usuario">   												
    												<i class="fa fa-pencil-square-o"></i>
    											</button>

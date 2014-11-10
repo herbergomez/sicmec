@@ -141,4 +141,30 @@ public class SicPacienteServiceImpl implements SicPacienteService  {
 			return false;
 		}
 	}
+
+	@Override
+	public List<SicPacienteDto> findAllByExp(String expediente) {
+		// TODO Auto-generated method stub
+		SicPacienteAdapter adp = new SicPacienteAdapter();
+		List<SicPaciente> list = sicPacienteRepository.findAllByexp(expediente);
+		
+		List<SicPacienteDto> list_dto = new ArrayList<SicPacienteDto>();
+		
+		for (SicPaciente sicPaciente : list) 
+		{
+			String sexo=sicPaciente.getSexoPaciente();
+			if (sexo.equals("M"))
+			{
+				sicPaciente.setSexoPaciente("Masculino");
+			}
+			else 
+			{
+				sicPaciente.setSexoPaciente("Femenino");
+			}
+			
+			list_dto.add(adp.entityToDto(sicPaciente));
+		}
+		
+		return list_dto;
+	}
 }

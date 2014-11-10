@@ -18,4 +18,10 @@ public interface SicPacienteService extends BaseService<SicPacienteDto, Integer>
 	
 	boolean validacionExpedientePaciente(String expediente);
 	
+	/**
+	 * @param expediente
+	 * @return Lista de pacientes cuyo expediente
+	 * sea similar o contenga los caracteres ingresados
+	 */
+	List<SicPacienteDto> findAllByExp(String expediente);
 }
