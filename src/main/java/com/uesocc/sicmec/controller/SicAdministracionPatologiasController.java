@@ -27,7 +27,7 @@ import com.uesocc.sicmec.model.serviceImpl.SicTipoPatologiaServiceImpl;
 @RequestMapping("/admin/patologias")
 @Controller
 public class SicAdministracionPatologiasController {
-	
+	 
 	Logger LOGGER = Logger.getLogger(SicAdministracionPatologiasController.class);
     @Autowired
 	private SicTipoPatologiaServiceImpl sicTipoPatologiaServiceImpl;
