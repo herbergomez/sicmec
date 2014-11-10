@@ -80,4 +80,14 @@ public class SicTipoPatologiaServiceImpl implements SicTipoPatologiaService {
 		return list_dto;
 	}
 
+	@Override
+	public boolean validacionTipoPatologia(String nombre) {
+		// TODO Auto-generated method stub
+		if (sicTipoPatologiaRepository.findAllBynombreTipoPatologia(nombre).isEmpty()){
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

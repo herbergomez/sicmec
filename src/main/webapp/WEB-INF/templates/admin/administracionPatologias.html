@@ -1,0 +1,320 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/general :: headerFragment">
+	
+</head>
+<body>
+	<div th:replace="fragments/general :: navFragment"></div>
+	<div class="container" style="min-height: 600px; overflow: auto;">
+	 <div class="row">
+	 
+	   <!--COLUMNA: AGREGAR PATOLOGIAS  -->
+	     <div class="col-md-6 col-xs-2">
+	       <div class="row">
+			<div class="col-md-12 col-xs-2">
+				<button class="btn btn-primary" th:text="#{admin.patologia.add}"
+					data-toggle="modal" data-target="#modalAgregarPatologia">
+				</button>
+			</div>
+		   </div>
+		   
+		   <div class="row">
+			 <div class="col-md-12 col-xs-2">
+			   <div th:if="${successPatologia}" class="alert alert-info alert-dismissible" role="alert">
+  					<button type="button" class="close" data-dismiss="alert">
+  						<span aria-hidden="true">&times;</span>
+  						<span class="sr-only">Close</span>
+  					</button>
+  					<strong th:utext="#{general.alerta.atencion}"></strong>
+  					<p th:utext="#{admin.patologia.alertas.agregar.exito}"></p>
+				</div>
+			 </div>
+			 <div class="col-md-12 col-xs-2">
+			   <div th:if="${successPatologiaUp}" class="alert alert-info alert-dismissible" role="alert">
+  					<button type="button" class="close" data-dismiss="alert">
+  						<span aria-hidden="true">&times;</span>
+  						<span class="sr-only">Close</span>
+  					</button>
+  					<strong th:utext="#{general.alerta.atencion}"></strong>
+  					<p th:utext="#{admin.patologia.alertas.update.exito}"></p>
+				</div>
+			 </div>
+		   </div>
+			
+			
+			
+		   <div class="row">
+			 <div class="col-md-12 col-xs-2">
+			 <div class="widget-box">
+				<div class="widget-title">
+					<span class="icon">
+						<i class="fa fa-users"></i>
+					</span>
+					<h5 th:utext="#{admin.patologia.title}"></h5>
+				</div>
+				<div class="widget-content">
+					<div class="table-responsive">	
+						<table id="tablePatologias" class="table table-hover table-striped table-bordered datatables">
+							<thead>
+								<tr class="head">
+									<th></th>
+									<th th:text="#{admin.patologia.nombre}"></th>
+									<th th:text="#{admin.patologia.descripcion}"></th>
+								</tr>
+							</thead>
+							<tbody>
+							  <tr th:each="patologia : ${patologias}">
+							    <td>
+										<div class="btn-group">
+  											<button type="button" class="btn btn-default onDeletePatologia" 
+  											data-toggle="tooltip" data-placement="left" title="Inactivar Tipo de Patolog&iacute;a"
+  											th:attr="data-id=${patologia.idSicPatologia}">
+  												<i class="fa fa-trash-o"></i>
+  											</button>
+   											<button type="button" class="btn btn-default onUpdatePatologia" th:attr="data-id=${patologia.idSicPatologia}"
+   											data-toggle="tooltip" data-placement="left" title="Editar Patolog&iacute;a">   												
+   												<i class="fa fa-pencil-square-o"></i>
+   											</button>
+										</div>
+								 </td>
+								 <td th:text="${patologia.nombrePatologia}"></td>
+								 <td th:text="${patologia.descripcionPatologia}"></td>
+							  </tr>
+							</tbody>
+						</table>
+					 </div>
+				 </div>								
+			 </div>
+			 </div>
+			</div>
+	     </div>
+	     
+	     
+	     
+	     
+	     <!-- COLUMNA: AGREGAR CLASIFICACION DE PATOLOGIAS. -->
+	     <div class="col-md-6 col-xs-2">
+	       <div class="row">
+			 <div class="col-md-12 col-xs-2">
+				<button class="btn btn-primary" th:text="#{admin.patologia.tipo.add}"
+					data-toggle="modal" data-target="#modalAgregarTipoPatologia">
+				</button>
+			 </div>
+		    </div>
+		    
+		    <div class="row">
+			 <div class="col-md-12 col-xs-2">
+			   <div th:if="${successTipoPatologia}" class="alert alert-info alert-dismissible" role="alert">
+  					<button type="button" class="close" data-dismiss="alert">
+  						<span aria-hidden="true">&times;</span>
+  						<span class="sr-only">Close</span>
+  					</button>
+  					<strong th:utext="#{general.alerta.atencion}"></strong>
+  					<p th:utext="#{admin.patologia.alertas.agregar.exito}"></p>
+				</div>
+			 </div>
+			 <div class="col-md-12 col-xs-2">
+			   <div th:if="${successTipoPatologiaUp}" class="alert alert-info alert-dismissible" role="alert">
+  					<button type="button" class="close" data-dismiss="alert">
+  						<span aria-hidden="true">&times;</span>
+  						<span class="sr-only">Close</span>
+  					</button>
+  					<strong th:utext="#{general.alerta.atencion}"></strong>
+  					<p th:utext="#{admin.patologia.tipo.alertas.update.exito}"></p>
+				</div>
+			 </div>
+		   </div>
+		    
+		    <div class="row">
+			 <div class="col-md-12 col-xs-2">
+			 <div class="widget-box">
+				<div class="widget-title">
+					<span class="icon">
+						<i class="fa fa-users"></i>
+					</span>
+					<h5 th:utext="#{admin.patologia.tipo.title}"></h5>
+				</div>
+				<div class="widget-content">
+					<div class="table-responsive">	
+						<table id="tableTipoPatologias" class="table table-hover table-striped table-bordered datatables">
+							<thead>
+								<tr class="head">
+									<th></th>
+									<th th:text="#{admin.patologia.tipo.nombre}"></th>
+									<th th:text="#{admin.patologia.tipo.descripcion}"></th>
+									<th th:text="#{admin.patologia.tipo.patologia}"></th>
+								</tr>
+							</thead>
+							<tbody>
+							  <tr th:each="tipo : ${tiposPatologias}">
+							    <td>
+										<div class="btn-group">
+  											<button type="button" class="btn btn-default onDelete" 
+  											data-toggle="tooltip" data-placement="left" title="Inactivar Tipo de Patolog&iacute;a"
+  											th:attr="data-id=${tipo.idSicTipoPatologia}">
+  												<i class="fa fa-trash-o"></i>
+  											</button>
+   											<button type="button" class="btn btn-default onUpdateTipoPatologia" th:attr="data-id=${tipo.idSicTipoPatologia}"
+   											data-toggle="tooltip" data-placement="left" title="Editar Patolog&iacute;a">   												
+   												<i class="fa fa-pencil-square-o"></i>
+   											</button>
+										</div>
+								 </td>
+								 <td th:text="${tipo.nombreTipoPatologia}"></td>
+								 <td th:text="${tipo.descripcionTipoPatologia}"></td>
+								 <td th:text="${tipo.fkSicPatologia.nombrePatologia}"></td>
+							  </tr>
+							</tbody>
+						</table>
+					 </div>
+				 </div>		
+			 </div>
+			 </div>
+			</div>
+	     </div>
+	 </div>
+	</div>
+	
+	<!--     MODAL PARA PATOLOGIA    -->
+	<div class="modal fade" id="modalAgregarPatologia"  tabindex="-1" role="dialog" aria-labelledby="modalAgregarPatologia" aria-hidden="true">
+  	  <div class="modal-dialog">
+    	<div class="modal-content">
+      		<form id="agregarPatologiaForm" th:action="@{/admin/patologias/addPatologia}" method="post" >
+      			<div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        			<h4 class="modal-title" style="font-style: normal;color: blue;" th:text="#{admin.patologia.addmodal.titulo}"></h4>
+      			</div>
+      			
+      			<div class="modal-body custom-modal-body" style="height: 200px;">
+        		    <div class="form-group">
+        			   <label for="nombrePatologia" th:text="#{admin.patologia.nombre}"></label>
+    				   <input type="text" class="form-control" id="nombrePatologia" name="nombrePatologia" th:placeholder="#{admin.patologia.nombre}" />
+        		   </div>
+        		   <div class="form-group">
+        			  <label for="descripcionPatologia" th:text="#{admin.patologia.descripcion}"></label>
+    				  <input type="text" class="form-control" id="descripcionPatologia" name="descripcionPatologia" th:placeholder="#{admin.patologia.descripcion}" />
+        		  </div>        		
+      		</div>
+      			
+      			<div class="modal-footer">
+        		  <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{general.btn.cancelar}"></button>
+        		  <button type="submit" class="btn btn-primary" th:text="#{general.btn.guardar}"></button>
+      		    </div>     		
+      		</form>
+        </div>
+      </div>
+    </div>
+    
+    <!--    MODIFICACION DE PATOLOGIAS  -->
+    <div class="modal fade" id="modalUpdatePatologia"  tabindex="-1" role="dialog" aria-labelledby="modalUpdatePatologia" aria-hidden="true">
+  	  <div class="modal-dialog">
+    	<div class="modal-content">
+      		<form id="modificarPatologiaForm" th:action="@{/admin/patologias/upPatologia}" method="post" >
+      			<div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        			<h4 class="modal-title" style="font-style: normal;color: blue;" th:text="#{admin.patologia.upmodal.titulo}"></h4>
+      			</div>
+      			
+      			<div class="modal-body custom-modal-body" style="height: 200px;">
+      			    <input type="text" id="idPatologiaUp" name="idPatologiaUp" style="display: none;"/>
+        		    
+        		    <div class="form-group">
+        			   <label for="nombrePatologia" th:text="#{admin.patologia.nombre}"></label>
+    				   <input type="text" class="form-control" id="nombrePatologiaUp" name="nombrePatologiaUp" th:placeholder="#{admin.patologia.nombre}" />
+        		   </div>
+        		   <div class="form-group">
+        			  <label for="descripcionPatologia" th:text="#{admin.patologia.descripcion}"></label>
+    				  <input type="text" class="form-control" id="descripcionPatologiaUp" name="descripcionPatologiaUp" th:placeholder="#{admin.patologia.descripcion}" />
+        		  </div>        		
+      		</div>
+      			
+      			<div class="modal-footer">
+        		  <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{general.btn.cancelar}"></button>
+        		  <button type="submit" class="btn btn-primary" th:text="#{general.btn.guardar}"></button>
+      		    </div>     		
+      		</form>
+        </div>
+      </div>
+    </div>
+    
+    <!-- MODAL PARA AGREGACIÓN DE TIPO DE PATOLOGIA -->
+	<div class="modal fade" id="modalAgregarTipoPatologia"  tabindex="-1" role="dialog" aria-labelledby="modalAgregarTipoPatologia" aria-hidden="true">
+  	  <div class="modal-dialog">
+    	<div class="modal-content">
+      		<form id="agregarTipoPatologiaForm" th:action="@{/admin/patologias/addTipoPatologia}" method="post" >
+      			<div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        			<h4 class="modal-title" style="font-style: normal;color: blue;" th:text="#{admin.patologia.tipo.addmodal.titulo}"></h4>
+      			</div>
+      			
+      			<div class="modal-body custom-modal-body" style="height: 250px;">
+        		    <div class="form-group">
+        			   <label for="nombreTipoPatologia" th:text="#{admin.patologia.tipo.nombre}"></label>
+    				   <input type="text" class="form-control" id="nombreTipoPatologia" name="nombreTipoPatologia" th:placeholder="#{admin.patologia.tipo.nombre}" />
+        		   </div>
+        		   <div class="form-group">
+        			  <label for="descripcionTipoPatologia" th:text="#{admin.patologia.tipo.descripcion}"></label>
+    				  <input type="text" class="form-control" id="descripcionTipoPatologia" name="descripcionTipoPatologia" th:placeholder="#{admin.patologia.tipo.descripcion}" />
+        		  </div>  
+        		  <div class="form-group">
+        			<label for="patologia" th:utext="#{admin.patologia.tipo.patologia}"></label>
+    				<select class="form-control" id="patologia" name="patologia" >
+    				   <option></option>
+    				   <option th:each="patologia:${patologias}" th:attr="data-id=${patologia.idSicPatologia}"  th:value="${patologia.idSicPatologia}" th:text="${patologia.nombrePatologia}"></option>
+    				</select>
+        		 </div>      		
+      		    </div>
+      			
+      			<div class="modal-footer">
+        		  <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{general.btn.cancelar}"></button>
+        		  <button type="submit" class="btn btn-primary" th:text="#{general.btn.guardar}"></button>
+      		    </div>     		
+      		</form>
+        </div>
+      </div>
+    </div>
+    
+     <!-- MODAL PARA MODIFICACIÓN DE TIPO DE PATOLOGIA -->
+	<div class="modal fade" id="modalUpdateTipoPatologia"  tabindex="-1" role="dialog" aria-labelledby="modalUpdateTipoPatologia" aria-hidden="true">
+  	  <div class="modal-dialog">
+    	<div class="modal-content">
+      		<form id="agregarTipoPatologiaForm" th:action="@{/admin/patologias/upTipoPatologia}" method="post" >
+      			<div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        			<h4 class="modal-title" style="font-style: normal;color: blue;" th:text="#{admin.patologia.tipo.upmodal.titulo}"></h4>
+      			</div>
+      			
+      			<div class="modal-body custom-modal-body" style="height: 250px;">
+      			    <input type="text" id="idTipoPatologiaUp" name="idTipoPatologiaUp" style="display: none;"/>
+        		    <div class="form-group">
+        			   <label for="nombreTipoPatologiaUp" th:text="#{admin.patologia.tipo.nombre}"></label>
+    				   <input type="text" class="form-control" id="nombreTipoPatologiaUp" name="nombreTipoPatologiaUp" th:placeholder="#{admin.patologia.tipo.nombre}" />
+        		   </div>
+        		   <div class="form-group">
+        			  <label for="descripcionTipoPatologia" th:text="#{admin.patologia.tipo.descripcion}"></label>
+    				  <input type="text" class="form-control" id="descripcionTipoPatologiaUp" name="descripcionTipoPatologiaUp" th:placeholder="#{admin.patologia.tipo.descripcion}" />
+        		  </div>  
+        		  <div class="form-group">
+        			<label for="patologia" th:utext="#{admin.patologia.tipo.patologia}"></label>
+    				<select class="form-control" id="patologiaUp" name="patologiaUp" >
+    				   <option></option>
+    				   <option th:each="patol:${patologias}" th:attr="data-id=${patol.idSicPatologia}"  th:value="${patol.idSicPatologia}" th:text="${patol.nombrePatologia}"></option>
+    				</select>
+        		 </div>      		
+      		</div>
+      			
+      			<div class="modal-footer">
+        		  <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{general.btn.cancelar}"></button>
+        		  <button type="submit" class="btn btn-primary" th:text="#{general.btn.guardar}"></button>
+      		    </div>     		
+      		</form>
+        </div>
+      </div>
+    </div>
+<div th:replace="fragments/general :: footerFragment"></div>
+	<div th:replace="fragments/general :: jsFragment"></div>
+
+<script type="text/javascript" th:src="@{/resources/js/administracionPatologias.js}"></script>
+</body>
+</html>

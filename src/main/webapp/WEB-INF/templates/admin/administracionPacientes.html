@@ -24,7 +24,7 @@
   						<span class="sr-only">Close</span>
   					</button>
   					<strong th:utext="#{general.alerta.atencion}"></strong>
-  					<p th:utext="#{admin.pacientes.alertas.agregar.exito}"></p>
+  					<p th:utext="#{admin.patologia.alertas.agregar.exito}"></p>
 				</div>
 			</div>	
 			<div th:if="${upSuccess}" class="alert alert-info alert-dismissible" role="alert">
@@ -83,6 +83,9 @@
    											<button type="button" class="btn btn-default onUpdate" th:attr="data-id=${paciente.idSicPaciente}">
    												<i class="fa fa-pencil-square-o"></i>
    											</button>
+   											<a class="btn btn-default" th:href="@{/admin/detallePaciente/}+${paciente.numExpediente}" target="_blank">
+												<i class="fa fa-search-plus"></i>
+											</a>
 										</div>
 									</td>
 								 <td th:text="${paciente.numExpediente}"></td>																

@@ -189,8 +189,7 @@ public class SicAdministracionPacientesController {
 					contact_search.setDui(duiContact);
 					contact_search.setTelefono(telContact);
 					pac_search.setFkSicContactoPaciente(sicContactoPacienteServiceImpl.insert(contact_search));
-				}
-			} else {
+				} else {
 				if (!(nomContact.trim().equals("")&& apContact.trim().equals("")
 						&& duiContact.trim().equals("")&&telContact.trim().equals(""))){
 					SicContactoPacienteDto contacto = new SicContactoPacienteDto();
@@ -200,17 +199,16 @@ public class SicAdministracionPacientesController {
 					contacto.setTelefono(telContact);
 					pac_search.setFkSicContactoPaciente(sicContactoPacienteServiceImpl.insert(contacto));
 				}
-			}			
-			LOGGER.info(pac_search);
-			sicPacienteServiceImpl.insert(pac_search);
-			redirectAttributes.addFlashAttribute("Upsuccess",true);
-		} else {
+				  LOGGER.info(pac_search);
+				  sicPacienteServiceImpl.insert(pac_search);
+				  redirectAttributes.addFlashAttribute("Upsuccess",true);	
+			   }
+		   } else {
 			LOGGER.info("Error al actualizar paciente");
-		}
-		
+		  }		
+	     }
 		return "redirect:/admin/pacientes";
 	}
-	
 	
 	@RequestMapping(value="/getPaciente/{id}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody SicPacienteDto getPaciente(@PathVariable(value="id")int id)

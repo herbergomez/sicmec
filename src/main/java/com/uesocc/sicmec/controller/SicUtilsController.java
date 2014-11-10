@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.uesocc.sicmec.model.serviceImpl.SicPacienteServiceImpl;
+import com.uesocc.sicmec.model.serviceImpl.SicPatologiaServiceImpl;
+import com.uesocc.sicmec.model.serviceImpl.SicTipoPatologiaServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicUsuarioServiceImpl;
 
 /**
@@ -26,8 +28,10 @@ public class SicUtilsController
 	private SicUsuarioServiceImpl sicUsuarioServiceImpl;
 	@Autowired
 	private SicPacienteServiceImpl sicPacienteServiceImpl;
-
-
+    @Autowired
+    private SicPatologiaServiceImpl sicPatologiaServiceImpl;
+    @Autowired
+    private SicTipoPatologiaServiceImpl sicTipoPatologiaServiceImpl;
 	/**
 	 * @param nombreUsuario
 	 * @return Verdadero si el nombre de usuario esta libre y 
@@ -52,6 +56,35 @@ public class SicUtilsController
 	{
 		
 		return sicPacienteServiceImpl.validacionExpedientePaciente(expediente);
+		
+	}
+	/**
+	 * @param nombre de patologia
+	 * @return Verdadero si la patologia esta libre y 
+	 * falso si la patologia ya esta en uso
+	 */
+	@RequestMapping(value="/validarPatologia",method=RequestMethod.POST)
+	public @ResponseBody boolean validacionPatologia
+						(@RequestParam(value="nombrePatologia")String nombre)
+	{
+		
+		return sicPatologiaServiceImpl.validacionPatologia(nombre);
+		
+	}
+	@RequestMapping(value="/validarPatologiaUp",method=RequestMethod.POST)
+	public @ResponseBody boolean validacionPatologiaUp
+						(@RequestParam(value="nombrePatologiaUp")String nombre)
+	{
+		
+		return sicPatologiaServiceImpl.validacionPatologiaUp(nombre);
+		
+	}
+	@RequestMapping(value="/validarTipoPatologia",method=RequestMethod.POST)
+	public @ResponseBody boolean validacionTipoPatologia
+						(@RequestParam(value="nombreTipoPatologia")String nombre)
+	{
+		
+		return sicTipoPatologiaServiceImpl.validacionTipoPatologia(nombre);
 		
 	}
 }

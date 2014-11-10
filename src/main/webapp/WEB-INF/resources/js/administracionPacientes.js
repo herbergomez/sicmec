@@ -16,7 +16,7 @@ $( document ).ready(function() {
 		    		url: "/sicmec/Utils/validarExpediente",
 	                	data : 
 	                	{
-	                        usuario: function() 
+	                        paciente: function() 
 	                        { return $("#expediente").val(); }
 	                	}
 		     	}
@@ -216,13 +216,13 @@ $(".onUpdate").click(function(){
 						
 			getDepaByPais(idPais,idDepa);
 			getMuniByDep(idDepa,idMuni);
-			$("#paisUp").val(result.fkSicMunicipio.fkSicDepartamento.fkSicPais.idSicPais);
-			$("#modalUpdatePaciente").modal("show");
+			$("#paisUp").val(result.fkSicMunicipio.fkSicDepartamento.fkSicPais.idSicPais);		
 			//DATOS DE REPONSABLE DEL PACIENTE.
 			$("#nomContactUp").val(result.fkSicContactoPaciente.nombreContacto);
 			$("#apContactUp").val(result.fkSicContactoPaciente.apellidoContacto);
 			$("#duiContactUp").val(result.fkSicContactoPaciente.dui);
 			$("#telContactUp").val(result.fkSicContactoPaciente.telefono);
+			$("#modalUpdatePaciente").modal("show");
 		},
 		error: function (xhr, ajaxOptions, thrownError) 
 		{
