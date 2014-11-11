@@ -10,9 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+<<<<<<< HEAD
 import com.uesocc.sicmec.model.serviceImpl.SicPacienteServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicPatologiaServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicTipoPatologiaServiceImpl;
+=======
+import com.uesocc.sicmec.model.serviceImpl.SicDrugServiceImpl;
+>>>>>>> Fixing update name modal fiel readonly
 import com.uesocc.sicmec.model.serviceImpl.SicUsuarioServiceImpl;
 
 /**
@@ -32,6 +36,8 @@ public class SicUtilsController
     private SicPatologiaServiceImpl sicPatologiaServiceImpl;
     @Autowired
     private SicTipoPatologiaServiceImpl sicTipoPatologiaServiceImpl;
+    
+	private SicDrugServiceImpl sicDrugServiceImpl;
 	/**
 	 * @param nombreUsuario
 	 * @return Verdadero si el nombre de usuario esta libre y 
@@ -85,6 +91,15 @@ public class SicUtilsController
 	{
 		
 		return sicTipoPatologiaServiceImpl.validacionTipoPatologia(nombre);
-		
+	}
+	
+	/**
+	 * Check if the drug name already exist in the DB
+	 * @param sNombre The name to check in the DB
+	 * @return true if the drug DOESN'T exist, false if the drug EXIST
+	 */
+	@RequestMapping(value="/validarNombreDroga", method = RequestMethod.POST)
+	public @ResponseBody boolean validacionNombreMedicamento (@RequestParam(value="nombre")String sNombre ) {
+		return sicDrugServiceImpl.nameExist( sNombre );
 	}
 }

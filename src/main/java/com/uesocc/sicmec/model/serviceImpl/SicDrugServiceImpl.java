@@ -27,7 +27,7 @@ public class SicDrugServiceImpl implements SicDrugService{
 	@Override
 	public SicDrugDto insert(SicDrugDto entity) throws ParseException {
 		SicDrugAdapter drugAdapter = new SicDrugAdapter();
-		SicMedicamento sicDrug = drugAdapter.dtoToEntity(entity);
+		SicMedicamento sicDrug = drugAdapter.dtoToEntity(entity);		
 		return drugAdapter.entityToDto(sicDrugRepository.save(sicDrug));
 	}
 
@@ -65,6 +65,21 @@ public class SicDrugServiceImpl implements SicDrugService{
 		}
 		// TODO Auto-generated method stub
 		return drugListDto;
+	}
+	
+	/**
+	 * Check if the name of the drug already exist on the DB
+	 * @param sName The name to check if exist
+	 * @return true if NOT exist, false is ALREADY exist
+	 */
+	public boolean nameExist( String sName ) {
+		//Check if exist the drug name
+		if( sicDrugRepository.findAllBynombreMedicamento(sName).isEmpty() ){
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 
