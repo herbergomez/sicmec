@@ -68,8 +68,8 @@
 									<th th:text="#{admin.pacientes.pais}"></th>
 									<th th:text="#{admin.pacientes.departamento}"></th>
 									<th th:text="#{admin.pacientes.municipio}"></th>
-									<th th:text="#{admin.pacientes.telefono}"></th>
-									<th th:utext="#{admin.pacientes.sexo}"></th>
+								<!--  	<th th:text="#{admin.pacientes.telefono}"></th>
+									<th th:utext="#{admin.pacientes.sexo}"></th> -->
 
 								</tr>	
 							</thead>
@@ -96,8 +96,8 @@
 								 <td th:text="${paciente.fkSicMunicipio.fkSicDepartamento.fkSicPais.nombrePais}"></td>		
 								 <td th:text="${paciente.fkSicMunicipio.fkSicDepartamento.nombreDepartamento}"></td>
 								 <td th:text="${paciente.fkSicMunicipio.nombreMunicipio}"></td>
-								 <td th:text="${paciente.telefonoPaciente}"></td>
-								 <td th:text="${paciente.sexoPaciente}"></td>
+								<!--<td th:text="${paciente.telefonoPaciente}"></td> 
+									<td th:text="${paciente.sexoPaciente}"></td> -->
 							 </tr>
 							</tbody>
 					   </table>
@@ -119,13 +119,13 @@
       			<div class="modal-body">
       			<div class="form-group">       		        		       		
         		 <div class="row">
-		          <div class="col-md-4 col-xs-1">
+		          <div class="col-md-6 col-xs-1">
 		            <div class="form-group">
         			  <label for="expediente" th:text="#{admin.pacientes.expediente}"></label>
     				  <input type="text" class="form-control" id="expediente" name="expediente" th:placeholder="#{admin.pacientes.expediente}" />
         		  	</div>
         		  </div>
-        		  <div class="col-md-4 col-xs-1">
+        		  <div class="col-md-6 col-xs-1">
         			<div class="form-group">
         			<label for="estado" th:utext="#{admin.pacientes.estado}"></label>
     				<select class="form-control" id="estado" name="estado" >
@@ -134,17 +134,15 @@
     				</select>
         		  </div>
         		  </div>
-        		  <div class="col-md-4">
-        			<div class="form-group">
+        		</div>
+        		</div>
+        		<div class="form-group">
         			<label for="estado" th:utext="#{admin.pacientes.patologia}"></label>
     				<select class="form-control" id="patologia" name="patologia" >
     					<option></option>
-    				  <option th:each="patologia:${patologias}" th:attr="data-id=${patologia.idSicTipoPatologia}"  th:value="${patologia.idSicTipoPatologia}" th:text="${patologia.nombreTipoPatologia}"></option>
+    				  <option th:each="patologia:${patologias}" th:attr="data-id=${patologia.idSicTipoPatologia}"  th:value="${patologia.idSicTipoPatologia}" th:text="${patologia.fkSicPatologia.nombrePatologia}+'-'+ ${patologia.nombreTipoPatologia}"></option>
     				</select>
-        		  </div>
-        		  </div>
-        		</div>
-        		</div>
+        		 </div>
         		<div class="form-group">
         			<label for="nombres" th:text="#{admin.pacientes.nombres}"></label>
     				<input type="text" class="form-control" id="nombres" name="nombres" th:placeholder="#{admin.pacientes.nombres}" />
@@ -259,13 +257,13 @@
       			<input type="text" id="idUp" name="idUp" style="display: none;"/>
       			<div class="form-group">       		        		       		
         		 <div class="row">
-		          <div class="col-md-4 col-xs-1">
+		          <div class="col-md-6 col-xs-1">
 		            <div class="form-group">
         			  <label for="expedienteUp" th:text="#{admin.pacientes.expediente}"></label>
     				  <input type="text" disabled="disabled" class="form-control" id="expedienteUp" name="expedienteUp" th:placeholder="#{admin.pacientes.expediente}" />
         		  	</div>
         		  </div>
-        		  <div class="col-md-4 col-xs-1">
+        		  <div class="col-md-6">
         			<div class="form-group">
         			<label for="estado" th:utext="#{admin.pacientes.estado}"></label>
     				<select class="form-control" id="estadoUp" name="estadoUp" >
@@ -273,16 +271,14 @@
     				   <option th:each="estado:${estados}" th:attr="data-id=${estado.idSicEstadoPaciente}"  th:value="${estado.idSicEstadoPaciente}" th:text="${estado.descripcion}"></option>
     				</select>
         		  </div>
-        		  </div>
-        		  <div class="col-md-4">
-        			<div class="form-group">
+        		  </div>       		 
+        		</div>
+        		<div class="form-group">
         			<label for="estado" th:utext="#{admin.pacientes.patologia}"></label>
     				<select class="form-control" id="patologiaUp" name="patologiaUp" >
     					<option></option>
-    				  <option th:each="patologia:${patologias}" th:attr="data-id=${patologia.idSicTipoPatologia}"  th:value="${patologia.idSicTipoPatologia}" th:text="${patologia.nombreTipoPatologia}"></option>
+    				  <option th:each="patologia:${patologias}" th:attr="data-id=${patologia.idSicTipoPatologia}"  th:value="${patologia.idSicTipoPatologia}" th:text="${patologia.fkSicPatologia.nombrePatologia}+'-'+ ${patologia.nombreTipoPatologia}"></option>
     				</select>
-        		  </div>
-        		  </div>
         		</div>
         		</div>
         		<div class="form-group">
