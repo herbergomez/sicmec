@@ -69,8 +69,8 @@ $( document ).ready(function() {
         "scrollCollapse": false,
         "aoColumns": 
         	[
-        	 { "sWidth": "15%", "sClass": "center", "bSortable": false },
-        	 { "sWidth": "10%" },
+        	 { "sWidth": "5%", "sClass": "center", "bSortable": false },
+        	 { "sWidth": "15%" },
         	 { "sWidth": "15%" },
             ],
             language: {
@@ -202,8 +202,8 @@ $( document ).ready(function() {
         "scrollCollapse": false,
         "aoColumns": 
         	[
-        	 { "sWidth": "15%", "sClass": "center", "bSortable": false },
-        	 { "sWidth": "10%" },
+        	 { "sWidth": "5%", "sClass": "center", "bSortable": false },
+        	 { "sWidth": "15%" },
         	 { "sWidth": "15%" },
         	 { "sWidth": "10%" },
             ],

@@ -136,11 +136,11 @@ $( document ).ready(function() {
         "scrollCollapse": false,
         "aoColumns": 
         	[
-        	 { "sWidth": "12%", "sClass": "center", "bSortable": false },
+        	 { "sWidth": "10%", "sClass": "center", "bSortable": false },
         	 { "sWidth": "12%" },
-        	 { "sWidth": "13%" },
-        	 { "sWidth": "13%" },
-        	 { "sWidth": "10%" },
+        	 { "sWidth": "12%" },
+        	 { "sWidth": "12%" },
+        	 { "sWidth": "12%" },
         	 { "sWidth": "5%" },
         	 { "sWidth": "7%" },
         	 { "sWidth": "10%" },
