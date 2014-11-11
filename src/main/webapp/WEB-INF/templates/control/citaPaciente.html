@@ -34,11 +34,11 @@
 				<div class="widget-content">
 					<ul class="nav nav-tabs" role="tablist">
   						<li role="presentation" class="active"><a href="#infoPaciente" role="tab" data-toggle="tab">Busqueda de pacientes</a></li>
-  						<li role="presentation"><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
+  						<li role="presentation"><a href="#controlCita" role="tab" data-toggle="tab" th:text="#{control.paciente.control}"></a></li>
   						<li role="presentation"><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
 					</ul>
 				<div class="tab-content">
-					<div id="infoPaciente" role="tabpanel" class="tab-pane active">
+					<div id="infoPaciente" role="tabpanel" class="tab-pane fade in active">
 						<div class="row" style="margin-top: 1%;">
 							<div class="col-md-12 col-xs-12">
 								<div id="buscarExp" class="form-inline" method="post">
@@ -73,6 +73,14 @@
 					   	</table>
 						</div>
 					</div>
+					<div id="controlCita" role="tabpanel" class="tab-pane fade" >
+						<div class="container" style="padding-top: 1%;">
+							<button type="button" class="btn btn-primary" th:text="#{control.paciente.nuevaCita}"
+							 data-toggle="modal" data-target="#modalNuevaCita"></button>
+							<div id="historial">
+							</div>
+						</div>
+					</div>
 				</div>
 					
 				</div>
@@ -86,5 +94,41 @@
 	<div th:replace="fragments/general :: jsFragment"></div>
 
 <script type="text/javascript" th:src="@{/resources/js/citaPaciente.js}"></script>
+
+<div class="modal fade" id="modalNuevaCita" tabindex="-1" role="dialog" aria-labelledby="NuevaCita" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" th:text="#{control.paciente.citaTitulo}"></h4>
+      </div>
+      <div class="modal-body">
+      	
+      	<div class="form-group">
+        	<label for="diagnostico" th:utext="#{control.paciente.diagnostico}"></label>
+    		<textarea class="form-control" id="diagnostico" name="diagnostico" rows="5">
+    		</textarea>
+        </div>
+        <div class="form-group">
+        	<label for="comentario" th:utext="#{control.paciente.comentario}"></label>
+    		<textarea class="form-control" id="comentario" name="comentario" rows="5">
+    		</textarea>
+        </div>
+        <div class="form-group">
+        	<label for="tratamiento" th:utext="#{control.paciente.tratamiento}"></label>
+    		<select class="form-control" id="tratamiento" name="tratamiento">
+    		</select>
+        </div>
+        
+      	 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{general.btn.cancelar}"></button>
+        <button type="button" class="btn btn-primary" th:text="#{general.btn.guardar}"></button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 </body>
 </html>
