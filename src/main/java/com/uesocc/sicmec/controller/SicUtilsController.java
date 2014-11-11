@@ -9,14 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-<<<<<<< HEAD
 import com.uesocc.sicmec.model.serviceImpl.SicPacienteServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicPatologiaServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicTipoPatologiaServiceImpl;
-=======
 import com.uesocc.sicmec.model.serviceImpl.SicDrugServiceImpl;
->>>>>>> Fixing update name modal fiel readonly
 import com.uesocc.sicmec.model.serviceImpl.SicUsuarioServiceImpl;
 
 /**
