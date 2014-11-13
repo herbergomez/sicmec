@@ -87,12 +87,12 @@
 									<td>
 										<div class="btn-group">
   											<button type="button" class="btn btn-sm btn-default onDelete" 
-  											data-toggle="tooltip" data-placement="left" title="Inactivar usuario"
+  											title="Inactivar usuario" data-toggle="modal" data-target="#modalEliminarUsuario"
   											th:attr="data-id=${usuario.idSicUsuario}">
   												<i class="fa fa-trash-o"></i>
   											</button>
    											<button type="button" class="btn btn-sm btn-default onUpdate" th:attr="data-id=${usuario.idSicUsuario}"
-   											data-toggle="tooltip" data-placement="left" title="Editar usuario">   												
+   											title="Editar usuario" data-toggle="modal" data-target="#modalUpdateUsuario">   												
    												<i class="fa fa-pencil-square-o"></i>
    											</button>
 										</div>

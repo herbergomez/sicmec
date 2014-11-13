@@ -180,7 +180,7 @@ $('#modificarUsuarioForm').validate({
     						$("#fxAct").val(result.fxActivacion);
     						$("#fxDes").val(result.fxDesactivacion);
     						
-    						$("#modalUpdateUsuario").modal("show");
+    						//$("#modalUpdateUsuario").modal("show");
     					},
     					error: function (xhr, ajaxOptions, thrownError) 
     					{
@@ -194,7 +194,7 @@ $('#modificarUsuarioForm').validate({
     				var id = $(this).data("id");
     				
     				$("#AreYouSureConfirm").attr("href","/sicmec/admin/usuarios/delUser/"+id);
-    				$("#modalEliminarUsuario").modal('show');
+    				//$("#modalEliminarUsuario").modal('show');
     				
     			});
     			
