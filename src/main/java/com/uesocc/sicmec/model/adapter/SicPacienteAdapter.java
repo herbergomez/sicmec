@@ -3,10 +3,8 @@ package com.uesocc.sicmec.model.adapter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import com.uesocc.sicmec.framework.general.BaseAdapter;
 import com.uesocc.sicmec.framework.general.SicDataTypeFormat;
-import com.uesocc.sicmec.model.entity.SicEstadoPaciente;
 import com.uesocc.sicmec.model.entity.SicPaciente;
 import com.uesocc.sicmec.model.dto.SicPacienteDto;
 
@@ -39,9 +37,8 @@ public class SicPacienteAdapter implements
 		entidad.setFkSicPersona(adp.dtoToEntity(obj.getFkSicPersona()));
 		entidad.setFkSicMunicipio(adpm.dtoToEntity(obj.getFkSicMunicipio()));
     	entidad.setFkSicEstadoPaciente(adpa.dtoToEntity(obj.getFkSicEstadoPaciente()));
-    	if (obj.getFkSicContactoPaciente()!=null) {
-    		entidad.setFkSicContactoPaciente(adpc.dtoToEntity(obj.getFkSicContactoPaciente()));
-    	}    	
+    	entidad.setFkSicContactoPaciente((obj.getFkSicContactoPaciente()!=null)?adpc.dtoToEntity(obj.getFkSicContactoPaciente()):null);
+    	    	
 		return entidad;
 	}
 
@@ -67,9 +64,7 @@ public class SicPacienteAdapter implements
 		dto.setFkSicPersona(adp.entityToDto(obj.getFkSicPersona()));
 		dto.setFkSicMunicipio(adpm.entityToDto(obj.getFkSicMunicipio()));
 		dto.setFkSicEstadoPaciente(adpa.entityToDto(obj.getFkSicEstadoPaciente()));
-		if (obj.getFkSicContactoPaciente()!=null) {
-			dto.setFkSicContactoPaciente(adpc.entityToDto(obj.getFkSicContactoPaciente()));
-		}		
+		dto.setFkSicContactoPaciente((obj.getFkSicContactoPaciente()!=null) ? adpc.entityToDto(obj.getFkSicContactoPaciente()):null);
 		return dto;
 	}
 

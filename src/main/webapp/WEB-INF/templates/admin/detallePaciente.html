@@ -133,8 +133,9 @@
   									<label class="control-label" th:text="#{admin.pacientes.detalle.nombre}"></label>
   								</td>
   								<td>
-  									<p class="form-control-static" th:text="${paciente.fkSicContactoPaciente.nombreContacto}+', '+
-  									${paciente.fkSicContactoPaciente.apellidoContacto}"></p>
+  									<p class="form-control-static" th:text="${paciente.fkSicContactoPaciente != null}?
+  									${paciente.fkSicContactoPaciente.nombreContacto}+', '+
+  									${paciente.fkSicContactoPaciente.apellidoContacto} : '-------'"></p>
   								</td>
   							</tr>
   							<tr>
@@ -142,7 +143,7 @@
   									<label class="control-label" th:text="#{admin.pacientes.detalle.dui}"></label>
   								</td>
   								<td>
-  									<p class="form-control-static" th:text="${paciente.fkSicContactoPaciente.dui}"></p>
+  									<p class="form-control-static" th:text="${paciente.fkSicContactoPaciente != null} ? ${paciente.fkSicContactoPaciente.dui}:'-------'"></p>
   								</td>
   							</tr>
   							<tr>
@@ -150,7 +151,7 @@
   									<label class="control-label" th:utext="#{admin.pacientes.detalle.tel}"></label>
   								</td>
   								<td>
-  									<p class="form-control-static" th:text="${paciente.fkSicContactoPaciente.telefono}"></p>
+  									<p class="form-control-static" th:text="${paciente.fkSicContactoPaciente != null} ? ${paciente.fkSicContactoPaciente.telefono}:'-------'"></p>
   								</td>
   							</tr>
   						</table>
