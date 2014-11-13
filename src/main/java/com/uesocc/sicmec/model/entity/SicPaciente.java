@@ -83,6 +83,9 @@ public class SicPaciente implements Serializable {
     @JoinColumn(name = "fk_sic_contacto_paciente", referencedColumnName = "id_sic_contacto_paciente")
     @ManyToOne
     private SicContactoPaciente fkSicContactoPaciente;
+    @Column(name = "fx_creacion")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fxCreacion;
     @Transient
     private Integer edad;
     
@@ -289,4 +292,18 @@ public class SicPaciente implements Serializable {
          }
          this.setEdad(años);
     }
+
+	/**
+	 * @return the fxCreacion
+	 */
+	public Date getFxCreacion() {
+		return fxCreacion;
+	}
+
+	/**
+	 * @param fxCreacion the fxCreacion to set
+	 */
+	public void setFxCreacion(Date fxCreacion) {
+		this.fxCreacion = fxCreacion;
+	}
 }

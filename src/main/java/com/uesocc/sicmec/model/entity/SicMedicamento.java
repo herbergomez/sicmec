@@ -19,7 +19,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+
 
 /**
  *
@@ -45,7 +45,7 @@ public class SicMedicamento implements Serializable {
     @Column(name = "descripcion_medicamento", length = 300)
     private String descripcionMedicamento;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkSicMedicamento")
-    private List<SicTratamientoMedicamento> sicTratamientoMedicamentoList;
+    private List<SicAsignacionMedicamento> sicAsignacionMedicamentoList;
     @Column(name = "estado_medicamento")
     private String estadoMedicamento;
     
@@ -78,15 +78,6 @@ public class SicMedicamento implements Serializable {
 
     public void setDescripcionMedicamento(String descripcionMedicamento) {
         this.descripcionMedicamento = descripcionMedicamento;
-    }
-
-    @XmlTransient
-    public List<SicTratamientoMedicamento> getSicTratamientoMedicamentoList() {
-        return sicTratamientoMedicamentoList;
-    }
-
-    public void setSicTratamientoMedicamentoList(List<SicTratamientoMedicamento> sicTratamientoMedicamentoList) {
-        this.sicTratamientoMedicamentoList = sicTratamientoMedicamentoList;
     }
 
     @Override
@@ -126,6 +117,21 @@ public class SicMedicamento implements Serializable {
 	 */
 	public void setEstadoMedicamento(String estadoMedicamento) {
 		this.estadoMedicamento = estadoMedicamento;
+	}
+
+	/**
+	 * @return the sicAsignacionMedicamentoList
+	 */
+	public List<SicAsignacionMedicamento> getSicAsignacionMedicamentoList() {
+		return sicAsignacionMedicamentoList;
+	}
+
+	/**
+	 * @param sicAsignacionMedicamentoList the sicAsignacionMedicamentoList to set
+	 */
+	public void setSicAsignacionMedicamentoList(
+			List<SicAsignacionMedicamento> sicAsignacionMedicamentoList) {
+		this.sicAsignacionMedicamentoList = sicAsignacionMedicamentoList;
 	}
     
 }

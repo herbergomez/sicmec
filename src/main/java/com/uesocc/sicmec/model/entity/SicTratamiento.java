@@ -59,8 +59,12 @@ public class SicTratamiento implements Serializable {
     @JoinColumn(name = "fk_sic_cita_medica", referencedColumnName = "id_sic_cita_medica", nullable = false)
     @ManyToOne(optional = false)
     private SicCitaMedica fkSicCitaMedica;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkSicTratamiento")
-    private List<SicTratamientoMedicamento> sicTratamientoMedicamentoList;
+    @Basic(optional = false)
+    @Column(name = "dosis")
+    private String dosis;
+    @JoinColumn(name = "fk_sic_cat_medicamentos", referencedColumnName = "id_sic_cat_medicamentos")
+    @ManyToOne(optional = false)
+    private SicCatMedicamentos fkSicCatMedicamentos;
 
     public SicTratamiento() {
     }
@@ -123,15 +127,6 @@ public class SicTratamiento implements Serializable {
         this.fkSicCitaMedica = fkSicCitaMedica;
     }
 
-    @XmlTransient
-    public List<SicTratamientoMedicamento> getSicTratamientoMedicamentoList() {
-        return sicTratamientoMedicamentoList;
-    }
-
-    public void setSicTratamientoMedicamentoList(List<SicTratamientoMedicamento> sicTratamientoMedicamentoList) {
-        this.sicTratamientoMedicamentoList = sicTratamientoMedicamentoList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -156,5 +151,33 @@ public class SicTratamiento implements Serializable {
     public String toString() {
         return "com.uesocc.sicmec.model.entity.SicTratamiento[ idSicTratamiento=" + idSicTratamiento + " ]";
     }
+
+	/**
+	 * @return the dosis
+	 */
+	public String getDosis() {
+		return dosis;
+	}
+
+	/**
+	 * @param dosis the dosis to set
+	 */
+	public void setDosis(String dosis) {
+		this.dosis = dosis;
+	}
+
+	/**
+	 * @return the fkSicCatMedicamentos
+	 */
+	public SicCatMedicamentos getFkSicCatMedicamentos() {
+		return fkSicCatMedicamentos;
+	}
+
+	/**
+	 * @param fkSicCatMedicamentos the fkSicCatMedicamentos to set
+	 */
+	public void setFkSicCatMedicamentos(SicCatMedicamentos fkSicCatMedicamentos) {
+		this.fkSicCatMedicamentos = fkSicCatMedicamentos;
+	}
     
 }
