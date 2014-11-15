@@ -100,27 +100,39 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" th:text="#{control.paciente.citaTitulo}"></h4>
+        <h4 class="modal-title" th:text="#{control.paciente.citaTitulo}" style="font-style: normal;color: blue;"></h4>
       </div>
       <div class="modal-body">
-      	
       	<div class="form-group">
         	<label for="diagnostico" th:utext="#{control.paciente.diagnostico}"></label>
-    		<textarea class="form-control" id="diagnostico" name="diagnostico" rows="5">
+    		<textarea class="form-control" id="diagnostico" name="diagnostico" rows="3">
     		</textarea>
         </div>
         <div class="form-group">
         	<label for="comentario" th:utext="#{control.paciente.comentario}"></label>
-    		<textarea class="form-control" id="comentario" name="comentario" rows="5">
+    		<textarea class="form-control" id="comentario" name="comentario" rows="3">
     		</textarea>
         </div>
+        
+        <div class="form-group">       		
+        			<h4 class="modal-title" style="font-style: normal;color: blue;" th:text="#{control.paciente.tratamiento.titulo}"></h4>
+      	</div>
+      		 
         <div class="form-group">
         	<label for="tratamiento" th:utext="#{control.paciente.tratamiento}"></label>
     		<select class="form-control" id="tratamiento" name="tratamiento">
     		</select>
         </div>
-        
-      	 
+        <div class="form-group">
+        	<label for="dosis" th:utext="#{control.paciente.dosis}"></label>
+    		<textarea class="form-control" id="dosis" name="dosis" rows="3">
+    		</textarea>
+        </div>
+      	 <div class="form-group">
+        	<label for="periodisidad" th:utext="#{control.paciente.periodisidad}"></label>
+    		<select class="form-control" id="periodisidad" name="periodisidad">
+    		</select>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{general.btn.cancelar}"></button>
