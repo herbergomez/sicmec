@@ -95,7 +95,8 @@ $( document ).ready(function() {
                 "oAria": {
                     "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                } ,
+                }
+              },
                 "fnDrawCallback": function() {
                 	$(".onUpdatePatologia").click(function(){
                 		var id = $(this).data("id");
@@ -117,10 +118,8 @@ $( document ).ready(function() {
                 		    }
                 		});
                 	});                             	
-                },
-            }   
-	});
-	
+                }
+            });   
 	
 /**
  * TODO LO CONCERNIENTE A ADMINISTARCION DE TIPOS DE PATOLOGIAS
@@ -228,7 +227,8 @@ $( document ).ready(function() {
                 "oAria": {
                     "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                } ,
+                } 
+            },
                 "fnDrawCallback": function() {
                 	$(".onUpdateTipoPatologia").click(function(){
                 		var id = $(this).data("id");
@@ -251,7 +251,6 @@ $( document ).ready(function() {
                 		    }
                 		});
                 	});               	                           	
-                },
-            }   
-	});
+                }
+            });   
 });
