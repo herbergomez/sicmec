@@ -66,7 +66,7 @@ public class SicCitaMedica implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkSicCitaMedica")
     private List<SicTratamiento> sicTratamientoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkSicCitaMedica")
-    private List<SicExamenCita> sicExamenCitaList;
+    private List<SicExamen> sicExamenList;
 
     public SicCitaMedica() {
     }
@@ -137,15 +137,7 @@ public class SicCitaMedica implements Serializable {
         this.sicTratamientoList = sicTratamientoList;
     }
 
-    @XmlTransient
-    public List<SicExamenCita> getSicExamenCitaList() {
-        return sicExamenCitaList;
-    }
-
-    public void setSicExamenCitaList(List<SicExamenCita> sicExamenCitaList) {
-        this.sicExamenCitaList = sicExamenCitaList;
-    }
-
+ 
     @Override
     public int hashCode() {
         int hash = 0;
@@ -170,5 +162,19 @@ public class SicCitaMedica implements Serializable {
     public String toString() {
         return "com.uesocc.sicmec.model.entity.SicCitaMedica[ idSicCitaMedica=" + idSicCitaMedica + " ]";
     }
+
+	/**
+	 * @return the sicExamenList
+	 */
+	public List<SicExamen> getSicExamenList() {
+		return sicExamenList;
+	}
+
+	/**
+	 * @param sicExamenList the sicExamenList to set
+	 */
+	public void setSicExamenList(List<SicExamen> sicExamenList) {
+		this.sicExamenList = sicExamenList;
+	}
     
 }

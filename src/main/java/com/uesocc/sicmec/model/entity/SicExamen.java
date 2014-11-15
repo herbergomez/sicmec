@@ -6,23 +6,21 @@ package com.uesocc.sicmec.model.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,36 +32,44 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "SicExamen.findAll", query = "SELECT s FROM SicExamen s"),
     @NamedQuery(name = "SicExamen.findByIdSicExamen", query = "SELECT s FROM SicExamen s WHERE s.idSicExamen = :idSicExamen"),
-    @NamedQuery(name = "SicExamen.findByNombreExamen", query = "SELECT s FROM SicExamen s WHERE s.nombreExamen = :nombreExamen"),
-    @NamedQuery(name = "SicExamen.findByDescripcionExamen", query = "SELECT s FROM SicExamen s WHERE s.descripcionExamen = :descripcionExamen"),
     @NamedQuery(name = "SicExamen.findByFxCreado", query = "SELECT s FROM SicExamen s WHERE s.fxCreado = :fxCreado"),
     @NamedQuery(name = "SicExamen.findByCreadoPor", query = "SELECT s FROM SicExamen s WHERE s.creadoPor = :creadoPor"),
     @NamedQuery(name = "SicExamen.findByFxModificado", query = "SELECT s FROM SicExamen s WHERE s.fxModificado = :fxModificado"),
-    @NamedQuery(name = "SicExamen.findByModifcadoPor", query = "SELECT s FROM SicExamen s WHERE s.modifcadoPor = :modifcadoPor")})
+    @NamedQuery(name = "SicExamen.findByModifcadoPor", query = "SELECT s FROM SicExamen s WHERE s.modifcadoPor = :modifcadoPor"),
+    @NamedQuery(name = "SicExamen.findByResultado", query = "SELECT s FROM SicExamen s WHERE s.resultado = :resultado"),
+    @NamedQuery(name = "SicExamen.findByComentario", query = "SELECT s FROM SicExamen s WHERE s.comentario = :comentario")})
 public class SicExamen implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id_sic_examen", nullable = false)
+    @Column(name = "id_sic_examen")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer idSicExamen;
-    @Column(name = "nombre_examen", length = 30)
-    private String nombreExamen;
     @Basic(optional = false)
-    @Column(name = "descripcion_examen", nullable = false, length = 300)
-    private String descripcionExamen;
     @Column(name = "fx_creado")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fxCreado;
-    @Column(name = "creado_por", length = 50)
+    @Basic(optional = false)
+    @Column(name = "creado_por")
     private String creadoPor;
+    @Basic(optional = false)
     @Column(name = "fx_modificado")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fxModificado;
-    @Column(name = "modifcado_por", length = 50)
+    @Basic(optional = false)
+    @Column(name = "modifcado_por")
     private String modifcadoPor;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkSicExamen")
-    private List<SicExamenCita> sicExamenCitaList;
+    @Basic(optional = false)
+    @Column(name = "resultado")
+    private String resultado;
+    @Column(name = "comentario")
+    private String comentario;
+    @JoinColumn(name = "fk_sic_tipo_examen", referencedColumnName = "id_sic_tipo_examen")
+    @ManyToOne(optional = false)
+    private SicTipoExamen fkSicTipoExamen;
+    @JoinColumn(name = "fk_sic_cita_medica", referencedColumnName = "id_sic_cita_medica")
+    @ManyToOne(optional = false)
+    private SicCitaMedica fkSicCitaMedica;
 
     public SicExamen() {
     }
@@ -72,9 +78,13 @@ public class SicExamen implements Serializable {
         this.idSicExamen = idSicExamen;
     }
 
-    public SicExamen(Integer idSicExamen, String descripcionExamen) {
+    public SicExamen(Integer idSicExamen, Date fxCreado, String creadoPor, Date fxModificado, String modifcadoPor, String resultado) {
         this.idSicExamen = idSicExamen;
-        this.descripcionExamen = descripcionExamen;
+        this.fxCreado = fxCreado;
+        this.creadoPor = creadoPor;
+        this.fxModificado = fxModificado;
+        this.modifcadoPor = modifcadoPor;
+        this.resultado = resultado;
     }
 
     public Integer getIdSicExamen() {
@@ -83,22 +93,6 @@ public class SicExamen implements Serializable {
 
     public void setIdSicExamen(Integer idSicExamen) {
         this.idSicExamen = idSicExamen;
-    }
-
-    public String getNombreExamen() {
-        return nombreExamen;
-    }
-
-    public void setNombreExamen(String nombreExamen) {
-        this.nombreExamen = nombreExamen;
-    }
-
-    public String getDescripcionExamen() {
-        return descripcionExamen;
-    }
-
-    public void setDescripcionExamen(String descripcionExamen) {
-        this.descripcionExamen = descripcionExamen;
     }
 
     public Date getFxCreado() {
@@ -133,13 +127,36 @@ public class SicExamen implements Serializable {
         this.modifcadoPor = modifcadoPor;
     }
 
-    @XmlTransient
-    public List<SicExamenCita> getSicExamenCitaList() {
-        return sicExamenCitaList;
+    public String getResultado() {
+        return resultado;
     }
 
-    public void setSicExamenCitaList(List<SicExamenCita> sicExamenCitaList) {
-        this.sicExamenCitaList = sicExamenCitaList;
+    public void setResultado(String resultado) {
+        this.resultado = resultado;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public SicTipoExamen getFkSicTipoExamen() {
+        return fkSicTipoExamen;
+    }
+
+    public void setFkSicTipoExamen(SicTipoExamen fkSicTipoExamen) {
+        this.fkSicTipoExamen = fkSicTipoExamen;
+    }
+
+    public SicCitaMedica getFkSicCitaMedica() {
+        return fkSicCitaMedica;
+    }
+
+    public void setFkSicCitaMedica(SicCitaMedica fkSicCitaMedica) {
+        this.fkSicCitaMedica = fkSicCitaMedica;
     }
 
     @Override
