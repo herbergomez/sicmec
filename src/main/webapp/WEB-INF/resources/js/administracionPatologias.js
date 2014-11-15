@@ -69,7 +69,7 @@ $( document ).ready(function() {
         "scrollCollapse": false,
         "aoColumns": 
         	[
-        	 { "sWidth": "15%", "sClass": "center", "bSortable": false },
+        	 { "sWidth": "5%", "sClass": "center", "bSortable": false },
         	 { "sWidth": "10%" },
         	 { "sWidth": "15%" },
             ],
@@ -96,32 +96,31 @@ $( document ).ready(function() {
                     "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                 } ,
-                "fnDrawCallback": function( oSettings ) {
-                	                
-                	
+                "fnDrawCallback": function() {
+                	$(".onUpdatePatologia").click(function(){
+                		var id = $(this).data("id");
+                		
+                		$.ajax
+                		({
+                			type: "GET",
+                			url:"/sicmec/admin/patologias/getPatologia/"+id,
+                			success:function(result)
+                			{
+                				$("#idPatologiaUp").val(result.idSicPatologia);
+                				$("#nombrePatologiaUp").val(result.nombrePatologia);
+                				$("#descripcionPatologiaUp").val(result.descripcionPatologia);	
+                				//$("#modalUpdatePatologia").modal("show");
+                			},
+                			error: function (xhr, ajaxOptions, thrownError) 
+                			{
+                				alert("unable to find server..")
+                		    }
+                		});
+                	});                             	
                 },
             }   
 	});
-	$(".onUpdatePatologia").click(function(){
-		var id = $(this).data("id");
-		
-		$.ajax
-		({
-			type: "GET",
-			url:"/sicmec/admin/patologias/getPatologia/"+id,
-			success:function(result)
-			{
-				$("#idPatologiaUp").val(result.idSicPatologia);
-				$("#nombrePatologiaUp").val(result.nombrePatologia);
-				$("#descripcionPatologiaUp").val(result.descripcionPatologia);	
-				$("#modalUpdatePatologia").modal("show");
-			},
-			error: function (xhr, ajaxOptions, thrownError) 
-			{
-				alert("unable to find server..")
-		    }
-		});
-	});
+	
 	
 /**
  * TODO LO CONCERNIENTE A ADMINISTARCION DE TIPOS DE PATOLOGIAS
@@ -202,7 +201,7 @@ $( document ).ready(function() {
         "scrollCollapse": false,
         "aoColumns": 
         	[
-        	 { "sWidth": "15%", "sClass": "center", "bSortable": false },
+        	 { "sWidth": "5%", "sClass": "center", "bSortable": false },
         	 { "sWidth": "10%" },
         	 { "sWidth": "15%" },
         	 { "sWidth": "10%" },
@@ -230,32 +229,29 @@ $( document ).ready(function() {
                     "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                 } ,
-                "fnDrawCallback": function( oSettings ) {
-                	                
-                	
+                "fnDrawCallback": function() {
+                	$(".onUpdateTipoPatologia").click(function(){
+                		var id = $(this).data("id");
+                		
+                		$.ajax
+                		({
+                			type: "GET",
+                			url:"/sicmec/admin/patologias/getTipoPatologia/"+id,
+                			success:function(result)
+                			{
+                				$("#idTipoPatologiaUp").val(result.idSicTipoPatologia);
+                				$("#nombreTipoPatologiaUp").val(result.nombreTipoPatologia);
+                				$("#descripcionTipoPatologiaUp").val(result.descripcionTipoPatologia);	
+                				$("#patologiaUp").val(result.fkSicPatologia.idSicPatologia);
+                				//$("#modalUpdateTipoPatologia").modal("show");
+                			},
+                			error: function (xhr, ajaxOptions, thrownError) 
+                			{
+                				alert("unable to find server..")
+                		    }
+                		});
+                	});               	                           	
                 },
             }   
 	});
-	$(".onUpdateTipoPatologia").click(function(){
-		var id = $(this).data("id");
-		
-		$.ajax
-		({
-			type: "GET",
-			url:"/sicmec/admin/patologias/getTipoPatologia/"+id,
-			success:function(result)
-			{
-				$("#idTipoPatologiaUp").val(result.idSicTipoPatologia);
-				$("#nombreTipoPatologiaUp").val(result.nombreTipoPatologia);
-				$("#descripcionTipoPatologiaUp").val(result.descripcionTipoPatologia);	
-				$("#patologiaUp").val(result.fkSicPatologia.idSicPatologia);
-				$("#modalUpdateTipoPatologia").modal("show");
-			},
-			error: function (xhr, ajaxOptions, thrownError) 
-			{
-				alert("unable to find server..")
-		    }
-		});
-	});
-	
 });

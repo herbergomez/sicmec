@@ -2,7 +2,7 @@
  * 
  */
 
-$( document ).ready(function() {
+$( document ).ready(function() {	
 	$('#agregarPacienteForm').validate({
 		errorElement: "span",
 		rules: {
@@ -145,8 +145,8 @@ $( document ).ready(function() {
         	 { "sWidth": "5%" },
         	 { "sWidth": "10%" },
         	 { "sWidth": "10%" },
-        	 { "sWidth": "10%" },
-        	 { "sWidth": "5%" },
+        	 //{ "sWidth": "10%" },
+        	// { "sWidth": "5%" },
             ],
             language: {
                 "sProcessing":     "Procesando...",
@@ -170,166 +170,180 @@ $( document ).ready(function() {
                 "oAria": {
                     "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                } ,
-                "fnDrawCallback": function( oSettings ) {
-                	                
-                	
+                  } 
                 },
+                "fnDrawCallback": function() {
+                	$("#tblPaciente tbody" ).on('click', 'tr.clickRow',  function() {
+                		if ( $(this).hasClass('selected') ) {
+                            $(this).removeClass('selected');
+                        }
+                        else {
+                        	$('#tblPaciente').DataTable().$('tr.selected').removeClass('selected');
+                            $(this).addClass('selected');
+                        }		 
+                	});             	         
+                	$(".onUpdate").click(function(){
+                		var id = $(this).data("id");
+                		
+                		$.ajax
+                		({
+                			type: "GET",
+                			url:"/sicmec/admin/pacientes/getPaciente/"+id,
+                			success:function(result)
+                			{
+                				$("#idUp").val(result.idSicPaciente);
+                				$("#expedienteUp").val(result.numExpediente);
+                				$("#patologiaUp").val(result.fkSicTipoPatologia.idSicTipoPatologia);
+                				
+                				$("#nombresUp").val(result.fkSicPersona.nombre);
+                				$("#apellidosUp").val(result.fkSicPersona.apellido);
+                				$("#mailUp").val(result.fkSicPersona.email);
+                				$("#telefonoUp").val(result.telefonoPaciente);
+                				$("#duiUp").val(result.documentoIdentidad);
+                				var sexo=result.sexoPaciente;
+                				var val="";
+                				if (sexo=="M"){
+                					val="Masculino";
+                				} else {
+                					if (sexo=="F"){
+                						val="Femenino";
+                					}
+                				}
+                				$("#sexoUp").val(val);
+                				$("#estadoUp").val(result.fkSicEstadoPaciente.idSicEstadoPaciente);
+                				$("#direccionUp").val(result.direccionPaciente);
+                				$("#fnacimientoUp").val(result.fxNacimiento);
+                				
+                				var idMuni= result.fkSicMunicipio.idSicMunicipio;
+                				var idDepa= result.fkSicMunicipio.fkSicDepartamento.idSicDepartamento;
+                				var idPais= result.fkSicMunicipio.fkSicDepartamento.fkSicPais.idSicPais;
+                							
+                				getDepaByPais(idPais,idDepa);
+                				getMuniByDep(idDepa,idMuni);
+                				$("#paisUp").val(result.fkSicMunicipio.fkSicDepartamento.fkSicPais.idSicPais);		
+                				//DATOS DE REPONSABLE DEL PACIENTE.
+                				if(result.fkSicContactoPaciente!=null){
+                					$("#nomContactUp").val(result.fkSicContactoPaciente.nombreContacto);
+                					$("#apContactUp").val(result.fkSicContactoPaciente.apellidoContacto);
+                					$("#duiContactUp").val(result.fkSicContactoPaciente.dui);
+                					$("#telContactUp").val(result.fkSicContactoPaciente.telefono);
+                				} else {
+                					$("#nomContactUp").val("");
+                					$("#apContactUp").val("");
+                					$("#duiContactUp").val("");
+                					$("#telContactUp").val("");
+                				}
+                			},
+                			error: function (xhr, ajaxOptions, thrownError) 
+                			{
+                				alert("unable to find server..")
+                		    }
+                		});
+                	});
+                	$(".onDelete").click(function(){
+                		var id = $(this).data("id");
+                		
+                		$("#AreYouSureConfirm").attr("href","/sicmec/admin/pacientes/delPaciente/"+id);
+                		//$("#modalEliminarPaciente").modal('show');
+                		
+                	});
+                	$("#pais").change(function(){
+                		var id=$("#pais").val();
+                		$.ajax({
+                			type:"GET",
+                			url:"/sicmec/admin/pacientes/getDepartamentos/"+id,
+                			success:function(result)
+                			{
+                				$("#departamento option").remove();
+                				$("#municipio option").remove();
+                				
+                				for (var int = 0; int < result.length; int++) 
+                				{
+                					createDepaList(result[int]);
+                				}
+                			},
+                			error: function (xhr, ajaxOptions, thrownError) 
+                			{
+                				alert("unable to find server..");
+                				$("#departamento option").remove();
+                		    }
+                		});
+                	});
+                	$("#paisUp").change(function(){
+                		var id=$("#paisUp").val();
+                		$.ajax({
+                			type:"GET",
+                			url:"/sicmec/admin/pacientes/getDepartamentos/"+id,
+                			success:function(result)
+                			{
+                				$("#departamentoUp option").remove();
+                				$("#municipioUp option").remove();
+                				
+                				for (var int = 0; int < result.length; int++) 
+                				{				
+                					createDepaListUp(result[int]);
+                				}
+                			},
+                			error: function (xhr, ajaxOptions, thrownError) 
+                			{
+                				alert("unable to find server..");
+                				$("#departamentoUp option").remove();
+                		    }
+                		});
+                	});
+                	$("#departamento").change(function()
+                	{
+                		var id = $("#departamento").val();
+                		
+                		$.ajax
+                		({
+                			type: "GET",
+                			url:"/sicmec/admin/pacientes/getMunicipios/"+id,
+                			success:function(result)
+                			{	
+                				$("#municipio option").remove();
+                				
+                				for (var int = 0; int < result.length; int++) 
+                				{
+                					createMunList(result[int]);
+                				}
+                			},
+                			error: function (xhr, ajaxOptions, thrownError) 
+                			{
+                				alert("unable to find server..");
+                				$("#municipio option").remove();
+                		    }
+                		});
+                	});	
+                	$("#departamentoUp").change(function()
+                			{
+                				var id = $("#departamentoUp").val();
+                				$.ajax
+                				({
+                					type: "GET",
+                					url:"/sicmec/admin/pacientes/getMunicipios/"+id,
+                					success:function(result)
+                					{
+                						$("#municipioUp option").remove();
+                						
+                						for (var int = 0; int < result.length; int++) 
+                						{
+                							createMunListUp(result[int]);
+                						}
+                					},
+                					error: function (xhr, ajaxOptions, thrownError) 
+                					{
+                						alert("unable to find server..");
+                						$("#municipio option").remove();
+                				    }
+                				});
+                				
+                		});
             }   
 	});
+});
 
-$(".onUpdate").click(function(){
-	var id = $(this).data("id");
-	
-	$.ajax
-	({
-		type: "GET",
-		url:"/sicmec/admin/pacientes/getPaciente/"+id,
-		success:function(result)
-		{
-			$("#idUp").val(result.idSicPaciente);
-			$("#expedienteUp").val(result.numExpediente);
-			$("#patologiaUp").val(result.fkSicTipoPatologia.idSicTipoPatologia);
-			
-			$("#nombresUp").val(result.fkSicPersona.nombre);
-			$("#apellidosUp").val(result.fkSicPersona.apellido);
-			$("#mailUp").val(result.fkSicPersona.email);
-			$("#telefonoUp").val(result.telefonoPaciente);
-			$("#duiUp").val(result.documentoIdentidad);
-			var sexo=result.sexoPaciente;
-			var val="";
-			if (sexo=="M"){
-				val="Masculino";
-			} else {
-				if (sexo=="F"){
-					val="Femenino";
-				}
-			}
-			$("#sexoUp").val(val);
-			$("#estadoUp").val(result.fkSicEstadoPaciente.idSicEstadoPaciente);
-			$("#direccionUp").val(result.direccionPaciente);
-			$("#fnacimientoUp").val(result.fxNacimiento);
-			
-			var idMuni= result.fkSicMunicipio.idSicMunicipio;
-			var idDepa= result.fkSicMunicipio.fkSicDepartamento.idSicDepartamento;
-			var idPais= result.fkSicMunicipio.fkSicDepartamento.fkSicPais.idSicPais;
-						
-			getDepaByPais(idPais,idDepa);
-			getMuniByDep(idDepa,idMuni);
-			$("#paisUp").val(result.fkSicMunicipio.fkSicDepartamento.fkSicPais.idSicPais);		
-			//DATOS DE REPONSABLE DEL PACIENTE.
-			$("#nomContactUp").val(result.fkSicContactoPaciente.nombreContacto);
-			$("#apContactUp").val(result.fkSicContactoPaciente.apellidoContacto);
-			$("#duiContactUp").val(result.fkSicContactoPaciente.dui);
-			$("#telContactUp").val(result.fkSicContactoPaciente.telefono);
-			$("#modalUpdatePaciente").modal("show");
-		},
-		error: function (xhr, ajaxOptions, thrownError) 
-		{
-			alert("unable to find server..")
-	    }
-	});
-});
-$(".onDelete").click(function(){
-	var id = $(this).data("id");
-	
-	$("#AreYouSureConfirm").attr("href","/sicmec/admin/pacientes/delPaciente/"+id);
-	$("#modalEliminarPaciente").modal('show');
-	
-});
-$("#pais").change(function(){
-	var id=$("#pais").val();
-	$.ajax({
-		type:"GET",
-		url:"/sicmec/admin/pacientes/getDepartamentos/"+id,
-		success:function(result)
-		{
-			$("#departamento option").remove();
-			$("#municipio option").remove();
-			
-			for (var int = 0; int < result.length; int++) 
-			{
-				createDepaList(result[int]);
-			}
-		},
-		error: function (xhr, ajaxOptions, thrownError) 
-		{
-			alert("unable to find server..");
-			$("#departamento option").remove();
-	    }
-	});
-});
-$("#paisUp").change(function(){
-	var id=$("#paisUp").val();
-	$.ajax({
-		type:"GET",
-		url:"/sicmec/admin/pacientes/getDepartamentos/"+id,
-		success:function(result)
-		{
-			$("#departamentoUp option").remove();
-			$("#municipioUp option").remove();
-			
-			for (var int = 0; int < result.length; int++) 
-			{				
-				createDepaListUp(result[int]);
-			}
-		},
-		error: function (xhr, ajaxOptions, thrownError) 
-		{
-			alert("unable to find server..");
-			$("#departamentoUp option").remove();
-	    }
-	});
-});
-$("#departamento").change(function()
-{
-	var id = $("#departamento").val();
-	
-	$.ajax
-	({
-		type: "GET",
-		url:"/sicmec/admin/pacientes/getMunicipios/"+id,
-		success:function(result)
-		{	
-			$("#municipio option").remove();
-			
-			for (var int = 0; int < result.length; int++) 
-			{
-				createMunList(result[int]);
-			}
-		},
-		error: function (xhr, ajaxOptions, thrownError) 
-		{
-			alert("unable to find server..");
-			$("#municipio option").remove();
-	    }
-	});
-	
-});
-$("#departamentoUp").change(function()
-		{
-			var id = $("#departamentoUp").val();
-			$.ajax
-			({
-				type: "GET",
-				url:"/sicmec/admin/pacientes/getMunicipios/"+id,
-				success:function(result)
-				{
-					$("#municipioUp option").remove();
-					
-					for (var int = 0; int < result.length; int++) 
-					{
-						createMunListUp(result[int]);
-					}
-				},
-				error: function (xhr, ajaxOptions, thrownError) 
-				{
-					alert("unable to find server..");
-					$("#municipio option").remove();
-			    }
-			});
-			
-	});
+
 function createMunList(mun)
 {
 	var select = document.getElementById("municipio");
@@ -433,4 +447,3 @@ function onDeleteValidate()
 		$("#AreYouSureConfirm").removeClass("btn-primary");
 	}
 };
-});

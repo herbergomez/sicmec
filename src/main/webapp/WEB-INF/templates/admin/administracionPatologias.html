@@ -67,13 +67,13 @@
 							  <tr th:each="patologia : ${patologias}">
 							    <td>
 										<div class="btn-group">
-  											<button type="button" class="btn btn-default onDeletePatologia" 
+  											<!--<button type="button" class="btn btn-default onDeletePatologia" 
   											data-toggle="tooltip" data-placement="left" title="Inactivar Tipo de Patolog&iacute;a"
   											th:attr="data-id=${patologia.idSicPatologia}">
   												<i class="fa fa-trash-o"></i>
-  											</button>
-   											<button type="button" class="btn btn-default onUpdatePatologia" th:attr="data-id=${patologia.idSicPatologia}"
-   											data-toggle="tooltip" data-placement="left" title="Editar Patolog&iacute;a">   												
+  											</button>-->
+   											<button type="button" class="btn btn-default onUpdatePatologia" data-toggle="modal" data-target="#modalUpdatePatologia" th:attr="data-id=${patologia.idSicPatologia}"
+   											   data-placement="left" title="Editar Patolog&iacute;a">   												
    												<i class="fa fa-pencil-square-o"></i>
    											</button>
 										</div>
@@ -150,13 +150,13 @@
 							  <tr th:each="tipo : ${tiposPatologias}">
 							    <td>
 										<div class="btn-group">
-  											<button type="button" class="btn btn-default onDelete" 
+  											<!--<button type="button" class="btn btn-default onDelete" 
   											data-toggle="tooltip" data-placement="left" title="Inactivar Tipo de Patolog&iacute;a"
   											th:attr="data-id=${tipo.idSicTipoPatologia}">
   												<i class="fa fa-trash-o"></i>
-  											</button>
-   											<button type="button" class="btn btn-default onUpdateTipoPatologia" th:attr="data-id=${tipo.idSicTipoPatologia}"
-   											data-toggle="tooltip" data-placement="left" title="Editar Patolog&iacute;a">   												
+  											</button>-->
+   											<button type="button" class="btn btn-default onUpdateTipoPatologia" data-toggle="modal" data-target="#modalUpdateTipoPatologia" th:attr="data-id=${tipo.idSicTipoPatologia}"
+   											   data-placement="left" title="Editar Patolog&iacute;a">   												
    												<i class="fa fa-pencil-square-o"></i>
    											</button>
 										</div>

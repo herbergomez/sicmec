@@ -56,7 +56,7 @@
 				</div>
 				<div class="widget-content">
 					<div class="table-responsive">
-					  <table class="table table-hover table-striped table-bordered datatables">
+					  <table id="tblPaciente" class="table table-hover table-striped table-bordered datatables">
 					     <thead>
 								<tr class="head">
 									<th></th>
@@ -68,19 +68,19 @@
 									<th th:text="#{admin.pacientes.pais}"></th>
 									<th th:text="#{admin.pacientes.departamento}"></th>
 									<th th:text="#{admin.pacientes.municipio}"></th>
-									<th th:text="#{admin.pacientes.telefono}"></th>
+									<!-- <th th:text="#{admin.pacientes.telefono}"></th>
 									<th th:utext="#{admin.pacientes.sexo}"></th>
-
+									-->
 								</tr>	
 							</thead>
 							<tbody>
-							 <tr th:each="paciente : ${pacientes}">
+							 <tr th:each="paciente : ${pacientes}" class="clickRow">
 							       <td>
 										<div class="btn-group">
-  										    <button type="button" class="btn btn-default onDelete" th:attr="data-id=${paciente.idSicPaciente}">
+  										    <button type="button" class="btn btn-default onDelete" data-toggle="modal" data-target="#modalEliminarPaciente" th:attr="data-id=${paciente.idSicPaciente}">
   												<i class="fa fa-trash-o"></i>
   											</button>
-   											<button type="button" class="btn btn-default onUpdate" th:attr="data-id=${paciente.idSicPaciente}">
+   											<button type="button" class="btn btn-default onUpdate" data-toggle="modal" data-target="#modalUpdatePaciente" th:attr="data-id=${paciente.idSicPaciente}">
    												<i class="fa fa-pencil-square-o"></i>
    											</button>
    											<a class="btn btn-default" th:href="@{/admin/detallePaciente/}+${paciente.numExpediente}" target="_blank">
@@ -96,8 +96,9 @@
 								 <td th:text="${paciente.fkSicMunicipio.fkSicDepartamento.fkSicPais.nombrePais}"></td>		
 								 <td th:text="${paciente.fkSicMunicipio.fkSicDepartamento.nombreDepartamento}"></td>
 								 <td th:text="${paciente.fkSicMunicipio.nombreMunicipio}"></td>
-								 <td th:text="${paciente.telefonoPaciente}"></td>
+								<!-- <td th:text="${paciente.telefonoPaciente}"></td>
 								 <td th:text="${paciente.sexoPaciente}"></td>
+							 	-->
 							 </tr>
 							</tbody>
 					   </table>
@@ -139,7 +140,7 @@
         			<label for="estado" th:utext="#{admin.pacientes.patologia}"></label>
     				<select class="form-control" id="patologia" name="patologia" >
     					<option></option>
-    				  <option th:each="patologia:${patologias}" th:attr="data-id=${patologia.idSicTipoPatologia}"  th:value="${patologia.idSicTipoPatologia}" th:text="${patologia.nombreTipoPatologia}"></option>
+    				  <option th:each="patologia:${patologias}" th:attr="data-id=${patologia.idSicTipoPatologia}"  th:value="${patologia.idSicTipoPatologia}" th:text="${patologia.fkSicPatologia.nombrePatologia}+'-'+${patologia.nombreTipoPatologia}"></option>
     				</select>
         		  </div>
         		  </div>
@@ -279,7 +280,7 @@
         			<label for="estado" th:utext="#{admin.pacientes.patologia}"></label>
     				<select class="form-control" id="patologiaUp" name="patologiaUp" >
     					<option></option>
-    				  <option th:each="patologia:${patologias}" th:attr="data-id=${patologia.idSicTipoPatologia}"  th:value="${patologia.idSicTipoPatologia}" th:text="${patologia.nombreTipoPatologia}"></option>
+    				  <option th:each="patologia:${patologias}" th:attr="data-id=${patologia.idSicTipoPatologia}"  th:value="${patologia.idSicTipoPatologia}" th:text="${patologia.fkSicPatologia.nombrePatologia}+'-'+${patologia.nombreTipoPatologia}"></option>
     				</select>
         		  </div>
         		  </div>
