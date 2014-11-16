@@ -1,5 +1,5 @@
 /**
- * @autor pablo portillo
+* @autor pablo portillo
  * @fecha 10/11/2014
  */
 package com.uesocc.sicmec.controller;

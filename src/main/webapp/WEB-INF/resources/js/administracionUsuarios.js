@@ -4,6 +4,16 @@
 
 $( document ).ready(function() {
 	
+$('.onDelete , .onUpdate').qtip({
+//    content: {
+//        text: 'Inactivar usuario'
+//    },
+    style: 
+    {
+        classes: 'qtip-bootstrap qtip-shadow'
+    }
+});
+
 $('#agregarUsuarioForm').validate({
 		errorElement: "span",
 		rules: {

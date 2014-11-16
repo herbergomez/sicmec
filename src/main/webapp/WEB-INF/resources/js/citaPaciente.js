@@ -5,6 +5,8 @@
 
 $( document ).ready(function() 
 {
+
+	
 	$(".close").click(function(){
 		$(".alert").hide();
 	});
@@ -102,7 +104,8 @@ function agregarPaciente(paciente)
 	var tr = document.createElement("tr");
 	var tdbtn = document.createElement("td");
 	var a = document.createElement("a");
-		a.className="btn btn-sm btn-default";
+		a.className="btn btn-sm btn-default detail";
+		a.setAttribute("title","Ver detalle");
 		a.setAttribute("href","../admin/detallePaciente/"+paciente.numExpediente);
 		a.setAttribute("target","_blank");
 	var i = document.createElement("i");
@@ -128,5 +131,15 @@ function agregarPaciente(paciente)
 	tr.appendChild(tddui);
 	tr.appendChild(tdedad);
 	tbody.appendChild(tr);
+	
+	$('.detail').qtip({
+//	    content: {
+//	        text: 'Inactivar usuario'
+//	    },
+	    style: 
+	    {
+	        classes: 'qtip-bootstrap qtip-shadow'
+	    }
+	});
 	
 };
