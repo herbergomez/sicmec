@@ -51,6 +51,7 @@ public class ApplicationInitializer implements WebApplicationInitializer  {
 		dispatcher.addMapping("*.png");
 		dispatcher.addMapping("*.ico");
 		dispatcher.addMapping("*.js");
+		dispatcher.addMapping("*.jrxml");
 
 	
 	}

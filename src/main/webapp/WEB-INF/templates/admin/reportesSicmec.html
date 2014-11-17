@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/general :: headerFragment">
+	
+</head>
+<body>
+	<div th:replace="fragments/general :: navFragment"></div>
+
+	<div class="container" style="min-height: 600px; overflow: auto;">
+	<div class="row">
+		  <div class="col-md-12 col-xs-12">
+		     <div class="widget-box">
+		  	   <div class="widget-title">
+					<span class="icon">
+						<i class="fa fa-reportes"></i>
+					</span>
+					<h5 th:utext="#{admin.reportes.titulo}"></h5>
+				</div>
+				<div class="widget-content">
+					<div class="table-responsive">
+					  <table id="tblReportes" class="table table-hover table-striped table-bordered datatables">
+					     <thead>
+					        <tr class="head">
+							    <th th:text="#{admin.reportes.nombre}"></th>
+								<th th:text="#{admin.reportes.descripcion}"></th>
+							 </tr>
+					     </thead>
+					     <tbody>
+					      <tr>
+					        <td>
+							   <div class="btn-group"> 										   
+   									<a class="btn btn-default" th:href="@{/admin/reportes/parameters}" target="_blank">
+										<h2>Paciente Report</h2>
+									</a>											
+								 </div>
+							 </td>
+							  <td>
+							     <a class="btn btn-default" th:href="@{/parameters}" target="_blank">
+										<h2>Reporte que obtiene un listado de pacientes</h2>
+									</a>	
+							  </td>
+						    </tr>	
+					     </tbody>
+					  </table>
+					</div>
+				</div>
+		  </div>
+		 </div>
+	  </div>	
+	</div>
+</body>
+</html>
