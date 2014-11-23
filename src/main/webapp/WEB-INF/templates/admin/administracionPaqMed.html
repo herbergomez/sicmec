@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/general :: headerFragment">
+
+</head>
+<body>
+	<div th:replace="fragments/general :: navFragment"></div>
+
+	<div class="container" style="min-height: 600px; overflow: auto;">
+
+		<div class="row">
+			<div class="col-md-12 col-xs-12">
+				<button class="btn btn-primary" th:text="#{admin.paquetes.agregar}"
+					data-toggle="modal" data-target="#modalAgregarPaqMed">
+				</button>
+			</div>
+			<div class="col-md-12 col-xs-12">
+				<select multiple class="form-control">
+					<option th:each="onePaq : {$paqs}" th:value="${onePaq.id}" th:text="${onePaq.name}"></option>
+				</select>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12 col-xs-12">
+				<div th:if="${success}" class="alert alert-info alert-dismissible"
+					role="alert">
+					<button type="button" class="close" data-dismiss="alert">
+						<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+					</button>
+					<strong th:utext="#{general.alerta.atencion}"></strong>
+					<p th:utext="#{admin.usuarios.alertas.agregar.exito}"></p>
+				</div>
+				<div th:if="${upSuccess}" class="alert alert-info alert-dismissible"
+					role="alert">
+					<button type="button" class="close" data-dismiss="alert">
+						<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+					</button>
+					<strong th:utext="#{general.alerta.atencion}"></strong>
+					<p th:utext="#{admin.drugs.alertas.modificar.exito}"></p>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+	<!-- /.modal -->
+	<div class="modal fade" id="modalAgregarPaqMed" tabindex="-1"
+		role="dialog" aria-labelledby="modalAgregarPaqMed" aria-hidden="true">
+		<!-- /.modal-dialog -->
+		<div class="modal-dialog">
+			<!-- /.modal-content -->
+			<div class="modal-content">
+				<form id="agregarPaqMedForm"
+					th:action="@{/admin/drugs/addDrug}" method="post">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+						</button>
+						<h4 class="modal-title" th:text="#{admin.paquetes.addmodal.titulo}"></h4>
+					</div>
+					<div class="modal-body custom-modal-body" style="height: 200px;">
+						<div class="form-group">
+							<label for="nombre" th:text="#{admin.paquetes.nombre}"></label> <input
+								type="text" class="form-control" id="nombre" name="nombre"
+								th:placeholder="#{admin.paquetes.nombre}" />
+						</div>
+						<div class="form-group">
+							<label for="apellido" th:text="#{admin.paquetes.descripcion}"></label>
+							<input type="text" class="form-control" id="descripcion"
+								name="descripcion" th:placeholder="#{admin.paquetes.descripcion}" />
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal"
+							th:text="#{general.btn.cancelar}"></button>
+						<button type="submit" class="btn btn-primary"
+							th:text="#{general.btn.guardar}"></button>
+					</div>
+				</form>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
+	<!-- 
+<div class="modal fade" id="modalUpdateDrug" tabindex="-1" role="dialog" aria-labelledby="modalUpdateDrug" aria-hidden="true">
+  	<div class="modal-dialog">
+    	<div class="modal-content">
+    	<form th:action="@{/admin/usuarios/upUser}" method="post" >
+      			<div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        			<h4 class="modal-title" th:utext="#{admin.usuarios.upmodal.titulo}"></h4>
+      			</div>
+      		<div class="modal-body">
+      			<input type="text" id="id" name="id" style="display: none;"/>
+      			
+        		<div class="form-group">
+        			<label for="nombreUp" th:text="#{admin.usuarios.nombre}"></label>
+    				<input type="text" class="form-control" id="nombreUp" name="nombreUp" th:placeholder="#{admin.usuarios.nombre}" />
+        		</div>
+        		<div class="form-group">
+        			<label for="apellidoUp" th:text="#{admin.usuarios.apellido}"></label>
+    				<input type="text" class="form-control" id="apellidoUp" name="apellidoUp" th:placeholder="#{admin.usuarios.apellido}" />
+        		</div>
+        		<div class="form-group">
+        			<label for="mailUp" th:utext="#{admin.usuarios.mail}"></label>
+    				<input type="text" class="form-control" id="mailUp" name="mailUp" />
+        		</div>
+        		<div class="form-group">
+        			<label for="rol" th:utext="#{admin.usuarios.mail}"></label>
+    				<select class="form-control" id="rolUp" name="rolUp">
+    					<option th:each="rol:${roles}" th:value="${rol.idSicRol}" th:text="${rol.nombreRol}"></option>
+    				</select>
+        		<div class="form-group">
+        			<label for="fxAct" th:utext="#{admin.usuarios.fxAct}"></label>
+    				<input type="date" class="form-control" id="fxAct" name="fxAct"/>
+        		</div>
+        		<div class="form-group">
+        			<label for="fxDes" th:utext="#{admin.usuarios.fxDes}"></label>
+    				<input type="date" class="form-control" id="fxDes" name="fxDes"/>
+        		</div>
+        		
+        		</div>
+        		
+      		</div>
+      		<div class="modal-footer">
+        		<button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{general.btn.cancelar}"></button>
+        		<button type="submit" class="btn btn-primary" th:text="#{general.btn.guardar}"></button>
+      		</div>
+      		</form>
+    	</div> modal-content 
+  	</div>  modal-dialog 
+</div>  modal 
+ -->
+	<div th:replace="fragments/general :: footerFragment"></div>
+	<div th:replace="fragments/general :: jsFragment"></div>
+
+	<script type="text/javascript"
+		th:src="@{/resources/js/administracionMedicamentos.js}"></script>
+
+
+</body>
+</html>
