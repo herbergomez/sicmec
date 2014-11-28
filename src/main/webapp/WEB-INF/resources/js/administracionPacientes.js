@@ -25,6 +25,10 @@ $( document ).ready(function() {
 		   {
 			   required:true
 		   },
+		   fcreacion:
+		   {
+			   required:true 
+		   },
 		   patologia:{
 			   required:true
 		   },		   		   
@@ -86,6 +90,10 @@ $( document ).ready(function() {
 		   estadoUp:
 		   {
 		       required:true
+		   },
+		   fcreacionUp:
+		   {
+			   required:true 
 		   },
 		   patologiaUp:{
 		       required:true
@@ -173,15 +181,15 @@ $( document ).ready(function() {
                   } 
                 },
                 "fnDrawCallback": function() {
-                	$("#tblPaciente tbody" ).on('click', 'tr.clickRow',  function() {
-                		if ( $(this).hasClass('selected') ) {
-                            $(this).removeClass('selected');
-                        }
-                        else {
-                        	$('#tblPaciente').DataTable().$('tr.selected').removeClass('selected');
-                            $(this).addClass('selected');
-                        }		 
-                	});             	         
+                	//$("#tblPaciente tbody" ).on('click', 'tr.clickRow',  function() {
+                //		if ( $(this).hasClass('selected') ) {
+                        //    $(this).removeClass('selected');
+                       // }
+                       // else {
+                      //  	$('#tblPaciente').DataTable().$('tr.selected').removeClass('selected');
+                    //        $(this).addClass('selected');
+                  //      }		 
+                //	});             	         
                 	$(".onUpdate").click(function(){
                 		var id = $(this).data("id");
                 		
@@ -213,7 +221,7 @@ $( document ).ready(function() {
                 				$("#estadoUp").val(result.fkSicEstadoPaciente.idSicEstadoPaciente);
                 				$("#direccionUp").val(result.direccionPaciente);
                 				$("#fnacimientoUp").val(result.fxNacimiento);
-                				
+                				$("#fcreacionUp").val(result.fxCreacion);
                 				var idMuni= result.fkSicMunicipio.idSicMunicipio;
                 				var idDepa= result.fkSicMunicipio.fkSicDepartamento.idSicDepartamento;
                 				var idPais= result.fkSicMunicipio.fkSicDepartamento.fkSicPais.idSicPais;
