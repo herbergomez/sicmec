@@ -82,6 +82,7 @@ public class SicAdministracionPacientesController {
 			@RequestParam(value="mail")String mail,
 			@RequestParam(value="telefono")String telefono,
 			@RequestParam(value="fnacimiento")String fechaNacimiento,
+			@RequestParam(value="fcreacion")String fechaRegistro,
 			//Datos de Responsable de Paciente
 			@RequestParam(value="nomContact")String nomContact,
 			@RequestParam(value="apContact")String apContact,
@@ -109,6 +110,7 @@ public class SicAdministracionPacientesController {
 		paciente.setTelefonoPaciente(telefono);
 		paciente.setFxNacimiento(fechaNacimiento);
 		paciente.setDocumentoIdentidad(dui);
+		paciente.setFxCreacion(fechaRegistro);
 		paciente.setFkSicEstadoPaciente(sicEstadoPacienteServiceImpl.findOneByDescripcion("Activo"));
 		paciente.setFkSicPersona(sicPersonaServiceImpl.insert(persona));					
 		paciente.setFkSicMunicipio(sicMunicipioServiceImpl.findById(idmunicipio));
@@ -146,6 +148,7 @@ public class SicAdministracionPacientesController {
 			@RequestParam(value="mailUp")String mail,
 			@RequestParam(value="telefonoUp")String telefono,
 			@RequestParam(value="fnacimientoUp")String fechaNacimiento,
+			@RequestParam(value="fcreacionUp")String fechaRegistro,
 			//Datos de Responsable de Paciente
 			@RequestParam(value="nomContactUp")String nomContact,
 			@RequestParam(value="apContactUp")String apContact,
@@ -173,7 +176,7 @@ public class SicAdministracionPacientesController {
 			pac_search.setSexoPaciente(sex);
 			pac_search.setTelefonoPaciente(telefono);
 			pac_search.setFxNacimiento(fechaNacimiento);
-	
+			pac_search.setFxCreacion(fechaRegistro);
 		    pac_search.setFkSicPersona(sicPersonaServiceImpl.insert(per_search));
 			pac_search.setFkSicMunicipio(sicMunicipioServiceImpl.findById(idmunicipio));
 			pac_search.setFkSicTipoPatologia(sicTipoPatologiaServiceImpl.findById(idPatologia));	
@@ -198,14 +201,14 @@ public class SicAdministracionPacientesController {
 					contacto.setDui(duiContact);
 					contacto.setTelefono(telContact);
 					pac_search.setFkSicContactoPaciente(sicContactoPacienteServiceImpl.insert(contacto));
-				}
-				  LOGGER.info(pac_search);
-				  sicPacienteServiceImpl.insert(pac_search);
-				  redirectAttributes.addFlashAttribute("Upsuccess",true);	
+				}				  
 			   }
 		   } else {
 			LOGGER.info("Error al actualizar paciente");
 		  }		
+			LOGGER.info(pac_search);
+		    sicPacienteServiceImpl.insert(pac_search);
+		    redirectAttributes.addFlashAttribute("upSuccess",true);	
 	     }
 		return "redirect:/admin/pacientes";
 	}

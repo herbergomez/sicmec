@@ -33,7 +33,7 @@
   						<span class="sr-only">Close</span>
   					</button>
   					<strong th:utext="#{general.alerta.atencion}"></strong>
-  					<p th:utext="#{admin.pacientes.alertas.modificar.exito}"></p>
+  					<p th:utext="#{admin.pacientes.alertas.update.exito}"></p>
 		   </div>
 		   <div th:if="${deleteSuccess}" class="alert alert-info alert-dismissible" role="alert">
   					<button type="button" class="close" data-dismiss="alert">
@@ -74,7 +74,7 @@
 								</tr>	
 							</thead>
 							<tbody>
-							 <tr th:each="paciente : ${pacientes}" class="clickRow">
+							 <tr th:each="paciente : ${pacientes}">
 							       <td>
 										<div class="btn-group">
   										    <button type="button" class="btn btn-default onDelete" data-toggle="modal" data-target="#modalEliminarPaciente" th:attr="data-id=${paciente.idSicPaciente}">
@@ -120,13 +120,13 @@
       			<div class="modal-body">
       			<div class="form-group">       		        		       		
         		 <div class="row">
-		          <div class="col-md-4 col-xs-1">
+		          <div class="col-md-5 col-xs-1">
 		            <div class="form-group">
         			  <label for="expediente" th:text="#{admin.pacientes.expediente}"></label>
     				  <input type="text" class="form-control" id="expediente" name="expediente" th:placeholder="#{admin.pacientes.expediente}" />
         		  	</div>
         		  </div>
-        		  <div class="col-md-4 col-xs-1">
+        		  <div class="col-md-5">
         			<div class="form-group">
         			<label for="estado" th:utext="#{admin.pacientes.estado}"></label>
     				<select class="form-control" id="estado" name="estado" >
@@ -135,15 +135,25 @@
     				</select>
         		  </div>
         		  </div>
-        		  <div class="col-md-4">
-        			<div class="form-group">
-        			<label for="estado" th:utext="#{admin.pacientes.patologia}"></label>
-    				<select class="form-control" id="patologia" name="patologia" >
-    					<option></option>
-    				  <option th:each="patologia:${patologias}" th:attr="data-id=${patologia.idSicTipoPatologia}"  th:value="${patologia.idSicTipoPatologia}" th:text="${patologia.fkSicPatologia.nombrePatologia}+'-'+${patologia.nombreTipoPatologia}"></option>
-    				</select>
-        		  </div>
-        		  </div>
+        		</div>
+        		</div>
+        		<div class="form-group">  
+        		<div class="row">
+        			<div class="col-md-5 col-xs-1">
+        			  <div class="form-group">
+        			    <label for="patologia" th:utext="#{admin.pacientes.patologia}"></label>
+    				    <select class="form-control" id="patologia" name="patologia" >
+    					   <option></option>
+    				       <option th:each="patologia:${patologias}" th:attr="data-id=${patologia.idSicTipoPatologia}"  th:value="${patologia.idSicTipoPatologia}" th:text="${patologia.fkSicPatologia.nombrePatologia}+'-'+${patologia.nombreTipoPatologia}"></option>
+    				    </select>
+        		     </div>
+        			</div>
+        			<div class="col-md-5">
+        			   <div class="form-group">
+        			     <label for="fcreacion" th:text="#{admin.pacientes.fcreacion}"></label>
+    				     <input type="date" class="form-control" id="fcreacion" name="fcreacion" th:placeholder="#{admin.pacientes.fcreacion}" />
+        		      </div>
+        			</div>
         		</div>
         		</div>
         		<div class="form-group">
@@ -260,13 +270,13 @@
       			<input type="text" id="idUp" name="idUp" style="display: none;"/>
       			<div class="form-group">       		        		       		
         		 <div class="row">
-		          <div class="col-md-4 col-xs-1">
+		          <div class="col-md-5 col-xs-1">
 		            <div class="form-group">
         			  <label for="expedienteUp" th:text="#{admin.pacientes.expediente}"></label>
     				  <input type="text" disabled="disabled" class="form-control" id="expedienteUp" name="expedienteUp" th:placeholder="#{admin.pacientes.expediente}" />
         		  	</div>
         		  </div>
-        		  <div class="col-md-4 col-xs-1">
+        		  <div class="col-md-5">
         			<div class="form-group">
         			<label for="estado" th:utext="#{admin.pacientes.estado}"></label>
     				<select class="form-control" id="estadoUp" name="estadoUp" >
@@ -275,16 +285,24 @@
     				</select>
         		  </div>
         		  </div>
-        		  <div class="col-md-4">
-        			<div class="form-group">
-        			<label for="estado" th:utext="#{admin.pacientes.patologia}"></label>
-    				<select class="form-control" id="patologiaUp" name="patologiaUp" >
-    					<option></option>
-    				  <option th:each="patologia:${patologias}" th:attr="data-id=${patologia.idSicTipoPatologia}"  th:value="${patologia.idSicTipoPatologia}" th:text="${patologia.fkSicPatologia.nombrePatologia}+'-'+${patologia.nombreTipoPatologia}"></option>
-    				</select>
-        		  </div>
-        		  </div>
         		</div>
+        		</div>
+        		<div class="row">
+        			<div class="col-md-5 col-xs-1">
+        			  <div class="form-group">
+        			    <label for="patologiasUp" th:utext="#{admin.pacientes.patologia}"></label>
+    				    <select class="form-control" id="patologiaUp" name="patologiaUp" >
+    					   <option></option>
+    				       <option th:each="patologia:${patologias}" th:attr="data-id=${patologia.idSicTipoPatologia}"  th:value="${patologia.idSicTipoPatologia}" th:text="${patologia.fkSicPatologia.nombrePatologia}+'-'+${patologia.nombreTipoPatologia}"></option>
+    				    </select>
+        		     </div>
+        			</div>
+        			<div class="col-md-5">
+        			   <div class="form-group">
+        			   <label for="fcreacion" th:text="#{admin.pacientes.fcreacion}"></label>
+    				   <input type="date" class="form-control" id="fcreacionUp" name="fcreacionUp" th:placeholder="#{admin.pacientes.fcreacion}" />
+        		      </div>
+        			</div>
         		</div>
         		<div class="form-group">
         			<label for="nombresUp" th:text="#{admin.pacientes.nombres}"></label>

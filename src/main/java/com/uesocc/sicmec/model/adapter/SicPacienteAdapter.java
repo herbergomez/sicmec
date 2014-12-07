@@ -33,6 +33,7 @@ public class SicPacienteAdapter implements
 		entidad.setSexoPaciente((obj.getSexoPaciente()!=null)?SicDataTypeFormat.toStringValue(obj.getSexoPaciente()):"");
 		entidad.setFxNacimiento((obj.getFxNacimiento()!=null)?SicDataTypeFormat.toDateValue(obj.getFxNacimiento()):new Date());
 		entidad.setDuiPaciente((obj.getDocumentoIdentidad()!=null)?SicDataTypeFormat.toStringValue(obj.getDocumentoIdentidad()):"");
+		entidad.setFxCreacion((obj.getFxCreacion()!=null)?SicDataTypeFormat.toDateValue(obj.getFxCreacion()):new Date());
 		entidad.setFkSicTipoPatologia(adptp.dtoToEntity(obj.getFkSicTipoPatologia()));
 		entidad.setFkSicPersona(adp.dtoToEntity(obj.getFkSicPersona()));
 		entidad.setFkSicMunicipio(adpm.dtoToEntity(obj.getFkSicMunicipio()));
@@ -60,6 +61,7 @@ public class SicPacienteAdapter implements
 		dto.setFxNacimiento((obj.getFxNacimiento()!=null) ? normalFormat.format(obj.getFxNacimiento()):normalFormat.format(new Date()));
 		dto.setDocumentoIdentidad((obj.getDuiPaciente()!=null)?SicDataTypeFormat.toStringValue(obj.getDuiPaciente()):"");
 		dto.setEdad((obj.getEdad()!=null)?SicDataTypeFormat.toStringValue(obj.getEdad().toString()):"");
+		dto.setFxCreacion((obj.getFxCreacion()!=null)?normalFormat.format(obj.getFxCreacion()):normalFormat.format(new Date()));
 		dto.setFkSicTipoPatologia(adptp.entityToDto(obj.getFkSicTipoPatologia()));
 		dto.setFkSicPersona(adp.entityToDto(obj.getFkSicPersona()));
 		dto.setFkSicMunicipio(adpm.entityToDto(obj.getFkSicMunicipio()));

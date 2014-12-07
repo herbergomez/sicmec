@@ -25,6 +25,7 @@ public class SicPacienteDto implements Serializable{
     private SicMunicipioDto fkSicMunicipio;
     private String documentoIdentidad;
     private String edad;
+    private String fxCreacion;
     private SicEstadoPacienteDto fkSicEstadoPaciente;
     private SicContactoPacienteDto fkSicContactoPaciente;
     private SicTipoPatologiaDto fkSicTipoPatologia;
@@ -188,6 +189,20 @@ public class SicPacienteDto implements Serializable{
 	public void setEdad(String edad) {
 		this.edad = edad;
 	}
+	
+	
+	/**
+	 * @return the fxCreacion
+	 */
+	public String getFxCreacion() {
+		return fxCreacion;
+	}
+	/**
+	 * @param fxCreacion the fxCreacion to set
+	 */
+	public void setFxCreacion(String fxCreacion) {
+		this.fxCreacion = fxCreacion;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -200,9 +215,11 @@ public class SicPacienteDto implements Serializable{
 				+ fxNacimiento + ", fkSicPersona=" + fkSicPersona
 				+ ", fkSicMunicipio=" + fkSicMunicipio
 				+ ", documentoIdentidad=" + documentoIdentidad + ", edad="
-				+ edad + ", fkSicEstadoPaciente=" + fkSicEstadoPaciente
+				+ edad + ", fxCreacion=" + fxCreacion
+				+ ", fkSicEstadoPaciente=" + fkSicEstadoPaciente
 				+ ", fkSicContactoPaciente=" + fkSicContactoPaciente
 				+ ", fkSicTipoPatologia=" + fkSicTipoPatologia + "]";
 	}
+	
 	    
 }
