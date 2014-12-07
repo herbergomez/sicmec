@@ -5,14 +5,130 @@
 
 $( document ).ready(function() 
 {
-
+	$('#nuevaCitaForm').validate({
+ 		errorElement: "span",
+ 		rules: {
+ 			diagnostico:
+ 		    {
+ 				required: true
+ 		    },
+ 		    comentario:
+ 			{
+ 			   	required: true
+ 			},
+ 			tratamiento:
+ 			{
+ 				required: true
+ 			},
+ 			dosis:
+ 			{
+ 				required: true
+ 			},
+ 			periodisidad:
+ 			{
+ 				required: true
+ 			}	
+ 		    },
+ 		messages : {
+ 			diagnostico:
+ 		    {
+ 				required: "Este campo es obligatorio"
+ 		    },
+ 		    comentario:
+ 			{
+ 			   	required: "Este campo es obligatorio"
+ 			},
+ 			tratamiento:
+ 			{
+ 				required: "Este campo es obligatorio"
+ 			},
+ 			dosis:
+ 			{
+ 				required: "Este campo es obligatorio"
+ 			},
+ 			periodisidad:
+ 			{
+ 				required: "Este campo es obligatorio"
+ 			}
+        },
+ 		highlight: function(element) {
+ 			$(element).closest('.form-group')
+ 			.removeClass('has-success').addClass('has-error');
+ 		},
+ 		success: function(element) {
+ 			element.addClass('help-inline')
+ 			.closest('.form-group')
+ 			.removeClass('has-error').addClass('has-success');
+ 		},
+ 		submitHandler: function()
+ 		{
+ 			if($("#pacTable tbody tr.selected").length == 1)
+ 			{
+ 				var paciente = $("#pacTable tbody tr.selected").data("id");
+ 				var diagnostico = $("#diagnostico").val();
+ 				var comentario = $("#comentario").val();
+ 				var tratamiento = $("#tratamiento").val();
+ 				var dosis = $("#dosis").val();
+ 				var periodisidad = $("#periodisidad").val();
+ 				
+ 				$.ajax({
+ 	 		 	    type: "POST",
+ 	 		 		url: "/sicmec/control/cita/guardarCita",	
+ 	 		 		data : ({diag:diagnostico,cmt:comentario,paqMed:tratamiento,dosis:dosis,per:periodisidad,pac:paciente}),
+ 	 		 	    success: function(data)
+ 	 		 	    	{
+ 	 		 	    		if(data == "ok")
+ 	 		 	    			{
+ 	 		 	    				$("#modalNuevaCita").modal('hide');
+ 	 		 	    				historialPaciente(paciente);
+ 	 		 	    			}
+ 	 					},
+ 	 						
+ 	 				error: function(e)
+ 	 					{
+ 	 					
+ 	 					}
+ 	 		 	    });
+ 			}		
+ 		}
+ 		 
+ 	});
+	 
+		$('#pacTable tbody').on( 'click', 'tr', function () {
+		     if(!$(this).find("td").hasClass("dataTables_empty"))
+		     {
+		        if ($(this).hasClass('selected')) 
+		        {
+		            $(this).removeClass('selected');
+		            $("#citaTab").hide();
+		            $("#controlTab").hide();
+		        }
+		        else 
+		        {
+		            $('#pacTable tbody tr.selected').removeClass('selected');
+		            
+		            var id=$(this).data("id");
+		            //alert(id);
+		            historialPaciente(id);
+		            $(this).addClass('selected');
+		            //alert($("#pacTable tbody tr.selected").data("id"));
+		            
+		            $("#citaTab").show();
+		            $("#controlTab").show();
+		            
+		         }
+		     }
+		    });
 	
 	$(".close").click(function(){
 		$(".alert").hide();
 	});
 	
-	$("#buscar").click(function(){
-		  var exp = $("#exp").val();
+	$("#buscar").click(function()
+	{
+		$("#citaTab").hide();
+        $("#controlTab").hide();
+		var exp = $("#exp").val();
 			if(exp != '' && exp != "")
 			{
 				cargandoTabla();
@@ -38,19 +154,49 @@ function ajaxCall(exp)
  		data : ({exp:exp}),
  	    success: function(data)
  	    	{
- 	    		if(data.length != 0)
- 	    		{
  	    			$("#tablaPacientes tr").remove();
  	    			
  	    			for (var int = 0; int < data.length; int++) 
  	 	    		{
  	    				agregarPaciente(data[int]);
  					}
- 	    		}
- 	    		else
- 	    		{
- 	    			ceroResultados();
- 	    		}
+ 	    			
+ 	    			$('#pacTable').dataTable().fnDestroy();
+ 	    			
+ 	    		    var table1 = $('#pacTable').dataTable({
+ 	    				"aLengthMenu": [[5],[5]],
+ 	    				"sPaginationType": "full_numbers",
+ 	    				"bLengthChange": false,
+ 	    				bInfo: false,
+ 	    				bDestroy: true,
+ 	    			    "bFilter": false,
+ 	    				"autoWidth": true,
+ 	    		    	"oSearch": {"sSearch": " "},
+ 	    		    	"oLanguage": {
+ 	    		    		"sProcessing":     "Procesando...",
+ 	    		    	    "sLengthMenu":     "Mostrar _MENU_ registros",
+ 	    		    	    "sZeroRecords":    "No se encontraron resultados",
+ 	    		    	    "sEmptyTable":     "No hay datos disponibles",
+ 	    		    	    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+ 	    		    	    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+ 	    		    	    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+ 	    		    	    "sInfoPostFix":    "",
+ 	    		    	    "sSearch":         " Buscar:",
+ 	    		    	    "sUrl":            "",
+ 	    		    	    "sInfoThousands":  ",",
+ 	    		    	    "sLoadingRecords": "Cargando...",
+ 	    		    	    "oPaginate": {
+ 	    		    	        "sFirst":    "Primero",
+ 	    		    	        "sLast":     "\u00DAltimo",
+ 	    		    	        "sNext":     "Siguiente",
+ 	    		    	        "sPrevious": "Anterior"
+ 	    		    	    },
+ 	    		    	    "oAria": {
+ 	    		    	        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+ 	    		    	        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+ 	    		    	    }
+ 	    				}
+ 	    		    });
  	    		
  	    		
 			},
@@ -102,6 +248,7 @@ function agregarPaciente(paciente)
 {
 	var tbody = document.getElementById("tablaPacientes");
 	var tr = document.createElement("tr");
+	tr.setAttribute("data-id",paciente.idSicPaciente);
 	var tdbtn = document.createElement("td");
 	var a = document.createElement("a");
 		a.className="btn btn-sm btn-default detail";
@@ -142,4 +289,54 @@ function agregarPaciente(paciente)
 	    }
 	});
 	
+};
+
+
+function historialPaciente(id)
+{
+	$("#historial div").remove();
+	
+	var historial = "";
+	
+	$.ajax({
+ 	    type: "POST",
+ 		url: "/sicmec/control/cita/historialPac",	
+ 		data : ({pac:id}),
+ 	    success: function(data)
+ 	    	{
+ 	    		for (var int = 0; int < data.length; int++) 
+ 	    		{
+					historial = historial 
+					+ "<div class='panel panel-primary'>" 
+					+  "<div class='panel-heading' role='tab' id=title_'"+int+"'>" 
+					+	"<h4 class='panel-title'>" 
+					+    "<a data-toggle='collapse' data-parent='#historial' href='#body"+id+"' aria-expanded='false' aria-controls='body"+int+"'>" 
+					+	 data[int].fkSicCitaMedica.fxCitaMedica+", Doctor: "
+					//+    data[int].fkSicCitaMedica.fkSicUsuario.SicPersona.nombre+", "+data[int].fkSicCitaMedica.fkSicUsuario.SicPersona.apellido 
+					+    "</a></h4></div>" 
+					+	"<div id='body"+int+"' class='panel-collapse collapse in' role='tabpanel' aria-labelledby='body"+int+"'>" 
+					+	 "<div class='panel-body'>" 
+					+    "<div class='col-md-6'>"
+					+    "<label>Fecha de cita: "+data[int].fkSicCitaMedica.fxCitaMedica+"</label>"
+					+    "<label>Diagnostico: "+data[int].fkSicCitaMedica.diagnostico+"</label>"
+					+    "<label>Comentario: "+data[int].fkSicCitaMedica.comentario+"</label>"
+					+	 "</div>" 
+					+    "<div class='col-md-6'>"
+					+    "<label>Tratamiento: "+data[int].fkSicCatMedicamentos.name+"</label>"
+					+    "<label>Dosis: "+data[int].fkSicCatMedicamentos.dosis+"</label>"
+					+    "<label>Periodisidad: "+data[int].periodisidad+"</label>"
+					+	 "</div>" 
+					+	"</div></div></div>";
+				}
+ 	    		
+ 	    		$("#historial").html(historial);
+ 	    		
+			},
+				
+		error: function(e)
+			{
+				$(".alert").hide();
+				$("#alertaError").show();
+			}
+ 	    });
 };

@@ -3,14 +3,11 @@ package com.uesocc.sicmec.model.serviceImpl;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.uesocc.sicmec.model.adapter.SicPaqMedAdapter;
 import com.uesocc.sicmec.model.dto.SicPaqMedDto;
 import com.uesocc.sicmec.model.entity.SicCatMedicamentos;
-import com.uesocc.sicmec.model.repository.SicDrugRepository;
 import com.uesocc.sicmec.model.repository.SicPaqMedRepository;
 import com.uesocc.sicmec.model.service.SicPaqMedService;
 
@@ -70,7 +67,7 @@ public class SicPaqMedServiceImpl implements SicPaqMedService{
 			paqMedDto.add( paqMedAdapter.entityToDto(onePaq) );
 		}
 		
-		return null;
+		return paqMedDto;
 	}
 
 

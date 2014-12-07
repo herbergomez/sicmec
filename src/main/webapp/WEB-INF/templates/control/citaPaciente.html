@@ -34,14 +34,14 @@
 				<div class="widget-content">
 					<ul class="nav nav-tabs" role="tablist">
   						<li role="presentation" class="active"><a href="#infoPaciente" role="tab" data-toggle="tab">Busqueda de pacientes</a></li>
-  						<li role="presentation"><a href="#controlCita" role="tab" data-toggle="tab" th:text="#{control.paciente.control}"></a></li>
-  						<li role="presentation"><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
+  						<li role="presentation" id="citaTab" style="display: none;"><a href="#controlCita" role="tab" data-toggle="tab" th:text="#{control.paciente.control}"></a></li>
+  						<li role="presentation" id="controlTab" style="display: none;"><a href="#historico" role="tab" data-toggle="tab">Historico</a></li>
 					</ul>
 				<div class="tab-content">
 					<div id="infoPaciente" role="tabpanel" class="tab-pane fade in active">
 						<div class="row" style="margin-top: 1%;">
 							<div class="col-md-12 col-xs-12">
-								<div id="buscarExp" class="form-inline" method="post">
+								<div id="buscarExp" class="form-inline" method="post" style="padding-bottom: 2%;">
 									<div class="form-group">
     									<div class="input-group">
       										<div class="input-group-addon">
@@ -56,7 +56,7 @@
 							</div>
 						</div>
 						<div class="table-responsive">
-					  	<table class="table table-hover table-striped table-bordered">
+					  	<table id="pacTable" class="table table-bordered" style="cursor: pointer;">
 					    	 <thead>
 									<tr class="head">
 										<th></th>
@@ -77,7 +77,7 @@
 						<div class="container" style="padding-top: 1%;">
 							<button type="button" class="btn btn-primary" th:text="#{control.paciente.nuevaCita}"
 							 data-toggle="modal" data-target="#modalNuevaCita"></button>
-							<div id="historial">
+							<div id="historial" class="panel-group" role="tablist" aria-multiselectable="true" style="padding-top: 2%; padding-right: 5%;">
 							</div>
 						</div>
 					</div>
@@ -93,11 +93,12 @@
     <div th:replace="fragments/general :: footerFragment"></div>
 	<div th:replace="fragments/general :: jsFragment"></div>
 
-<script type="text/javascript" th:src="@{/resources/js/citaPaciente.js}"></script>
+
 
 <div class="modal fade" id="modalNuevaCita" tabindex="-1" role="dialog" aria-labelledby="NuevaCita" >
   <div class="modal-dialog">
     <div class="modal-content">
+    <form id="nuevaCitaForm">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title" th:text="#{control.paciente.citaTitulo}" style="font-style: normal;color: blue;"></h4>
@@ -121,6 +122,7 @@
         <div class="form-group">
         	<label for="tratamiento" th:utext="#{control.paciente.tratamiento}"></label>
     		<select class="form-control" id="tratamiento" name="tratamiento">
+    			<option th:each="paqMed : ${paqMedList}" th:text="${paqMed.name}" th:value="${paqMed.idPaq}"></option>
     		</select>
         </div>
         <div class="form-group">
@@ -140,8 +142,9 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{general.btn.cancelar}"></button>
-        <button type="button" class="btn btn-primary" th:text="#{general.btn.guardar}"></button>
+        <button type="submit" class="btn btn-primary" th:text="#{general.btn.guardar}"></button>
       </div>
+      </form>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -175,6 +178,8 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<script type="text/javascript" th:src="@{/resources/js/citaPaciente.js}"></script>
 
 </body>
 </html>
