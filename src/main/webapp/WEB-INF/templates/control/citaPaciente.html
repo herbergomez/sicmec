@@ -7,7 +7,7 @@
 <body>
 	<div th:replace="fragments/general :: navFragment"></div>
 	
-	<div class="container" style="min-height: 600px; overflow: auto;">
+	<div class="container" style="min-height: 600px; height: auto;">
 		<div class="row">
 		
 			<div id="alertaError" class="alert alert-danger alert-dismissible" role="alert" style="display: none;">
@@ -133,10 +133,10 @@
       	 <div class="form-group">
         	<label for="periodisidad" th:utext="#{control.paciente.periodisidad}"></label>
     		<select class="form-control" id="periodisidad" name="periodisidad">
-    			<option value="#{control.paciente.periodisidad.value0}" th:text="#{control.paciente.periodisidad.value0}"></option>
-    			<option value="#{control.paciente.periodisidad.value1}" th:text="#{control.paciente.periodisidad.value1}"></option>
-    			<option value="#{control.paciente.periodisidad.value2}" th:text="#{control.paciente.periodisidad.value2}"></option>
-    			<option value="#{control.paciente.periodisidad.value3}" th:text="#{control.paciente.periodisidad.value3}"></option>
+    			<option th:value="#{control.paciente.periodisidad.value0}" th:text="#{control.paciente.periodisidad.value0}"></option>
+    			<option th:value="#{control.paciente.periodisidad.value1}" th:text="#{control.paciente.periodisidad.value1}"></option>
+    			<option th:value="#{control.paciente.periodisidad.value2}" th:text="#{control.paciente.periodisidad.value2}"></option>
+    			<option th:value="#{control.paciente.periodisidad.value3}" th:text="#{control.paciente.periodisidad.value3}"></option>
     		</select>
         </div>
       </div>

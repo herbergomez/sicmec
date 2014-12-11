@@ -11,6 +11,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -66,7 +68,9 @@ public class SicCitaController
 	@RequestMapping(value="/historialPac",method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<SicTratamientoDto> getHistoryOfPac(@RequestParam(value="pac")int pac)
 	{
-		return sicTratamientoServiceImpl.findAllBySicPaciente(pac);
+		Pageable pageable = new PageRequest(0,20);
+		
+		return sicTratamientoServiceImpl.findAllBySicPaciente(pac,pageable);
 	}
 	
 	@RequestMapping(value="/guardarCita",method=RequestMethod.POST)

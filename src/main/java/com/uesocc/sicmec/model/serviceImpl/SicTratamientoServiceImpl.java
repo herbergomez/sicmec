@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.uesocc.sicmec.model.adapter.SicTratamientoAdapter;
@@ -101,11 +102,11 @@ public class SicTratamientoServiceImpl implements SicTratamientoService {
 	}
 
 	@Override
-	public List<SicTratamientoDto> findAllBySicPaciente(int pac) {
+	public List<SicTratamientoDto> findAllBySicPaciente(int pac,Pageable pageable) {
 		// TODO Auto-generated method stub
 		
 		SicTratamientoAdapter adp = new SicTratamientoAdapter();
-		List<SicTratamiento> list = sicTratamientoRepository.findAllBySicPaciente(pac);
+		List<SicTratamiento> list = sicTratamientoRepository.findAllBySicPaciente(pac,pageable);
 		List<SicTratamientoDto> list_dto = new ArrayList<SicTratamientoDto>();
 		
 		for (SicTratamiento sicTratamiento : list) 
