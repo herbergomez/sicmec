@@ -42,7 +42,9 @@ public class SicAsignacionMedicamento implements Serializable {
     @JoinColumn(name = "fk_sic_cat_medicamentos", referencedColumnName = "id_sic_cat_medicamentos")
     @ManyToOne(optional = false)
     private SicCatMedicamentos fkSicCatMedicamentos;
-
+    @Column(name = "estado", length = 100)
+    private String estado;
+    
     public SicAsignacionMedicamento() {
     }
 
@@ -98,5 +100,19 @@ public class SicAsignacionMedicamento implements Serializable {
     public String toString() {
         return "com.uesocc.sicmec.model.entity.SicAsignacionMedicamento[ idSicAsignacionMedicamento=" + idSicAsignacionMedicamento + " ]";
     }
+
+	/**
+	 * @return the estado
+	 */
+	public String getEstado() {
+		return estado;
+	}
+
+	/**
+	 * @param estado the estado to set
+	 */
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
     
 }

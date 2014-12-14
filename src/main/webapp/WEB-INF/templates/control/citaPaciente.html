@@ -19,6 +19,22 @@
   				<p th:utext="#{control.paciente.error}"></p>
 			</div>
 			
+			<div id="citaSuccess" class="alert alert-info alert-dismissible" role="alert" style="display: none;">
+  				<button type="button" class="close">
+  					<span aria-hidden="true">&times;</span>
+  					<span class="sr-only">Close</span>
+  				</button>
+  				<strong th:utext="#{general.alerta.atencion}"></strong>
+  				<p th:utext="#{control.paciente.addcita}"></p>
+			</div>
+			<div id="citaError" class="alert alert-danger alert-dismissible" role="alert" style="display: none;">
+  				<button type="button" class="close">
+  					<span aria-hidden="true">&times;</span>
+  					<span class="sr-only">Close</span>
+  				</button>
+  				<strong th:utext="#{general.alerta.atencion}"></strong>
+  				<p th:utext="#{control.paciente.errorcita}"></p>
+			</div>
 		</div>
 		
 		
@@ -74,7 +90,7 @@
 						</div>
 					</div>
 					<div id="controlCita" role="tabpanel" class="tab-pane fade" >
-						<div class="container" style="padding-top: 1%;">
+						<div class="container" style="padding-top: 1%; overflow: auto;">
 							<button type="button" class="btn btn-primary" th:text="#{control.paciente.nuevaCita}"
 							 data-toggle="modal" data-target="#modalNuevaCita"></button>
 							<div id="historial" class="panel-group" role="tablist" aria-multiselectable="true" style="padding-top: 2%; padding-right: 5%;">
@@ -157,23 +173,41 @@
         <h4 class="modal-title" th:utext="#{control.paciente.examenes.title}" style="font-style: normal;color: blue;"></h4>
       </div>
       <div class="modal-body">
+      
       	<div class="form-group">
         	<label for="tipo" th:utext="#{control.paciente.tipoExamen}"></label>
-    		<select class="form-control" id="tipo" name="tipo">
+        	<select class="form-control" id="tipo" name="tipo">
+    			<option th:each="exam :${tipoExamsList}" th:text="${exam.descripcion}" th:value="${exam.idSicTipoExamen}"></option>
     		</select>
         </div>
         <div class="form-group">
-        	<label for="result" th:utext="#{control.paciente.resultadoExamen}"></label>
-    		<input class="form-control" id="result" name="result" />
+        	<label  for="result" th:utext="#{control.paciente.resultadoExamen}"></label>        		
+     		<input class="form-control" id="result" name="result" />
         </div>
         <div class="form-group">
-        	<label for="comentario" th:utext="#{control.paciente.comentario}"></label>
-    		<input class="form-control" id="comentario" name="comentario" />
+        	<label  for="comentario" th:utext="#{control.paciente.comentario}"></label>
+        	<input class="form-control" id="comentario" name="comentario" />
         </div>
+      
+      <div class="row" style="padding-top: 1%; padding-left: 2.5%">
+		<button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{general.btn.cancelar}"></button>
+        <button type="button" class="btn btn-primary" th:text="#{general.btn.guardar}"></button>      		
+      </div>
+      
+      <table id="tableExams" class="table table-bordered">
+      	<thead>
+      		<tr>
+      			<th>Tipo de exam&eacute;n</th>
+      			<th>Resultado</th>
+      			<th>Comentario</th>
+      		</tr>
+      	</thead>
+      	<tbody>
+      	</tbody>
+      </table>
+      	
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{general.btn.cancelar}"></button>
-        <button type="button" class="btn btn-primary" th:text="#{general.btn.guardar}"></button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

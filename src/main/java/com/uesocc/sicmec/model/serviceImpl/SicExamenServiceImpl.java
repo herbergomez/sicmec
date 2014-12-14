@@ -101,4 +101,19 @@ public class SicExamenServiceImpl implements SicExamenService {
 		return list_dto;
 	}
 
+	@Override
+	public List<SicExamenDto> findAllByfkSicCitaMedica_idSicCitaMedica(int id) {
+		// TODO Auto-generated method stub
+		SicExamenAdapter adp = new SicExamenAdapter();
+		List<SicExamen> list = SicExamenRepository.findAllByfkSicCitaMedica_idSicCitaMedica(id);
+		List<SicExamenDto> list_dto = new ArrayList<SicExamenDto>();
+		
+		for (SicExamen sicExamen : list) 
+		{
+			list_dto.add(adp.entityToDto(sicExamen));
+		}
+		
+		return list_dto;
+	}
+
 }

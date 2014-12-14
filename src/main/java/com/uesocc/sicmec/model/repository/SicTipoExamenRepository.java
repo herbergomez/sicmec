@@ -15,7 +15,9 @@ import com.uesocc.sicmec.model.entity.SicTipoExamen;
  */
 
 @Repository
-public interface SicTipoExamenRepository extends
-		JpaRepository<SicTipoExamen, Integer> {
+public interface SicTipoExamenRepository extends JpaRepository<SicTipoExamen, Integer> 
+{
 
+	
+	
 }

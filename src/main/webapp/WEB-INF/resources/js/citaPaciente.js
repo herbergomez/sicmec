@@ -80,13 +80,18 @@ $( document ).ready(function()
  	 		 	    		if(data == "ok")
  	 		 	    			{
  	 		 	    				$("#modalNuevaCita").modal('hide');
+ 	 		 	    				$("#citaSuccess").show();
  	 		 	    				historialPaciente(paciente);
+ 	 		 	    			}
+ 	 		 	    		else
+ 	 		 	    			{
+ 	 		 	    				$("#citaError").show();
  	 		 	    			}
  	 					},
  	 						
  	 				error: function(e)
  	 					{
- 	 					
+ 	 						$("#citaError").show();
  	 					}
  	 		 	    });
  			}		
@@ -145,6 +150,11 @@ $( document ).ready(function()
 	});		
 	
 });
+
+function callExams()
+{
+	$("#modalExamen").modal('show');
+};
 
 function ajaxCall(exp)
 {
@@ -308,8 +318,9 @@ function historialPaciente(id)
  	    		{
 					historial = historial 
 					+ "<div class='panel panel-primary'>" 
-					+  "<div class='panel-heading' role='tab' id=title_'"+int+"'>" 
-					+	"<h4 class='panel-title'>" 
+					+  "<div class='panel-heading' role='tab' id=title_'"+int+"'>"
+					+	"<button title='Agregar examenes' class='btn btn-default btn-sm exams' style='padding: 2px 4px;' onclick='callExams()' ><i class='fa fa-medkit fa-lg'></i></button>"
+					+	"<h4 class='panel-title' style='display: inline-block; padding-left: 1%;'>" 
 					+    "<a data-toggle='collapse' data-parent='#historial' class='collapsed' href='#body"+int+"' aria-expanded='false' aria-controls='body"+int+"'>" 
 					+	 "Fecha: "+data[int].fkSicCitaMedica.fxCitaMedica+", Doctor: "
 					+    data[int].fkSicCitaMedica.fkSicUsuario.sicPersona.nombre+", "+data[int].fkSicCitaMedica.fkSicUsuario.sicPersona.apellido 
@@ -317,37 +328,59 @@ function historialPaciente(id)
 					+	"<div id='body"+int+"' class='panel-collapse collapse' role='tabpanel' aria-labelledby='body"+int+"'>" 
 					+	 "<div class='panel-body'>" 
 					+    "<div class='col-md-6'>"
-					+    	"<div class='form-group'>" 
-					+			"<label>Fecha de cita: </label>" 
-					+			"<input class='form-control' disabled='disabled' value='"+data[int].fkSicCitaMedica.fxCitaMedica+"'/>"
+					+    	"<div class='form-group' style='margin-bottom: 10%;' >" 
+					+			"<label class='col-sm-4' >Fecha de cita: </label>"
+					+			"<div class='col-sm-8'>"
+					+				"<input class='form-control ' disabled='disabled' value='"+data[int].fkSicCitaMedica.fxCitaMedica+"'/>"
+					+			"</div>"
 					+		"</div>"
-					+    	"<div class='form-group'>"
-					+    		"<label>Diagnostico: </label>"
-					+     		"<input class='form-control' disabled='disabled' value='"+data[int].fkSicCitaMedica.diagnostico+"'/>"
+					+    	"<div class='form-group' style='margin-bottom: 24%;' >"
+					+    		"<label class='col-sm-4' >Diagnostico: </label>"
+					+			"<div class='col-sm-8'>"
+					+     			"<textarea class='form-control' disabled='disabled' rows='2' >"+data[int].fkSicCitaMedica.diagnostico+"</textarea>"				
+					+			"</div>"
 					+		"</div>"
-					+    	"<div class='form-group'>"
-					+    		"<label>Comentario: </label>"
-					+			"<input class='form-control' disabled='disabled' value='"+data[int].fkSicCitaMedica.comentario+"'/>"
+					+    	"<div class='form-group' >"
+					+    		"<label class='col-sm-4' >Comentario: </label>"
+					+			"<div class='col-sm-8' >"
+					+				"<textarea class='form-control' disabled='disabled' rows='2' >"+data[int].fkSicCitaMedica.comentario+"</textarea>"
+					+			"</div>"	
 					+		"</div>"
 					+	 "</div>" 
 					+    "<div class='col-md-6'>"
-					+    	"<div class='form-group'>"
-					+    		"<label>Tratamiento: </label>"
-					+			"<input class='form-control' disabled='disabled' value='"+data[int].fkSicCatMedicamentos.name+"'/>"
+					+    	"<div class='form-group' style='margin-bottom: 10%;' >"
+					+    		"<label class='col-sm-4' >Tratamiento: </label>"
+					+			"<div class='col-sm-8' >"
+					+				"<input class='form-control col-s' disabled='disabled' value='"+data[int].fkSicCatMedicamentos.name+"'/>"
+					+			"</div>"
 					+		"</div>"
-					+    	"<div class='form-group'>"
-					+    		"<label>Dosis: </label>"
-					+			"<input class='form-control' disabled='disabled' value='"+data[int].dosis+"'/>"
+					+    	"<div class='form-group' style='margin-bottom: 24%;' >"
+					+    		"<label class='col-sm-4' >Dosis: </label>"
+					+			"<div class='col-sm-8' >"
+					+				"<textarea class='form-control' disabled='disabled'>"+data[int].dosis+"</textarea>"
+					+			"</div>"
 					+		"</div>"
-					+    	"<div class='form-group'>"
-					+    		"<label>Periodisidad: </label>"
-					+			"<input class='form-control' disabled='disabled' value='"+data[int].periodisidad+"'/>"
+					+    	"<div class='form-group' >"
+					+    		"<label class='col-sm-4' >Periodisidad: </label>"
+					+			"<div class='col-sm-8' >"
+					+				"<input class='form-control' disabled='disabled' value='"+data[int].periodisidad+"'/>"
+					+			"</div>"
 					+		"</div>"	
 					+	 "</div>" 
 					+	"</div></div></div>";
 				}
  	    		
  	    		$("#historial").html(historial);
+ 	    		
+ 	    		$('.exams').qtip({
+// 	    		    content: {
+// 	    		        text: 'Inactivar usuario'
+// 	    		    },
+ 	    		    style: 
+ 	    		    {
+ 	    		        classes: 'qtip-bootstrap qtip-shadow'
+ 	    		    }
+ 	    		});
  	    		
 			},
 				

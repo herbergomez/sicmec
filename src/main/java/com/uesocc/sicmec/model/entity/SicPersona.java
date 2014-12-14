@@ -47,8 +47,7 @@ public class SicPersona implements Serializable {
     private String nombre;
     @Column(name = "apellido", length = 30)
     private String apellido;
-    @Basic(optional = false)
-    @Column(name = "email", nullable = false, length = 30)
+    @Column(name = "email", length = 30)
     private String email;
     @OneToMany(mappedBy = "fkSicPersona")
     @JsonManagedReference

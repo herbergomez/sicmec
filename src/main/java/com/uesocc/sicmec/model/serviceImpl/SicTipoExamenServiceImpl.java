@@ -7,11 +7,8 @@ package com.uesocc.sicmec.model.serviceImpl;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.hibernate.mapping.Array;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.uesocc.sicmec.model.adapter.SicTipoExamenAdapter;
 import com.uesocc.sicmec.model.dto.SicTipoExamenDto;
 import com.uesocc.sicmec.model.entity.SicTipoExamen;

@@ -22,11 +22,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.uesocc.sicmec.model.dto.SicCitaMedicaDto;
+import com.uesocc.sicmec.model.dto.SicExamenDto;
 import com.uesocc.sicmec.model.dto.SicPacienteDto;
 import com.uesocc.sicmec.model.dto.SicTratamientoDto;
 import com.uesocc.sicmec.model.serviceImpl.SicCitaMedicaServiceImpl;
+import com.uesocc.sicmec.model.serviceImpl.SicExamenServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicPacienteServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicPaqMedServiceImpl;
+import com.uesocc.sicmec.model.serviceImpl.SicTipoExamenServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicTratamientoServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicUsuarioServiceImpl;
 
@@ -50,11 +53,16 @@ public class SicCitaController
 	private SicUsuarioServiceImpl sicUsuarioServiceImpl;
 	@Autowired
 	private SicTratamientoServiceImpl sicTratamientoServiceImpl; 
+	@Autowired
+	private SicTipoExamenServiceImpl sicTipoExamenServiceImpl;
+	@Autowired
+	private SicExamenServiceImpl sicExamenServiceImpl;
 	
 	@RequestMapping("")
 	public String defaultRequest(Model model)
 	{
 		model.addAttribute("paqMedList",sicPaqMedServiceImpl.findAll());
+		model.addAttribute("tipoExamsList", sicTipoExamenServiceImpl.findAll());
 		
 		return "/control/citaPaciente";
 	}
@@ -71,6 +79,12 @@ public class SicCitaController
 		Pageable pageable = new PageRequest(0,20);
 		
 		return sicTratamientoServiceImpl.findAllBySicPaciente(pac,pageable);
+	}
+	
+	@RequestMapping(value="/exams",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<SicExamenDto> getExamByCita(@RequestParam(value="cita")int cita)
+	{
+		return sicExamenServiceImpl.findAllByfkSicCitaMedica_idSicCitaMedica(cita);
 	}
 	
 	@RequestMapping(value="/guardarCita",method=RequestMethod.POST)
