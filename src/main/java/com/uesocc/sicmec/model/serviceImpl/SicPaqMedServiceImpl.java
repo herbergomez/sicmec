@@ -58,6 +58,7 @@ public class SicPaqMedServiceImpl implements SicPaqMedService{
 
 	@Override
 	public List<SicPaqMedDto> findAll() {
+		
 		SicPaqMedAdapter paqMedAdapter = new SicPaqMedAdapter();
 		List<SicCatMedicamentos> paqMed = sicPaqMedRepository.findAll();
 		List<SicPaqMedDto> paqMedDto = new ArrayList<SicPaqMedDto>();
