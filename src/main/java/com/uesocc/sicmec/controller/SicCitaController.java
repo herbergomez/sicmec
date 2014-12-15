@@ -83,7 +83,7 @@ public class SicCitaController
 		return sicExamenServiceImpl.findAllByfkSicCitaMedica_idSicCitaMedica(cita);
 	}
 	
-	@RequestMapping(value="guardarExam",method=RequestMethod.POST)
+	@RequestMapping(value="/guardarExam",method=RequestMethod.POST)
 	public @ResponseBody String guardarExam
 	(
 			@RequestParam(value="tipoExam")int tipoExam,
