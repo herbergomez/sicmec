@@ -84,6 +84,8 @@ public class SicCitaController
 	@RequestMapping(value="/exams",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<SicExamenDto> getExamByCita(@RequestParam(value="cita")int cita)
 	{
+		LOGGER.info("Get the exams from the bd...");
+		
 		return sicExamenServiceImpl.findAllByfkSicCitaMedica_idSicCitaMedica(cita);
 	}
 	

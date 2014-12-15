@@ -151,8 +151,37 @@ $( document ).ready(function()
 	
 });
 
-function callExams()
+function callExams(cita)
 {
+	alert(cita);
+	
+	var tr = "";
+	$.ajax({
+ 	    type: "GET",
+ 		url: "/sicmec/control/cita/exams",	
+ 		data : ({cita:cita}),
+ 	    success: function(data)
+ 	    	{
+ 	    		for (var int = 0; int < data.length; int++) 
+ 	    		{
+ 	    			tr = tr 
+ 	    			+ "<tr>" 
+ 	    			+ "<td>"+data[int].fkSicTipoExamen.descripcion+"</td>" 
+ 	    			+ "<td>"+data[int].resultado+"</td>" 
+ 	    			+ "<td>"+data[int].comentario+"</td>"
+ 	    			+ "</tr>"
+				}
+ 	    		
+ 	    		$("#tbodyExams").html(tr);
+ 	    		
+			},
+				
+		error: function(e)
+			{
+				$(".alert").hide();
+			}
+ 	    });
+	
 	$("#modalExamen").modal('show');
 };
 
@@ -319,7 +348,7 @@ function historialPaciente(id)
 					historial = historial 
 					+ "<div class='panel panel-primary'>" 
 					+  "<div class='panel-heading' role='tab' id=title_'"+int+"'>"
-					+	"<button title='Agregar examenes' class='btn btn-default btn-sm exams' style='padding: 2px 4px;' onclick='callExams()' ><i class='fa fa-medkit fa-lg'></i></button>"
+					+	"<button title='Agregar examenes' class='btn btn-default btn-sm exams' style='padding: 2px 4px;' onclick='callExams("+data[int].fkSicCitaMedica.idSicCitaMedica+")' ><i class='fa fa-medkit fa-lg'></i></button>"
 					+	"<h4 class='panel-title' style='display: inline-block; padding-left: 1%;'>" 
 					+    "<a data-toggle='collapse' data-parent='#historial' class='collapsed' href='#body"+int+"' aria-expanded='false' aria-controls='body"+int+"'>" 
 					+	 "Fecha: "+data[int].fkSicCitaMedica.fxCitaMedica+", Doctor: "
