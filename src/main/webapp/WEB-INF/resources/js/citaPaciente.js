@@ -3,29 +3,33 @@
  * @Fecha 10/11/2014
  */
 
-var cita;
+var Cita;
 
 $( document ).ready(function() 
 {
 	$("#formExamen").validate({
  		errorElement: "span",
- 		rules: {
+ 		rules: 
+ 		{
  			result:
- 		    {
- 				required: true
- 		    }	
- 		    },
- 		messages : {
+ 		    	{
+ 					required: true
+ 		    	}	
+ 		},
+ 		messages : 
+ 		{
  			result:
  		    {
  				required: 'Este campo es obligatorio.'
  		    }
         },
- 		highlight: function(element) {
+ 		highlight: function(element) 
+ 		{
  			$(element).closest('.form-group')
  			.removeClass('has-success').addClass('has-error');
  		},
- 		success: function(element) {
+ 		success: function(element) 
+ 		{
  			element.addClass('help-inline')
  			.closest('.form-group')
  			.removeClass('has-error').addClass('has-success');
@@ -39,13 +43,16 @@ $( document ).ready(function()
  			$.ajax({
 	 		 	    type: "POST",
 	 		 		url: "/sicmec/control/cita/guardarExam",	
-	 		 		data : ({cmt:cmt,result:result,cita:cita,tipo:tipoExam}),
+	 		 		data : ({cmt:cmt,result:result,cita:Cita,tipoExam:tipo}),
 	 		 	    success: function(data)
 	 		 	    	{
+	 		 	    		clearModalExam();
+	 		 	    		
 	 		 	    		if(data == "ok")
 	 		 	    			{
 	 		 	    				$(".alert").hide();
 	 		 	    				$("#alertaExamSuccess").show();
+	 		 	    				callExams(Cita);
 	 		 	    				//historialPaciente(paciente);
 	 		 	    			}
 	 		 	    		else
@@ -57,6 +64,8 @@ $( document ).ready(function()
 	 						
 	 				error: function(e)
 	 					{
+	 						clearModalExam();
+	 						
 	 						$(".alert").hide();
 	 	    				$("#alertaExamError").show();
 	 					}
@@ -213,7 +222,7 @@ $( document ).ready(function()
 
 function callExams(cita)
 {
-	alert(cita);
+	Cita = cita;
 	
 	var tr = "";
 	$.ajax({
@@ -225,7 +234,11 @@ function callExams(cita)
  	    		for (var int = 0; int < data.length; int++) 
  	    		{
  	    			tr = tr 
- 	    			+ "<tr>" 
+ 	    			+ "<tr>"
+ 	    			+ "<td><div class='btn-group'>" 
+ 	    			+ "<button class='btn btn-sm btn-default'><i class='fa fa-trash-o'></i></button>"
+ 	    			+ "<button class='btn btn-sm btn-default'><i class='fa fa-pencil-square-o'></i></button>"
+ 	    			+ "</div></td>"
  	    			+ "<td>"+data[int].fkSicTipoExamen.descripcion+"</td>" 
  	    			+ "<td>"+data[int].resultado+"</td>" 
  	    			+ "<td>"+data[int].comentario+"</td>"
@@ -479,4 +492,11 @@ function historialPaciente(id)
 				$("#alertaError").show();
 			}
  	    });
+};
+
+var clearModalExam = function()
+{
+	$('#formExamen').trigger("reset");
+		$("#result").closest('.form-group')
+		.removeClass('has-error').removeClass('has-success');
 };

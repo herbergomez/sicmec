@@ -173,15 +173,13 @@
         <h4 class="modal-title" th:utext="#{control.paciente.examenes.title}" style="font-style: normal;color: blue;"></h4>
       </div>
       <div class="modal-body">
-      	<div>
+      	<div style="padding-bottom: 2%;">
       		<div id="alertaExamSuccess" class="alert alert-success alert-dismissible" role="alert" style="display: none;">
   				<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  				<strong th:utext="#{general.alerta.atencion}"></strong>
   				<p th:utext="#{control.exam.success}"></p>
 			</div>
-			<div id="alertaExamError" class="alert alert-danger alert-dismissible" role="alert" style="display: none;">
+			<div id="alertaExamError" class="alert alert-danger alert-dismissible" role="alert" style="display: none; ">
   				<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  				<strong th:utext="#{general.alerta.atencion}"></strong>
   				<p th:utext="#{control.exam.error}"></p>
 			</div>
       	</div>
@@ -209,9 +207,10 @@
       <table id="tableExams" class="table table-bordered">
       	<thead>
       		<tr>
-      			<th>Tipo de exam&eacute;n</th>
-      			<th>Resultado</th>
-      			<th>Comentario</th>
+      			<th width="15%"></th>
+      			<th width="30%">Tipo de exam&eacute;n</th>
+      			<th width="25%">Resultado</th>
+      			<th width="40%">Comentario</th>
       		</tr>
       	</thead>
       	<tbody id="tbodyExams">
