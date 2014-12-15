@@ -3,8 +3,68 @@
  * @Fecha 10/11/2014
  */
 
+var cita;
+
 $( document ).ready(function() 
 {
+	$("#formExamen").validate({
+ 		errorElement: "span",
+ 		rules: {
+ 			result:
+ 		    {
+ 				required: true
+ 		    }	
+ 		    },
+ 		messages : {
+ 			result:
+ 		    {
+ 				required: 'Este campo es obligatorio.'
+ 		    }
+        },
+ 		highlight: function(element) {
+ 			$(element).closest('.form-group')
+ 			.removeClass('has-success').addClass('has-error');
+ 		},
+ 		success: function(element) {
+ 			element.addClass('help-inline')
+ 			.closest('.form-group')
+ 			.removeClass('has-error').addClass('has-success');
+ 		},
+ 		submitHandler: function()
+ 		{
+ 			var tipo = $("#tipo").val();
+ 			var result = $("#result").val();
+ 			var cmt = $("#comentarioExm").val();
+ 			
+ 			$.ajax({
+	 		 	    type: "POST",
+	 		 		url: "/sicmec/control/cita/guardarExam",	
+	 		 		data : ({cmt:cmt,result:result,cita:cita,tipo:tipoExam}),
+	 		 	    success: function(data)
+	 		 	    	{
+	 		 	    		if(data == "ok")
+	 		 	    			{
+	 		 	    				$(".alert").hide();
+	 		 	    				$("#alertaExamSuccess").show();
+	 		 	    				//historialPaciente(paciente);
+	 		 	    			}
+	 		 	    		else
+	 		 	    			{
+	 		 	    				$(".alert").hide();
+	 		 	    				$("#alertaExamError").show();
+	 		 	    			}
+	 					},
+	 						
+	 				error: function(e)
+	 					{
+	 						$(".alert").hide();
+	 	    				$("#alertaExamError").show();
+	 					}
+	 		 	    });
+ 		}
+ 		 
+ 	});
+	
 	$('#nuevaCitaForm').validate({
  		errorElement: "span",
  		rules: {

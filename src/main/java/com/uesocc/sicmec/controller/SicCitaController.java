@@ -1,7 +1,3 @@
-/**
-* @autor pablo portillo
- * @fecha 10/11/2014
- */
 package com.uesocc.sicmec.controller;
 
 import java.text.ParseException;
@@ -87,6 +83,42 @@ public class SicCitaController
 		LOGGER.info("Get the exams from the bd...");
 		
 		return sicExamenServiceImpl.findAllByfkSicCitaMedica_idSicCitaMedica(cita);
+	}
+	
+	@RequestMapping(value="/guardarExam",method=RequestMethod.POST)
+	public @ResponseBody String guardarExam
+	(
+			@RequestParam(value="tipoExam")int tipoExam,
+			@RequestParam(value="cita")int cita,
+			@RequestParam(value="result")String resultado,
+			@RequestParam(value="cmt",defaultValue="",required=false)String comentario)
+	{
+		
+		try
+		{
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			
+			LOGGER.info("Make the insert of exam for the date "+cita);
+			
+			SicExamenDto exam = new SicExamenDto();
+			exam.setResultado(resultado);
+			exam.setComentario(comentario);
+			exam.setFkSicCitaMedica(sicCitaMedicaServiceImpl.findById(cita));
+			exam.setFkSicTipoExamen(sicTipoExamenServiceImpl.findById(tipoExam));
+			exam.setFxCreado(format.format(new Date()));
+			exam.setFxModificado(format.format(new Date()));
+			exam.setCreadoPor("test");
+			exam.setModifcadoPor("test");
+			sicExamenServiceImpl.insert(exam);
+			
+			return "ok";
+		}
+		catch (Exception ex)
+		{
+			LOGGER.error("ERROR saving exams");
+			LOGGER.error("ERROR saving exams... "+ex.getMessage());
+			return "Error "+ex.getMessage();
+		}
 	}
 	
 	@RequestMapping(value="/guardarCita",method=RequestMethod.POST)
