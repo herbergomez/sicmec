@@ -7,6 +7,29 @@ var Cita;
 
 $( document ).ready(function() 
 {
+	$("#printGraph").click(function()
+	{
+		
+		 var expPac = $("#pacTable tbody tr.selected td:nth-child(2)").html();
+		 var namePac = $("#pacTable tbody tr.selected td:nth-child(3)").html() +", "+$("#pacTable tbody tr.selected td:nth-child(4)").html();
+		
+		 var headElements = "<p><span>Numero de expediente: "+expPac+"</span></p><p><span>Nombre del paciente: "+namePac+"</span></p>";
+		 
+		 var options = { mode : 'popup', popClose : close,extraHead : headElements };
+		 
+		$("#printHistorico").printArea(options);
+	
+	});
+	
+	$("#doChart").click(function(){
+		
+		var tipo = $("#tipoExamenGrafico").val();
+		var paciente = $("#pacTable tbody tr.selected").data("id");
+		
+		generarGrafico(paciente,tipo);
+			
+	});
+	
 	$("#formExamen").validate({
  		errorElement: "span",
  		rules: 
@@ -14,7 +37,11 @@ $( document ).ready(function()
  			result:
  		    	{
  					required: true
- 		    	}	
+ 		    	},
+			comentarioExm:
+				{
+					maxlength: 25
+				}
  		},
  		messages : 
  		{
@@ -176,6 +203,7 @@ $( document ).ready(function()
 		            $(this).removeClass('selected');
 		            $("#citaTab").hide();
 		            $("#controlTab").hide();
+		            limpiarGrafico();
 		        }
 		        else 
 		        {
@@ -184,6 +212,7 @@ $( document ).ready(function()
 		            var id=$(this).data("id");
 		            //alert(id);
 		            historialPaciente(id);
+		            
 		            $(this).addClass('selected');
 		            //alert($("#pacTable tbody tr.selected").data("id"));
 		            
@@ -236,8 +265,8 @@ function callExams(cita)
  	    			tr = tr 
  	    			+ "<tr>"
  	    			+ "<td><div class='btn-group'>" 
- 	    			+ "<button class='btn btn-sm btn-default'><i class='fa fa-trash-o'></i></button>"
- 	    			+ "<button class='btn btn-sm btn-default'><i class='fa fa-pencil-square-o'></i></button>"
+ 	    			+ "<button class='btn btn-sm btn-default onDelete' title='Eliminar' onclick='eliminarExam("+data[int].idSicExamen+");'><i class='fa fa-trash-o'></i></button>"
+ 	    			//+ "<button class='btn btn-sm btn-default'><i class='fa fa-pencil-square-o'></i></button>"
  	    			+ "</div></td>"
  	    			+ "<td>"+data[int].fkSicTipoExamen.descripcion+"</td>" 
  	    			+ "<td>"+data[int].resultado+"</td>" 
@@ -246,6 +275,16 @@ function callExams(cita)
 				}
  	    		
  	    		$("#tbodyExams").html(tr);
+ 	    		
+ 	    		$('.onDelete').qtip({
+// 	    		    content: {
+// 	    		        text: 'Inactivar usuario'
+// 	    		    },
+ 	    		    style: 
+ 	    		    {
+ 	    		        classes: 'qtip-bootstrap qtip-shadow'
+ 	    		    }
+ 	    		});
  	    		
 			},
 				
@@ -500,3 +539,77 @@ var clearModalExam = function()
 		$("#result").closest('.form-group')
 		.removeClass('has-error').removeClass('has-success');
 };
+
+var eliminarExam = function (id)
+{
+	$.ajax({
+	 	    type: "GET",
+	 		url: "/sicmec/control/cita/eliminarExam",	
+	 		data : ({exam:id}),
+	 	    success: function(data)
+	 	    	{
+	 	    		if(data == true)
+	 	    			{
+	 	    				$(".alert").hide();
+	 	    				$("#alertaExamDelete").show();
+	 	    				callExams(Cita);
+	 	    			}
+	 	    		else
+	 	    			{
+	 	    				$(".alert").hide();
+	 	    				$("#alertaExamDeleteError").show();
+	 	    			}
+				},
+					
+			error: function(e)
+				{
+					$(".alert").hide();
+					$("#alertaExamDeleteError").show();
+				}
+	 	    });
+};
+
+var generarGrafico = function (paciente,tipo)
+{
+	limpiarGrafico();
+	
+	var tr = "";
+	$.ajax({
+ 	    type: "GET",
+ 		url: "/sicmec/control/cita/grafico",	
+ 		data : ({pac:paciente,tipo:tipo}),
+ 	    success: function(data)
+ 	    	{
+ 	    		$("#title").text("Grafico progresivo de salud: "+data[0].tipo);
+ 	    		
+ 	    		for (var int = 0; int < data.length; int++) 
+ 	    		{
+ 	    			tr = tr 
+ 	    				 + "<tr>"
+ 	    				 + "<td>"+data[int].fx+"</td>"
+ 	    				 + "<td>"+data[int].resultado+"</td>"
+ 	    				 //+ "<td>"+data[int].comentario+"</td>"
+ 	    				 + "</tr>";
+				}
+ 	    		
+ 	    		$("#historicChart").html(tr);
+ 	    		$("#historicTable").highchartTable();
+ 	    		
+			},
+				
+		error: function(e)
+			{
+				
+			}
+ 	    });
+};
+
+var limpiarGrafico = function()
+{
+	$("#historicChart tr").remove();
+	$("div[data-highcharts-chart]").remove();
+};
+
+
+
+
