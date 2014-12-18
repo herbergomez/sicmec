@@ -15,7 +15,8 @@
 			<div class="col-md-4 col-xs-4">
 				<label for="medPaqs" th:text ="#{admin.paquetes.seleccione}"></label>
 				<select class="form-control" id="medPaqs" name="medPaqs">
-					  <option th:each ="obj: ${paqs}" th:value ="${obj.idPaq}" th:text ="${obj.name }" ></option >
+					<option value="">Seleccione un paquete</option>
+					<option th:each ="obj: ${paqs}" th:value ="${obj.idPaq}" th:text ="${obj.name }" ></option >
 				</select>
 			</div>
 			<div class="col-md-2 col-xs-2">
@@ -42,7 +43,7 @@
 					<div class="row" style="text-align: left;">
 						<label for="actualMeds" th:text ="#{admin.paquetes.agregados}"></label>
 						<select class="form-control" id="actualMeds" name="actualMeds" multiple="multiple" >
-							  <option th:each ="obj: ${paqs}" th:value ="${obj.idPaq}" th:text ="${obj.name }" class="agregados"></option >
+							  <!--<option th:each ="obj: ${paqs}" th:value ="${obj.idPaq}" th:text ="${obj.name }" class="agregados"></option >-->
 						</select>
 					</div>
 					<div class="row">
@@ -55,7 +56,6 @@
 					<div class="row">
 						<label for="actualMeds" th:text ="#{admin.paquetes.disponibles}"></label>
 						<select class="form-control" id="availableMeds" name="availableMeds" multiple="multiple" >
-							  <!-- <option th:each ="obj: ${paqs}" th:value ="${obj.idPaq}" th:text ="${obj.name }" ></option >-->
 						</select>
 					</div>
 					<div class="row">

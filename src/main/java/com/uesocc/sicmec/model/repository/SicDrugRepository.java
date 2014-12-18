@@ -22,4 +22,11 @@ public interface SicDrugRepository extends JpaRepository<SicMedicamento, Integer
 	 * @return
 	 */
 	List<SicMedicamento> findAllBynombreMedicamento(String nombreMedicamento);
+	
+	/**
+	 * SObtain all active medicaments of the db
+	 * @param estadoMedicamento Status of the drug
+	 * @return
+	 */
+	List<SicMedicamento> findAllByestadoMedicamento(String estadoMedicamento);
 }

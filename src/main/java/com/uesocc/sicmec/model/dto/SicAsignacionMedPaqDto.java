@@ -15,10 +15,30 @@ public class SicAsignacionMedPaqDto implements Serializable{
 	private String idAsignacionMedPaq;
 	private SicDrugDto idMedicamento;
 	private SicPaqMedDto idMedPaq;
+	private String medPaqStatus;
 	
 	
 	
-	
+	/**
+	 * @return the medPaqStatus
+	 */
+	public String getMedPaqStatus() {
+		return medPaqStatus;
+	}
+
+
+
+
+	/**
+	 * @param medPaqStatus the medPaqStatus to set
+	 */
+	public void setMedPaqStatus(String medPaqStatus) {
+		this.medPaqStatus = medPaqStatus;
+	}
+
+
+
+
 	/**
 	 * @return the idAsignacionMedPaq
 	 */

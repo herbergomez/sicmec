@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src/main/framework"/>
+	<classpathentry kind="output" path="bin"/>
 	<classpathentry kind="src" path="src/main/java"/>
-	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="src" path="src/main/webapp"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
-	<classpathentry exported="true" kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer">
+	<classpathentry kind="src" path="src/main/framework"/>
+	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER" exported="true"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container" exported="true"/>
+	<classpathentry kind="lib" path="/home/kevingcfcb88/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-web/0.5.0.M6/96c996e8449314d3d09fdc225dd85fca277ff53e/spring-boot-starter-web-0.5.0.M6.jar" exported="true">
 		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
 	</classpathentry>
-<<<<<<< HEAD
-	<classpathentry kind="output" path="bin"/>
-=======
 	<classpathentry sourcepath="/home/kevingcfcb88/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-rest-webmvc/2.0.0.RELEASE/f538d508dacbb9627e10437fb945b591d5e6dc59/spring-data-rest-webmvc-2.0.0.RELEASE-sources.jar" kind="lib" path="/home/kevingcfcb88/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-rest-webmvc/2.0.0.RELEASE/43279c9ef201c5bcd734417b615ce632bdcd4dfc/spring-data-rest-webmvc-2.0.0.RELEASE.jar" exported="true">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
@@ -459,5 +457,4 @@
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
 	</classpathentry>
->>>>>>> branch 'development' of https://github.com/kevingcfcb88/sicmec.git
 </classpath>

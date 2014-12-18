@@ -1,11 +1,14 @@
 package com.uesocc.sicmec.controller;
 
 import java.text.ParseException;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uesocc.sicmec.model.adapter.SicPaqMedAdapter;
 import com.uesocc.sicmec.model.dto.SicAsignacionMedPaqDto;
+import com.uesocc.sicmec.model.dto.SicDepartamentoDto;
+import com.uesocc.sicmec.model.dto.SicDrugDto;
 import com.uesocc.sicmec.model.dto.SicPaqMedDto;
 import com.uesocc.sicmec.model.serviceImpl.SicAsignacionMedPaqServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicDrugServiceImpl;
@@ -43,6 +48,39 @@ public class SicAdministracionPaqMedController {
 	public String defaultRequest(Model model){			
 		model.addAttribute("paqs", sicPacMedServiceImpl.findAll());		
 		return "admin/administracionPaqMed";
+	}
+	
+	
+	/**
+	 * Funcion que devuelve los medicamentos que pertenecen a un paquete
+	 * @param idPaq Id del paquete a verificar
+	 * @param redirectAttributes Variable de retorno
+	 * @return JSON value
+	 */
+	@RequestMapping(value="/medsIn/{idPaq}",method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<SicDrugDto> loadMedsIn(
+				@PathVariable(value="idPaq")String idPaq,
+				RedirectAttributes redirectAttributes
+			)
+	{
+		List<SicDrugDto> lst = this.sicAsignacionMedPaqServiceImpl.getMedsOfPaq(Integer.parseInt(idPaq));
+		return lst;
+	}
+	
+	/**
+	 * Funcion que devuelve los medicamentos que pertenecen a un paquete
+	 * @param idPaq Id del paquete a verificar
+	 * @param redirectAttributes Variable de retorno
+	 * @return JSON value
+	 */
+	@RequestMapping(value="/medsOut/{idPaq}",method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<SicDrugDto> loadMedsOut(
+				@PathVariable(value="idPaq")String idPaq,
+				RedirectAttributes redirectAttributes
+			)
+	{
+		List<SicDrugDto> lst = this.sicAsignacionMedPaqServiceImpl.getMedsNotInPaq(Integer.parseInt(idPaq));
+		return lst;
 	}
 	
 	/**
@@ -80,10 +118,12 @@ public class SicAdministracionPaqMedController {
 	@RequestMapping(value="/addMedPaq", method=RequestMethod.POST)
 	public String addPaqMed(
 			@RequestParam(value="idPaq")String iPaqId,
-			@RequestParam(value="idMeds")String aMeds[],
+			@RequestParam(value="idMeds[]")String[] aMeds,
 			RedirectAttributes redirectAttributes
 			) throws ParseException
-	{		
+	{	
+		//Desactivamos los medicamentos relacionados al paquete
+		boolean bDeactivate = sicAsignacionMedPaqServiceImpl.deactivateAllRecords(Integer.parseInt(iPaqId));		
 		//Recorremos con un for el arreglo de medicamentos a insertar
 		for ( int iTemp = 0; iTemp < aMeds.length; iTemp++ )
 		{
@@ -92,6 +132,7 @@ public class SicAdministracionPaqMedController {
 			//Establecemos los valores
 			medPaq.setIdMedicamento(sicDrugServiceImpl.findById(Integer.parseInt(aMeds[iTemp])));
 			medPaq.setIdMedPaq(sicPacMedServiceImpl.findById(Integer.parseInt(iPaqId)));
+			medPaq.setMedPaqStatus("1");
 			//Almacenamos al logger
 			LOGGER.info("Guardando medicamento "+aMeds[iTemp]);
 			//Guardamos			

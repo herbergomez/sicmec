@@ -19,6 +19,7 @@ public class SicAsignacionMedPaqAdapter implements BaseAdapter<SicAsignacionMedi
 		medEntity.setIdSicAsignacionMedicamento( obj.getIdAsignacionMedPaq() != null ? SicDataTypeFormat.toIntValue( obj.getIdAsignacionMedPaq() ) : null );
 		medEntity.setFkSicMedicamento( drugAdp.dtoToEntity(obj.getIdMedicamento()) );
 		medEntity.setFkSicCatMedicamentos(paqAdp.dtoToEntity(obj.getIdMedPaq()));
+		medEntity.setEstado( obj.getMedPaqStatus() != null ? SicDataTypeFormat.toStringValue(obj.getMedPaqStatus()) : null );
 		
 		return medEntity;
 		
@@ -34,6 +35,7 @@ public class SicAsignacionMedPaqAdapter implements BaseAdapter<SicAsignacionMedi
 		medDto.setIdAsignacionMedPaq( obj.getIdSicAsignacionMedicamento() != null ? SicDataTypeFormat.toStringValue( obj.getIdSicAsignacionMedicamento().toString() ) : null);
 		medDto.setIdMedicamento(drugAdp.entityToDto(obj.getFkSicMedicamento()));
 		medDto.setIdMedPaq(paqAdp.entityToDto(obj.getFkSicCatMedicamentos()));
+		medDto.setMedPaqStatus( obj.getEstado() != null ? SicDataTypeFormat.toStringValue(obj.getEstado().toString() ) : null );
 		
 		return medDto;
 		
