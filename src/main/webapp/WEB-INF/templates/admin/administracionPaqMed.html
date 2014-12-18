@@ -9,19 +9,67 @@
 
 	<div class="container" style="min-height: 600px; overflow: auto;">
 
-		<div class="row">
-			<div class="col-md-12 col-xs-12">
+		<!-- Row button and med paq -->
+		<div class="row" style="padding-top: 25px;">
+			<div class="col-md-2 col-xs-2"></div>
+			<div class="col-md-4 col-xs-4">
+				<label for="medPaqs" th:text ="#{admin.paquetes.seleccione}"></label>
+				<select class="form-control" id="medPaqs" name="medPaqs">
+					<option value="">Seleccione un paquete</option>
+					<option th:each ="obj: ${paqs}" th:value ="${obj.idPaq}" th:text ="${obj.name }" ></option >
+				</select>
+			</div>
+			<div class="col-md-2 col-xs-2">
 				<button class="btn btn-primary" th:text="#{admin.paquetes.agregar}"
 					data-toggle="modal" data-target="#modalAgregarPaqMed">
 				</button>
 			</div>
-			<div class="col-md-12 col-xs-12">
-				<select multiple class="form-control">
-					<option th:each="onePaq : {$paqs}" th:value="${onePaq.id}" th:text="${onePaq.name}"></option>
-				</select>
+			<div class="col-md-2 col-xs-2">
+				<button class="btn btn-primary" th:text="#{admin.paquetes.agregar}"
+					data-toggle="modal" data-target="#modalAgregarPaqMed">
+				</button>
+			</div>
+			<div class="col-md-2 col-xs-2"></div>
+		</div>
+		<div class="col-md-12 col-xs-12" style="border-bottom: 1px solid black;">
+			<br/>
+		</div>
+		<!-- Row of meds belong to a paq -->
+		<div class="row" style="padding-bottom: 15px;">			
+			<div style="padding: 15px;"></div>
+			<div class="row">
+				<div class="col-md-2 col-xs-2"></div>
+				<div class="col-md-3 col-xs-3">
+					<div class="row" style="text-align: left;">
+						<label for="actualMeds" th:text ="#{admin.paquetes.agregados}"></label>
+						<select class="form-control" id="actualMeds" name="actualMeds" multiple="multiple" >
+							  <!--<option th:each ="obj: ${paqs}" th:value ="${obj.idPaq}" th:text ="${obj.name }" class="agregados"></option >-->
+						</select>
+					</div>
+					<div class="row">
+						<br/>
+						<input type="button" id="moveRight" value="Agregar"/>
+					</div>																			
+				</div>
+				<div class="col-md-1 col-xs-1"></div>
+				<div class="col-md-3 col-xs-3">
+					<div class="row">
+						<label for="actualMeds" th:text ="#{admin.paquetes.disponibles}"></label>
+						<select class="form-control" id="availableMeds" name="availableMeds" multiple="multiple" >
+						</select>
+					</div>
+					<div class="row">
+						<br/>
+						<input type="button" id="moveLeft" value="Eliminar"/>
+					</div>
+				</div>
+				<div class="col-md-2 col-xs-2"></div>
 			</div>
 		</div>
-
+		<div class="row" style="padding-bottom: 15px;padding-top: 15px;">
+			<input type="button" id="guardar" value="Guardar"/>
+		</div>
+		<!-- Notifications -->
 		<div class="row">
 			<div class="col-md-12 col-xs-12">
 				<div th:if="${success}" class="alert alert-info alert-dismissible"
@@ -40,12 +88,10 @@
 					<strong th:utext="#{general.alerta.atencion}"></strong>
 					<p th:utext="#{admin.drugs.alertas.modificar.exito}"></p>
 				</div>
-
 			</div>
 		</div>
-
 	</div>
-	<!-- /.modal -->
+	<!-- add modal -->
 	<div class="modal fade" id="modalAgregarPaqMed" tabindex="-1"
 		role="dialog" aria-labelledby="modalAgregarPaqMed" aria-hidden="true">
 		<!-- /.modal-dialog -->
@@ -53,7 +99,7 @@
 			<!-- /.modal-content -->
 			<div class="modal-content">
 				<form id="agregarPaqMedForm"
-					th:action="@{/admin/drugs/addDrug}" method="post">
+					th:action="@{/admin/paq/addPaq}" method="post">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">
 							<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
@@ -62,9 +108,9 @@
 					</div>
 					<div class="modal-body custom-modal-body" style="height: 200px;">
 						<div class="form-group">
-							<label for="nombre" th:text="#{admin.paquetes.nombre}"></label> <input
+							<label for="nombre" th:text="#{admin.paquetes.agregar}"></label> <input
 								type="text" class="form-control" id="nombre" name="nombre"
-								th:placeholder="#{admin.paquetes.nombre}" />
+								th:placeholder="#{admin.paquetes.agregar}" />
 						</div>
 						<div class="form-group">
 							<label for="apellido" th:text="#{admin.paquetes.descripcion}"></label>
@@ -140,7 +186,7 @@
 	<div th:replace="fragments/general :: jsFragment"></div>
 
 	<script type="text/javascript"
-		th:src="@{/resources/js/administracionMedicamentos.js}"></script>
+		th:src="@{/resources/js/administracionPaqMed.js}"></script>
 
 
 </body>

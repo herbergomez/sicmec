@@ -121,61 +121,47 @@
   	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<!-- 
+ 
 <div class="modal fade" id="modalUpdateDrug" tabindex="-1" role="dialog" aria-labelledby="modalUpdateDrug" aria-hidden="true">
   	<div class="modal-dialog">
-    	<div class="modal-content">
-    	<form th:action="@{/admin/usuarios/upUser}" method="post" >
+    	<div class="modal-content" style="height: 350px">
+    	<form id="updateMedicamentoForm" th:action="@{/admin/drugs/updateDrug}" method="post" >
       			<div class="modal-header">
         			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        			<h4 class="modal-title" th:utext="#{admin.usuarios.upmodal.titulo}"></h4>
+        			<h4 class="modal-title" th:utext="#{admin.drugs.upmodal.titulo}"></h4>
       			</div>
-      		<div class="modal-body">
-      			<input type="text" id="id" name="id" style="display: none;"/>
-      			
-        		<div class="form-group">
-        			<label for="nombreUp" th:text="#{admin.usuarios.nombre}"></label>
-    				<input type="text" class="form-control" id="nombreUp" name="nombreUp" th:placeholder="#{admin.usuarios.nombre}" />
-        		</div>
-        		<div class="form-group">
-        			<label for="apellidoUp" th:text="#{admin.usuarios.apellido}"></label>
-    				<input type="text" class="form-control" id="apellidoUp" name="apellidoUp" th:placeholder="#{admin.usuarios.apellido}" />
-        		</div>
-        		<div class="form-group">
-        			<label for="mailUp" th:utext="#{admin.usuarios.mail}"></label>
-    				<input type="text" class="form-control" id="mailUp" name="mailUp" />
-        		</div>
-        		<div class="form-group">
-        			<label for="rol" th:utext="#{admin.usuarios.mail}"></label>
-    				<select class="form-control" id="rolUp" name="rolUp">
-    					<option th:each="rol:${roles}" th:value="${rol.idSicRol}" th:text="${rol.nombreRol}"></option>
-    				</select>
-        		<div class="form-group">
-        			<label for="fxAct" th:utext="#{admin.usuarios.fxAct}"></label>
-    				<input type="date" class="form-control" id="fxAct" name="fxAct"/>
-        		</div>
-        		<div class="form-group">
-        			<label for="fxDes" th:utext="#{admin.usuarios.fxDes}"></label>
-    				<input type="date" class="form-control" id="fxDes" name="fxDes"/>
-        		</div>
-        		
-        		</div>
-        		
-      		</div>
+	      		<div class="modal-body" style="height: 220px;">
+	      			<input type="text" id="idUpdate" name="idUpdate" style="display: none;"/>
+	      			
+	        		<div class="form-group">
+	        			<label for="nombreUpdate" th:text="#{admin.drugs.nombre}"></label>
+	    				<input type="text" class="form-control" id="nombreUpdate" name="nombreUpdate" th:placeholder="#{admin.drugs.nombre}" readonly="readonly"/>
+	        		</div>
+	        		
+	        		<div class="form-group">
+	        			<label for="descripcionUpdate" th:text="#{admin.drugs.descripcion}"></label>
+	    				<input type="text" class="form-control" id="descripcionUpdate" name="descripcionUpdate" th:placeholder="#{admin.drugs.descripcion}" />
+	        		</div>
+	        		<div class="form-group" style="width: 100%;text-align: center;">
+	        			<label class="checkbox-inline">
+							<input type="radio" id="activo" value="1" name="radio"/> Activo
+						</label>
+						<label class="checkbox-inline">
+							<input type="radio" id="desactivo" value="0" name="radio"/> Desactivo
+						</label>
+	        		</div>	        		
+        		</div>        		
       		<div class="modal-footer">
         		<button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{general.btn.cancelar}"></button>
         		<button type="submit" class="btn btn-primary" th:text="#{general.btn.guardar}"></button>
       		</div>
       		</form>
-    	</div> modal-content 
-  	</div>  modal-dialog 
-</div>  modal 
- -->
+    	</div><!-- modal-content -->  
+  	</div><!-- modal-dialog -->   
+</div><!-- modal -->
 	<div th:replace="fragments/general :: footerFragment"></div>
 	<div th:replace="fragments/general :: jsFragment"></div>
 
 <script type="text/javascript" th:src="@{/resources/js/administracionMedicamentos.js}"></script>
-
-	
 </body>
 </html>
