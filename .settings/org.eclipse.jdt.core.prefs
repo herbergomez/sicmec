@@ -1,9 +1,5 @@
 #
-<<<<<<< HEAD
-#Sat Nov 15 08:28:29 CST 2014
-=======
-#Sun Nov 16 20:39:09 CST 2014
->>>>>>> branch 'development' of https://github.com/kevingcfcb88/sicmec.git
+#Sun Nov 23 14:26:20 CST 2014
 org.eclipse.jdt.core.compiler.debug.localVariable=generate
 org.eclipse.jdt.core.compiler.compliance=1.7
 org.eclipse.jdt.core.compiler.codegen.unusedLocal=preserve
