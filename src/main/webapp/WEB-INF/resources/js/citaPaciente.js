@@ -549,7 +549,7 @@ var printCita = function(id)
 	 var expPac = $("#pacTable tbody tr.selected td:nth-child(2)").html();
 	 var namePac = $("#pacTable tbody tr.selected td:nth-child(3)").html() +", "+$("#pacTable tbody tr.selected td:nth-child(4)").html();
 	
-	 var headElements = "<p><span>Numero de expediente: "+expPac+"</span></p><p><span>Nombre del paciente: "+namePac+"</span></p>";
+	 var headElements = "<p><span>Numero de expediente: "+expPac+"</span></p><p><span>Nombre del paciente: "+namePac+"</span></p><div class='img'><img height='75px' width='100px' src='/sicmec/resources/images/logo_minsal.png'/></div>";
 	 
 	 var options = { mode : 'popup', popClose : true ,extraHead : headElements,popTitle : '' };
 	 
