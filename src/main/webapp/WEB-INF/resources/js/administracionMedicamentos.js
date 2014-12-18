@@ -42,16 +42,64 @@ $( document ).ready(function() {
 	});
 	
 	/*Validation of new drug*/
-	$('#addDrugForm').validate({
+	$('#agregarMedicamentoForm').validate({
 		errorElement: "span",
 		rules: {
 		   nombre: 
 		   {
 		     	required: true,
 		     	maxlength: 20,
-		     	minlength: 3
+		     	minlength: 3,
+		     	remote: 
+		     	{
+		    		type: "POST",
+		    		url: "/sicmec/Utils/validarNombreDroga",
+	                	data : 
+	                	{
+	                		nombre: function() 
+	                        { 
+	                			return $("#nombre").val(); 
+                			}
+	                	}
+		     	}
 		   },
 		   descripcion: 
+		   {
+		        required: false,
+		        maxlength: 20,
+		     	minlength: 3
+		   }
+		  },
+		messages : 
+		{
+			nombre:
+			{
+				remote : "El medicamento que desea agregar ya existe."
+			}
+		},
+		highlight: function(element) {
+			$(element).closest('.form-group')
+			.removeClass('has-success').addClass('has-error');
+		},
+		success: function(element) {
+			element.addClass('help-inline')
+			.closest('.form-group')
+			.removeClass('has-error').addClass('has-success');
+		}
+		 
+	});
+	
+	/*Validation of update drug*/
+	$('#updateMedicamentoForm').validate({
+		errorElement: "span",
+		rules: {
+			nombreUpdate: 
+		   {
+		     	required: true,
+		     	maxlength: 20,
+		     	minlength: 3
+		   },
+		   descripcionUpdate: 
 		   {
 		        required: false,
 		        maxlength: 20,
@@ -70,32 +118,36 @@ $( document ).ready(function() {
 		 
 	});
 	
-	
-	/*$(".onUpdate").click(function(){
+	/*Showing the modal view to edit a drug*/
+	$(".onUpdate").click(function(){
 		var id = $(this).data("id");
-		//alert(id);
-		
+		//alert(id);		
 		$.ajax
 		({
 			type: "GET",
-			url:"/sicmec/admin/usuarios/getUser/"+id,
+			url:"/sicmec/admin/drugs/getDrug/"+id,
 			success:function(result)
 			{
-				$("#id").val(result.idSicUsuario);
-				$("#nombreUp").val(result.sicPersona.nombre);
-				$("#apellidoUp").val(result.sicPersona.apellido);
-				$("#mailUp").val(result.sicPersona.email);
-				$("#rolUp").val(result.sicRol.idSicRol);
-				$("#fxAct").val(result.fxActivacion);
-				$("#fxDes").val(result.fxDesactivacion);
+				$("#idUpdate").val(result.idDrug);
+				$("#nombreUpdate").val(result.drugName);
+				$("#descripcionUpdate").val(result.drugDescription);
+				var iActivo  = result.estado;
 				
-				$("#modalUpdateUsuario").modal("show");
+				if ( iActivo == 1 ) {
+					$("#activo").prop("checked",true);
+					$("#desactivo").prop("checked",false);
+				} else {
+					$("#activo").prop("checked",false);
+					$("#desactivo").prop("checked",true);
+				}
+				
+				$("#modalUpdateDrug").modal("show");
 			},
 			error: function (xhr, ajaxOptions, thrownError) 
 			{
 				alert("unable to find server..")
 		    }
 		});
-	});*/
+	});
 		
 });

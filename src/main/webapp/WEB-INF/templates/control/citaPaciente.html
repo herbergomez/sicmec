@@ -97,6 +97,37 @@
 							</div>
 						</div>
 					</div>
+					<div id="historico" role="tabpanel" class="tab-pane fade" >
+						<div class="container" style="padding-top: 1%; overflow: auto;">
+							<div class="col-md-12 col-xs-12">
+								<div class="form-inline" style="padding-top: 2%">
+									<div class="form-group">
+										<select  class="form-control" id="tipoExamenGrafico" >
+											<option th:each="exam :${tipoExamsList}" th:text="${exam.descripcion}" th:value="${exam.idSicTipoExamen}"></option>
+										</select>
+									</div>
+									<button id="doChart" class="btn btn-primary" >Generar Gr&aacute;fico</button>
+								</div>
+								<div id="printHistorico" style="padding-top: 2%; width: 90%; height: 235px;">
+										<table id="historicTable" class="highchart table table-bordered" data-graph-container-before="1" data-graph-type="area" data-graph-height="200" style='display: none;' >
+											<caption id="title"></caption>
+											<thead>
+      											<tr>
+          											<th>Fecha</th>
+          											<th> Resultado</th>
+      											</tr>	
+   											</thead>
+   											<tbody id="historicChart">
+   											</tbody>
+										</table>
+								</div>
+								<div class='pull-right' style="padding-right: 5%">
+									<button class='btn btn-warning' id="printGraph"><i class="fa fa-print"></i> Imprimir grafico</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					
 				</div>
 					
 				</div>
@@ -178,6 +209,15 @@
   				<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
   				<p th:utext="#{control.exam.success}"></p>
 			</div>
+			<div id="alertaExamDelete" class="alert alert-info alert-dismissible" role="alert" style="display: none;">
+  				<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  				<p th:utext="#{control.exam.delSuccess}"></p>
+			</div>
+			<div id="alertaExamDeleteError" class="alert alert-danger alert-dismissible" role="alert" style="display: none;">
+  				<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  				<p th:utext="#{control.exam.delError}"></p>
+			</div>
+			
 			<div id="alertaExamError" class="alert alert-danger alert-dismissible" role="alert" style="display: none; ">
   				<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
   				<p th:utext="#{control.exam.error}"></p>
@@ -207,10 +247,10 @@
       <table id="tableExams" class="table table-bordered">
       	<thead>
       		<tr>
-      			<th width="15%"></th>
+      			<th width="5%"></th>
       			<th width="30%">Tipo de exam&eacute;n</th>
       			<th width="25%">Resultado</th>
-      			<th width="40%">Comentario</th>
+      			<th width="50%">Comentario</th>
       		</tr>
       	</thead>
       	<tbody id="tbodyExams">
@@ -224,6 +264,8 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<script type="text/javascript" th:src="@{/resources/libs/jquery-highchartTable/highcharts.js}"></script>
+<script type="text/javascript" th:src="@{/resources/libs/jquery-highchartTable/jquery.highchartTable.js}"></script>
 <script type="text/javascript" th:src="@{/resources/js/citaPaciente.js}"></script>
 
 </body>

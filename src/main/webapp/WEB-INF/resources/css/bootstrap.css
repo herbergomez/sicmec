@@ -3090,12 +3090,53 @@ input[type="button"].btn-block {
 .fade.in {
   opacity: 1;
 }
+
+
 .collapse {
   display: none;
 }
+
+/*PRINT CITAS PACIENTE*/
+
+@media print 
+{
+	p
+	{
+		font: 100%/150% Georgia, "Times New Roman", Times, serif;	
+	}
+	.doctorName{padding-left:0% !important;}
+    .collapse 
+    {
+    	display: block !important;
+    	color: #000; 
+    	font: 100%/150% Georgia, "Times New Roman", Times, serif;
+    	/* background-image: url('/sicmec/resources/images/logo_minsal.png');
+		background-repeat: no-repeat; */
+    }
+    .form-group {margin-bottom: 2% !important;}
+    input 
+    {
+		border: none;
+	}
+	textarea 
+	{
+		border: none;
+	}
+	.img
+	{
+    	position: absolute;
+    	top: 4px;
+    	right: 3px;
+		padding-right: 10%;
+	/*vertical-align: bottom;*/
+	}
+}
+
 .collapse.in {
   display: block;
 }
+
+
 tr.collapse.in {
   display: table-row;
 }
@@ -5023,7 +5064,7 @@ a.list-group-item-danger.active:focus {
 .panel-title {
   margin-top: 0;
   margin-bottom: 0;
-  font-size: 16px;
+  font-size: 13px;
   color: inherit;
 }
 .panel-title > a {

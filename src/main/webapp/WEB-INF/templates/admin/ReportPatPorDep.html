@@ -19,12 +19,12 @@
 				<div class="widget-content">
 					<div class="modal-dialog">
     	  <div>
-      		<form id="parameterPacienteForm" th:action="@{/admin/reportes/reportePacientes}" method="Get" >
+      		<form id="parameterPacienteForm" th:action="@{/admin/reportes/reportPatPacPorDep}" method="Get" >
       		    <div class="modal-header">
         			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         			<h4 class="modal-title" style="font-style: normal;color: blue;" th:text="#{admin.reportes.pacientes.parameters}"></h4>
       			</div>
-      			<div class="modal-body">
+      			<div class="modal-body custom-modal-body" style="height: 200px;">
       			   <div class="form-group">
         			  <label for="fdesde" th:text="#{admin.reportes.pacientes.parameters.fdesde}"></label>
     				  <input type="date" class="form-control" id="fdesde" name="fdesde" th:placeholder="#{admin.reportes.pacientes.parameters.fdesde}" />

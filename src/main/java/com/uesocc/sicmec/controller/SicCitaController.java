@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.uesocc.sicmec.model.dto.SicCitaMedicaDto;
 import com.uesocc.sicmec.model.dto.SicExamenDto;
+import com.uesocc.sicmec.model.dto.SicGraficosDto;
 import com.uesocc.sicmec.model.dto.SicPacienteDto;
 import com.uesocc.sicmec.model.dto.SicTratamientoDto;
 import com.uesocc.sicmec.model.serviceImpl.SicCitaMedicaServiceImpl;
@@ -37,7 +38,7 @@ import com.uesocc.sicmec.model.serviceImpl.SicUsuarioServiceImpl;
 @RequestMapping("/control/cita")
 public class SicCitaController 
 {
-	Logger LOGGER = Logger.getLogger(SicCitaController.class);
+	private Logger LOGGER = Logger.getLogger(SicCitaController.class);
 	
 	@Autowired
 	private SicPacienteServiceImpl sicPacienteServiceImpl;
@@ -63,12 +64,20 @@ public class SicCitaController
 		return "/control/citaPaciente";
 	}
 	
+	/**
+	 * @param exp
+	 * @return Lista de pacientes que respondan a este expediente
+	 */
 	@RequestMapping(value="/buscar",method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<SicPacienteDto> getPatients(@RequestParam(value="exp")String exp)
 	{
 		return sicPacienteServiceImpl.findAllByExp(exp);
 	}
 	
+	/**
+	 * @param pac
+	 * @return Historico de citas de un paciente determinado
+	 */
 	@RequestMapping(value="/historialPac",method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<SicTratamientoDto> getHistoryOfPac(@RequestParam(value="pac")int pac)
 	{
@@ -77,6 +86,10 @@ public class SicCitaController
 		return sicTratamientoServiceImpl.findAllBySicPaciente(pac,pageable);
 	}
 	
+	/**
+	 * @param cita
+	 * @return Lista de examenes que le corresponden a una cita en particular
+	 */
 	@RequestMapping(value="/exams",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<SicExamenDto> getExamByCita(@RequestParam(value="cita")int cita)
 	{
@@ -85,6 +98,25 @@ public class SicCitaController
 		return sicExamenServiceImpl.findAllByfkSicCitaMedica_idSicCitaMedica(cita);
 	}
 	
+	/**
+	 * @param exam
+	 * @return Resultado de la operacion de elminar un examen de una cita
+	 */
+	@RequestMapping(value="/eliminarExam",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody boolean delExam(@RequestParam(value="exam")int exam)
+	{
+		LOGGER.info("Delete the exam from the bd...");
+		
+		return sicExamenServiceImpl.delete(exam);
+	}
+	
+	/**
+	 * @param tipoExam
+	 * @param cita
+	 * @param resultado
+	 * @param comentario
+	 * @return Resultado de la operacion de guardar un examen a una cita
+	 */
 	@RequestMapping(value="/guardarExam",method=RequestMethod.POST)
 	public @ResponseBody String guardarExam
 	(
@@ -121,6 +153,16 @@ public class SicCitaController
 		}
 	}
 	
+	/**
+	 * @param paciente
+	 * @param diagnostico
+	 * @param cmt
+	 * @param paqMed
+	 * @param dosis
+	 * @param periodisidad
+	 * @return Resultado de la operacion de guardar una nueva cita para un paciente
+	 * @throws ParseException
+	 */
 	@RequestMapping(value="/guardarCita",method=RequestMethod.POST)
 	public @ResponseBody String guardarCita(
 			@RequestParam(value="pac")int paciente,
@@ -159,5 +201,9 @@ public class SicCitaController
 		}
 		
 	}
-
+	@RequestMapping(value="/grafico",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<SicGraficosDto> graficoPorTipoDeExamen(@RequestParam(value="pac")int paciente,@RequestParam(value="tipo")int tipo)
+	{
+		return sicExamenServiceImpl.findAllExamsResultsByPaciente(tipo,paciente);
+	}
 }

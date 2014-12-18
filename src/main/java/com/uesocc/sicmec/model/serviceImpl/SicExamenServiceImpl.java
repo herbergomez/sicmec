@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 
 import com.uesocc.sicmec.model.adapter.SicExamenAdapter;
 import com.uesocc.sicmec.model.dto.SicExamenDto;
+import com.uesocc.sicmec.model.dto.SicGraficosDto;
 import com.uesocc.sicmec.model.entity.SicExamen;
+import com.uesocc.sicmec.model.repository.JdbcRepository;
 import com.uesocc.sicmec.model.repository.SicExamenRepository;
 import com.uesocc.sicmec.model.service.SicExamenService;
 
@@ -26,6 +28,8 @@ public class SicExamenServiceImpl implements SicExamenService {
 
 	@Autowired
 	private SicExamenRepository SicExamenRepository;
+	@Autowired
+	private JdbcRepository jdbcRepository;
 	
 	/* (non-Javadoc)
 	 * @see com.uesocc.sicmec.framework.general.BaseService#setupService()
@@ -114,6 +118,12 @@ public class SicExamenServiceImpl implements SicExamenService {
 		}
 		
 		return list_dto;
+	}
+
+	@Override
+	public List<SicGraficosDto> findAllExamsResultsByPaciente(int tipoExam,int paciente) {
+		// TODO Auto-generated method stub
+		return jdbcRepository.findExamsForGraphicByPaciente(tipoExam,paciente);
 	}
 
 }
