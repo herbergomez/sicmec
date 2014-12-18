@@ -1,15 +1,12 @@
 package com.uesocc.sicmec.model.repository;
 
 import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import com.uesocc.sicmec.model.entity.SicAsignacionMedicamento;
 import com.uesocc.sicmec.model.entity.SicMedicamento;
-import com.uesocc.sicmec.model.entity.SicPaciente;
 
 @Repository
 public interface SicAsignacionMedPaqRepository extends JpaRepository<SicAsignacionMedicamento, Integer>{
@@ -35,7 +32,7 @@ public interface SicAsignacionMedPaqRepository extends JpaRepository<SicAsignaci
 	 * @param id Id del paquete de medicamentos
 	 * @return Lista de medicamentos del paquete
 	 */
-	@Query(value="SELECT s.fkSicMedicamento FROM SicAsignacionMedicamento s WHERE s.fkSicCatMedicamentos.idSicCatMedicamentos = :id AND s.fkSicCatMedicamentos.estado = 1")
+	@Query(value="SELECT s.fkSicMedicamento FROM SicAsignacionMedicamento s WHERE s.fkSicCatMedicamentos.idSicCatMedicamentos = :id AND s.fkSicCatMedicamentos.estado = '1' ORDER BY s.fkSicMedicamento.idSicMedicamento")
 	List<SicMedicamento> findAllDrugsOfPaq(@Param("id") int id);
 	
 	/**
@@ -43,6 +40,6 @@ public interface SicAsignacionMedPaqRepository extends JpaRepository<SicAsignaci
 	 * @param id Id del paquete de medicamentos
 	 * @return Lista de medicamentos del paquete
 	 */
-	@Query(value="SELECT s.fkSicMedicamento FROM SicAsignacionMedicamento s WHERE s.fkSicCatMedicamentos.idSicCatMedicamentos <> :id AND s.fkSicCatMedicamentos.estado = 0 GROUP BY s.fkSicMedicamento.idSicMedicamento")
+	@Query(value="SELECT s.fkSicMedicamento FROM SicAsignacionMedicamento s WHERE s.fkSicCatMedicamentos.idSicCatMedicamentos <> :id AND s.fkSicCatMedicamentos.estado = '0' ORDER BY s.fkSicMedicamento.idSicMedicamento")
 	List<SicMedicamento> findAllDrugsOfNotInPaq(@Param("id") int id);
 }
