@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte Adherencia Pacientes" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7ac534ed-cfec-4d03-85c1-158594b7ecad">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="107"/>
 	<parameter name="fDesde" class="java.util.Date"/>
 	<parameter name="fHasta" class="java.util.Date"/>
 	<queryString>
@@ -78,14 +78,14 @@ group by sic_paciente.id_sic_paciente,sic_departamento.id_sic_departamento
 				</textElement>
 				<text><![CDATA[Hasta]]></text>
 			</staticText>
-			<textField pattern="MM/dd/yyyy">
+			<textField pattern="d/M/yyyy">
 				<reportElement x="272" y="31" width="131" height="20" uuid="0f02706e-0599-4043-80b0-fbeef25e1f7c"/>
 				<textElement>
 					<font fontName="DejaVu Sans" size="16" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fDesde}]]></textFieldExpression>
 			</textField>
-			<textField pattern="MM/dd/yyyy">
+			<textField pattern="d/M/yyyy">
 				<reportElement x="457" y="31" width="118" height="20" uuid="8198e541-bf2e-4b6e-8cb8-227c0c8234ef"/>
 				<textElement>
 					<font fontName="DejaVu Sans" size="16" isBold="true"/>
