@@ -23,10 +23,10 @@ public class ReportController {
 			
 		return "/admin/reportesSicmec";
 	}
-	@RequestMapping(value="/parameters",method=RequestMethod.GET)
+	@RequestMapping(value="/parametersReportPatPorDep",method=RequestMethod.GET)
 	public String parameterPacientes(Model model)
 	{
 			
-		return "/admin/ReportePacientes";
+		return "/admin/ReportPatPorDep";
 	}	
 }

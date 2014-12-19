@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte Adherencia Pacientes" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7ac534ed-cfec-4d03-85c1-158594b7ecad">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fDesde" class="java.util.Date"/>
+	<parameter name="fHasta" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT sic_paciente.id_sic_paciente,sic_departamento.id_sic_departamento,sic_departamento.nombre_departamento
+ FROM sic_paciente
+  inner join sic_municipio on sic_paciente.fk_sic_municipio= id_sic_municipio
+  inner join sic_departamento on sic_municipio.fk_sic_departamento=sic_departamento.id_sic_departamento
+where sic_paciente.fx_creacion>=$P{fDesde} and sic_paciente.fx_creacion<=$P{fHasta}
+group by sic_paciente.id_sic_paciente,sic_departamento.id_sic_departamento
+ order by sic_departamento.id_sic_departamento;]]>
+	</queryString>
+	<field name="id_sic_paciente" class="java.lang.Integer"/>
+	<field name="id_sic_departamento" class="java.lang.Integer"/>
+	<field name="nombre_departamento" class="java.lang.String"/>
+	<variable name="pacientes_count" class="java.lang.Integer" resetType="Group" resetGroup="Departamento" calculation="Count">
+		<variableExpression><![CDATA[$F{id_sic_paciente}]]></variableExpression>
+	</variable>
+	<variable name="totalPacientes" class="java.lang.Integer" incrementType="Group" incrementGroup="Departamento" calculation="Sum">
+		<variableExpression><![CDATA[$V{pacientes_count}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="pacientes%" class="java.lang.Double" resetType="Group" resetGroup="Departamento" incrementType="Report">
+		<variableExpression><![CDATA[$V{pacientes_count}.doubleValue()/$V{totalPacientes}.doubleValue()]]></variableExpression>
+		<initialValueExpression><![CDATA[$V{pacientes_count}.doubleValue()]]></initialValueExpression>
+	</variable>
+	<variable name="total%" class="java.lang.Double" incrementType="Group" incrementGroup="Departamento" calculation="Sum">
+		<variableExpression><![CDATA[$V{pacientes%}]]></variableExpression>
+	</variable>
+	<group name="Departamento">
+		<groupExpression><![CDATA[$F{id_sic_departamento}]]></groupExpression>
+		<groupHeader>
+			<band height="22">
+				<textField>
+					<reportElement x="64" y="0" width="176" height="20" uuid="74d175d0-4924-40d4-9d5b-54721e54d4ee"/>
+					<textElement>
+						<font fontName="DejaVu Sans" size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nombre_departamento}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="Departamento">
+					<reportElement x="308" y="0" width="201" height="20" uuid="820c3dd3-ebc1-4e19-bd63-dc84611a1d4a"/>
+					<textElement textAlignment="Center">
+						<font fontName="DejaVu Sans" size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{pacientes_count}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="53" splitType="Stretch">
+			<staticText>
+				<reportElement x="98" y="0" width="688" height="31" uuid="a6411d0f-2222-4df1-ac70-32b49983ce54"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="26" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE ADHERENCIA DE PACIENTES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="213" y="31" width="59" height="20" uuid="22efe659-5808-474b-952c-de864cf8638e"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desde]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="403" y="31" width="54" height="20" uuid="179d0ce0-02bc-4686-b845-4ed79117e2ad"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hasta]]></text>
+			</staticText>
+			<textField pattern="MM/dd/yyyy">
+				<reportElement x="272" y="31" width="131" height="20" uuid="0f02706e-0599-4043-80b0-fbeef25e1f7c"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fDesde}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MM/dd/yyyy">
+				<reportElement x="457" y="31" width="118" height="20" uuid="8198e541-bf2e-4b6e-8cb8-227c0c8234ef"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fHasta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="12" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement x="64" y="7" width="176" height="20" uuid="c23f66f9-1595-4c2b-acc5-6a634020e335"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="16" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Departamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="7" width="201" height="21" uuid="e9188f45-c28e-47d9-884e-558e068c1451"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="16" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[N° Pacientes]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="3" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="64" y="0" width="176" height="20" uuid="cfaf86af-a597-4fb7-b42a-ee63b06c1e42"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Pacientes:]]></text>
+			</staticText>
+			<textField evaluationTime="Group" evaluationGroup="Departamento">
+				<reportElement isPrintRepeatedValues="false" x="307" y="0" width="202" height="20" uuid="a3abcf5f-b909-43c1-bbee-65abca37859d"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalPacientes}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="5" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="485" splitType="Stretch">
+			<pie3DChart>
+				<chart>
+					<reportElement x="12" y="0" width="790" height="470" uuid="227a139e-51a9-4359-bc5b-700a0e5e25b2"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{nombre_departamento}]]></keyExpression>
+					<valueExpression><![CDATA[$V{pacientes_count}]]></valueExpression>
+					<labelExpression><![CDATA[$F{nombre_departamento}+"-("+$V{pacientes_count}+" Pac.)"]]></labelExpression>
+				</pieDataset>
+				<pie3DPlot>
+					<plot/>
+					<itemLabel/>
+				</pie3DPlot>
+			</pie3DChart>
+		</band>
+	</summary>
+</jasperReport>
