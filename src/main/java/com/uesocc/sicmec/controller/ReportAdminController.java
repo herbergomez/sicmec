@@ -35,7 +35,7 @@ public class ReportAdminController {
 	@Autowired
 	private ApplicationContext applicationContext;
 	
-	@RequestMapping( value = "/admin/reportes/reportPatPorDep",method = RequestMethod.POST)
+	@RequestMapping( value = "/admin/reportes/reportPatPorDep",method = RequestMethod.GET)
 	public ModelAndView generateReportPatPacPorDep(ModelAndView modelAndView,
 	    		       HttpServletRequest request, HttpServletResponse response,
 	    		       @RequestParam(value="fdesde")String fdesde,
@@ -75,7 +75,7 @@ public class ReportAdminController {
 	 
 	    }//generatePdfReport
 	
-	@RequestMapping( value = "/admin/reportes/reportPacPorDep",method = RequestMethod.POST)
+	@RequestMapping( value = "/admin/reportes/reportPacPorDep",method = RequestMethod.GET)
 	public ModelAndView generateReportPacPorDep(ModelAndView modelAndView,
 	    		       HttpServletRequest request, HttpServletResponse response,
 	    		       @RequestParam(value="fdesde")String fdesde,
@@ -107,7 +107,7 @@ public class ReportAdminController {
 	        out.write(reporte, 0, reporte.length);
 	        out.flush();
 	        out.close();
-	        modelAndView = new ModelAndView("/admin/reportes/reportPacPorDep");
+	        modelAndView = new ModelAndView("/admin/reportes/ReportPacPorDep");
 		 } catch (Exception ex) {
 			 LOGGER.debug("Error al generar el Reporte:" +ex.getMessage());
 		 }
