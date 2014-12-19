@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="patologiasPorDepartamento" pageWidth="700" pageHeight="400" columnWidth="700" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="6a45e165-1801-438d-96a2-0542c4a13c92">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_departamento" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fDesde" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fHasta" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT sic_paciente.id_sic_paciente,sic_departamento.id_sic_departamento,sic_departamento.nombre_departamento,
+	sic_patologia.id_sic_patologia,sic_patologia.nombre_patologia
+  FROM sic_paciente
+  inner join sic_tipo_patologia on sic_paciente.fk_sic_tipo_patologia=sic_tipo_patologia.id_sic_tipo_patologia
+  inner join sic_patologia on sic_tipo_patologia.fk_sic_patologia=sic_patologia.id_sic_patologia
+  inner join sic_municipio on sic_paciente.fk_sic_municipio= id_sic_municipio
+  inner join sic_departamento on sic_municipio.fk_sic_departamento=sic_departamento.id_sic_departamento
+  where sic_departamento.id_sic_departamento=$P{id_departamento}
+       and (sic_paciente.fx_creacion>=$P{fDesde} and sic_paciente.fx_creacion<=$P{fHasta})
+  order by sic_departamento.id_sic_departamento, sic_patologia.id_sic_patologia;]]>
+	</queryString>
+	<field name="id_sic_paciente" class="java.lang.Integer"/>
+	<field name="id_sic_departamento" class="java.lang.Integer"/>
+	<field name="nombre_departamento" class="java.lang.String"/>
+	<field name="id_sic_patologia" class="java.lang.Integer"/>
+	<field name="nombre_patologia" class="java.lang.String"/>
+	<variable name="pacientes_count" class="java.lang.Integer" incrementType="Report" calculation="Count">
+		<variableExpression><![CDATA[$F{id_sic_paciente}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="id_sic_paciente_2" class="java.lang.Double" resetType="Group" resetGroup="Patologias" incrementType="Group" incrementGroup="Patologias" calculation="Sum">
+		<variableExpression><![CDATA[$V{pacientes_count}]]></variableExpression>
+		<initialValueExpression><![CDATA[$V{Total}]]></initialValueExpression>
+	</variable>
+	<variable name="Total" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{pacientes_count}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="porcentaje" class="java.lang.Integer" resetType="Group" resetGroup="Patologias">
+		<variableExpression><![CDATA[$V{pacientes_count}]]></variableExpression>
+	</variable>
+	<variable name="Char_Constant" class="java.lang.String"/>
+	<variable name="id_sic_paciente_1" class="java.lang.Integer" resetType="Group" resetGroup="Patologias" calculation="Count">
+		<variableExpression><![CDATA[$F{id_sic_paciente}]]></variableExpression>
+	</variable>
+	<variable name="totalPacientes" class="java.lang.Integer" incrementType="Group" incrementGroup="id_sic_patologia" calculation="Count">
+		<variableExpression><![CDATA[$V{pacientes_count}]]></variableExpression>
+	</variable>
+	<group name="Patologias" keepTogether="true">
+		<groupExpression><![CDATA[$F{id_sic_patologia}]]></groupExpression>
+		<groupHeader>
+			<band height="24">
+				<textField>
+					<reportElement x="15" y="0" width="130" height="20" uuid="eeb33b12-69ab-4aab-943a-e7e71b87490c"/>
+					<textFieldExpression><![CDATA[$F{nombre_patologia}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="Patologias">
+					<reportElement x="178" y="3" width="100" height="20" uuid="f4f835cf-3ea0-49a9-8831-09081ac4ba16"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$V{pacientes_count}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="8"/>
+		</groupFooter>
+	</group>
+	<group name="id_sic_patologia">
+		<groupExpression><![CDATA[$F{id_sic_patologia}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Immediate"/>
+	</title>
+	<pageHeader>
+		<band splitType="Immediate"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="15" y="15" width="100" height="20" uuid="49e772fd-1459-44e5-ab85-531b17ca5488"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patologia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="178" y="15" width="100" height="20" uuid="78c15d16-1267-4de5-aad5-bd64d5f41147"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N° Pacientes]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band splitType="Immediate"/>
+	</detail>
+	<columnFooter>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="15" y="0" width="117" height="20" uuid="bf969987-99b9-4407-80f1-2a230465ac6c"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="178" y="5" width="100" height="20" uuid="77a87268-f0c0-45a4-9158-2a4bf75199b8"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalPacientes}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="7" splitType="Stretch">
+			<elementGroup/>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="252" splitType="Immediate">
+			<pie3DChart>
+				<chart>
+					<reportElement x="0" y="0" width="700" height="227" uuid="00e2876f-fb19-45f8-8d82-0978eaf8f63d"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{nombre_patologia}]]></keyExpression>
+					<valueExpression><![CDATA[$V{pacientes_count}]]></valueExpression>
+					<labelExpression><![CDATA[$F{nombre_patologia}+'-'+$V{porcentaje}]]></labelExpression>
+				</pieDataset>
+				<pie3DPlot>
+					<plot/>
+					<itemLabel/>
+				</pie3DPlot>
+			</pie3DChart>
+		</band>
+	</summary>
+</jasperReport>

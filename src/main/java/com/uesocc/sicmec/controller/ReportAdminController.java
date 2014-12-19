@@ -35,7 +35,7 @@ public class ReportAdminController {
 	@Autowired
 	private ApplicationContext applicationContext;
 	
-	@RequestMapping( value = "/admin/reportes/reportPatPacPorDep",method = RequestMethod.GET)
+	@RequestMapping( value = "/admin/reportes/reportPatPorDep",method = RequestMethod.POST)
 	public ModelAndView generateReportPatPacPorDep(ModelAndView modelAndView,
 	    		       HttpServletRequest request, HttpServletResponse response,
 	    		       @RequestParam(value="fdesde")String fdesde,
@@ -50,12 +50,10 @@ public class ReportAdminController {
 	        DateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy");
 	        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
 	        
-	      //	parameterMap.put("fDesde", new Date("01/10/1989"));
-	     //   parameterMap.put("fHasta", new Date("12/20/2014"));
 	        parameterMap.put("fDesde", new Date(outputFormat.format(inputFormat.parse(fdesde))));
 	        parameterMap.put("fHasta", new Date(outputFormat.format(inputFormat.parse(fhasta))));
 
-	        jasperReport = JasperCompileManager.compileReport("Reporte Adherencia Pacientes.jrxml");
+	        jasperReport = JasperCompileManager.compileReport("Reporte Patologias Pacientes.jrxml");
 	        byte[] reporte = null;
 	 
 	        reporte = JasperRunManager.runReportToPdf(jasperReport,parameterMap,applicationContext.dataSource().getConnection());
@@ -77,7 +75,7 @@ public class ReportAdminController {
 	 
 	    }//generatePdfReport
 	
-	@RequestMapping( value = "/admin/reportes/reportPacPorDep",method = RequestMethod.GET)
+	@RequestMapping( value = "/admin/reportes/reportPacPorDep",method = RequestMethod.POST)
 	public ModelAndView generateReportPacPorDep(ModelAndView modelAndView,
 	    		       HttpServletRequest request, HttpServletResponse response,
 	    		       @RequestParam(value="fdesde")String fdesde,
@@ -89,13 +87,13 @@ public class ReportAdminController {
 		    JasperReport jasperReport;
 	        Map<String, Object> parameterMap = new HashMap<String, Object>();
 	        
-	        DateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
-	        DateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
+	        DateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy");
+	        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
 	        
 	      	parameterMap.put("fDesde", new Date(outputFormat.format(inputFormat.parse(fdesde))));
 	        parameterMap.put("fHasta", new Date(outputFormat.format(inputFormat.parse(fhasta))));
 
-	        jasperReport = JasperCompileManager.compileReport("Reporte Patologias Pacientes.jrxml");
+	        jasperReport = JasperCompileManager.compileReport("Reporte Adherencia Pacientes.jrxml");
 	        byte[] reporte = null;
 	 
 	        reporte = JasperRunManager.runReportToPdf(jasperReport,parameterMap,applicationContext.dataSource().getConnection());
@@ -109,7 +107,7 @@ public class ReportAdminController {
 	        out.write(reporte, 0, reporte.length);
 	        out.flush();
 	        out.close();
-	        modelAndView = new ModelAndView("/admin/reportes/ReportPatPorDep");
+	        modelAndView = new ModelAndView("/admin/reportes/reportPacPorDep");
 		 } catch (Exception ex) {
 			 LOGGER.debug("Error al generar el Reporte:" +ex.getMessage());
 		 }
