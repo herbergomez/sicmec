@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,6 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SicMedicamento.findByIdSicMedicamento", query = "SELECT s FROM SicMedicamento s WHERE s.idSicMedicamento = :idSicMedicamento"),
     @NamedQuery(name = "SicMedicamento.findByNombreMedicamento", query = "SELECT s FROM SicMedicamento s WHERE s.nombreMedicamento = :nombreMedicamento"),
     @NamedQuery(name = "SicMedicamento.findByDescripcionMedicamento", query = "SELECT s FROM SicMedicamento s WHERE s.descripcionMedicamento = :descripcionMedicamento")})
+
 public class SicMedicamento implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
