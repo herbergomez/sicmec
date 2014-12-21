@@ -97,7 +97,7 @@ $(document).ready(function(){
 				url:"/sicmec/admin/paq/medsOut/"+iPaqMed,
 				success:function(result)
 				{
-					console.log(result);
+					console.log("out"+result);
 					$("#availableMeds option").remove();
 					for (var int = 0; int < result.length; int++) 
     				{
@@ -110,6 +110,7 @@ $(document).ready(function(){
 						url:"/sicmec/admin/paq/medsIn/"+iPaqMed,
 						success:function(result)
 						{
+							console.log("in"+result);
 							$("#actualMeds option").remove();
 							for (var int = 0; int < result.length; int++) 
 		    				{

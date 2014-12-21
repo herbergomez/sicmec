@@ -32,7 +32,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SicMedicamento.findAll", query = "SELECT s FROM SicMedicamento s"),
     @NamedQuery(name = "SicMedicamento.findByIdSicMedicamento", query = "SELECT s FROM SicMedicamento s WHERE s.idSicMedicamento = :idSicMedicamento"),
     @NamedQuery(name = "SicMedicamento.findByNombreMedicamento", query = "SELECT s FROM SicMedicamento s WHERE s.nombreMedicamento = :nombreMedicamento"),
-    @NamedQuery(name = "SicMedicamento.findByDescripcionMedicamento", query = "SELECT s FROM SicMedicamento s WHERE s.descripcionMedicamento = :descripcionMedicamento")})
+    @NamedQuery(name = "SicMedicamento.findByDescripcionMedicamento", query = "SELECT s FROM SicMedicamento s WHERE s.descripcionMedicamento = :descripcionMedicamento"),
+    @NamedQuery(name = "SicMedicamento.findDrugsInPaq", query = "SELECT m.* FROM sic_asignacion_medicamento s INNER JOIN sic_medicamento m ON m.id_sic_medicamento = s.fk_sic_medicamento INNER JOIN sic_cat_medicamentos c ON c.id_sic_cat_medicamentos = s.fk_sic_cat_medicamentos WHERE c.id_sic_cat_medicamentos = :fkSicCatMedicamentos AND s.estado = '1'"),
+    @NamedQuery(name = "SicMedicamento.findDrugsNotInPaq", query = "SELECT * FROM sic_medicamento m WHERE m.id_sic_medicamento NOT IN ( SELECT s.fk_sic_medicamento FROM sic_asignacion_medicamento s WHERE s.fk_sic_cat_medicamentos = :fkSicCatMedicamentos AND s.estado = '1' )")
+    })
 public class SicMedicamento implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
