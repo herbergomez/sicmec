@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package com.uesocc.sicmec.config;
 
 import javax.servlet.http.HttpSessionEvent;
