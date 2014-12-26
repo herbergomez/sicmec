@@ -123,7 +123,15 @@ public class SicExamenServiceImpl implements SicExamenService {
 	@Override
 	public List<SicGraficosDto> findAllExamsResultsByPaciente(int tipoExam,int paciente) {
 		// TODO Auto-generated method stub
-		return jdbcRepository.findExamsForGraphicByPaciente(tipoExam,paciente);
+		if(tipoExam != 0)
+		{
+			return jdbcRepository.findExamsForGraphicByPaciente(tipoExam,paciente);
+		}
+		else
+		{
+			return jdbcRepository.findBMIForGraphicByPaciente(tipoExam,paciente);
+		}
+		
 	}
 
 }

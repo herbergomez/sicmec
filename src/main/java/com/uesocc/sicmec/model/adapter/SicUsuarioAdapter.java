@@ -29,6 +29,7 @@ public class SicUsuarioAdapter implements
 		SicUsuario entidad = new SicUsuario();
 		entidad.setIdSicUsuario((obj.getIdSicUsuario()!=null) ? SicDataTypeFormat.toIntValue(obj.getIdSicUsuario()):null);
 		entidad.setNombreUsuario((obj.getNombreUsuario()!=null) ? SicDataTypeFormat.toStringValue(obj.getNombreUsuario()):"");
+		entidad.setClave((obj.getClave()!=null) ? SicDataTypeFormat.toStringValue(obj.getClave()):"");
 		entidad.setCreadoPor((obj.getCreadoPor()!=null) ? SicDataTypeFormat.toStringValue(obj.getCreadoPor()):"");
 		entidad.setModicadoPor((obj.getModicadoPor()!=null) ? SicDataTypeFormat.toStringValue(obj.getModicadoPor()):"");
 		entidad.setFxCreado((obj.getFxCreado()!=null) ?  SicDataTypeFormat.toDateTimeValue(obj.getFxCreado()):SicDataTypeFormat.toDateTimeValue(new Date().toString()));
@@ -54,6 +55,7 @@ public class SicUsuarioAdapter implements
 		SicUsuarioDto dto = new SicUsuarioDto();
 		dto.setIdSicUsuario((obj.getIdSicUsuario()!=null) ? SicDataTypeFormat.toStringValue(obj.getIdSicUsuario().toString()):"");
 		dto.setNombreUsuario((obj.getNombreUsuario()!=null) ? SicDataTypeFormat.toStringValue(obj.getNombreUsuario()):"");
+		dto.setClave((obj.getClave()!=null) ? SicDataTypeFormat.toStringValue(obj.getClave()):"");
 		dto.setCreadoPor((obj.getCreadoPor()!=null) ? SicDataTypeFormat.toStringValue(obj.getCreadoPor()):"");
 		dto.setModicadoPor((obj.getModicadoPor()!=null) ? SicDataTypeFormat.toStringValue(obj.getModicadoPor()):"");
 		dto.setFxCreado((obj.getFxCreado()!=null) ?  format.format(obj.getFxCreado()):format.format(new Date().toString()));

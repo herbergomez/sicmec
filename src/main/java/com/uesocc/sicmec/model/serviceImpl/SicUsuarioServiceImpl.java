@@ -134,4 +134,18 @@ public class SicUsuarioServiceImpl implements SicUsuarioService {
 		return list_dto;
 	}
 
+	public SicUsuarioDto findByNombreUsuario(String username) 
+	{
+		SicUsuarioAdapter adp = new SicUsuarioAdapter();
+		// TODO Auto-generated method stub
+		if(!sicUsuarioRepository.findAllBynombreUsuario(username).isEmpty())
+		{
+			return adp.entityToDto(sicUsuarioRepository.findAllBynombreUsuario(username).get(0));
+		}
+		else
+		{
+			return null;
+		}
+	}
+
 }

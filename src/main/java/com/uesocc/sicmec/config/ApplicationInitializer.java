@@ -18,6 +18,7 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 
+
 /**
  * @author xtiyo
  *
@@ -41,11 +42,12 @@ public class ApplicationInitializer implements WebApplicationInitializer  {
 		// Load application context
 		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
 		rootContext.register(ApplicationContext.class);
-		rootContext.setDisplayName("Spring test");
+		rootContext.setDisplayName("Spring sicmec");
 		
 		// Context loader listener
 		servletContext.addListener(new ContextLoaderListener(rootContext));
-
+		servletContext.addListener(new SessionListener());
+		
 		//Filter force encodig all aplication map
 				FilterRegistration.Dynamic characterEncodingFilter = servletContext.addFilter("characterEncodingFilter", new CharacterEncodingFilter());
 		        characterEncodingFilter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
