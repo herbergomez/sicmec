@@ -54,6 +54,8 @@ public class SicUsuario implements Serializable {
     private Integer idSicUsuario;
     @Column(name = "nombre_usuario", length = 50,unique=true)
     private String nombreUsuario;
+    @Column(name = "clave", length = 50)
+    private String clave;
     @Column(name = "fx_activacion")
     @Temporal(TemporalType.DATE)
     private Date fxActivacion;
@@ -217,6 +219,20 @@ public class SicUsuario implements Serializable {
 	 */
 	public void setFkSicEstadoUsuario(SicEstadoUsuario fkSicEstadoUsuario) {
 		this.fkSicEstadoUsuario = fkSicEstadoUsuario;
+	}
+
+	/**
+	 * @return the clave
+	 */
+	public String getClave() {
+		return clave;
+	}
+
+	/**
+	 * @param clave the clave to set
+	 */
+	public void setClave(String clave) {
+		this.clave = clave;
 	}
     
 }

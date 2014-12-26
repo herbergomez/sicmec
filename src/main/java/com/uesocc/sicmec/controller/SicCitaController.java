@@ -61,6 +61,7 @@ public class SicCitaController
 		model.addAttribute("paqMedList",sicPaqMedServiceImpl.findAll());
 		model.addAttribute("tipoExamsList", sicTipoExamenServiceImpl.findAll());
 		
+		
 		return "/control/citaPaciente";
 	}
 	
@@ -167,7 +168,10 @@ public class SicCitaController
 	public @ResponseBody String guardarCita(
 			@RequestParam(value="pac")int paciente,
 			@RequestParam(value="diag")String diagnostico,
-			@RequestParam(value="cmt")String cmt,
+			@RequestParam(value="signosSintomas",defaultValue="",required=false)String signosSintomas,
+			@RequestParam(value="cmt",defaultValue="",required=false)String cmt,
+			@RequestParam(value="peso",defaultValue="",required=false)String peso,
+			@RequestParam(value="estatura",defaultValue="",required=false)String estatura,
 			@RequestParam(value="paqMed")int paqMed,
 			@RequestParam(value="dosis")String dosis,
 			@RequestParam(value="per")String periodisidad) throws ParseException
@@ -178,6 +182,9 @@ public class SicCitaController
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			citaMed.setComentario(cmt);
 			citaMed.setDiagnostico(diagnostico);
+			citaMed.setSignosSintomas(signosSintomas);
+			citaMed.setPeso(peso);
+			citaMed.setEstatura(estatura);
 			citaMed.setFxCitaMedica(format.format(new Date()));
 			citaMed.setFkSicPaciente(sicPacienteServiceImpl.findById(paciente));
 			citaMed.setFkSicUsuario(sicUsuarioServiceImpl.findById(1));

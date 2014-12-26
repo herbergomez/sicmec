@@ -18,6 +18,7 @@ public class SicUsuarioDto implements Serializable {
 	
 	private String idSicUsuario;
     private String nombreUsuario;
+    private String clave;
     private String fxActivacion;
     private String fxDesactivacion;
     private String fxCreado;
@@ -171,6 +172,18 @@ public class SicUsuarioDto implements Serializable {
 	 */
 	public void setSicEstadoUsuario(SicEstadoUsuarioDto sicEstadoUsuario) {
 		this.sicEstadoUsuario = sicEstadoUsuario;
+	}
+	/**
+	 * @return the clave
+	 */
+	public String getClave() {
+		return clave;
+	}
+	/**
+	 * @param clave the clave to set
+	 */
+	public void setClave(String clave) {
+		this.clave = clave;
 	}
 
 

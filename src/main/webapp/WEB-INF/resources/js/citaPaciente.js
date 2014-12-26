@@ -30,6 +30,12 @@ $( document ).ready(function()
 			
 	});
 	
+	$("#modalExamen").on('show.bs.modal', function (e) 
+	{
+		$("#resMessage").html("<span>Resultado &#91;mg&#47;dl&#93;</span>");
+	});
+	
+		
 	$("#formExamen").validate({
  		errorElement: "span",
  		rules: 
@@ -67,39 +73,127 @@ $( document ).ready(function()
  			var result = $("#result").val();
  			var cmt = $("#comentarioExm").val();
  			
- 			$.ajax({
-	 		 	    type: "POST",
-	 		 		url: "/sicmec/control/cita/guardarExam",	
-	 		 		data : ({cmt:cmt,result:result,cita:Cita,tipoExam:tipo}),
-	 		 	    success: function(data)
-	 		 	    	{
-	 		 	    		clearModalExam();
-	 		 	    		
-	 		 	    		if(data == "ok")
-	 		 	    			{
-	 		 	    				$(".alert").hide();
-	 		 	    				$("#alertaExamSuccess").show();
-	 		 	    				callExams(Cita);
-	 		 	    				//historialPaciente(paciente);
-	 		 	    			}
-	 		 	    		else
-	 		 	    			{
-	 		 	    				$(".alert").hide();
-	 		 	    				$("#alertaExamError").show();
-	 		 	    			}
-	 					},
-	 						
-	 				error: function(e)
-	 					{
-	 						clearModalExam();
-	 						
-	 						$(".alert").hide();
-	 	    				$("#alertaExamError").show();
-	 					}
-	 		 	    });
+ 			if($("#tipo").val() == '7')
+ 			{
+ 				var regex =new RegExp("^\[0-9]{1,3}\/\[0-9]{1,3}$");
+ 				
+ 				if(regex.test($("#result").val()))
+ 				{
+ 					$("#result").closest('.form-group')
+ 		 			.removeClass('has-error').addClass('has-success');
+ 					
+ 					$.ajax({
+ 		 		 	    type: "POST",
+ 		 		 		url: "/sicmec/control/cita/guardarExam",	
+ 		 		 		data : ({cmt:cmt,result:result,cita:Cita,tipoExam:tipo}),
+ 		 		 	    success: function(data)
+ 		 		 	    	{
+ 		 		 	    		clearModalExam();
+ 		 		 	    		
+ 		 		 	    		if(data == "ok")
+ 		 		 	    			{
+ 		 		 	    				$(".alert").hide();
+ 		 		 	    				$("#alertaExamSuccess").show();
+ 		 		 	    				callExams(Cita);
+ 		 		 	    				//historialPaciente(paciente);
+ 		 		 	    			}
+ 		 		 	    		else
+ 		 		 	    			{
+ 		 		 	    				$(".alert").hide();
+ 		 		 	    				$("#alertaExamError").show();
+ 		 		 	    			}
+ 		 					},
+ 		 						
+ 		 				error: function(e)
+ 		 					{
+ 		 						clearModalExam();
+ 		 						
+ 		 						$(".alert").hide();
+ 		 	    				$("#alertaExamError").show();
+ 		 					}
+ 		 		 	    });
+ 				} 	
+ 				else
+ 				{
+ 					
+ 					$("#result").closest('.form-group')
+ 		 			.removeClass('has-success').addClass('has-error');
+ 				}
+ 			}
+ 			else
+ 			{
+ 	 			$.ajax({
+ 		 		 	    type: "POST",
+ 		 		 		url: "/sicmec/control/cita/guardarExam",	
+ 		 		 		data : ({cmt:cmt,result:result,cita:Cita,tipoExam:tipo}),
+ 		 		 	    success: function(data)
+ 		 		 	    	{
+ 		 		 	    		clearModalExam();
+ 		 		 	    		
+ 		 		 	    		if(data == "ok")
+ 		 		 	    			{
+ 		 		 	    				$(".alert").hide();
+ 		 		 	    				$("#alertaExamSuccess").show();
+ 		 		 	    				callExams(Cita);
+ 		 		 	    				//historialPaciente(paciente);
+ 		 		 	    			}
+ 		 		 	    		else
+ 		 		 	    			{
+ 		 		 	    				$(".alert").hide();
+ 		 		 	    				$("#alertaExamError").show();
+ 		 		 	    			}
+ 		 					},
+ 		 						
+ 		 				error: function(e)
+ 		 					{
+ 		 						clearModalExam();
+ 		 						
+ 		 						$(".alert").hide();
+ 		 	    				$("#alertaExamError").show();
+ 		 					}
+ 		 		 	    });
+ 			}	
+ 			
  		}
  		 
  	});
+	
+	$("#tipo").change(function(){
+		
+		if($("#tipo").val() == '7')
+		{
+			$("#resMessage").html("<span>Resultado &#91;Sist&oacute;lica&#47;Diast&oacute;lica&#93;</span>");
+		}
+		else
+		{
+			$("#resMessage").html("<span>Resultado &#91;mg&#47;dl&#93;</span>");
+		}
+	});
+	
+	
+	
+	$("#result").keyup(function()
+	{	
+		if($("#tipo").val() == '7')
+		{
+			var regex =new RegExp("^\[0-9]{1,3}\/\[0-9]{1,3}$");
+			if(!regex.test($("#result").val()))
+			{
+				$("#result").closest('.form-group')
+	 			.removeClass('has-success').addClass('has-error');
+			}
+			else	
+			{
+				$("#result").closest('.form-group')
+	 			.removeClass('has-error').addClass('has-success');
+			}
+		}
+		else
+		{
+			$("#result").closest('.form-group')
+ 			.removeClass('has-error').addClass('has-error');
+		}
+	});
 	
 	$('#nuevaCitaForm').validate({
  		errorElement: "span",
@@ -108,10 +202,16 @@ $( document ).ready(function()
  		    {
  				required: true
  		    },
- 		    comentario:
- 			{
- 			   	required: true
- 			},
+ 		    peso:
+ 		    {
+ 		    	number: true,
+				range: [1, 100000]
+ 		    },
+ 		    estatura:
+		    {
+		    	number: true,
+				range: [1, 100000]
+		    },
  			tratamiento:
  			{
  				required: true
@@ -130,10 +230,16 @@ $( document ).ready(function()
  		    {
  				required: "Este campo es obligatorio"
  		    },
- 		    comentario:
- 			{
- 			   	required: "Este campo es obligatorio"
- 			},
+ 		    peso:
+		    {
+		    	number: "Por favor ingrese un numero valido",
+				range: "No estan permitidos los valores negativos"
+		    },
+		    estatura:
+		    {
+		    	number: "Por favor ingrese un numero valido",
+				range: "No estan permitidos los valores negativos"
+		    },
  			tratamiento:
  			{
  				required: "Este campo es obligatorio"
@@ -162,6 +268,9 @@ $( document ).ready(function()
  			{
  				var paciente = $("#pacTable tbody tr.selected").data("id");
  				var diagnostico = $("#diagnostico").val();
+ 				var signosSintomas = $("#signosSintomas").val();
+ 				var peso = $("#peso").val();
+ 				var estatura = $("#estatura").val();
  				var comentario = $("#comentario").val();
  				var tratamiento = $("#tratamiento").val();
  				var dosis = $("#dosis").val();
@@ -170,7 +279,7 @@ $( document ).ready(function()
  				$.ajax({
  	 		 	    type: "POST",
  	 		 		url: "/sicmec/control/cita/guardarCita",	
- 	 		 		data : ({diag:diagnostico,cmt:comentario,paqMed:tratamiento,dosis:dosis,per:periodisidad,pac:paciente}),
+ 	 		 		data : ({diag:diagnostico,signosSintomas:signosSintomas,peso:peso,estatura:estatura,cmt:comentario,paqMed:tratamiento,dosis:dosis,per:periodisidad,pac:paciente}),
  	 		 	    success: function(data)
  	 		 	    	{
  	 		 	    		if(data == "ok")
@@ -485,6 +594,12 @@ function historialPaciente(id)
 					+     			"<textarea class='form-control' disabled='disabled' rows='2' >"+data[int].fkSicCitaMedica.diagnostico+"</textarea>"				
 					+			"</div>"
 					+		"</div>"
+					+		"<div class='form-group' style='margin-bottom: 38%;' >"
+					+    		"<label class='col-sm-4' >Signos y sintomas: </label>"
+					+			"<div class='col-sm-8'>"
+					+     			"<textarea class='form-control' disabled='disabled' rows='2' >"+data[int].fkSicCitaMedica.signosSintomas+"</textarea>"				
+					+			"</div>"
+					+		"</div>"
 					+    	"<div class='form-group' >"
 					+    		"<label class='col-sm-4' >Comentario: </label>"
 					+			"<div class='col-sm-8' >"
@@ -596,20 +711,45 @@ var generarGrafico = function (paciente,tipo)
  		data : ({pac:paciente,tipo:tipo}),
  	    success: function(data)
  	    	{
- 	    		$("#title").text("Grafico progresivo de salud: "+data[0].tipo);
  	    		
- 	    		for (var int = 0; int < data.length; int++) 
+ 	    		
+ 	    		if(data[0].tipo == 'PRESION ARTERIAL')
  	    		{
- 	    			tr = tr 
- 	    				 + "<tr>"
- 	    				 + "<td>"+data[int].fx+"</td>"
- 	    				 + "<td>"+data[int].resultado+"</td>"
- 	    				 //+ "<td>"+data[int].comentario+"</td>"
- 	    				 + "</tr>";
-				}
+ 	    			$("#preasuretitle").text("Grafico progresivo de salud: "+data[0].tipo);
+ 	    			
+ 	    			for (var int = 0; int < data.length; int++) 
+ 	 	    		{
+ 	    				var res = data[int].resultado.split("/");
+ 	    				
+ 	 	    			tr = tr 
+ 	 	    				 + "<tr>"
+ 	 	    				 + "<td>"+data[int].fx+"</td>"
+ 	 	    				 + "<td>"+res[0]+"</td>"
+ 	 	    				 + "<td>"+res[1]+"</td>"
+ 	 	    				 + "</tr>";
+ 					}
+ 	    			
+ 	    			$("#historicPreasureChart").html(tr);
+ 	 	    		$("#historicPreasureTable").highchartTable();
+ 	    		}
+ 	    		else
+ 	    		{
+ 	    			$("#title").text("Grafico progresivo de salud: "+data[0].tipo);
+ 	    			
+ 	    			for (var int = 0; int < data.length; int++) 
+ 	 	    		{
+ 	 	    			tr = tr 
+ 	 	    				 + "<tr>"
+ 	 	    				 + "<td>"+data[int].fx+"</td>"
+ 	 	    				 + "<td>"+data[int].resultado+"</td>"
+ 	 	    				 //+ "<td>"+data[int].comentario+"</td>"
+ 	 	    				 + "</tr>";
+ 					}
+ 	 	    		
+ 	 	    		$("#historicChart").html(tr);
+ 	 	    		$("#historicTable").highchartTable();
+ 	    		}
  	    		
- 	    		$("#historicChart").html(tr);
- 	    		$("#historicTable").highchartTable();
  	    		
 			},
 				
@@ -623,6 +763,7 @@ var generarGrafico = function (paciente,tipo)
 var limpiarGrafico = function()
 {
 	$("#historicChart tr").remove();
+	$("#historicPreasureChart tr").remove();
 	$("div[data-highcharts-chart]").remove();
 };
 

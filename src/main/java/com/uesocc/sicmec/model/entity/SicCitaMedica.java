@@ -5,6 +5,7 @@
 package com.uesocc.sicmec.model.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -51,10 +52,17 @@ public class SicCitaMedica implements Serializable {
     @Column(name = "fx_cita_medica")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fxCitaMedica;
-    @Column(name = "diagnostico", length = 500)
-    private String diagnostico;
     @Basic(optional = false)
-    @Column(name = "comentario", nullable = false, length = 500)
+    @Column(name = "diagnostico", length = 500,nullable = false)
+    private String diagnostico;
+    @Column(name = "signos_sintomas", length = 500)
+    private String signosSintomas;
+    @Column(name = "estatura", precision = 10, scale = 3)
+    private BigDecimal estatura;
+    @Column(name = "peso", precision = 10, scale = 3)
+    private BigDecimal peso;
+    @Basic(optional = false)
+    @Column(name = "comentario", length = 500)
     private String comentario;
     @JoinColumn(name = "fk_sic_usuario", referencedColumnName = "id_sic_usuario")
     @ManyToOne
@@ -175,6 +183,48 @@ public class SicCitaMedica implements Serializable {
 	 */
 	public void setSicExamenList(List<SicExamen> sicExamenList) {
 		this.sicExamenList = sicExamenList;
+	}
+
+	/**
+	 * @return the signosSintomas
+	 */
+	public String getSignosSintomas() {
+		return signosSintomas;
+	}
+
+	/**
+	 * @param signosSintomas the signosSintomas to set
+	 */
+	public void setSignosSintomas(String signosSintomas) {
+		this.signosSintomas = signosSintomas;
+	}
+
+	/**
+	 * @return the estatura
+	 */
+	public BigDecimal getEstatura() {
+		return estatura;
+	}
+
+	/**
+	 * @param estatura the estatura to set
+	 */
+	public void setEstatura(BigDecimal estatura) {
+		this.estatura = estatura;
+	}
+
+	/**
+	 * @return the peso
+	 */
+	public BigDecimal getPeso() {
+		return peso;
+	}
+
+	/**
+	 * @param peso the peso to set
+	 */
+	public void setPeso(BigDecimal peso) {
+		this.peso = peso;
 	}
     
 }
