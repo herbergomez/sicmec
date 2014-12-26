@@ -7,7 +7,7 @@
 <body>
 	<div th:replace="fragments/general :: navFragment"></div>
 
-	<div class="container" style="min-height: 600px; overflow: auto;">
+	<div class="container" style="min-height: 300px; overflow: auto;">
 	<div class="row">
 		  <div class="col-md-12 col-xs-12">
 		     <div class="widget-box">
@@ -30,17 +30,28 @@
 					      <tr>
 					        <td>
 							   <div class="btn-group"> 										   
-   									<a class="btn btn-default" th:href="@{/admin/reportes/parameters}" target="_blank">
-										<h2>Paciente Report</h2>
+   									<a class="btn btn-default" th:href="@{/admin/reportes/parametersReportPacPorDep}" target="_blank">
+										<h4>Reporte Adherencia de Pacientes</h4>
 									</a>											
 								 </div>
 							 </td>
-							  <td>
-							     <a class="btn btn-default" th:href="@{/admin/reportes/parameters}" target="_blank">
-										<h2>Reporte que obtiene un listado de pacientes</h2>
-									</a>	
+							  <td>						
+										<h4>Obtiene Total de Pacientes en un Departamento segun rango de fechas.</h4>
 							  </td>
 						    </tr>	
+						    
+						     <tr>
+					        <td>
+							   <div class="btn-group"> 										   
+   									<a class="btn btn-default" th:href="@{/admin/reportes/parametersReportPatPorDep}" target="_blank">
+										<h4>Reporte: Patologias por Departamento</h4>
+									</a>											
+								 </div>
+							 </td>
+							  <td>						
+										<h4>Obtiene Patologias por Departamento segun un rango de fechas.</h4>
+							  </td>
+						    </tr>
 					     </tbody>
 					  </table>
 					</div>

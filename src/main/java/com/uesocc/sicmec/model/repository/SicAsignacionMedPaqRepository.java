@@ -32,7 +32,7 @@ public interface SicAsignacionMedPaqRepository extends JpaRepository<SicAsignaci
 	 * @param id Id del paquete de medicamentos
 	 * @return Lista de medicamentos del paquete
 	 */
-	@Query(value="SELECT s.fkSicMedicamento FROM SicAsignacionMedicamento s WHERE s.fkSicCatMedicamentos.idSicCatMedicamentos = :id AND s.fkSicCatMedicamentos.estado = '1' ORDER BY s.fkSicMedicamento.idSicMedicamento")
+
 	List<SicMedicamento> findAllDrugsOfPaq(@Param("id") int id);
 	
 	/**
@@ -40,6 +40,6 @@ public interface SicAsignacionMedPaqRepository extends JpaRepository<SicAsignaci
 	 * @param id Id del paquete de medicamentos
 	 * @return Lista de medicamentos del paquete
 	 */
-	@Query(value="SELECT s.fkSicMedicamento FROM SicAsignacionMedicamento s WHERE s.fkSicCatMedicamentos.idSicCatMedicamentos <> :id AND s.fkSicCatMedicamentos.estado = '0' ORDER BY s.fkSicMedicamento.idSicMedicamento")
+			
 	List<SicMedicamento> findAllDrugsOfNotInPaq(@Param("id") int id);
 }

@@ -14,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -29,6 +31,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "SicAsignacionMedicamento.findAll", query = "SELECT s FROM SicAsignacionMedicamento s"),
     @NamedQuery(name = "SicAsignacionMedicamento.findByIdSicAsignacionMedicamento", query = "SELECT s FROM SicAsignacionMedicamento s WHERE s.idSicAsignacionMedicamento = :idSicAsignacionMedicamento")})
+
+@NamedNativeQueries
+({
+	@NamedNativeQuery(name="SicAsignacionMedicamento.findAllDrugsOfPaq",
+			query="SELECT * FROM sic_medicamento s WHERE s.id_sic_medicamento IN (SELECT j.fk_sic_medicamento FROM sic_asignacion_medicamento j WHERE j.fk_sic_cat_medicamentos = (:id)) AND s.estado_medicamento = '1'",resultClass=SicMedicamento.class),
+	@NamedNativeQuery(name="SicAsignacionMedicamento.findAllDrugsOfNotInPaq",
+	query="SELECT * FROM sic_medicamento s WHERE s.id_sic_medicamento NOT IN (SELECT j.fk_sic_medicamento FROM sic_asignacion_medicamento j WHERE j.fk_sic_cat_medicamentos = (:id)) AND s.estado_medicamento = '1'",resultClass=SicMedicamento.class)
+})
 public class SicAsignacionMedicamento implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
