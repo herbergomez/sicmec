@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="2.0">
 	<wb-module deploy-name="sicmec">
 		<property name="context-root" value="sicmec"/>
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/resources"/>
@@ -6,11 +7,6 @@
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/webapp"/>
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/framework"/>
 		<wb-resource deploy-path="/" source-path="src/main/webapp"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/framework"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
 		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/pportillo/.gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-queryparser/4.5.1/63f46dc7577d676e7d8e5c63891c737297a9a61c/lucene-queryparser-4.5.1.jar">
 			<dependency-type>uses</dependency-type>
 		</dependent-module>
@@ -53,6 +49,9 @@
 		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/pportillo/.gradle/caches/modules-2/files-2.1/org.springframework/spring-orm/4.0.0.RELEASE/fff3270d2af501888a738484c703e40d5bb5f76c/spring-orm-4.0.0.RELEASE.jar">
 			<dependency-type>uses</dependency-type>
 		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/pportillo/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-core/3.2.4.RELEASE/493bc57396a821e8ffa7d99fac77cc79c15e9b7f/spring-security-core-3.2.4.RELEASE.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
 		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/pportillo/.gradle/caches/modules-2/files-2.1/org.jboss/jandex/1.1.0.Final/e84a2122e76f0b6503be78094ddf2108057ac15f/jandex-1.1.0.Final.jar">
 			<dependency-type>uses</dependency-type>
 		</dependent-module>
@@ -60,6 +59,9 @@
 			<dependency-type>uses</dependency-type>
 		</dependent-module>
 		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/pportillo/.gradle/caches/modules-2/files-2.1/xml-apis/xml-apis/1.3.02/dc7315e359b5e43f20131414d60b5c307aace975/xml-apis-1.3.02.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/pportillo/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-web/3.2.0.RELEASE/f5f2fbfb3a59b1371ca9dda348d8eee22f99a19f/spring-security-web-3.2.0.RELEASE.jar">
 			<dependency-type>uses</dependency-type>
 		</dependent-module>
 		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/pportillo/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-core/4.3.1.Final/73618cbf2dd1fa989a13d9444d4f025cfc51ec10/hibernate-core-4.3.1.Final.jar">
@@ -201,6 +203,9 @@
 			<dependency-type>uses</dependency-type>
 		</dependent-module>
 		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/pportillo/.m2/repository/org/springframework/spring-context/4.0.0.RC1/spring-context-4.0.0.RC1.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/pportillo/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-config/3.2.0.RELEASE/9f10bd410bdda6140d7aa38cc9c115cb9f797626/spring-security-config-3.2.0.RELEASE.jar">
 			<dependency-type>uses</dependency-type>
 		</dependent-module>
 		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/pportillo/.gradle/caches/modules-2/files-2.1/org.olap4j/olap4j/0.9.7.309-JS-3/b959e1e72a5ab17668609edb2949b09a6a51b82e/olap4j-0.9.7.309-JS-3.jar">
