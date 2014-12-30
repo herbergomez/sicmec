@@ -6,6 +6,11 @@
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/webapp"/>
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/framework"/>
 		<wb-resource deploy-path="/" source-path="src/main/webapp"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/framework"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
 		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/pportillo/.gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-queryparser/4.5.1/63f46dc7577d676e7d8e5c63891c737297a9a61c/lucene-queryparser-4.5.1.jar">
 			<dependency-type>uses</dependency-type>
 		</dependent-module>
