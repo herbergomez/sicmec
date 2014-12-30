@@ -19,5 +19,5 @@ public interface SicTratamientoService extends
 		BaseService<SicTratamientoDto, Integer> {
 	
 	List<SicTratamientoDto> findAllBySicPaciente(@Param("pac")int pac,Pageable pageable);
-
+	List<SicTratamientoDto> findAllBySicPacienteWhithMeds(@Param("pac")String pac,Pageable pageable);
 }

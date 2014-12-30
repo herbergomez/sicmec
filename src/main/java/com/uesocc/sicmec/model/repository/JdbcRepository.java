@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.uesocc.sicmec.model.dto.SicEntregaTratamientoDto;
 import com.uesocc.sicmec.model.dto.SicGraficosDto;
 
 
@@ -44,6 +45,13 @@ public class JdbcRepository
 	private String indiceMasaCorporal =	
 			 "SELECT cm.peso, cm.estatura,cm.fx_cita_medica,cm.comentario from sic_cita_medica cm" 
 			+" WHERE cm.fk_sic_paciente = ? AND cm.peso IS NOT NULL AND cm.estatura IS NOT NULL ORDER BY cm.fx_cita_medica ASC LIMIT ?";
+	
+	private String entregasDeMedPorPaciente =
+			"SELECT et.* FROM sic_entrega_tratamiento et "+
+			" INNER JOIN sic_tratamiento tn ON tn.id_sic_tratamiento = et.fk_sic_tratamiento"+
+			" INNER JOIN sic_cita_medica cm ON cm.id_sic_cita_medica = tn.fk_sic_cita_medica"+
+			" INNER JOIN sic_paciente pm ON pm.id_sic_paciente = cm.fk_sic_paciente"+
+			" WHERE pm.numero_expediente = ? ORDER BY et.fx_entrega_tratamiento DESC LIMIT ?";
 	
 	public List<SicGraficosDto> findExamsForGraphicByPaciente(int tipo, int id)
 	{
@@ -82,5 +90,20 @@ public class JdbcRepository
                 });
 		
 		return results;
+	}
+	
+	public List<SicEntregaTratamientoDto> findAllTreatmentDeliveryByPaciente(String id)
+	{
+		List<SicEntregaTratamientoDto> result = jdbcTemplate.query(this.entregasDeMedPorPaciente,new Object[] {id,10},
+				new RowMapper<SicEntregaTratamientoDto>() 
+	                {
+	                    @Override
+	                    public SicEntregaTratamientoDto mapRow(ResultSet rs, int rowNum) throws SQLException 
+	                    {
+	                        return new SicEntregaTratamientoDto(rs.getObject("id_sic_entrega_tratamiento").toString(),
+	                        		rs.getString("comentario"),rs.getString("fx_entrega_tratamiento"));
+	                    }
+	                });
+	                return result;
 	}
 }

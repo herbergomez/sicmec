@@ -11,9 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.uesocc.sicmec.model.adapter.SicDrugAdapter;
 import com.uesocc.sicmec.model.adapter.SicTratamientoAdapter;
+import com.uesocc.sicmec.model.dto.SicDrugDto;
 import com.uesocc.sicmec.model.dto.SicTratamientoDto;
+import com.uesocc.sicmec.model.entity.SicMedicamento;
 import com.uesocc.sicmec.model.entity.SicTratamiento;
+import com.uesocc.sicmec.model.repository.SicAsignacionMedPaqRepository;
 import com.uesocc.sicmec.model.repository.SicTratamientoRepository;
 import com.uesocc.sicmec.model.service.SicTratamientoService;
 
@@ -26,6 +30,8 @@ public class SicTratamientoServiceImpl implements SicTratamientoService {
 
 	@Autowired
 	private SicTratamientoRepository sicTratamientoRepository;
+	@Autowired
+	private SicAsignacionMedPaqRepository sicAsignacionMedPaqRepository;
 	
 	/* (non-Javadoc)
 	 * @see com.uesocc.sicmec.framework.general.BaseService#setupService()
@@ -117,4 +123,34 @@ public class SicTratamientoServiceImpl implements SicTratamientoService {
 		return list_dto;
 	}
 
+	@Override
+	public List<SicTratamientoDto> findAllBySicPacienteWhithMeds(String pac,
+			Pageable pageable) {
+		// TODO Auto-generated method stub
+		SicTratamientoAdapter adp = new SicTratamientoAdapter();
+		SicDrugAdapter adpp = new SicDrugAdapter();
+		
+		List<SicTratamiento> list = sicTratamientoRepository.findAllBySicPacienteExp(pac,pageable);
+		List<SicTratamientoDto> list_dto = new ArrayList<SicTratamientoDto>();	
+		List<SicMedicamento> listMed = null;
+		List<SicDrugDto> listMedDto = new ArrayList<SicDrugDto>();
+		SicTratamientoDto treatment = null;
+		
+		for (SicTratamiento sicTratamiento : list) 
+		{
+			treatment = adp.entityToDto(sicTratamiento);
+			
+			listMed = sicAsignacionMedPaqRepository.findAllDrugsOfPaq(sicTratamiento.getFkSicCatMedicamentos().getIdSicCatMedicamentos());
+			for (SicMedicamento sicMedicamento : listMed) 
+			{
+				listMedDto.add(adpp.entityToDto(sicMedicamento));
+			}
+			treatment.setListMeds(listMedDto);
+			list_dto.add(treatment);
+		}
+		
+		return list_dto;
+	}
+
+	
 }
