@@ -95,10 +95,18 @@
 									<span class="historialTratamientos">Informaci&oacute;n del tratamiento actual</span>
 									<div id="alert"></div>
 									<form style="padding-top: 5%;">
-  										<div class="form-group">
+  										
+  										<div class="row">
+  											<div class="form-group col-md-6">
     										<label for="" th:text="#{farm.entrega.per}"></label>
     										<input type="text" class="form-control" id="per"  disabled="disabled"/>
+  											</div>	
+  											<div class="form-group col-md-6">
+    										<label for="" th:text="#{farm.entrega.date}"></label>
+    										<input type="text" class="form-control" id="fecha"  disabled="disabled"/>
+  											</div>
   										</div>
+  										
   										<div class="form-group">
     										<label th:text="#{farm.entrega.dosis}"></label>
     										<textarea class="form-control" id="dosis" rows="2" disabled="disabled"></textarea>

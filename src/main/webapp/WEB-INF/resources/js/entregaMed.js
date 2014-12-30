@@ -73,11 +73,13 @@ var getTreatment = function (id)
 				llenarTablaDeMedicamentos(result[0].listMeds);
 				$("#per").val(result[0].periodisidad); 
 				$("#dosis").text(result[0].dosis);
+				$("#fecha").val(result[0].fxTratamiento);
 			}
 			else
 			{
 				$("#per").val(""); 
 				$("#dosis").text("");
+				$("#fecha").val("");
 				vaciarTablaMed();
 			}
 		},

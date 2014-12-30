@@ -2,6 +2,7 @@ package com.uesocc.sicmec.model.serviceImpl;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,6 +86,12 @@ public class SicEntregaTratamientoServiceImpl implements
 		// TODO Auto-generated method stub
 		
 		return jdbcRepository.findAllTreatmentDeliveryByPaciente(id);
+	}
+
+	@Override
+	public Long countAllByPacienteAndFecha(int paciente, Date fxOne, Date fxTwo) {
+		// TODO Auto-generated method stub
+		return sicEntregaTratamientoRepository.countAllByPacienteAndFecha(paciente, fxOne, fxTwo);
 	}
 
 }
