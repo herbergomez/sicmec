@@ -6,7 +6,6 @@ package com.uesocc.sicmec.model.entity;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,7 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -50,6 +48,9 @@ public class SicMedicamento implements Serializable {
     private List<SicAsignacionMedicamento> sicAsignacionMedicamentoList;
     @Column(name = "estado_medicamento")
     private String estadoMedicamento;
+    @Column(name = "tipo_medicamento")
+    private String tipoMedicamento;
+    
     
     public SicMedicamento() {
     }
@@ -134,6 +135,20 @@ public class SicMedicamento implements Serializable {
 	public void setSicAsignacionMedicamentoList(
 			List<SicAsignacionMedicamento> sicAsignacionMedicamentoList) {
 		this.sicAsignacionMedicamentoList = sicAsignacionMedicamentoList;
+	}
+
+	/**
+	 * @return the tipoMedicamento
+	 */
+	public String getTipoMedicamento() {
+		return tipoMedicamento;
+	}
+
+	/**
+	 * @param tipoMedicamento the tipoMedicamento to set
+	 */
+	public void setTipoMedicamento(String tipoMedicamento) {
+		this.tipoMedicamento = tipoMedicamento;
 	}
     
 }
