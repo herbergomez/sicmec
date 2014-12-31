@@ -5,7 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,49 +51,38 @@ public class SicValidarEntregaMed
 		List<SicTratamientoDto> tratList = 
 				sicTratamientoServiceImpl.findAllBySicPaciente(paciente,page);
 		
+		Map<String, Integer> aMap = new HashMap<String, Integer>();
+		aMap.put("Quincenal" , Integer.valueOf(15));
+		aMap.put("Mensual" , Integer.valueOf(30));
+		aMap.put("Bimensual" , Integer.valueOf(60));
+		aMap.put("Trimestral" , Integer.valueOf(90));
+		aMap.put("6 meses" , Integer.valueOf(180));
+		
+		
 		if(!tratList.isEmpty())
 		{
 			SicTratamientoDto trat = tratList.get(0);
 			Date fxTratamiento = format.parse(trat.getFxTratamiento());
 			Date fxActual = new Date();
+			//Date fxActual = format.parse("2015-04-20 08:40:00");
 			Long diferencia = fxActual.getTime() - fxTratamiento.getTime();
-			
+			Long dias = TimeUnit.DAYS.convert(diferencia, TimeUnit.MILLISECONDS);
+			int diasPeriodo = aMap.get(trat.getPeriodisidad());
+			int multiplo = dias.intValue()/ diasPeriodo;
 					
-			switch (trat.getPeriodisidad())
+			if (multiplo == 0)
 			{
-				case "Quincenal":
-					break;
-				case "Mensual":
-					break;
-				case "Bimensual":
-					break;
-				case "Trimestral":
-					
-					int multiplo = diferencia.intValue()/90;
-					
-					if (multiplo == 0)
-					{
-						return calculoDeEntregasPorRangoDeFecha(paciente,fxTratamiento,fxActual);
-					}
-					else
-					{
-						Calendar myCal = new GregorianCalendar();
-						myCal.setTime(fxTratamiento);
-						myCal.add(Calendar.DAY_OF_YEAR, 90*multiplo);
-						Date fxOff = myCal.getTime();
-						return calculoDeEntregasPorRangoDeFecha(paciente,fxOff,fxActual);
-					}	
-					
-				case "6 meses":
-					break;
-				default:
-					break;
+				return calculoDeEntregasPorRangoDeFecha(paciente,fxTratamiento,fxActual);
+			}
+			else
+			{
+				Calendar myCal = new GregorianCalendar();
+				myCal.setTime(fxTratamiento);
+				myCal.add(Calendar.DAY_OF_YEAR,diasPeriodo*multiplo);
+				Date fxOff = myCal.getTime();
+				return calculoDeEntregasPorRangoDeFecha(paciente,fxOff,fxActual);
 			}
 			
-			long dias = TimeUnit.DAYS.convert(diferencia, TimeUnit.MILLISECONDS);
-			
-			
-			return true;
 		}
 		else
 		{
@@ -99,9 +90,16 @@ public class SicValidarEntregaMed
 		}
 	}
 	
+	
+	
 	private boolean calculoDeEntregasPorRangoDeFecha(int paciente,Date fxOff, Date fxActual)
 	{
-		if(sicEntregaTratamientoServiceImpl.countAllByPacienteAndFecha(paciente, fxOff,fxActual) == 0)
+		System.out.println(fxOff);
+		System.out.println(fxActual);
+		
+		Long numeroDeEntregas = sicEntregaTratamientoServiceImpl.countAllByPacienteAndFecha(paciente, fxOff,fxActual);
+		
+		if(numeroDeEntregas == 0)
 		{
 			return true;
 		}

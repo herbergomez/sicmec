@@ -2,8 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns="http://www.w3.org/1999/xhtml">
 <head th:include="fragments/general :: headerFragment">
-	
 </head>
+<link media="all" th:href="@{/resources/libs/jBox/css/jBox.css}" rel="stylesheet"/>
+
 <body>
 	<div th:replace="fragments/general :: navFragment"></div>
 	
@@ -72,7 +73,7 @@
 								</div>
 								<div class="btn-group">
 									<button class="btn btn-danger" id="buscar">Buscar</button>
-									<button class="btn btn-default">Limpiar</button>
+									<button class="btn btn-default" id="limpiar">Limpiar</button>
 								</div>
 							</div>
 						</div>
@@ -94,8 +95,7 @@
 								<div class="widget-content">
 									<span class="historialTratamientos">Informaci&oacute;n del tratamiento actual</span>
 									<div id="alert"></div>
-									<form style="padding-top: 5%;">
-  										
+									<form id="formularioEntregaMedicamento" style="padding-top: 5%;">
   										<div class="row">
   											<div class="form-group col-md-6">
     										<label for="" th:text="#{farm.entrega.per}"></label>
@@ -113,8 +113,7 @@
   										</div>
   										
   										<div class="pull-rigth">
-  											<button type="button" class="btn btn-primary">Realizar entrega</button>
-  											<button type="button" class="btn btn-default">Cancelar</button>
+  											<button type="button" class="btn btn-default" id="realizarEntrega">Realizar entrega</button>
   										</div>
 									</form>
 									<div style="padding-left: 10%; padding-right: 10%">
@@ -163,7 +162,8 @@
 
 	<div th:replace="fragments/general :: footerFragment"></div>
 	<div th:replace="fragments/general :: jsFragment"></div>
-
+	
+<script type="text/javascript" th:src="@{/resources/libs/jBox/js/jBox.js}"></script>
 <script type="text/javascript" th:src="@{/resources/js/entregaMed.js}"></script>
 
 	

@@ -1,5 +1,6 @@
 package com.uesocc.sicmec.controller;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +45,10 @@ public class SicEntregaMedController
 	 * @param id
 	 * @return Lista con el ultimo tratamiento
 	 * asignado a este paciente.
+	 * @throws ParseException 
 	 */
 	@RequestMapping(value="/tratamiento/{id}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<SicTratamientoDto> getTreatment(@PathVariable String id)
+	public @ResponseBody List<SicTratamientoDto> getTreatment(@PathVariable String id) throws ParseException
 	{
 		Pageable page = new PageRequest(0,1);
 		

@@ -3,6 +3,7 @@
  */
 package com.uesocc.sicmec.model.service;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
@@ -19,5 +20,5 @@ public interface SicTratamientoService extends
 		BaseService<SicTratamientoDto, Integer> {
 	
 	List<SicTratamientoDto> findAllBySicPaciente(@Param("pac")int pac,Pageable pageable);
-	List<SicTratamientoDto> findAllBySicPacienteWhithMeds(@Param("pac")String pac,Pageable pageable);
+	List<SicTratamientoDto> findAllBySicPacienteWhithMeds(@Param("pac")String pac,Pageable pageable) throws ParseException;
 }

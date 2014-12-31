@@ -20,6 +20,7 @@ import com.uesocc.sicmec.model.entity.SicTratamiento;
 import com.uesocc.sicmec.model.repository.SicAsignacionMedPaqRepository;
 import com.uesocc.sicmec.model.repository.SicTratamientoRepository;
 import com.uesocc.sicmec.model.service.SicTratamientoService;
+import com.uesocc.sicmec.utils.SicValidarEntregaMed;
 
 /**
  * @author xtiyo
@@ -32,6 +33,8 @@ public class SicTratamientoServiceImpl implements SicTratamientoService {
 	private SicTratamientoRepository sicTratamientoRepository;
 	@Autowired
 	private SicAsignacionMedPaqRepository sicAsignacionMedPaqRepository;
+	@Autowired
+	private SicValidarEntregaMed sicValidarEntregaMed;
 	
 	/* (non-Javadoc)
 	 * @see com.uesocc.sicmec.framework.general.BaseService#setupService()
@@ -125,7 +128,7 @@ public class SicTratamientoServiceImpl implements SicTratamientoService {
 
 	@Override
 	public List<SicTratamientoDto> findAllBySicPacienteWhithMeds(String pac,
-			Pageable pageable) {
+			Pageable pageable) throws ParseException {
 		// TODO Auto-generated method stub
 		SicTratamientoAdapter adp = new SicTratamientoAdapter();
 		SicDrugAdapter adpp = new SicDrugAdapter();
@@ -145,7 +148,9 @@ public class SicTratamientoServiceImpl implements SicTratamientoService {
 			{
 				listMedDto.add(adpp.entityToDto(sicMedicamento));
 			}
+			
 			treatment.setListMeds(listMedDto);
+			treatment.setEntregaValida(sicValidarEntregaMed.validar(sicTratamiento.getFkSicCitaMedica().getFkSicPaciente().getIdSicPaciente()));
 			list_dto.add(treatment);
 		}
 		

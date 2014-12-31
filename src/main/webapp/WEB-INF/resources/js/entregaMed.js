@@ -3,6 +3,9 @@
  * @Fecha 10/11/2014
  */
 
+var valido = false;
+var citaMedica = "";
+
 $( document ).ready(function() 
 {
 	$("#buscar").click(function()
@@ -24,6 +27,37 @@ $( document ).ready(function()
 		}
 		
 	});
+	
+	$("#limpiar").click(function()
+	{
+		$("#exp").val("");
+		limpiarFormulario();
+		vaciarTablaMed();
+	});
+	
+	$("#realizarEntrega").click(function()
+	{
+		if(citaMedica != "")
+		{
+			if(valido)
+			{
+				/* Si este paciente aun no ha recibido sus
+				 * medicamentos en el periodo estipulado. 
+				 */
+				
+			}
+			else
+			{
+				/* Si este paciente ya ha recibido sus
+				 * medicamentos en el periodo estipulado 
+				 * el sistema pedira confirmación 
+				 * (usuario y contraseña) para poder
+				 * registrar la entrega. 
+				 */
+				
+			}	
+		}	
+	});
 });
 
 var doHistory = function (id)
@@ -39,7 +73,7 @@ var doHistory = function (id)
 			{
 				for (var int = 0; int < result.length; int++) 
 				{
-				   his += "<li class='list-group-item'>"+int.fxEntregaTratamiento+
+				   his += "<li class='list-group-item'>"+result[int].fxEntregaTratamiento+
 				   "<button style='padding: 2px 6px !important;' class='btn btn-sm btn-default pull-right'><i class='fa fa-search-plus'></i></button></li>";
 				}
 				
@@ -70,6 +104,29 @@ var getTreatment = function (id)
 		{
 			if(result.length != 0)
 			{
+				if(result[0].entregaValida)
+				{
+					valido = true;
+					citaMedica = result[0].fkSicCitaMedica.idSicCitaMedica;
+//					alert(valido + citaMedica);
+					new jBox('Notice', 
+							{
+									    content: 'El paciente aun no ha recibido su medicamento en este periodo',
+									    color: 'green'
+							});
+				}
+				else
+				{
+					valido = false;
+					citaMedica = result[0].fkSicCitaMedica.idSicCitaMedica;
+//					alert(valido + citaMedica);
+					new jBox('Notice', 
+					{
+							    content: 'El paciente ya recibio su medicamento en este periodo',
+							    color: 'red'
+					});
+				}	
+				
 				llenarTablaDeMedicamentos(result[0].listMeds);
 				$("#per").val(result[0].periodisidad); 
 				$("#dosis").text(result[0].dosis);
@@ -77,10 +134,15 @@ var getTreatment = function (id)
 			}
 			else
 			{
-				$("#per").val(""); 
-				$("#dosis").text("");
-				$("#fecha").val("");
+				valido = false;
+				citaMedica = "";
+				limpiarFormulario();
 				vaciarTablaMed();
+				new jBox('Notice', 
+						{
+								    content: 'No se encontro paciente con este expediente',
+								    color: 'blue'
+						});
 			}
 		},
 		error: function (xhr, ajaxOptions, thrownError) 
@@ -105,6 +167,13 @@ var llenarTablaDeMedicamentos = function (data)
 var vaciarTablaMed = function()
 {
 	$("#meds tr").remove();
+};
+var limpiarFormulario = function()
+{
+	$("#historial li").remove();
+	$("#per").val(""); 
+	$("#dosis").text("");
+	$("#fecha").val("");
 };
 
 var cargando = function ()
