@@ -4,6 +4,9 @@
 package com.uesocc.sicmec.model.dto;
 
 import java.io.Serializable;
+import java.util.List;
+
+import com.uesocc.sicmec.model.entity.SicMedicamento;
 
 
 /**
@@ -25,6 +28,10 @@ public class SicTratamientoDto implements Serializable
     private String fxTratamiento;
     private SicCitaMedicaDto fkSicCitaMedica;
     private SicPaqMedDto fkSicCatMedicamentos;
+    
+    private boolean entregaValida; 
+    
+    private List<SicDrugDto> listMeds;
     
 	/**
 	 * @return the idSicTratamiento
@@ -199,6 +206,30 @@ public class SicTratamientoDto implements Serializable
 	 */
 	public void setFkSicCatMedicamentos(SicPaqMedDto fkSicCatMedicamentos) {
 		this.fkSicCatMedicamentos = fkSicCatMedicamentos;
+	}
+	/**
+	 * @return the listMeds
+	 */
+	public List<SicDrugDto> getListMeds() {
+		return listMeds;
+	}
+	/**
+	 * @param listMeds the listMeds to set
+	 */
+	public void setListMeds(List<SicDrugDto> listMeds) {
+		this.listMeds = listMeds;
+	}
+	/**
+	 * @return the entregaValida
+	 */
+	public boolean esEntregaValida() {
+		return entregaValida;
+	}
+	/**
+	 * @param entregaValida the entregaValida to set
+	 */
+	public void setEntregaValida(boolean entregaValida) {
+		this.entregaValida = entregaValida;
 	}
 
 

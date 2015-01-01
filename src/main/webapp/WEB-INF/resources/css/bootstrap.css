@@ -1220,8 +1220,8 @@ a.bg-danger:hover {
 }
 ul,
 ol {
-  margin-top: 0;
-  margin-bottom: 10px;
+  margin-top: 1px;
+  margin-bottom: 1px;
 }
 ul ul,
 ol ul,
@@ -4868,7 +4868,7 @@ a.thumbnail.active {
 }
 .list-group {
   padding-left: 0;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 .list-group-item {
   position: relative;

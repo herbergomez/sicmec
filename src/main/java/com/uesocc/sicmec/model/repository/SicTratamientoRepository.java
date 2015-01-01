@@ -29,4 +29,10 @@ public interface SicTratamientoRepository extends
 	@Query(value="SELECT s FROM SicTratamiento s WHERE s.fkSicCitaMedica.fkSicPaciente.idSicPaciente = (:pac) ORDER BY s.fkSicCitaMedica.fxCitaMedica DESC")
 	List<SicTratamiento> findAllBySicPaciente(@Param("pac")int pac,Pageable pageable);
 	
+	/**
+	 * @param id de sic paciente 
+	 * @return Lista de tratamientos por id de paciente
+	 */
+	@Query(value="SELECT s FROM SicTratamiento s WHERE s.fkSicCitaMedica.fkSicPaciente.numeroExpediente = (:pac) ORDER BY s.fkSicCitaMedica.fxCitaMedica DESC")
+	List<SicTratamiento> findAllBySicPacienteExp(@Param("pac")String pac,Pageable pageable);
 }
