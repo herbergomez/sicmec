@@ -44,7 +44,7 @@ $( document ).ready(function()
 				/* Si este paciente aun no ha recibido sus
 				 * medicamentos en el periodo estipulado. 
 				 */
-				
+				alert("Entrega registrada");
 			}
 			else
 			{
@@ -54,7 +54,9 @@ $( document ).ready(function()
 				 * (usuario y contraseña) para poder
 				 * registrar la entrega. 
 				 */
+				$("#modalRealizarEntrega").modal("show");
 				
+				//alert("Este proceso requiere validación");
 			}	
 		}	
 	});

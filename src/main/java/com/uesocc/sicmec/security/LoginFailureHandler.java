@@ -13,8 +13,8 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 /**
- * @author luis.chavez
- *
+ * @author pablo portillo
+ * @date 26/12/2014
  */
 public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 

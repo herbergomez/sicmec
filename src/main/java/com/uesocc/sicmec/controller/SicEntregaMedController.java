@@ -1,6 +1,8 @@
 package com.uesocc.sicmec.controller;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.uesocc.sicmec.model.dto.SicEntregaTratamientoDto;
@@ -40,6 +43,28 @@ public class SicEntregaMedController
 		return "/farm/entregaMed";
 	}
 	
+	@RequestMapping(value="/entregarTrat",method=RequestMethod.POST)
+	public @ResponseBody String realizarEntrega(
+			@RequestParam(value="tratamiento") int tratamiento,
+			@RequestParam(value="cmt",defaultValue="",required=false) String comentario)
+	{
+		try
+		{
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+			SicEntregaTratamientoDto entrega = new SicEntregaTratamientoDto();
+			entrega.setComentario(comentario);
+			entrega.setFkSicTratamiento(sicTratamientoServiceImpl.findById(tratamiento));
+			entrega.setFxEntregaTratamiento(format.format(new Date()));
+			sicEntregaTratamientoServiceImpl.insert(entrega);
+		
+			return "ok";
+		}
+		catch (Exception ex)
+		{
+			return ex.getMessage();
+		}
+	}
 	
 	/**
 	 * @param id
