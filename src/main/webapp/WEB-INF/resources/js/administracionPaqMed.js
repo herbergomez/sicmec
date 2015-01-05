@@ -61,11 +61,17 @@ $(document).ready(function(){
 		 */
 		function savePaqMed( iPaqId, aMeds )
 		{
-			//Validamos que no este vacio el arreglo ni el id del paquete
-			if ( iPaqId == null || iPaqId == 0 || aMeds.lenght <= 0 )
+			console.log("id "+iPaqId+"<>Meds "+aMeds);
+			//Validamos que no este vacio el id del paquete
+			if ( iPaqId == null || iPaqId == 0 )
 			{
 				alert("Error!!!!");
 				return false;
+			}
+			//Validamos si el paquete esta vacio
+			if ( aMeds == null || aMeds == "" )
+			{
+				aMeds[0] = "false";
 			}
 			//Peticion ajax
 			$.ajax
@@ -97,10 +103,10 @@ $(document).ready(function(){
 				url:"/sicmec/admin/paq/medsOut/"+iPaqMed,
 				success:function(result)
 				{
-					console.log(result);
 					$("#availableMeds option").remove();
 					for (var int = 0; int < result.length; int++) 
     				{
+						console.log("OUT:"+result[int]);
 						createMedAvailableList(result[int]);
     				}
 					//Peticion ajax para obtener todos los medicamentos del paquete
@@ -110,9 +116,9 @@ $(document).ready(function(){
 						url:"/sicmec/admin/paq/medsIn/"+iPaqMed,
 						success:function(result)
 						{
-							$("#actualMeds option").remove();
 							for (var int = 0; int < result.length; int++) 
 		    				{
+								console.log("IN:"+result[int]);
 		    					createMedList(result[int]);
 		    				}
 						},
@@ -139,8 +145,8 @@ $(document).ready(function(){
 			var oSelect = document.getElementById("actualMeds");
 			var oOption = document.createElement("option");
 			//Establecemos el texto del option y sus atributos
-			var sText =  document.createTextNode(oMed.nombreMedicamento);
-			oOption.setAttribute("value",oMed.idSicMedicamento);
+			var sText =  document.createTextNode(oMed.drugName);
+			oOption.setAttribute("value",oMed.idDrug);
 			oOption.setAttribute("class","agregados");
 			//Agregamos el texto al option
 			oOption.appendChild(sText);
@@ -158,8 +164,8 @@ $(document).ready(function(){
 			var oSelect = document.getElementById("availableMeds");
 			var oOption = document.createElement("option");
 			//Establecemos el texto del option y sus atributos
-			var sText =  document.createTextNode(oMed.nombreMedicamento);
-			oOption.setAttribute("value",oMed.idSicMedicamento);
+			var sText =  document.createTextNode(oMed.drugName);
+			oOption.setAttribute("value",oMed.idDrug);
 			//Agregamos el texto al option
 			oOption.appendChild(sText);
 			//Agregamos el option al select

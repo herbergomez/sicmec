@@ -25,7 +25,7 @@
 						<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
 					</button>
 					<strong th:utext="#{general.alerta.atencion}"></strong>
-					<p th:utext="#{admin.usuarios.alertas.agregar.exito}"></p>
+					<p th:utext="#{admin.drugs.alertas.agregar.exito}"></p>
 				</div>
 				<div th:if="${upSuccess}" class="alert alert-info alert-dismissible"
 					role="alert">
@@ -67,10 +67,6 @@
 									<tr th:each="drug : ${drugs}">
 										<td>
 											<div class="btn-group">
-												<button type="button" class="btn btn-danger"
-													data-id="${drug.idDrug}">
-													<i class="fa fa-trash-o"></i>
-												</button>
 												<button type="button" class="btn btn-default onUpdate"
 													th:attr="data-id=${drug.idDrug}">
 													<!-- data-toggle="modal" data-target="#modalAgregarUsuario" -->
@@ -147,7 +143,7 @@
 							<input type="radio" id="activo" value="1" name="radio"/> Activo
 						</label>
 						<label class="checkbox-inline">
-							<input type="radio" id="desactivo" value="0" name="radio"/> Desactivo
+							<input type="radio" id="desactivo" value="0" name="radio"/> Inactivo
 						</label>
 	        		</div>	        		
         		</div>        		

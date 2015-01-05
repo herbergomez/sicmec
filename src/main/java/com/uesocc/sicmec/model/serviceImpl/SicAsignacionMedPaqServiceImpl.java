@@ -26,6 +26,9 @@ public class SicAsignacionMedPaqServiceImpl implements SicAsignacionMedPaqServic
 	@Autowired
 	private SicAsignacionMedPaqRepository sicAsignacionMedPaq;
 	
+	@Autowired
+	private SicDrugRepository sicDrugRepository;
+	
 	@Override
 	public void setupService() {
 		// TODO Auto-generated method stub

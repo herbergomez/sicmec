@@ -118,22 +118,27 @@ public class SicAdministracionPaqMedController {
 			@RequestParam(value="idMeds[]")String[] aMeds,
 			RedirectAttributes redirectAttributes
 			) throws ParseException
-	{	
+	{
 		//Desactivamos los medicamentos relacionados al paquete
 		boolean bDeactivate = sicAsignacionMedPaqServiceImpl.deactivateAllRecords(Integer.parseInt(iPaqId));		
-		//Recorremos con un for el arreglo de medicamentos a insertar
-		for ( int iTemp = 0; iTemp < aMeds.length; iTemp++ )
+		//Validamos que el arreglo exista y tenga datos
+		boolean bMeds = aMeds[0].equals("false");
+		if ( bMeds == false )
 		{
-			//Declaramos el objeto para insertar el nuevo registro		
-			SicAsignacionMedPaqDto medPaq = new SicAsignacionMedPaqDto();
-			//Establecemos los valores
-			medPaq.setIdMedicamento(sicDrugServiceImpl.findById(Integer.parseInt(aMeds[iTemp])));
-			medPaq.setIdMedPaq(sicPacMedServiceImpl.findById(Integer.parseInt(iPaqId)));
-			medPaq.setMedPaqStatus("1");
-			//Almacenamos al logger
-			LOGGER.info("Guardando medicamento "+aMeds[iTemp]);
-			//Guardamos			
-			sicAsignacionMedPaqServiceImpl.insert(medPaq);
+			//Recorremos con un for el arreglo de medicamentos a insertar
+			for ( int iTemp = 0; iTemp < aMeds.length; iTemp++ )
+			{
+				//Declaramos el objeto para insertar el nuevo registro		
+				SicAsignacionMedPaqDto medPaq = new SicAsignacionMedPaqDto();
+				//Establecemos los valores
+				medPaq.setIdMedicamento(sicDrugServiceImpl.findById(Integer.parseInt(aMeds[iTemp])));
+				medPaq.setIdMedPaq(sicPacMedServiceImpl.findById(Integer.parseInt(iPaqId)));
+				medPaq.setMedPaqStatus("1");
+				//Almacenamos al logger
+				LOGGER.info("Guardando medicamento "+aMeds[iTemp]);
+				//Guardamos			
+				sicAsignacionMedPaqServiceImpl.insert(medPaq);
+			}
 		}
 		//Retornamos OK
 		redirectAttributes.addFlashAttribute("success", true);

@@ -42,13 +42,12 @@
 				<div class="col-md-3 col-xs-3">
 					<div class="row" style="text-align: left;">
 						<label for="actualMeds" th:text ="#{admin.paquetes.agregados}"></label>
-						<select class="form-control" id="actualMeds" name="actualMeds" multiple="multiple" >
-							  <!--<option th:each ="obj: ${paqs}" th:value ="${obj.idPaq}" th:text ="${obj.name }" class="agregados"></option >-->
+						<select class="form-control" id="actualMeds" name="actualMeds" multiple="multiple" >							  
 						</select>
 					</div>
 					<div class="row">
 						<br/>
-						<input type="button" id="moveRight" value="Agregar"/>
+						<input type="button" id="moveRight" value="Eliminar del Paquete" class="btn btn-warning"/>
 					</div>																			
 				</div>
 				<div class="col-md-1 col-xs-1"></div>
@@ -60,7 +59,7 @@
 					</div>
 					<div class="row">
 						<br/>
-						<input type="button" id="moveLeft" value="Eliminar"/>
+						<input type="button" id="moveLeft" value="Agregar al paquete" class="btn btn-success"/>
 					</div>
 				</div>
 				<div class="col-md-2 col-xs-2"></div>
