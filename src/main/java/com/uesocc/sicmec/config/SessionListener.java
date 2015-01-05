@@ -12,7 +12,8 @@ import org.slf4j.LoggerFactory;
  * @Date 26/12/2014
  */
 
-public class SessionListener implements HttpSessionListener{
+public class SessionListener implements HttpSessionListener
+{
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SessionListener.class);
 	

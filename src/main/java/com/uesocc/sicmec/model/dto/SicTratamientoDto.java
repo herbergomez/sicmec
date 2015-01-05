@@ -220,16 +220,16 @@ public class SicTratamientoDto implements Serializable
 		this.listMeds = listMeds;
 	}
 	/**
-	 * @return the entregaValida
-	 */
-	public boolean esEntregaValida() {
-		return entregaValida;
-	}
-	/**
 	 * @param entregaValida the entregaValida to set
 	 */
 	public void setEntregaValida(boolean entregaValida) {
 		this.entregaValida = entregaValida;
+	}
+	/**
+	 * @return the entregaValida
+	 */
+	public boolean isEntregaValida() {
+		return entregaValida;
 	}
 
 
