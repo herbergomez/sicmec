@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.uesocc.sicmec.model.dto.SicEntregaTratamientoDto;
 import com.uesocc.sicmec.model.dto.SicTratamientoDto;
+import com.uesocc.sicmec.model.dto.SicUsuarioDto;
 import com.uesocc.sicmec.model.serviceImpl.SicEntregaTratamientoServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicTratamientoServiceImpl;
+import com.uesocc.sicmec.model.serviceImpl.SicUsuarioServiceImpl;
 
 
 /**
@@ -35,6 +37,8 @@ public class SicEntregaMedController
 	private SicEntregaTratamientoServiceImpl sicEntregaTratamientoServiceImpl;
 	@Autowired
 	private SicTratamientoServiceImpl sicTratamientoServiceImpl;
+	@Autowired
+	private SicUsuarioServiceImpl sicUsuarioServiceImpl;
 	
 	@RequestMapping(value="",method=RequestMethod.GET)
 	public String defaultRequest()
@@ -45,15 +49,14 @@ public class SicEntregaMedController
 	
 	@RequestMapping(value="/entregarTrat",method=RequestMethod.POST)
 	public @ResponseBody String realizarEntrega(
-			@RequestParam(value="tratamiento") int tratamiento,
-			@RequestParam(value="cmt",defaultValue="",required=false) String comentario)
+			@RequestParam(value="tratamiento") int tratamiento)
 	{
 		try
 		{
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
 			SicEntregaTratamientoDto entrega = new SicEntregaTratamientoDto();
-			entrega.setComentario(comentario);
+			entrega.setComentario("Entregada realizada");
 			entrega.setFkSicTratamiento(sicTratamientoServiceImpl.findById(tratamiento));
 			entrega.setFxEntregaTratamiento(format.format(new Date()));
 			sicEntregaTratamientoServiceImpl.insert(entrega);
@@ -62,6 +65,57 @@ public class SicEntregaMedController
 		}
 		catch (Exception ex)
 		{
+			ex.printStackTrace();
+			return ex.getMessage();
+		}
+	}
+	
+	@RequestMapping(value="/entregarTratAutenticada",method=RequestMethod.POST)
+	public @ResponseBody String realizarEntregaAutenticada(
+			@RequestParam(value="usuario") String usuario,
+			@RequestParam(value="pass") String pass,
+			@RequestParam(value="tratamiento") int tratamiento,
+			@RequestParam(value="cmt",defaultValue="",required=false) String comentario)
+	{
+		try
+		{
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			
+			SicUsuarioDto user = sicUsuarioServiceImpl.findByNombreUsuario(usuario);
+				
+				if(user != null)
+				{
+					if(user.getSicRol().getNombreRol().equals("Admin_Farmacia"))
+					{
+						if(user.getClave().equals(pass))
+						{
+							SicEntregaTratamientoDto entrega = new SicEntregaTratamientoDto();
+							entrega.setComentario(comentario);
+							entrega.setFkSicTratamiento(sicTratamientoServiceImpl.findById(tratamiento));
+							entrega.setFxEntregaTratamiento(format.format(new Date()));
+							sicEntregaTratamientoServiceImpl.insert(entrega);
+							return "ok";
+						}
+						else
+						{
+							return "Usuario o contrase&ntilde;a incorrecta";
+						}
+					}
+					else
+					{
+						return "El usuario no tiene permisos para realizar esta acci&oacute;n";
+					}	
+					
+				}
+				else
+				{
+					return "Usuario o contrase&ntilde;a incorrecta";	
+				}	
+
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
 			return ex.getMessage();
 		}
 	}

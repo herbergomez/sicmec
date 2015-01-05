@@ -58,9 +58,9 @@ public class SicCitaMedica implements Serializable {
     @Column(name = "signos_sintomas", length = 500)
     private String signosSintomas;
     @Column(name = "estatura", precision = 10, scale = 3)
-    private BigDecimal estatura;
+    private Double estatura;
     @Column(name = "peso", precision = 10, scale = 3)
-    private BigDecimal peso;
+    private Double peso;
     @Basic(optional = false)
     @Column(name = "comentario", length = 500)
     private String comentario;
@@ -202,28 +202,28 @@ public class SicCitaMedica implements Serializable {
 	/**
 	 * @return the estatura
 	 */
-	public BigDecimal getEstatura() {
+	public Double getEstatura() {
 		return estatura;
 	}
 
 	/**
 	 * @param estatura the estatura to set
 	 */
-	public void setEstatura(BigDecimal estatura) {
+	public void setEstatura(Double estatura) {
 		this.estatura = estatura;
 	}
 
 	/**
 	 * @return the peso
 	 */
-	public BigDecimal getPeso() {
+	public Double getPeso() {
 		return peso;
 	}
 
 	/**
 	 * @param peso the peso to set
 	 */
-	public void setPeso(BigDecimal peso) {
+	public void setPeso(Double peso) {
 		this.peso = peso;
 	}
     
