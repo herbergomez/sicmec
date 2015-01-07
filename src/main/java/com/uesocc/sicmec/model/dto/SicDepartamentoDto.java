@@ -2,7 +2,6 @@ package com.uesocc.sicmec.model.dto;
 
 import java.io.Serializable;
 
-import com.uesocc.sicmec.model.entity.SicPais;
 
 public class SicDepartamentoDto implements Serializable {
 

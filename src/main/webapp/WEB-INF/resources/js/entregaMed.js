@@ -156,6 +156,7 @@ var realizarEntrega = function()
 			{
 				doHistory($("#exp").val());
 				$("#entrega").show();
+				valido = false;
 			}
 			else
 			{
@@ -185,8 +186,8 @@ var doHistory = function (id)
 			{
 				for (var int = 0; int < result.length; int++) 
 				{
-				   his += "<li class='list-group-item'>"+result[int].fxEntregaTratamiento+
-				   "<button style='padding: 2px 6px !important;' class='btn btn-sm btn-default pull-right'><i class='fa fa-search-plus'></i></button></li>";
+				   his += "<li class='list-group-item'>"+result[int].fxEntregaTratamiento+", Tipo: "+result[int].tipo+
+				   "<a style='padding: 2px 6px !important;' target='_blank' href='./detalleEntregaMed/"+result[int].idSicEntregaTratamiento+"' class='btn btn-sm btn-default pull-right'><i class='fa fa-search-plus'></i></a></li>";
 				}
 				
 			}	

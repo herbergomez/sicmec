@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -49,7 +51,8 @@ public class SicEntregaMedController
 	
 	@RequestMapping(value="/entregarTrat",method=RequestMethod.POST)
 	public @ResponseBody String realizarEntrega(
-			@RequestParam(value="tratamiento") int tratamiento)
+			@RequestParam(value="tratamiento") int tratamiento,
+			HttpServletRequest httpServletRequest)
 	{
 		try
 		{
@@ -57,7 +60,9 @@ public class SicEntregaMedController
 		
 			SicEntregaTratamientoDto entrega = new SicEntregaTratamientoDto();
 			entrega.setComentario("Entregada realizada");
+			entrega.setTipo("Normal");
 			entrega.setFkSicTratamiento(sicTratamientoServiceImpl.findById(tratamiento));
+			entrega.setFkSicUsuario(sicUsuarioServiceImpl.findByNombreUsuario(httpServletRequest.getRemoteUser()));
 			entrega.setFxEntregaTratamiento(format.format(new Date()));
 			sicEntregaTratamientoServiceImpl.insert(entrega);
 		
@@ -75,7 +80,8 @@ public class SicEntregaMedController
 			@RequestParam(value="usuario") String usuario,
 			@RequestParam(value="pass") String pass,
 			@RequestParam(value="tratamiento") int tratamiento,
-			@RequestParam(value="cmt",defaultValue="",required=false) String comentario)
+			@RequestParam(value="cmt",defaultValue="",required=false) String comentario,
+			HttpServletRequest httpServletRequest)
 	{
 		try
 		{
@@ -91,8 +97,10 @@ public class SicEntregaMedController
 						{
 							SicEntregaTratamientoDto entrega = new SicEntregaTratamientoDto();
 							entrega.setComentario(comentario);
+							entrega.setTipo("Extra");
 							entrega.setFkSicTratamiento(sicTratamientoServiceImpl.findById(tratamiento));
 							entrega.setFxEntregaTratamiento(format.format(new Date()));
+							entrega.setFkSicUsuario(user);
 							sicEntregaTratamientoServiceImpl.insert(entrega);
 							return "ok";
 						}

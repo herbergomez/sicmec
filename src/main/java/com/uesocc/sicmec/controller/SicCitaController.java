@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -124,7 +126,8 @@ public class SicCitaController
 			@RequestParam(value="tipoExam")int tipoExam,
 			@RequestParam(value="cita")int cita,
 			@RequestParam(value="result")String resultado,
-			@RequestParam(value="cmt",defaultValue="",required=false)String comentario)
+			@RequestParam(value="cmt",defaultValue="",required=false)String comentario,
+			HttpServletRequest httpServletRequest)
 	{
 		
 		try
@@ -140,8 +143,8 @@ public class SicCitaController
 			exam.setFkSicTipoExamen(sicTipoExamenServiceImpl.findById(tipoExam));
 			exam.setFxCreado(format.format(new Date()));
 			exam.setFxModificado(format.format(new Date()));
-			exam.setCreadoPor("test");
-			exam.setModifcadoPor("test");
+			exam.setCreadoPor(httpServletRequest.getRemoteUser());
+			exam.setModifcadoPor(httpServletRequest.getRemoteUser());
 			sicExamenServiceImpl.insert(exam);
 			
 			return "ok";
@@ -174,7 +177,8 @@ public class SicCitaController
 			@RequestParam(value="estatura",defaultValue="",required=false)String estatura,
 			@RequestParam(value="paqMed")int paqMed,
 			@RequestParam(value="dosis")String dosis,
-			@RequestParam(value="per")String periodisidad) throws ParseException
+			@RequestParam(value="per")String periodisidad,
+			HttpServletRequest httpServletRequest) throws ParseException
 	{
 		try
 		{
@@ -187,7 +191,7 @@ public class SicCitaController
 			citaMed.setEstatura(estatura);
 			citaMed.setFxCitaMedica(format.format(new Date()));
 			citaMed.setFkSicPaciente(sicPacienteServiceImpl.findById(paciente));
-			citaMed.setFkSicUsuario(sicUsuarioServiceImpl.findById(1));
+			citaMed.setFkSicUsuario(sicUsuarioServiceImpl.findByNombreUsuario(httpServletRequest.getRemoteUser()));
 			
 			SicCitaMedicaDto citaMedRet = sicCitaMedicaServiceImpl.insert(citaMed);
 		
