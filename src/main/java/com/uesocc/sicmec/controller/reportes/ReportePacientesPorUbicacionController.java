@@ -1,18 +1,12 @@
 package com.uesocc.sicmec.controller.reportes;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperRunManager;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.uesocc.sicmec.config.ApplicationContext;
-import com.uesocc.sicmec.controller.ReportAdminController;
 import com.uesocc.sicmec.model.serviceImpl.SicDepartamentoServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicMunicipioServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicPaisServiceImpl;
@@ -31,7 +23,7 @@ import com.uesocc.sicmec.model.serviceImpl.SicPaisServiceImpl;
 @RequestMapping("/admin/reportes/pacientesPorUbicacion")
 @Controller
 public class ReportePacientesPorUbicacionController {
-	Logger LOGGER = Logger.getLogger(ReportAdminController.class);
+	Logger LOGGER = Logger.getLogger(ReportePacientesPorUbicacionController.class);
 	@Autowired
 	private SicMunicipioServiceImpl sicMunicipioServiceImpl;
 	@Autowired

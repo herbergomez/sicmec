@@ -187,7 +187,7 @@ var doHistory = function (id)
 				for (var int = 0; int < result.length; int++) 
 				{
 				   his += "<li class='list-group-item'>"+result[int].fxEntregaTratamiento+", Tipo: "+result[int].tipo+
-				   "<a style='padding: 2px 6px !important;' target='_blank' href='./detalleEntregaMed/"+result[int].idSicEntregaTratamiento+"' class='btn btn-sm btn-default pull-right'><i class='fa fa-search-plus'></i></a></li>";
+				   "<a title='Ver detalle' style='padding: 2px 6px !important;' target='_blank' href='./detalleEntregaMed/"+result[int].idSicEntregaTratamiento+"' class='btn btn-sm btn-default pull-right onDetail'><i class='fa fa-search-plus'></i></a></li>";
 				}
 				
 			}	
@@ -197,7 +197,13 @@ var doHistory = function (id)
 			}
 			
 			$("#historial").html(his);
-			
+		
+	    		$('.onDetail').qtip({
+	    		    style: 
+	    		    {
+	    		        classes: 'qtip-bootstrap qtip-shadow'
+	    		    }
+	    		});
 		},
 		error: function (xhr, ajaxOptions, thrownError) 
 		{

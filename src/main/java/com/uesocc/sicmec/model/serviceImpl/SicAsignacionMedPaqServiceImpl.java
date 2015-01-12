@@ -115,11 +115,7 @@ public class SicAsignacionMedPaqServiceImpl implements SicAsignacionMedPaqServic
 		// TODO Auto-generated method stub
 		SicDrugAdapter adp = new SicDrugAdapter();
 
-		List<SicMedicamento> list = this.sicDrugRepository.findAll();
-
-		List<SicMedicamento> list = null;
-
-		//this.sicAsignacionMedPaq.findAllDrugsOfPaq(iPaqMedId);
+		List<SicMedicamento> list = this.sicAsignacionMedPaq.findAllDrugsOfPaq(iPaqMedId);
 
 		List<SicDrugDto> list_dto = new ArrayList<SicDrugDto>();
 		
@@ -140,11 +136,8 @@ public class SicAsignacionMedPaqServiceImpl implements SicAsignacionMedPaqServic
 		// TODO Auto-generated method stub
 		SicDrugAdapter adp = new SicDrugAdapter();
 
-		List<SicMedicamento> list = this.sicDrugRepository.findAll();
+		List<SicMedicamento> list = this.sicAsignacionMedPaq.findAllDrugsOfNotInPaq(iPaqMedId);
 
-		List<SicMedicamento> list = null;
-
-		//this.sicAsignacionMedPaq.findAllDrugsOfNotInPaq(iPaqMedId);
 		List<SicDrugDto> list_dto = new ArrayList<SicDrugDto>();
 		
 		for (SicMedicamento med : list) 
