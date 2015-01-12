@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="842" pageHeight="700" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5a6244a4-7f12-4e78-871e-b659e9ca5681">
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Oswaldo\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fDesde" class="java.util.Date">
+		<defaultValueExpression><![CDATA[new Date()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fHasta" class="java.util.Date">
+		<defaultValueExpression><![CDATA[new Date()]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT sic_paciente.id_sic_paciente,sic_departamento.id_sic_departamento,sic_departamento.nombre_departamento,
+	sic_patologia.id_sic_patologia,sic_patologia.nombre_patologia
+  FROM sic_paciente
+  inner join sic_tipo_patologia on sic_paciente.fk_sic_tipo_patologia=sic_tipo_patologia.id_sic_tipo_patologia
+  inner join sic_patologia on sic_tipo_patologia.fk_sic_patologia=sic_patologia.id_sic_patologia
+  inner join sic_municipio on sic_paciente.fk_sic_municipio= id_sic_municipio
+  inner join sic_departamento on sic_municipio.fk_sic_departamento=sic_departamento.id_sic_departamento
+where sic_paciente.fx_creacion>=$P{fDesde} and sic_paciente.fx_creacion<=$P{fHasta}
+  order by sic_departamento.id_sic_departamento, sic_patologia.id_sic_patologia;]]>
+	</queryString>
+	<field name="id_sic_paciente" class="java.lang.Integer"/>
+	<field name="id_sic_departamento" class="java.lang.Integer"/>
+	<field name="nombre_departamento" class="java.lang.String"/>
+	<field name="id_sic_patologia" class="java.lang.Integer"/>
+	<field name="nombre_patologia" class="java.lang.String"/>
+	<variable name="id_sic_patologia_1" class="java.lang.Integer" resetType="Group" resetGroup="Departamento" calculation="Count">
+		<variableExpression><![CDATA[$F{id_sic_patologia}]]></variableExpression>
+	</variable>
+	<variable name="id_sic_paciente_1" class="java.lang.Integer" resetType="Group" resetGroup="Departamento" calculation="Count">
+		<variableExpression><![CDATA[$F{id_sic_paciente}]]></variableExpression>
+	</variable>
+	<variable name="id_sic_paciente_2" class="java.lang.Integer" resetType="Group" resetGroup="Departamento" calculation="DistinctCount">
+		<variableExpression><![CDATA[$F{id_sic_paciente}]]></variableExpression>
+	</variable>
+	<group name="Departamento" isStartNewPage="true" keepTogether="true">
+		<groupExpression><![CDATA[$F{id_sic_departamento}]]></groupExpression>
+		<groupHeader>
+			<band height="58">
+				<subreport>
+					<reportElement x="73" y="30" width="677" height="28" uuid="2443ea9a-df3a-4f07-8359-4e6d22ce3be5"/>
+					<subreportParameter name="fHasta">
+						<subreportParameterExpression><![CDATA[$P{fHasta}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="fDesde">
+						<subreportParameterExpression><![CDATA[$P{fDesde}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_departamento">
+						<subreportParameterExpression><![CDATA[$F{id_sic_departamento}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA["C:/Users/Oswaldo/Reportes/Reporte Patologias Pacientes/patologiasPorDepartamento.jasper"]]></subreportExpression>
+				</subreport>
+				<textField>
+					<reportElement x="46" y="15" width="702" height="27" backcolor="#CCCCCC" uuid="fb29647f-306b-438e-a2c5-124066e2d344"/>
+					<textElement>
+						<font size="14" isBold="true" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nombre_departamento}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="pacientes">
+		<groupExpression><![CDATA[$F{id_sic_paciente}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="84" splitType="Stretch">
+			<staticText>
+				<reportElement x="46" y="26" width="702" height="33" uuid="078a45ac-215d-4043-ade1-b4a35c0dffd4"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE PACIENTES:PATOLOGIAS POR DEPARTAMENTO]]></text>
+			</staticText>
+			<textField pattern="d/M/yyyy">
+				<reportElement x="283" y="59" width="99" height="20" uuid="5978cceb-0205-4866-8b7a-de60fdd27655"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fDesde}]]></textFieldExpression>
+			</textField>
+			<textField pattern="d/M/yyyy">
+				<reportElement x="482" y="59" width="89" height="20" uuid="c0a10ded-1df7-45d1-89b8-3a2c20a151ec"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fHasta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="224" y="59" width="59" height="20" uuid="5a947e86-f117-4cca-98fb-c5c5e5782bd0"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desde]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="59" width="62" height="20" uuid="dc09e1d1-b00e-457d-9cb3-6afb1d26f2a0"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hasta]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="52" splitType="Stretch">
+			<staticText>
+				<reportElement x="46" y="0" width="704" height="17" uuid="db670bda-7f13-48c1-bfff-a247598b866d"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hospital San Juan de Dios Departamento de Santa Ana: Pacientes con enfermedades Crónicas]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="7" splitType="Stretch"/>
+	</summary>
+</jasperReport>

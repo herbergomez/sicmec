@@ -1,14 +1,11 @@
 package com.uesocc.sicmec.model.repository;
 
 import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import com.uesocc.sicmec.model.entity.SicMedicamento;
-import com.uesocc.sicmec.model.entity.SicUsuario;
 
 /**
  * 
@@ -31,4 +28,7 @@ public interface SicDrugRepository extends JpaRepository<SicMedicamento, Integer
 	 * @return
 	 */
 	List<SicMedicamento> findAllByestadoMedicamento(String estadoMedicamento);
+	
+	
+	
 }

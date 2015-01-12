@@ -9,7 +9,7 @@ $( document ).ready(function() {
 		   expediente:
 		   {
 			   required:true,
-			   maxlength: 20,
+			   maxlength: 10,
 			   remote:
 			   {
 		    		type: "POST",
@@ -112,7 +112,6 @@ $( document ).ready(function() {
 		   },
 		   mailUp: 
 		   {
-			    required: true,
 			    email: true
 		   },
 		   fnacimientoUp:
@@ -144,7 +143,7 @@ $( document ).ready(function() {
         "scrollCollapse": false,
         "aoColumns": 
         	[
-        	 { "sWidth": "15%", "sClass": "center", "bSortable": false },
+        	 { "sWidth": "10%", "sClass": "center", "bSortable": false },
         	 { "sWidth": "10%" },
         	 { "sWidth": "10%" },
         	 { "sWidth": "10%" },
@@ -153,7 +152,7 @@ $( document ).ready(function() {
         	 { "sWidth": "5%" },
         	 { "sWidth": "10%" },
         	 { "sWidth": "10%" },
-        	 //{ "sWidth": "10%" },
+        	 { "sWidth": "10%" },
         	// { "sWidth": "5%" },
             ],
             language: {

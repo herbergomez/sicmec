@@ -93,7 +93,7 @@
 						<div class="container" style="padding-top: 1%; overflow: auto;">
 							<button type="button" class="btn btn-primary" th:text="#{control.paciente.nuevaCita}"
 							 data-toggle="modal" data-target="#modalNuevaCita"></button>
-							<div id="historial" class="panel-group" role="tablist" aria-multiselectable="true" style="padding-top: 2%; padding-right: 5%;">
+							<div id="historial" class="panel-group" role="tablist" aria-multiselectable="true" style="padding-top: 2%; padding-right: 5%; overflow: auto;">
 							</div>
 						</div>
 					</div>
@@ -103,6 +103,7 @@
 								<div class="form-inline" style="padding-top: 2%">
 									<div class="form-group">
 										<select  class="form-control" id="tipoExamenGrafico" >
+											<option value="0">Indice de masa corporal</option>
 											<option th:each="exam :${tipoExamsList}" th:text="${exam.descripcion}" th:value="${exam.idSicTipoExamen}"></option>
 										</select>
 									</div>
@@ -114,13 +115,25 @@
 											<thead>
       											<tr>
           											<th>Fecha</th>
-          											<th> Resultado</th>
+          											<th>Resultado</th>
       											</tr>	
    											</thead>
    											<tbody id="historicChart">
    											</tbody>
 										</table>
-								</div>
+										<table id="historicPreasureTable" class="highchart table table-bordered" data-graph-container-before="1" data-graph-type="column" data-graph-height="200" style='display: none;' >
+											<caption id="preasuretitle"></caption>
+											<thead>
+      											<tr>
+          											<th>Fecha</th>
+          											<th>Sist&oacute;lica</th>
+          											<th>Diast&oacute;lica</th>
+      											</tr>	
+   											</thead>
+   											<tbody id="historicPreasureChart">
+   											</tbody>
+										</table>
+								</div>								
 								<div class='pull-right' style="padding-right: 5%">
 									<button class='btn btn-warning' id="printGraph"><i class="fa fa-print"></i> Imprimir grafico</button>
 								</div>
@@ -157,8 +170,21 @@
     		</textarea>
         </div>
         <div class="form-group">
+        	<label for="signosSintomas" th:utext="#{control.paciente.signos}"></label>
+    		<textarea class="form-control" id="signosSintomas" name="signosSintomas" rows="2">
+    		</textarea>
+        </div>
+        <div class="form-group">
+            	<label for="peso" th:utext="#{control.paciente.peso}"></label>
+            	<input type="text" class="input-small form-control" placeholder="Peso" id="peso" name="peso" />
+        </div>
+        <div class="form-group">
+            	<label for="estatura" th:utext="#{control.paciente.estatura}"></label>
+            	<input type="text" class="input-small form-control" placeholder="Estatura" id="estatura" name="estatura" />
+    	</div>
+        <div class="form-group">
         	<label for="comentario" th:utext="#{control.paciente.comentario}"></label>
-    		<textarea class="form-control" id="comentario" name="comentario" rows="3">
+    		<textarea class="form-control" id="comentario" name="comentario" rows="2">
     		</textarea>
         </div>
         
@@ -184,6 +210,7 @@
     			<option th:value="#{control.paciente.periodisidad.value1}" th:text="#{control.paciente.periodisidad.value1}"></option>
     			<option th:value="#{control.paciente.periodisidad.value2}" th:text="#{control.paciente.periodisidad.value2}"></option>
     			<option th:value="#{control.paciente.periodisidad.value3}" th:text="#{control.paciente.periodisidad.value3}"></option>
+    			<option th:value="#{control.paciente.periodisidad.value4}" th:text="#{control.paciente.periodisidad.value4}"></option>
     		</select>
         </div>
       </div>
@@ -231,7 +258,7 @@
     		</select>
         </div>
         <div class="form-group">
-        	<label  for="result" th:utext="#{control.paciente.resultadoExamen}"></label>        		
+        	<label id="resMessage" for="result" th:utext="#{control.paciente.resultadoExamen}"></label>        		
      		<input class="form-control" id="result" name="result" />
         </div>
         <div class="form-group">

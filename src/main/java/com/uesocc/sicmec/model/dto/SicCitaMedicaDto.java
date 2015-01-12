@@ -14,6 +14,9 @@ public class SicCitaMedicaDto implements Serializable {
     private String fxCitaMedica;
     private String diagnostico;
     private String comentario;
+    private String signosSintomas;
+    private String estatura;
+    private String peso;
     private SicUsuarioDto fkSicUsuario;
     private SicPacienteDto fkSicPaciente;
     
@@ -103,6 +106,42 @@ public class SicCitaMedicaDto implements Serializable {
 	public SicCitaMedicaDto() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	/**
+	 * @return the signosSintomas
+	 */
+	public String getSignosSintomas() {
+		return signosSintomas;
+	}
+	/**
+	 * @param signosSintomas the signosSintomas to set
+	 */
+	public void setSignosSintomas(String signosSintomas) {
+		this.signosSintomas = signosSintomas;
+	}
+	/**
+	 * @return the estatura
+	 */
+	public String getEstatura() {
+		return estatura;
+	}
+	/**
+	 * @param estatura the estatura to set
+	 */
+	public void setEstatura(String estatura) {
+		this.estatura = estatura;
+	}
+	/**
+	 * @return the peso
+	 */
+	public String getPeso() {
+		return peso;
+	}
+	/**
+	 * @param peso the peso to set
+	 */
+	public void setPeso(String peso) {
+		this.peso = peso;
 	}
 
 }

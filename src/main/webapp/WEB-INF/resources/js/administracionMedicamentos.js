@@ -14,6 +14,7 @@ $( document ).ready(function() {
         	 { "sWidth": "10%" },
         	 { "sWidth": "10%" },
         	 { "sWidth": "10%" },
+        	 { "sWidth": "10%" },
             ],
             language: {
                 "sProcessing":     "Procesando...",
@@ -68,6 +69,10 @@ $( document ).ready(function() {
 		        required: false,
 		        maxlength: 20,
 		     	minlength: 3
+		   },
+		   tipo:
+		   {
+			   required: true
 		   }
 		  },
 		messages : 
@@ -132,7 +137,17 @@ $( document ).ready(function() {
 				$("#nombreUpdate").val(result.drugName);
 				$("#descripcionUpdate").val(result.drugDescription);
 				var iActivo  = result.estado;
+				var iTipo  = result.tipo;
 				
+				//Validamos si el medicamento es insitutcional(1) o no(0)
+				if ( iTipo == 1 ) {
+					$("#insitucional").prop("checked",true);
+					$("#noInstitucional").prop("checked",false);
+				} else {
+					$("#insitucional").prop("checked",false);
+					$("#noInstitucional").prop("checked",true);
+				}
+				//Validamos si el medicamento esta activo o no
 				if ( iActivo == 1 ) {
 					$("#activo").prop("checked",true);
 					$("#desactivo").prop("checked",false);

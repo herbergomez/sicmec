@@ -22,4 +22,5 @@ public interface SicUsuarioService extends BaseService<SicUsuarioDto, Integer>
 	boolean validacionDenombreUsuario(String nombreUsuario);
 	
 	List<SicUsuarioDto> findAllByEstado(String descripcion);
+	
 }

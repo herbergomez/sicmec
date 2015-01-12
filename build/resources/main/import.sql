@@ -1,3 +1,27 @@
+--TIPOS DE EXAMENES--
+INSERT INTO sic_tipo_examen (descripcion) VALUES ('PRESION ARTERIAL');
+INSERT INTO sic_tipo_examen (descripcion) VALUES ('GLUCOSA EN AYUNAS');
+INSERT INTO sic_tipo_examen (descripcion) VALUES ('GLUCOSA POS-PRANDIAL');
+INSERT INTO sic_tipo_examen (descripcion) VALUES ('HEMOGLOBINA GLICOSILADA');
+INSERT INTO sic_tipo_examen (descripcion) VALUES ('CREATININA SERICA');
+INSERT INTO sic_tipo_examen (descripcion) VALUES ('DEPURACION DE CREATININA EN ORINA DE 24 HORAS');
+INSERT INTO sic_tipo_examen (descripcion) VALUES ('COLESTEROL TOTAL');
+INSERT INTO sic_tipo_examen (descripcion) VALUES ('HDL');
+INSERT INTO sic_tipo_examen (descripcion) VALUES ('LDL');
+INSERT INTO sic_tipo_examen (descripcion) VALUES ('TRIGLICERIDOS');
+
+--TIPOS DE USUARIOS---
+INSERT INTO sic_rol (nombre_rol,descripcion_rol,fx_creado,creado_por,fx_modicado,modicado_por)
+VALUES ('Administración', 'admin', now(), 'admin', now(), 'admin');
+INSERT INTO sic_rol (nombre_rol,descripcion_rol,fx_creado,creado_por,fx_modicado,modicado_por)
+VALUES ('Medico', 'med', now(), 'admin', now(), 'admin');
+INSERT INTO sic_rol (nombre_rol,descripcion_rol,fx_creado,creado_por,fx_modicado,modicado_por)
+VALUES ('Farmacia', 'farm', now(), 'admin', now(), 'admin');
+INSERT INTO sic_rol (nombre_rol,descripcion_rol,fx_creado,creado_por,fx_modicado,modicado_por)
+VALUES ('Epidemiologo', 'farm', now(), 'admin', now(), 'admin');
+INSERT INTO sic_rol (nombre_rol,descripcion_rol,fx_creado,creado_por,fx_modicado,modicado_por)
+VALUES ('Admin_Farmacia', 'farm', now() , 'admin', now(), 'admin');
+
 --------------------ESTADOS PARA USUARIOS Y PACIENTES -----------------
 INSERT INTO sic_estado_usuario (descripcion)
 		 VALUES ('Activo');

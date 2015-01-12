@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/general :: headerFragment">
+	
+</head>
+<body>
+	<div th:replace="fragments/general :: navFragment"></div>
+	
+	<div class="container" style="min-height: 600px; overflow: auto;">
+		
+		<div class="row">
+			<div class="col-md-12 col-xs-12">
+			 <div th:if="${entrega == null}" class="widget-box">
+			 	<div class="widget-content">
+					<label>
+						No se encontro paciente con este expediente...
+					</label>
+			 	</div>
+			 </div>
+			 <div th:if="${entrega != null}" class="widget-box" style="min-height: 600px; height: auto; background-color: white;">
+				<div class="widget-title">
+					<span class="icon">
+						<i class="fa fa-medkit"></i>
+					</span>
+					<h5 th:utext="#{farm.med.detalle.title}"></h5>
+				</div>
+				<div class="widget-content" >
+					<div class="form-group" style="padding-left: inherit;">
+						<div class="form-inline" style="text-align: left;">
+							<label style="font-size: large;">Paciente: </label>
+    						<label style="font-size: large;" th:text="${entrega.fkSicTratamiento.fkSicCitaMedica.fkSicPaciente.fkSicPersona.nombre}+', '+${entrega.fkSicTratamiento.fkSicCitaMedica.fkSicPaciente.fkSicPersona.apellido}">
+    						</label>
+  						</div>
+  					</div>	
+  					<div class="col-md-12">
+  					<div class="widget-box" style="background-color: white;">
+  					<div class="widget-content">
+  						<table class="table table-hover table-striped">
+						  	<tbody>
+						  		<tr>
+						  			<td>
+						  				<label class="control-label" th:utext="#{farm.med.detalle.fecha}"></label>
+						  			</td>
+						  			<td>
+						  				<p class="form-control-static" th:text="${entrega.fxEntregaTratamiento}"></p>
+						  			</td>
+						  		</tr>
+						  		<tr>
+						  			<td>
+						  				<label class="control-label" th:utext="#{farm.med.detalle.tipo}"></label>
+						  			</td>
+						  			<td>
+						  				<p class="form-control-static" th:text="${entrega.tipo}"></p>
+						  			</td>
+						  		</tr>
+						  		<tr>
+						  			<td>
+						  				<label class="control-label" th:text="#{farm.med.detalle.cmt}"></label>
+						  			</td>
+						  			<td>
+						  				<p class="form-control-static" th:text="${entrega.comentario}"></p>
+						  			</td>
+						  		</tr>
+						  		<tr>
+						  			<td>
+						  				<label class="control-label" th:text="#{farm.med.detalle.per}"></label>
+						  			</td>
+						  			<td>
+						  				<p class="form-control-static" th:text="${entrega.fkSicTratamiento.periodisidad}"></p>
+						  			</td>
+						  		</tr>
+						  		<tr>
+						  			<td>
+						  				<label class="control-label" th:text="#{farm.med.detalle.dosis}"></label>
+						  			</td>
+						  			<td>
+						  				<p class="form-control-static" th:text="${entrega.fkSicTratamiento.dosis}"></p>
+						  			</td>
+						  		</tr>
+						  		<tr>
+						  			<td>
+						  				<label class="control-label" th:utext="#{farm.med.detalle.user}"></label>
+						  			</td>
+						  			<td>
+						  				<p class="form-control-static" th:text="${entrega.fkSicUsuario.SicPersona.nombre}+', '+${entrega.fkSicUsuario.SicPersona.apellido}"></p>
+						  			</td>
+						  		</tr>
+						  	</tbody>					
+  						</table>
+  						<div class="row" style="padding-left: 10%; padding-right: 10%">
+  							<label th:utext="#{farm.med.detalle.medList}"></label>
+  							<table class="table table-hover table-striped table-bordered">
+  								<thead>
+									<tr class="head">
+										<th th:text="#{farm.entrega.med}"></th>
+										<th th:utext="#{farm.entrega.des}"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="med:${listMed}">
+										<td th:text="${med.drugName}"></td>
+										<td th:text="${med.drugDescription}"></td>
+									</tr>
+								</tbody>
+  							</table>
+  						</div>
+  					</div>
+  					</div>	
+  					</div>
+  					
+  					<div class="row">
+  						<div class="pull-right" style="margin-right: 30px;">
+  							<button class="btn btn-primary" th:text="#{general.btn.imprimir}" onclick="window.print();"></button>
+  						</div>
+  					</div>
+				</div>
+			</div>	
+						
+			</div>
+		</div>
+			
+	</div>
+	
+
+	<div th:replace="fragments/general :: footerFragment"></div>
+	<div th:replace="fragments/general :: jsFragment"></div>
+
+<!-- <script type="text/javascript" th:src="@{/resources/js/administracionUsuarios.js}"></script>
+ -->
+	
+</body>
+</html>

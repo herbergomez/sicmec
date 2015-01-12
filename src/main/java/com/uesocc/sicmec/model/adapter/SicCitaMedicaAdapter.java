@@ -33,9 +33,13 @@ public class SicCitaMedicaAdapter implements BaseAdapter<SicCitaMedica, SicCitaM
 		entity.setIdSicCitaMedica((obj.getIdSicCitaMedica()!=null) ? SicDataTypeFormat.toIntValue(obj.getIdSicCitaMedica()):null);
 		entity.setDiagnostico((obj.getDiagnostico()!=null) ? SicDataTypeFormat.toStringValue(obj.getDiagnostico()):"");
 		entity.setComentario((obj.getComentario()!=null) ? SicDataTypeFormat.toStringValue(obj.getComentario()):"");
+		entity.setSignosSintomas((obj.getSignosSintomas()!=null) ? SicDataTypeFormat.toStringValue(obj.getSignosSintomas()):"");
+		entity.setEstatura((obj.getEstatura()!=null && !obj.getEstatura().equals("")) ? (Double.parseDouble(obj.getEstatura())):null);
+		entity.setPeso((obj.getPeso()!=null && !obj.getEstatura().equals("")) ? Double.parseDouble(obj.getPeso()):null);
 		entity.setFxCitaMedica((obj.getFxCitaMedica()!=null) ? SicDataTypeFormat.toDateTimeValue(obj.getFxCitaMedica()):new Date());
 		entity.setFkSicPaciente((obj.getFkSicPaciente()!=null) ? adp.dtoToEntity(obj.getFkSicPaciente()):null);
 		entity.setFkSicUsuario((obj.getFkSicUsuario()!=null) ? adpp.dtoToEntity(obj.getFkSicUsuario()):null);
+		
 		return entity;
 	}
 
@@ -51,6 +55,9 @@ public class SicCitaMedicaAdapter implements BaseAdapter<SicCitaMedica, SicCitaM
 		dto.setIdSicCitaMedica((obj.getIdSicCitaMedica()!=null) ? SicDataTypeFormat.toStringValue(obj.getIdSicCitaMedica().toString()):"");
 		dto.setDiagnostico((obj.getDiagnostico()!=null) ? SicDataTypeFormat.toStringValue(obj.getDiagnostico()):"");
 		dto.setComentario((obj.getComentario()!=null) ? SicDataTypeFormat.toStringValue(obj.getComentario()):"");
+		dto.setSignosSintomas((obj.getSignosSintomas()!=null) ? SicDataTypeFormat.toStringValue(obj.getSignosSintomas()):"");
+		dto.setEstatura((obj.getEstatura()!=null) ? (obj.getEstatura().toString()):"");
+		dto.setPeso((obj.getPeso()!=null) ? (obj.getPeso().toString()):"");
 		dto.setFxCitaMedica((obj.getFxCitaMedica()!=null) ? format.format(obj.getFxCitaMedica()):format.format(new Date()));
 		dto.setFkSicPaciente((obj.getFkSicPaciente()!=null) ? adp.entityToDto(obj.getFkSicPaciente()):null);
 		dto.setFkSicUsuario((obj.getFkSicUsuario()!=null) ? adpp.entityToDto(obj.getFkSicUsuario()):null);

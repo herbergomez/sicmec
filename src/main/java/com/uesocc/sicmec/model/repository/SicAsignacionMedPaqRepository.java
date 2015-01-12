@@ -26,4 +26,18 @@ public interface SicAsignacionMedPaqRepository extends JpaRepository<SicAsignaci
 	 */
 	List<SicAsignacionMedicamento> findAllByfkSicCatMedicamentos_idSicCatMedicamentosAndEstado(int i, String ii);
 
+
+	/**
+	 * Encuentra todos los medicamentos que pertenecen al paquete y estan activos dentro del paquete
+	 * @param id Id del paquete de medicamentos
+	 * @return Lista de medicamentos del paquete
+	 */
+	List<SicMedicamento> findAllDrugsOfPaq (int id);
+	
+	/**
+	 * Encuentra todos los medicamentos que NO pertenecen al paquete y estan activos
+	 * @param id Id del paquete de medicamentos
+	 * @return Lista de medicamentos del paquete
+	 */
+	List<SicMedicamento> findAllDrugsOfNotInPaq (int id);
 }

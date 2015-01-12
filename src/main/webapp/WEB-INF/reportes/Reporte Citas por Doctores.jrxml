@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte Citas por Doctores" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="81e07d9b-5b16-4d25-bc91-3f2bd1fd4dfc">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fDesde" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fHasta" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT sic_persona.id_sic_persona,sic_persona.nombre,sic_persona.apellido,sic_cita_medica.fx_cita_medica,sic_estado_usuario.descripcion,sic_cita_medica.id_sic_cita_medica
+  FROM sic_cita_medica
+  inner join sic_usuario on (sic_usuario.id_sic_usuario=sic_cita_medica.fk_sic_usuario)
+  inner join sic_persona on (sic_persona.id_sic_persona=sic_usuario.fk_sic_persona)
+  inner join sic_rol on (sic_rol.id_sic_rol=sic_usuario.fk_sic_rol)
+  inner join sic_estado_usuario on (sic_estado_usuario.id_sic_estado_usuario=sic_usuario.fk_sic_estado_usuario)
+  where sic_rol.id_sic_rol=2
+  and sic_cita_medica.fx_cita_medica >= $P{fDesde}
+  and sic_cita_medica.fx_cita_medica <= $P{fHasta}
+  group by sic_persona.id_sic_persona,sic_persona.nombre,sic_persona.apellido,sic_cita_medica.fx_cita_medica,sic_estado_usuario.id_sic_estado_usuario,sic_cita_medica.id_sic_cita_medica
+  order by sic_persona.nombre,sic_persona.apellido,sic_persona.id_sic_persona;]]>
+	</queryString>
+	<field name="id_sic_persona" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="apellido" class="java.lang.String"/>
+	<field name="fx_cita_medica" class="java.sql.Timestamp"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="id_sic_cita_medica" class="java.lang.Integer"/>
+	<variable name="Nombre" class="java.lang.String" resetType="Group" resetGroup="Medico">
+		<variableExpression><![CDATA[$F{nombre}.toUpperCase()+", "+$F{apellido}.toUpperCase()]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{nombre}.toUpperCase()+", "+$F{apellido}.toUpperCase()]]></initialValueExpression>
+	</variable>
+	<variable name="id_sic_cita_medica_1" class="java.lang.Integer" resetType="Group" resetGroup="Medico" calculation="Count">
+		<variableExpression><![CDATA[$F{id_sic_cita_medica}]]></variableExpression>
+	</variable>
+	<variable name="id_sic_cita_medica_2" class="java.lang.Integer" resetType="Group" resetGroup="Medico" calculation="Count">
+		<variableExpression><![CDATA[$F{id_sic_cita_medica}]]></variableExpression>
+	</variable>
+	<group name="Medico" keepTogether="true">
+		<groupExpression><![CDATA[$F{id_sic_persona}]]></groupExpression>
+		<groupHeader>
+			<band height="25">
+				<textField>
+					<reportElement x="437" y="0" width="95" height="20" uuid="d51f2c31-bb98-4417-8e2b-c8c21fcbdd12"/>
+					<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="Medico">
+					<reportElement x="316" y="2" width="100" height="20" uuid="d7d63254-5edd-42da-a97f-78dc5f9e89e9"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$V{id_sic_cita_medica_2}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="44" y="2" width="269" height="20" uuid="ce5c2d44-cf9c-49fa-8e01-5de636582d32"/>
+					<textFieldExpression><![CDATA[$V{Nombre}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="67" splitType="Stretch">
+			<staticText>
+				<reportElement x="44" y="27" width="488" height="20" uuid="510450d8-c770-4881-b74a-287feab27b70"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE CITAS POR MEDICOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="186" y="47" width="36" height="20" uuid="cae323a9-fa50-4d92-aa49-cb2fcd9fdb41"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desde: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="298" y="47" width="34" height="20" uuid="f11a87fc-7b59-49e8-88e8-26a8bff17b9a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hasta:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="222" y="47" width="76" height="20" uuid="399c24e4-b738-4741-8188-4904eb59989e"/>
+				<textFieldExpression><![CDATA[$P{fDesde}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="332" y="47" width="73" height="20" uuid="5daa37f2-9d7d-42ae-97ff-15fcef4974ba"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fHasta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="7" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="44" y="0" width="100" height="20" uuid="71df1f6f-2de2-4dc8-a04f-6928870ef4b1"/>
+				<textElement>
+					<font isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[MEDICO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="317" y="0" width="100" height="20" uuid="8fa47f42-486f-4b99-90f1-07340186b756"/>
+				<textElement>
+					<font isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[CITAS ATENDIDAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="437" y="0" width="95" height="20" uuid="61425f86-299f-489e-9c64-bcb743acfd1f"/>
+				<textElement>
+					<font isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="2" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="1" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="52" splitType="Stretch">
+			<staticText>
+				<reportElement x="44" y="0" width="488" height="17" uuid="f746435c-8981-4e28-aadc-9ff5fdca32fb"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hospital San Juan de Dios Departamento de Santa Ana: Pacientes con enfermedades Crónicas]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="5" splitType="Stretch"/>
+	</summary>
+</jasperReport>

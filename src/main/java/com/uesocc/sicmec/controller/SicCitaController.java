@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -60,6 +62,7 @@ public class SicCitaController
 	{
 		model.addAttribute("paqMedList",sicPaqMedServiceImpl.findAll());
 		model.addAttribute("tipoExamsList", sicTipoExamenServiceImpl.findAll());
+		
 		
 		return "/control/citaPaciente";
 	}
@@ -123,7 +126,8 @@ public class SicCitaController
 			@RequestParam(value="tipoExam")int tipoExam,
 			@RequestParam(value="cita")int cita,
 			@RequestParam(value="result")String resultado,
-			@RequestParam(value="cmt",defaultValue="",required=false)String comentario)
+			@RequestParam(value="cmt",defaultValue="",required=false)String comentario,
+			HttpServletRequest httpServletRequest)
 	{
 		
 		try
@@ -139,8 +143,8 @@ public class SicCitaController
 			exam.setFkSicTipoExamen(sicTipoExamenServiceImpl.findById(tipoExam));
 			exam.setFxCreado(format.format(new Date()));
 			exam.setFxModificado(format.format(new Date()));
-			exam.setCreadoPor("test");
-			exam.setModifcadoPor("test");
+			exam.setCreadoPor(httpServletRequest.getRemoteUser());
+			exam.setModifcadoPor(httpServletRequest.getRemoteUser());
 			sicExamenServiceImpl.insert(exam);
 			
 			return "ok";
@@ -167,10 +171,14 @@ public class SicCitaController
 	public @ResponseBody String guardarCita(
 			@RequestParam(value="pac")int paciente,
 			@RequestParam(value="diag")String diagnostico,
-			@RequestParam(value="cmt")String cmt,
+			@RequestParam(value="signosSintomas",defaultValue="",required=false)String signosSintomas,
+			@RequestParam(value="cmt",defaultValue="",required=false)String cmt,
+			@RequestParam(value="peso",defaultValue="",required=false)String peso,
+			@RequestParam(value="estatura",defaultValue="",required=false)String estatura,
 			@RequestParam(value="paqMed")int paqMed,
 			@RequestParam(value="dosis")String dosis,
-			@RequestParam(value="per")String periodisidad) throws ParseException
+			@RequestParam(value="per")String periodisidad,
+			HttpServletRequest httpServletRequest) throws ParseException
 	{
 		try
 		{
@@ -178,9 +186,12 @@ public class SicCitaController
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			citaMed.setComentario(cmt);
 			citaMed.setDiagnostico(diagnostico);
+			citaMed.setSignosSintomas(signosSintomas);
+			citaMed.setPeso(peso);
+			citaMed.setEstatura(estatura);
 			citaMed.setFxCitaMedica(format.format(new Date()));
 			citaMed.setFkSicPaciente(sicPacienteServiceImpl.findById(paciente));
-			citaMed.setFkSicUsuario(sicUsuarioServiceImpl.findById(1));
+			citaMed.setFkSicUsuario(sicUsuarioServiceImpl.findByNombreUsuario(httpServletRequest.getRemoteUser()));
 			
 			SicCitaMedicaDto citaMedRet = sicCitaMedicaServiceImpl.insert(citaMed);
 		
