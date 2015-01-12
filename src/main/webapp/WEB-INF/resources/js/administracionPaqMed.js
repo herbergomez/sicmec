@@ -1,5 +1,26 @@
 $(document).ready(function(){
 		/*--------------------------Validaciones---------------------------*/
+		$('#modalUpPaqMed').validate({
+			errorElement: "span",
+			rules: {
+			   descripcionUpdate: 
+			   {
+			        required: false,
+			        maxlength: 50,
+			     	minlength: 3
+			   }
+			  },
+			highlight: function(element) {
+				$(element).closest('.form-group')
+				.removeClass('has-success').addClass('has-error');
+			},
+			success: function(element) {
+				element.addClass('help-inline')
+				.closest('.form-group')
+				.removeClass('has-error').addClass('has-success');
+			}
+			 
+		});
 	
 		/*---------------------------Triggers-----------------------------*/
 	
@@ -41,7 +62,7 @@ $(document).ready(function(){
 		/**
 		 * Evento para el cambio de paquete de medicamento
 		 */
-		$("#medPaqs").change(function(){
+		$("#medPaqs").change(function(){			
 			//Obtenemos el valor seleccionado
 			var iPaqId = $(this).val();
 			//Validamos que no este vacio
@@ -52,6 +73,45 @@ $(document).ready(function(){
 			}
 			//funcion ajax
 			bResponse = loadMedicaments( iPaqId );
+		});
+		
+		/*Showing the modal view to edit a drug*/
+		$(".onUpdate").click(function(){
+			var id = $("#medPaqs").val();
+			//Validamos que no sea un valor nulo
+			if (id == null || id == "")
+			{
+				$("#errPaq").show();
+				return false;
+			}
+			//Peticion ajax
+			$.ajax
+			({
+				type: "GET",
+				url:"/sicmec/admin/paq/getPack/"+id,
+				success:function(result)
+				{
+					$("#idUpdate").val(result.idPaq);
+					$("#nombreUp").val(result.name);
+					$("#descripcionUp").val(result.description);
+					var iActivo  = result.active;
+					console.log(iActivo);
+					//Validamos si el medicamento esta activo o no
+					if ( iActivo == 1 ) {
+						$("#activoUp").prop("checked",true);
+						$("#desactivoUp").prop("checked",false);
+					} else {
+						$("#activoUp").prop("checked",false);
+						$("#desactivoUp").prop("checked",true);
+					}
+					
+					$("#modalUpPaqMed").modal("show");
+				},
+				error: function (xhr, ajaxOptions, thrownError) 
+				{
+					alert("unable to find server..")
+			    }
+			});
 		});
 		
 		/*---------------------------Funciones-----------------------------*/
@@ -96,6 +156,9 @@ $(document).ready(function(){
 		 */ 
 		function loadMedicaments ( iPaqMed )
 		{
+			//Vaciamos los select para medicamentos disponibles y medicamentos en el paquete
+			$("#availableMeds").empty();
+			$("#actualMeds").empty();
 			//Peticion ajax para obtener todos los medicamentos fuera del paquete
 			$.ajax
 			({
@@ -106,7 +169,6 @@ $(document).ready(function(){
 					$("#availableMeds option").remove();
 					for (var int = 0; int < result.length; int++) 
     				{
-						console.log("OUT:"+result[int]);
 						createMedAvailableList(result[int]);
     				}
 					//Peticion ajax para obtener todos los medicamentos del paquete
@@ -118,7 +180,6 @@ $(document).ready(function(){
 						{
 							for (var int = 0; int < result.length; int++) 
 		    				{
-								console.log("IN:"+result[int]);
 		    					createMedList(result[int]);
 		    				}
 						},
