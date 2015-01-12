@@ -22,34 +22,97 @@
 					  <table id="tblReportes" class="table table-hover table-striped table-bordered datatables">
 					     <thead>
 					        <tr class="head">
+					        	<th></th>
 							    <th th:text="#{admin.reportes.nombre}"></th>
 								<th th:text="#{admin.reportes.descripcion}"></th>
 							 </tr>
 					     </thead>
 					     <tbody>
-					      <tr>
-					        <td>
-							   <div class="btn-group"> 										   
-   									<a class="btn btn-default" th:href="@{/admin/reportes/parametersReportPacPorDep}" target="_blank">
-										<h4>Reporte Adherencia de Pacientes</h4>
-									</a>											
-								 </div>
-							 </td>
-							  <td>						
-										<h4>Obtiene Total de Pacientes en un Departamento segun rango de fechas.</h4>
+					     
+					     	<tr>
+					          <td>								
+   								 <a class="btn btn-default"  th:href="@{/admin/reportes/reportPrevalPac}" target="_blank">
+												<i class="fa fa-search-plus"></i>
+								 </a>
 							  </td>
-						    </tr>	
-						    
-						     <tr>
-					        <td>
-							   <div class="btn-group"> 										   
-   									<a class="btn btn-default" th:href="@{/admin/reportes/parametersReportPatPorDep}" target="_blank">
-										<h4>Reporte: Patologias por Departamento</h4>
-									</a>											
-								 </div>
-							 </td>
+					          <td>
+									<h5>Reporte: Prevalencia de Pacientes</h5>
+							  </td>
 							  <td>						
-										<h4>Obtiene Patologias por Departamento segun un rango de fechas.</h4>
+									<h5>Obtiene el detalle de los pacientes ACTIVOS hasta la fecha.</h5>
+							  </td>
+						   </tr>	
+					     
+					     
+					       <tr>
+					          <td>								
+   								 <a class="btn btn-default"  th:href="@{/admin/reportes/parametersReportInsidPac}" target="_blank">
+												<i class="fa fa-search-plus"></i>
+								 </a>
+							  </td>
+					          <td>
+									<h5>Reporte: Detalle de Insidencia de Pacientes</h5>
+							  </td>
+							  <td>						
+									<h5>Obtiene el detalle de los casos nuevos en un Departamento segun rango de fechas.</h5>
+							  </td>
+						   </tr>	
+						    
+						   <tr>
+					          <td>								
+   								 <a class="btn btn-default"  th:href="@{/admin/reportes/parametersReportPacPorDep}" target="_blank">
+												<i class="fa fa-search-plus"></i>
+								 </a>
+							  </td>
+					          <td>
+									<h5>Reporte: Insidencia de Pacientes</h5>
+							  </td>
+							  <td>						
+									<h5>Obtiene Total de Pacientes de casos nuevos en un Departamento segun rango de fechas.</h5>
+							  </td>
+						   </tr>
+						    
+						    <tr>
+						     <td>								
+   								  <a class="btn btn-default"  th:href="@{/admin/reportes/reportPacEstAban}"  target="_blank">
+												<i class="fa fa-search-plus"></i>
+								 </a>
+							  </td>
+					          <td>								   
+								  <h5>Reporte: Pacientes en Estado de Abandono</h5>
+							  </td>
+							  <td>						
+								  <h5>Obtiene el detalle de los Pacientes en estado de Abandono de los últimos 3 meses.</h5>
+							  </td>
+						    </tr>
+						   
+						    
+						    
+						   <tr>
+						     <td>								
+   								  <a class="btn btn-default"  th:href="@{/admin/reportes/parametersReportPatPorDep}"  target="_blank">
+												<i class="fa fa-search-plus"></i>
+								 </a>
+							  </td>
+					          <td>								   
+								  <h5>Reporte: Patologias por Departamento</h5>
+							  </td>
+							  <td>						
+								  <h5>Obtiene Patologias por Departamento segun un rango de fechas.</h5>
+							  </td>
+						    </tr>
+						    
+						    <tr>
+						     <td>								
+   								  <a class="btn btn-default"  th:href="@{/admin/reportes/pacientesPorUbicacion}"  target="_blank">
+												<i class="fa fa-search-plus"></i>
+								 </a>
+							  </td>
+					          <td>								   
+								  <h5>Reporte: Pacientes por Ubicación</h5>
+							  </td>
+							  <td>						
+								  <h5>Obtiene el detalle de pacientes Activos segun Ubicación</h5>
 							  </td>
 						    </tr>
 					     </tbody>
@@ -60,5 +123,9 @@
 		 </div>
 	  </div>	
 	</div>
+	<div th:replace="fragments/general :: footerFragment"></div>
+	<div th:replace="fragments/general :: jsFragment"></div>
+
+<script type="text/javascript" th:src="@{/resources/js/administracionReportes.js}"></script>
 </body>
 </html>

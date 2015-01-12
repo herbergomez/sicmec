@@ -24,7 +24,7 @@
   						<span class="sr-only">Close</span>
   					</button>
   					<strong th:utext="#{general.alerta.atencion}"></strong>
-  					<p th:utext="#{admin.patologia.alertas.agregar.exito}"></p>
+  					<p th:utext="#{admin.pacientes.alertas.agregar.exito}"></p>
 				</div>
 			</div>	
 			<div th:if="${upSuccess}" class="alert alert-info alert-dismissible" role="alert">
@@ -68,6 +68,7 @@
 									<th th:text="#{admin.pacientes.pais}"></th>
 									<th th:text="#{admin.pacientes.departamento}"></th>
 									<th th:text="#{admin.pacientes.municipio}"></th>
+									<th th:text="#{admin.pacientes.estado}"></th>
 									<!-- <th th:text="#{admin.pacientes.telefono}"></th>
 									<th th:utext="#{admin.pacientes.sexo}"></th>
 									-->
@@ -77,9 +78,9 @@
 							 <tr th:each="paciente : ${pacientes}">
 							       <td>
 										<div class="btn-group">
-  										    <button type="button" class="btn btn-default onDelete" data-toggle="modal" data-target="#modalEliminarPaciente" th:attr="data-id=${paciente.idSicPaciente}">
+  										   <!--<button type="button" class="btn btn-default onDelete" data-toggle="modal" data-target="#modalEliminarPaciente" th:attr="data-id=${paciente.idSicPaciente}">
   												<i class="fa fa-trash-o"></i>
-  											</button>
+  											</button>-->
    											<button type="button" class="btn btn-default onUpdate" data-toggle="modal" data-target="#modalUpdatePaciente" th:attr="data-id=${paciente.idSicPaciente}">
    												<i class="fa fa-pencil-square-o"></i>
    											</button>
@@ -96,8 +97,8 @@
 								 <td th:text="${paciente.fkSicMunicipio.fkSicDepartamento.fkSicPais.nombrePais}"></td>		
 								 <td th:text="${paciente.fkSicMunicipio.fkSicDepartamento.nombreDepartamento}"></td>
 								 <td th:text="${paciente.fkSicMunicipio.nombreMunicipio}"></td>
-								<!-- <td th:text="${paciente.telefonoPaciente}"></td>
-								 <td th:text="${paciente.sexoPaciente}"></td>
+								 <td th:text="${paciente.fkSicEstadoPaciente.descripcion}"></td>
+								<!-- <td th:text="${paciente.sexoPaciente}"></td>
 							 	-->
 							 </tr>
 							</tbody>
@@ -401,7 +402,7 @@
     </div>
     </div>	
     <!-- Modal ¿Seguro que desea dar de baja este paciente?-->
-<div class="modal fade" id="modalEliminarPaciente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!--<div class="modal fade" id="modalEliminarPaciente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -427,7 +428,7 @@
       </div>
     </div>
   </div>
-</div>  
+</div>  -->
 	<div th:replace="fragments/general :: footerFragment"></div>
 	<div th:replace="fragments/general :: jsFragment"></div>
 

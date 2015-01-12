@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte de Prevalencia" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b2aecd41-078b-417e-848f-56a89f35a6dd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fDesde" class="java.util.Date"/>
+	<parameter name="fHasta" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT sic_departamento.id_sic_departamento,sic_departamento.nombre_departamento
+  FROM sic_paciente
+  inner join sic_persona on (sic_paciente.fk_sic_persona=sic_persona.id_sic_persona)
+  inner join sic_estado_paciente on(fk_sic_estado_paciente=sic_estado_paciente.id_sic_estado_paciente)
+  inner join sic_municipio on(sic_paciente.fk_sic_municipio=sic_municipio.id_sic_municipio)
+  inner join sic_departamento on (sic_municipio.fk_sic_departamento=sic_departamento.id_sic_departamento)
+  inner join sic_pais on (sic_departamento.fk_sic_pais=sic_pais.id_sic_pais)
+  left outer join sic_contacto_paciente on(sic_paciente.fk_sic_contacto_paciente=sic_contacto_paciente.id_sic_contacto_paciente)
+  where
+     sic_paciente.fx_creacion>=$P{fDesde} and sic_paciente.fx_creacion<=$P{fHasta}
+group by sic_departamento.id_sic_departamento
+order by sic_departamento.nombre_departamento;]]>
+	</queryString>
+	<field name="id_sic_departamento" class="java.lang.Integer"/>
+	<field name="nombre_departamento" class="java.lang.String"/>
+	<variable name="Departamento" class="java.lang.String">
+		<variableExpression><![CDATA[$F{nombre_departamento}.toUpperCase()]]></variableExpression>
+	</variable>
+	<group name="Departamento">
+		<groupExpression><![CDATA[$F{nombre_departamento}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="38" splitType="Stretch">
+			<staticText>
+				<reportElement x="34" y="0" width="499" height="20" uuid="56ae452b-e3c4-4a85-9821-5b4e11e874d5"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE INSIDENCIA DE PACIENTES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="159" y="14" width="47" height="24" uuid="4ca5840e-1d94-45d9-9e2f-dcc485035b3d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desde:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="301" y="14" width="44" height="24" uuid="11608913-fb2e-46d7-bf23-309d336cfcac"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hasta:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="206" y="14" width="81" height="24" uuid="fc998811-3346-47ac-9d5d-ca07d6c80fc2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fDesde}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="345" y="14" width="75" height="24" uuid="3fc39ac3-a6a0-4e1a-8e44-9de1e46f9aac"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fHasta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="7" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="2" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<subreport>
+				<reportElement x="55" y="5" width="478" height="15" uuid="c107ec2b-576c-47c9-bff3-a11738fd4b2c"/>
+				<subreportParameter name="fHasta">
+					<subreportParameterExpression><![CDATA[$P{fHasta}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idDepartamento">
+					<subreportParameterExpression><![CDATA[$F{id_sic_departamento}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fDesde">
+					<subreportParameterExpression><![CDATA[$P{fDesde}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["Reporte de Insidencia_Detalle_Pacientes.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="35" y="0" width="498" height="20" uuid="bec62eef-aabe-4138-af7d-5fbfe4455b63"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Departamento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="46" splitType="Stretch">
+			<staticText>
+				<reportElement x="34" y="0" width="499" height="17" uuid="6e88f287-ae8f-4432-9da0-9431264d0ad3"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hospital San Juan de Dios Departamento de Santa Ana: Pacientes con enfermedades Crónicas]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

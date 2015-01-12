@@ -19,23 +19,34 @@
 				<div class="widget-content">
 					<div class="modal-dialog">
     	  <div>
-      		<form id="parameterPacienteForm" th:action="@{/admin/reportes/reportPatPorDep}" method="Get" >
+      		<form id="parameterPacienteForm" th:action="@{/admin/reportes/reportPacPorUbic}" method="Get" >
       		    <div class="modal-header">
         			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         			<h4 class="modal-title" style="font-style: normal;color: blue;" th:text="#{admin.reportes.pacientes.parameters}"></h4>
       			</div>
-      			<div class="modal-body custom-modal-body" style="height: 200px;">
-      			   <div class="form-group">
-        			  <label for="fdesde" th:text="#{admin.reportes.pacientes.parameters.fdesde}"></label>
-    				  <input type="date" class="form-control" id="fdesde" name="fdesde" th:placeholder="#{admin.reportes.pacientes.parameters.fdesde}" />
-        		  	</div>
-        		  	<div class="form-group">
-        			  <label for="fhasta" th:text="#{admin.reportes.pacientes.parameters.fhasta}"></label>
-    				  <input type="date" class="form-control" id="fhasta" name="fhasta" th:placeholder="#{admin.reportes.pacientes.parameters.fhasta}" />
-        		  	</div>
+      			<div class="modal-body custom-modal-body" style="height: 150px;">
+      			   <div class="row">
+        		  <div class="col-md-4 col-xs-1">
+        			<label for="pais" th:utext="#{admin.pacientes.pais}"></label>
+    				<select class="form-control" id="pais" name="pais" >
+    				   <option th:each="pais:${paises}" th:attr="data-id=${pais.idSicPais}"  th:value="${pais.idSicPais}" th:text="${pais.nombrePais}"></option>
+    				</select>
+        		  </div>
+		          <div class="col-md-4 col-xs-1">
+        			<label for="departamento" th:utext="#{admin.pacientes.departamento}"></label>
+    				<select class="form-control" id="departamento" name="departamento" >
+    				   <option></option>    				
+    				 </select>
+        		  </div>
+        		  <div class="col-md-4">
+        			<label for="municipio" th:utext="#{admin.pacientes.municipio}"></label>
+    				<select class="form-control" id="municipio" name="municipio">
+    					
+    				</select>				
+        		  </div>
+        		 </div>
 				 </div>
 				<div class="modal-footer">
-        		  <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{general.btn.cancelar}"></button>
         		  <button type="submit" class="btn btn-primary" th:text="#{general.btn.guardar}"></button>
       		    </div>
 			</form>
@@ -43,14 +54,12 @@
 		</div>
 		</div>
 		</div>
-		</div>
-		
+		</div>		
 	 </div>
 	</div>
-	
 	<div th:replace="fragments/general :: footerFragment"></div>
 	<div th:replace="fragments/general :: jsFragment"></div>
-
-<script type="text/javascript" th:src="@{/resources/js/validacionesGenerales.js}"></script>
+	<script type="text/javascript" th:src="@{/resources/js/FuncionesGenerales.js}"></script>
+	<script type="text/javascript" th:src="@{/resources/js/validacionesGenerales.js}"></script>
 </body>
 </html>

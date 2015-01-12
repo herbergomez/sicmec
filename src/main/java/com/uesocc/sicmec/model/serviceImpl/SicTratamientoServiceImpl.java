@@ -143,7 +143,8 @@ public class SicTratamientoServiceImpl implements SicTratamientoService {
 		{
 			treatment = adp.entityToDto(sicTratamiento);
 			
-			listMed = sicAsignacionMedPaqRepository.findAllDrugsOfPaq(sicTratamiento.getFkSicCatMedicamentos().getIdSicCatMedicamentos());
+			listMed = null;
+					//sicAsignacionMedPaqRepository.findAllDrugsOfPaq(sicTratamiento.getFkSicCatMedicamentos().getIdSicCatMedicamentos());
 			for (SicMedicamento sicMedicamento : listMed) 
 			{
 				listMedDto.add(adpp.entityToDto(sicMedicamento));

@@ -56,7 +56,7 @@
 		<groupHeader>
 			<band height="24">
 				<textField>
-					<reportElement x="15" y="0" width="130" height="20" uuid="eeb33b12-69ab-4aab-943a-e7e71b87490c"/>
+					<reportElement x="15" y="0" width="100" height="20" uuid="eeb33b12-69ab-4aab-943a-e7e71b87490c"/>
 					<textFieldExpression><![CDATA[$F{nombre_patologia}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="Patologias">
@@ -67,7 +67,7 @@
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="8"/>
+			<band height="3"/>
 		</groupFooter>
 	</group>
 	<group name="id_sic_patologia">
@@ -106,16 +106,16 @@
 	<columnFooter>
 		<band height="25" splitType="Stretch">
 			<staticText>
-				<reportElement x="15" y="0" width="117" height="20" uuid="bf969987-99b9-4407-80f1-2a230465ac6c"/>
+				<reportElement x="15" y="0" width="100" height="20" uuid="bf969987-99b9-4407-80f1-2a230465ac6c"/>
 				<textElement>
-					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="178" y="5" width="100" height="20" uuid="77a87268-f0c0-45a4-9158-2a4bf75199b8"/>
+				<reportElement x="178" y="0" width="100" height="20" uuid="77a87268-f0c0-45a4-9158-2a4bf75199b8"/>
 				<textElement textAlignment="Center">
-					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalPacientes}]]></textFieldExpression>
 			</textField>
@@ -127,7 +127,7 @@
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="252" splitType="Immediate">
+		<band height="359" splitType="Immediate">
 			<pie3DChart>
 				<chart>
 					<reportElement x="0" y="0" width="700" height="227" uuid="00e2876f-fb19-45f8-8d82-0978eaf8f63d"/>
