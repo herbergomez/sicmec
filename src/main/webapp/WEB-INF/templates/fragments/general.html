@@ -32,22 +32,67 @@
             </button>
             <a href="#" class="navbar-brand">SICMEC</a>
         </div>
-        <!-- Collection of nav links, forms, and other content for toggling -->
+        
         <div id="navbarCollapse" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Profile</a></li>
-                <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">Messages <b class="caret"></b></a>
-                    <ul role="menu" class="dropdown-menu">
-                        <li><a href="#">Inbox</a></li>
-                        <li><a href="#">Drafts</a></li>
-                        <li><a href="#">Sent Items</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Trash</a></li>
-                    </ul>
+        <!-- Menu para admin -->
+            <ul class="nav navbar-nav" th:if="${#httpServletRequest.isUserInRole('ROLE_Administración')}">
+                <li th:class="${#strings.endsWith(#httpServletRequest.requestURL, '/')} ? 'active': ''">
+                	<a th:href="@{/}">Home</a>
+                </li>
+                <li th:class="${#strings.endsWith(#httpServletRequest.requestURL, '/admin/pacientes')} ? 'active': ''">
+                	<a th:href="@{/admin/pacientes}"><i class="fa fa-wheelchair"></i> Pacientes</a>
+                </li>
+                <li th:class="${#strings.endsWith(#httpServletRequest.requestURL, '/admin/usuarios')} ? 'active': ''">
+                	<a th:href="@{/admin/usuarios}"><i class="fa fa-users"></i> Usuarios</a> 
+                </li>
+                <li th:class="${#strings.endsWith(#httpServletRequest.requestURL, '/admin/drugs') or 
+					#strings.endsWith(#httpServletRequest.requestURL, '/admin/paq')} ? 'btn-group active': 'btn-group'
+					">
+  					<a class="btn" href="#"><i class="fa fa-medkit"></i> Medicamentos</a>
+  					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#" style="margin-left: -15px;">
+    					<i class="fa fa-caret-down"></i></a>
+  					<ul class="dropdown-menu">
+  						<li><a th:href="@{/admin/drugs}"><i class="fa fa-ambulance"></i> Manejo de medicamentos</a></li>
+                       	<li><a th:href="@{/admin/paq}"><i class="fa fa-medkit"></i> Manejo de paquetes medicos</a></li>
+  					</ul>
+				</li>
+				<li th:class="${#strings.endsWith(#httpServletRequest.requestURL, '/admin/patologias') or 
+					#strings.endsWith(#httpServletRequest.requestURL, '/admin/auditoria') or 
+					#strings.endsWith(#httpServletRequest.requestURL, '/admin/reportes')} ? 'btn-group active': 'btn-group'
+					">
+  					<a class="btn" href="#"><i class="fa fa-cog"></i> Acciones</a>
+  					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#" style="margin-left: -15px;">
+    					<i class="fa fa-caret-down"></i></a>
+  					<ul class="dropdown-menu">
+  						<li><a th:href="@{/admin/patologias}"><i class="fa fa-cubes"></i> Patolog&iacute;as</a></li>
+                       	<li><a th:href="@{/admin/auditoria}"><i class="fa fa-globe"></i> Auditor&iacute;a</a></li>
+                       	<li><a th:href="@{/admin/reportes}"><i class="fa fa-pie-chart"></i> Reportes</a></li>
+  					</ul>
+				</li>
+            </ul>
+            
+            <!-- Menu para med -->
+            <ul class="nav navbar-nav" th:if="${#httpServletRequest.isUserInRole('ROLE_Medico')}">
+                <li th:class="${#strings.endsWith(#httpServletRequest.requestURL, '/')} ? 'active': ''">
+                	<a th:href="@{/}">Home</a>
+                </li>
+                
+                <li th:class="${#strings.endsWith(#httpServletRequest.requestURL, '/control/citas')} ? 'active': ''">
+                	<a th:href="@{/control/citas}"><i class="fa fa-stethoscope"></i> Control de citas</a>
                 </li>
             </ul>
+        
+        	<!-- Menu para farm -->
+            <ul class="nav navbar-nav" th:if="${#httpServletRequest.isUserInRole('ROLE_Farmacia')} or ${#httpServletRequest.isUserInRole('ROLE_Admin_Farmacia')}">
+                <li th:class="${#strings.endsWith(#httpServletRequest.requestURL, '/')} ? 'active': ''">
+                	<a th:href="@{/}">Home</a>
+                </li>
+                
+                <li th:class="${#strings.endsWith(#httpServletRequest.requestURL, '/farm/entregaMed')} ? 'active': ''">
+                	<a th:href="@{/farm/entregaMed}"><i class="fa fa-stethoscope"></i> Entrega de medicamentos</a>
+                </li>
+            </ul>
+            
             <form role="search" class="navbar-form navbar-left">
                 <div class="form-group">
                     <input type="text" placeholder="Search" class="form-control" />
@@ -68,6 +113,8 @@
 				</li>
             </ul>
         </div>
+        
+        
     </nav>
 <!-- 
 
