@@ -15,6 +15,7 @@ public class SicDrugAdapter implements BaseAdapter<SicMedicamento, SicDrugDto>{
 		drugEntity.setIdSicMedicamento( obj.getIdDrug() != null ? SicDataTypeFormat.toIntValue( obj.getIdDrug() ) : null);
 		drugEntity.setNombreMedicamento( obj.getDrugName() != null ? SicDataTypeFormat.toStringValue( obj.getDrugName() ) : null);
 		drugEntity.setEstadoMedicamento( obj.getEstado() != null ? SicDataTypeFormat.toStringValue( obj.getEstado() ) : null );
+		drugEntity.setTipoMedicamento( obj.getTipo() != null ? SicDataTypeFormat.toStringValue(obj.getTipo()) : null );
 		drugEntity.setDescripcionMedicamento( obj.getDrugDescription() != null ? SicDataTypeFormat.toStringValue( obj.getDrugDescription() ) : null );
 		return drugEntity;
 	}
@@ -25,6 +26,7 @@ public class SicDrugAdapter implements BaseAdapter<SicMedicamento, SicDrugDto>{
 		drugDto.setIdDrug( obj.getIdSicMedicamento() != null ? SicDataTypeFormat.toStringValue( obj.getIdSicMedicamento().toString() ) : "" );
 		drugDto.setDrugName( obj.getNombreMedicamento() != null ? SicDataTypeFormat.toStringValue( obj.getNombreMedicamento() ) : "" );
 		drugDto.setEstado( obj.getEstadoMedicamento() != null ? SicDataTypeFormat.toStringValue( obj.getEstadoMedicamento().toString() ) : "" );
+		drugDto.setTipo( obj.getTipoMedicamento() != null ? SicDataTypeFormat.toStringValue( obj.getTipoMedicamento().toString() ) : "" );
 		drugDto.setDrugDescription( obj.getDescripcionMedicamento() != null ? SicDataTypeFormat.toStringValue( obj.getDescripcionMedicamento() ) : "" );
 		return drugDto;
 	}

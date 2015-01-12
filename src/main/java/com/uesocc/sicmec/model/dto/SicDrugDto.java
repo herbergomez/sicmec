@@ -18,6 +18,20 @@ public class SicDrugDto implements Serializable{
 	private String drugName;
 	private String drugDescription;
 	private String estado;
+	private String tipo;
+	
+	/**
+	 * @return the tipo
+	 */
+	public String getTipo() {
+		return tipo;
+	}
+	/**
+	 * @param tipo the tipo to set
+	 */
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
 	/**
 	 * @return the estado
 	 */

@@ -118,26 +118,76 @@ public class SicAdministracionPaqMedController {
 			@RequestParam(value="idMeds[]")String[] aMeds,
 			RedirectAttributes redirectAttributes
 			) throws ParseException
-	{	
+	{
 		//Desactivamos los medicamentos relacionados al paquete
 		boolean bDeactivate = sicAsignacionMedPaqServiceImpl.deactivateAllRecords(Integer.parseInt(iPaqId));		
-		//Recorremos con un for el arreglo de medicamentos a insertar
-		for ( int iTemp = 0; iTemp < aMeds.length; iTemp++ )
+		//Validamos que el arreglo exista y tenga datos
+		boolean bMeds = aMeds[0].equals("false");
+		if ( bMeds == false )
 		{
-			//Declaramos el objeto para insertar el nuevo registro		
-			SicAsignacionMedPaqDto medPaq = new SicAsignacionMedPaqDto();
-			//Establecemos los valores
-			medPaq.setIdMedicamento(sicDrugServiceImpl.findById(Integer.parseInt(aMeds[iTemp])));
-			medPaq.setIdMedPaq(sicPacMedServiceImpl.findById(Integer.parseInt(iPaqId)));
-			medPaq.setMedPaqStatus("1");
-			//Almacenamos al logger
-			LOGGER.info("Guardando medicamento "+aMeds[iTemp]);
-			//Guardamos			
-			sicAsignacionMedPaqServiceImpl.insert(medPaq);
+			//Recorremos con un for el arreglo de medicamentos a insertar
+			for ( int iTemp = 0; iTemp < aMeds.length; iTemp++ )
+			{
+				//Declaramos el objeto para insertar el nuevo registro		
+				SicAsignacionMedPaqDto medPaq = new SicAsignacionMedPaqDto();
+				//Establecemos los valores
+				medPaq.setIdMedicamento(sicDrugServiceImpl.findById(Integer.parseInt(aMeds[iTemp])));
+				medPaq.setIdMedPaq(sicPacMedServiceImpl.findById(Integer.parseInt(iPaqId)));
+				medPaq.setMedPaqStatus("1");
+				//Almacenamos al logger
+				LOGGER.info("Guardando medicamento "+aMeds[iTemp]);
+				//Guardamos			
+				sicAsignacionMedPaqServiceImpl.insert(medPaq);
+			}
 		}
 		//Retornamos OK
 		redirectAttributes.addFlashAttribute("success", true);
 		//Redireccionamos
+		return "redirect:/admin/paq";
+	}
+	
+	/**
+	 * Funcion para obtner los datos de un paquete de medicamentos	
+	 * @param iId Id del paquete a modificar
+	 * @return DTO del objeto encontrado
+	 */
+	@RequestMapping(value="/getPack/{id}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody SicPaqMedDto getPack(
+			@PathVariable(value="id")int id
+			)
+	{
+		return sicPacMedServiceImpl.findById(id);
+	}
+	
+	/**
+	 * Funcion utilizada para actualizar un registro de paquete de medicamentos 
+	 * @param sDescripcion Nueva descripcion
+	 * @param sId Id del paquete a modificar
+	 * @param redirectAttributes Variables de retorno
+	 * @return URL a redireccionar
+	 * @throws ParseException 
+	 */
+	@RequestMapping(value="/updatePaq", method=RequestMethod.POST)
+	public String updatePaq(
+				@RequestParam(value="descripcionUp")String sDescripcion,
+				@RequestParam(value="radio")String sActivo,
+				@RequestParam(value="idUpdate")String sId,
+				RedirectAttributes redirectAttributes
+			) throws ParseException
+	{
+		
+		//Logging
+		LOGGER.info("Actualizando paquete: "+sId);
+		//Obtain the reference
+		SicPaqMedDto oDto = sicPacMedServiceImpl.findById(Integer.parseInt(sId));
+		//Set new values
+		oDto.setDescription(sDescripcion);
+		oDto.setActive( sActivo );
+		//Save
+		sicPacMedServiceImpl.insert(oDto);
+		//Sending response
+		redirectAttributes.addFlashAttribute("upSuccess",true);
+		//Redirecting
 		return "redirect:/admin/paq";
 	}
 }
