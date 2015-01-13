@@ -18,15 +18,20 @@ $(document).ready(function()
 		   required:true,
 	       maxlength: 20,
 	       minlength: 3 
+	   },
+	   confirmNewPass:
+	   {
+		   required:true,
+		   equalTo: "#newPass"
 	   }
 	  },
 	highlight: function(element) {
-		$(element).closest('.form-group')
+		$(element).closest('.control-group')
 		.removeClass('has-success').addClass('has-error');
 	},
 	success: function(element) {
 		element.addClass('help-inline')
-		.closest('.form-group')
+		.closest('.control-group')
 		.removeClass('has-error').addClass('has-success');
 	},
 	submitHandler : function(form)
