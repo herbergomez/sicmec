@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.uesocc.sicmec.model.dto.SicAuditoriaDto;
 import com.uesocc.sicmec.model.dto.SicPersonaDto;
 import com.uesocc.sicmec.model.dto.SicUsuarioDto;
@@ -30,6 +29,7 @@ import com.uesocc.sicmec.model.serviceImpl.SicEstadoUsuarioServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicPersonaServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicRolServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicUsuarioServiceImpl;
+import com.uesocc.sicmec.utils.SicEncriptUtil;
 
 /**
  * @author pablo portillo
@@ -86,7 +86,7 @@ public class SicAdministracionUsuariosController
 		
 		SicUsuarioDto user = new SicUsuarioDto();
 		user.setNombreUsuario(usuario);
-		user.setClave(pass);
+		user.setClave(SicEncriptUtil.getStringMessageDigest(pass,SicEncriptUtil.MD5));
 		user.setFxActivacion(simpleformat.format(new Date()));
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.YEAR, 2);

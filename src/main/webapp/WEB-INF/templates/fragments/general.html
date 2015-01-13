@@ -3,8 +3,9 @@
 	xmlns="http://www.w3.org/1999/xhtml">
 	
 <head th:fragment="headerFragment">
-
+<title>Sistema de control y monitoreo de pacientes con enfermedades cronicas</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<link rel="icon" type="image/png" th:href="@{/resources/images/SIC232.png}"/>
 
 	<link media="all" th:href="@{/resources/libs/qTip2/css/jquery.qtip.css}" rel="stylesheet"/>
 	<link media="all" th:href="@{/resources/css/bootstrap.css}" rel="stylesheet"/>
@@ -17,6 +18,7 @@
 	<link rel="stylesheet" th:href="@{/resources/libs/jquery-ui/css/jquery-ui-timepicker-addon.css}" />
 	<link rel="stylesheet" th:href="@{/resources/libs/jquery-ui/css/jquery-ui.css}" />
 	<link rel="stylesheet" th:href="@{/resources/libs/jquery-ui/css/jquery.ui.datepicker.min.css}" />
+	<link media="all" th:href="@{/resources/libs/jBox/css/jBox.css}" rel="stylesheet"/>
 	
 </head>
 
@@ -101,13 +103,22 @@
             <ul class="nav navbar-nav navbar-right">
                 <li>
                 	<a href="#" id="session_user" >
-                		<i class="fa fa-user-md fa-lg"></i>
+                		<i class="fa fa-user-md"></i>
                 		<span th:text="${#httpServletRequest.remoteUser}"></span>
                 	</a>
-                </li>	
+                </li>
+                <li>
+                	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="fa fa-cog"></i>
+						<span>Opciones</span>
+					</a>
+					<ul class="dropdown-menu">
+  						<li><a href="#" data-toggle="modal" data-target="#modalCambioClave"><i class="fa fa-lock"></i> Cambiar contrase&ntilde;a</a></li>
+  					</ul>
+				</li>	
                 <li>
                 	<a th:href="@{/logout}">
-						<i class="fa fa-sign-out fa-lg"></i>
+						<i class="fa fa-sign-out"></i>
 						<span>Cerrar sesi&oacute;n</span>
 					</a>
 				</li>
@@ -188,19 +199,40 @@
 	</div>	
 </div>
 
-  <!-- <div class="row-fluid">
-  		<div class="col-md-11">
-  			<ul class="list-inline">
-          		<li><i class="icon-facebook icon-2x"></i></li>
-          		<li><i class="icon-twitter icon-2x"></i></li>
-          		<li><i class="icon-google-plus icon-2x"></i></li>
-          		<li><i class="icon-pinterest icon-2x"></i></li>
-        	</ul>
-        </div>
-        <div class="col-md-1">	
-  			<div id="footer" class="span12"> 2014 &copy; MINSAL</div>
-  		</div>	
-  </div> -->
+<div id="modalCambioClave" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<form id="formCambioClave" class="form-horizontal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" id="ChangePassClose" class="close"
+					data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Cambio de contrase&ntilde;a</h4>
+			</div>
+			<div class="modal-body" style="height: 250px;">
+					<div class="control-group">
+						<label for="old_password">Contrase&ntilde;a actual</label>
+						<div class="controls">
+							<input id="oldPass" name="oldPass" type="password" class="form-control"></input>
+						</div>
+					</div>
+					<div class="control-group">
+						<label for="newPass ">Nueva contrase&ntilde;a</label>
+						<div class="controls">
+							<input id="newPass" name="newPass" type="password" class="form-control"></input>
+						</div>
+					</div>
+			</div>
+			
+			<div class="modal-footer">
+				<div class="form-inline">
+					<input class="btn btn-primary" type="submit" value="Aceptar" /> 
+					<input id="ChangePasswordCancel" class="btn btn-default" type="reset" data-dismiss="modal" value="Cancelar"/>
+				</div>
+			</div>
+		</div>
+		</form>
+	</div>
+</div>
   
 </footer>
 
@@ -218,6 +250,8 @@
 	<script type="text/javascript" th:src="@{/resources/libs/jquery-ui/js/jquery.ui.datepicker.js}"></script>
 	<script type="text/javascript" th:src="@{/resources/libs/jquery-ui/js/jquery-ui-timepicker-addon.js}"></script>
 	<script type="text/javascript" th:src="@{/resources/libs/jquery-ui/js/datetimepickerSet.js}"></script>
+	<script type="text/javascript" th:src="@{/resources/js/general.js}"></script>
+	<script type="text/javascript" th:src="@{/resources/libs/jBox/js/jBox.js}"></script>
 </div>
 
 </body>
