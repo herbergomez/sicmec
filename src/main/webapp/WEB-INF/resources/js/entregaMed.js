@@ -238,7 +238,8 @@ var getTreatment = function (id)
 				else
 				{
 					valido = false;
-					citaMedica = result[0].fkSicCitaMedica.idSicCitaMedica;
+					//citaMedica = result[0].fkSicCitaMedica.idSicCitaMedica;
+					citaMedica = result[0].idSicTratamiento;
 //					alert(valido + citaMedica);
 					new jBox('Notice', 
 					{

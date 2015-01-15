@@ -79,8 +79,8 @@
                 	<a th:href="@{/}">Home</a>
                 </li>
                 
-                <li th:class="${#strings.endsWith(#httpServletRequest.requestURL, '/control/citas')} ? 'active': ''">
-                	<a th:href="@{/control/citas}"><i class="fa fa-stethoscope"></i> Control de citas</a>
+                <li th:class="${#strings.endsWith(#httpServletRequest.requestURL, '/control/cita')} ? 'active': ''">
+                	<a th:href="@{/control/cita}"><i class="fa fa-stethoscope"></i> Control de citas</a>
                 </li>
             </ul>
         
