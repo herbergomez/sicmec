@@ -1,5 +1,26 @@
 $(document).ready(function(){
 		/*--------------------------Validaciones---------------------------*/
+		$('#modalUpPaqMed').validate({
+			errorElement: "span",
+			rules: {
+			   descripcionUpdate: 
+			   {
+			        required: false,
+			        maxlength: 50,
+			     	minlength: 3
+			   }
+			  },
+			highlight: function(element) {
+				$(element).closest('.form-group')
+				.removeClass('has-success').addClass('has-error');
+			},
+			success: function(element) {
+				element.addClass('help-inline')
+				.closest('.form-group')
+				.removeClass('has-error').addClass('has-success');
+			}
+			 
+		});
 	
 		/*---------------------------Triggers-----------------------------*/
 	
@@ -41,7 +62,7 @@ $(document).ready(function(){
 		/**
 		 * Evento para el cambio de paquete de medicamento
 		 */
-		$("#medPaqs").change(function(){
+		$("#medPaqs").change(function(){			
 			//Obtenemos el valor seleccionado
 			var iPaqId = $(this).val();
 			//Validamos que no este vacio
@@ -54,6 +75,45 @@ $(document).ready(function(){
 			bResponse = loadMedicaments( iPaqId );
 		});
 		
+		/*Showing the modal view to edit a drug*/
+		$(".onUpdate").click(function(){
+			var id = $("#medPaqs").val();
+			//Validamos que no sea un valor nulo
+			if (id == null || id == "")
+			{
+				$("#errPaq").show();
+				return false;
+			}
+			//Peticion ajax
+			$.ajax
+			({
+				type: "GET",
+				url:"/sicmec/admin/paq/getPack/"+id,
+				success:function(result)
+				{
+					$("#idUpdate").val(result.idPaq);
+					$("#nombreUp").val(result.name);
+					$("#descripcionUp").val(result.description);
+					var iActivo  = result.active;
+					console.log(iActivo);
+					//Validamos si el medicamento esta activo o no
+					if ( iActivo == 1 ) {
+						$("#activoUp").prop("checked",true);
+						$("#desactivoUp").prop("checked",false);
+					} else {
+						$("#activoUp").prop("checked",false);
+						$("#desactivoUp").prop("checked",true);
+					}
+					
+					$("#modalUpPaqMed").modal("show");
+				},
+				error: function (xhr, ajaxOptions, thrownError) 
+				{
+					alert("unable to find server..")
+			    }
+			});
+		});
+		
 		/*---------------------------Funciones-----------------------------*/
 		
 		/**
@@ -61,11 +121,17 @@ $(document).ready(function(){
 		 */
 		function savePaqMed( iPaqId, aMeds )
 		{
-			//Validamos que no este vacio el arreglo ni el id del paquete
-			if ( iPaqId == null || iPaqId == 0 || aMeds.lenght <= 0 )
+			console.log("id "+iPaqId+"<>Meds "+aMeds);
+			//Validamos que no este vacio el id del paquete
+			if ( iPaqId == null || iPaqId == 0 )
 			{
 				alert("Error!!!!");
 				return false;
+			}
+			//Validamos si el paquete esta vacio
+			if ( aMeds == null || aMeds == "" )
+			{
+				aMeds[0] = "false";
 			}
 			//Peticion ajax
 			$.ajax
@@ -90,6 +156,9 @@ $(document).ready(function(){
 		 */ 
 		function loadMedicaments ( iPaqMed )
 		{
+			//Vaciamos los select para medicamentos disponibles y medicamentos en el paquete
+			$("#availableMeds").empty();
+			$("#actualMeds").empty();
 			//Peticion ajax para obtener todos los medicamentos fuera del paquete
 			$.ajax
 			({
@@ -97,7 +166,6 @@ $(document).ready(function(){
 				url:"/sicmec/admin/paq/medsOut/"+iPaqMed,
 				success:function(result)
 				{
-					console.log(result);
 					$("#availableMeds option").remove();
 					for (var int = 0; int < result.length; int++) 
     				{
@@ -111,6 +179,7 @@ $(document).ready(function(){
 						success:function(result)
 						{
 							$("#actualMeds option").remove();
+
 							for (var int = 0; int < result.length; int++) 
 		    				{
 		    					createMedList(result[int]);
@@ -139,8 +208,8 @@ $(document).ready(function(){
 			var oSelect = document.getElementById("actualMeds");
 			var oOption = document.createElement("option");
 			//Establecemos el texto del option y sus atributos
-			var sText =  document.createTextNode(oMed.nombreMedicamento);
-			oOption.setAttribute("value",oMed.idSicMedicamento);
+			var sText =  document.createTextNode(oMed.drugName);
+			oOption.setAttribute("value",oMed.idDrug);
 			oOption.setAttribute("class","agregados");
 			//Agregamos el texto al option
 			oOption.appendChild(sText);
@@ -158,8 +227,8 @@ $(document).ready(function(){
 			var oSelect = document.getElementById("availableMeds");
 			var oOption = document.createElement("option");
 			//Establecemos el texto del option y sus atributos
-			var sText =  document.createTextNode(oMed.nombreMedicamento);
-			oOption.setAttribute("value",oMed.idSicMedicamento);
+			var sText =  document.createTextNode(oMed.drugName);
+			oOption.setAttribute("value",oMed.idDrug);
 			//Agregamos el texto al option
 			oOption.appendChild(sText);
 			//Agregamos el option al select

@@ -101,7 +101,7 @@ public class JdbcRepository
 	                    public SicEntregaTratamientoDto mapRow(ResultSet rs, int rowNum) throws SQLException 
 	                    {
 	                        return new SicEntregaTratamientoDto(rs.getObject("id_sic_entrega_tratamiento").toString(),
-	                        		rs.getString("comentario"),rs.getString("fx_entrega_tratamiento"));
+	                        		rs.getString("comentario"),rs.getString("fx_entrega_tratamiento"),rs.getString("tipo"));
 	                    }
 	                });
 	                return result;

@@ -16,7 +16,8 @@ import com.uesocc.sicmec.model.entity.SicUsuario;
  */
 @Repository
 public interface SicUsuarioRepository extends
-		JpaRepository<SicUsuario, Integer> {
+		JpaRepository<SicUsuario, Integer> 
+{
 
 	/**
 	 * @param nombreUsuario
@@ -26,5 +27,6 @@ public interface SicUsuarioRepository extends
 	List<SicUsuario> findAllBynombreUsuario(String nombreUsuario);
 	
 	List<SicUsuario> findAllByfkSicEstadoUsuario_descripcion(String descripcion);
+	
 	
 }

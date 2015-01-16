@@ -5,8 +5,10 @@ public class SicEntregaTratamientoDto {
 
 	private String idSicEntregaTratamiento;
     private String comentario;
+    private String tipo;
     private String fxEntregaTratamiento;
     private SicTratamientoDto fkSicTratamiento;
+    private SicUsuarioDto fkSicUsuario;
     
 	/**
 	 * @param idSicEntregaTratamiento
@@ -15,13 +17,13 @@ public class SicEntregaTratamientoDto {
 	 * @param fkSicTratamiento
 	 */
 	public SicEntregaTratamientoDto(String idSicEntregaTratamiento,
-			String comentario, String fxEntregaTratamiento
+			String comentario, String fxEntregaTratamiento, String tipo
 			) {
 		super();
 		this.idSicEntregaTratamiento = idSicEntregaTratamiento;
 		this.comentario = comentario;
 		this.fxEntregaTratamiento = fxEntregaTratamiento;
-		
+		this.tipo = tipo;
 	}
 	public SicEntregaTratamientoDto() {
 		// TODO Auto-generated constructor stub
@@ -140,5 +142,29 @@ public class SicEntregaTratamientoDto {
 				+ idSicEntregaTratamiento + ", comentario=" + comentario
 				+ ", fxEntregaTratamiento=" + fxEntregaTratamiento
 				+ ", fkSicTratamiento=" + fkSicTratamiento + "]";
+	}
+	/**
+	 * @return the tipo
+	 */
+	public String getTipo() {
+		return tipo;
+	}
+	/**
+	 * @param tipo the tipo to set
+	 */
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	/**
+	 * @return the fkSicUsuario
+	 */
+	public SicUsuarioDto getFkSicUsuario() {
+		return fkSicUsuario;
+	}
+	/**
+	 * @param fkSicUsuario the fkSicUsuario to set
+	 */
+	public void setFkSicUsuario(SicUsuarioDto fkSicUsuario) {
+		this.fkSicUsuario = fkSicUsuario;
 	}
 }

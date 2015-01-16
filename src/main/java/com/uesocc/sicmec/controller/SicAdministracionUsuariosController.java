@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -19,12 +21,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.uesocc.sicmec.model.dto.SicAuditoriaDto;
 import com.uesocc.sicmec.model.dto.SicPersonaDto;
 import com.uesocc.sicmec.model.dto.SicUsuarioDto;
+import com.uesocc.sicmec.model.serviceImpl.SicAuditoriaServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicEstadoUsuarioServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicPersonaServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicRolServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicUsuarioServiceImpl;
+import com.uesocc.sicmec.utils.SicEncriptUtil;
 
 /**
  * @author pablo portillo
@@ -45,6 +50,9 @@ public class SicAdministracionUsuariosController
 	private SicPersonaServiceImpl sicPersonaServiceImpl;
 	@Autowired
 	private SicEstadoUsuarioServiceImpl sicEstadoUsuarioServiceImpl;
+	@Autowired
+	private SicAuditoriaServiceImpl sicAuditoriaServiceImpl;
+	
 	
 	@RequestMapping(value="",method=RequestMethod.GET)
 	public String defaultRequest(Model model)
@@ -63,6 +71,7 @@ public class SicAdministracionUsuariosController
 			@RequestParam(value="pass")String pass,
 			@RequestParam(value="mail")String mail,
 			@RequestParam(value="rol")int rol,
+			HttpServletRequest httpServletRequest,
 			RedirectAttributes redirectAttributes) throws ParseException
 	{
 		
@@ -77,12 +86,12 @@ public class SicAdministracionUsuariosController
 		
 		SicUsuarioDto user = new SicUsuarioDto();
 		user.setNombreUsuario(usuario);
-		user.setClave(pass);
+		user.setClave(SicEncriptUtil.getStringMessageDigest(pass,SicEncriptUtil.MD5));
 		user.setFxActivacion(simpleformat.format(new Date()));
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.YEAR, 2);
 		user.setFxDesactivacion(simpleformat.format(cal.getTime()));
-		user.setCreadoPor("prueba");
+		user.setCreadoPor(httpServletRequest.getRemoteUser());
 		user.setModicadoPor("prueba");
 		user.setFxCreado(format.format(new Date()));
 		user.setFxModicado(format.format(new Date()));
@@ -92,6 +101,14 @@ public class SicAdministracionUsuariosController
 		
 		LOGGER.info(user);
 		sicUsuarioServiceImpl.insert(user);
+		
+		//AUDITORIA
+		sicAuditoriaServiceImpl.insert
+		(new SicAuditoriaDto
+				("","Administración de usuarios"
+				,"Creación de usuario "+nombre+", "+apellido
+				,format.format(new Date()),
+				sicUsuarioServiceImpl.findByNombreUsuario(httpServletRequest.getRemoteUser())));
 		
 		redirectAttributes.addFlashAttribute("success",true);
 		
@@ -107,6 +124,7 @@ public class SicAdministracionUsuariosController
 			@RequestParam(value="rolUp")int rol,
 			@RequestParam(value="fxAct")String fxAct,
 			@RequestParam(value="fxDes")String fxDes,
+			HttpServletRequest httpServletRequest,
 			RedirectAttributes redirectAttributes) throws ParseException
 	{
 		
@@ -119,7 +137,7 @@ public class SicAdministracionUsuariosController
 		user.setFxActivacion(fxAct);
 		user.setFxDesactivacion(fxDes);
 		
-		user.setModicadoPor("prueba");
+		user.setModicadoPor(httpServletRequest.getRemoteUser());
 		user.setFxModicado(format.format(new Date()));
 		user.setSicRol(sicRolServiceImpl.findById(rol));
 		
@@ -132,6 +150,15 @@ public class SicAdministracionUsuariosController
 		LOGGER.info(user);
 		sicUsuarioServiceImpl.insert(user);
 		
+		//AUDITORIA
+				sicAuditoriaServiceImpl.insert
+				(new SicAuditoriaDto
+						("","Administración de usuarios"
+						,"Modificación del usuario "+nombre+", "+apellido
+						,format.format(new Date()),
+						sicUsuarioServiceImpl.findByNombreUsuario(httpServletRequest.getRemoteUser())));
+				
+				
 		redirectAttributes.addFlashAttribute("upSuccess",true);
 		
 		return "redirect:/admin/usuarios";
@@ -145,7 +172,7 @@ public class SicAdministracionUsuariosController
 	}
 	
 	@RequestMapping(value="/delUser/{id}",method=RequestMethod.GET)
-	public String delUser(@PathVariable(value="id")int id,RedirectAttributes redirectAttributes)
+	public String delUser(@PathVariable(value="id")int id,HttpServletRequest httpServletRequest,RedirectAttributes redirectAttributes)
 	{
 		
 		try
@@ -153,8 +180,18 @@ public class SicAdministracionUsuariosController
 			SicUsuarioDto user = sicUsuarioServiceImpl.findById(id); 
 				if(user.getSicEstadoUsuario().getDescripcion().equals("Activo"))
 				{
+					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					
 					user.setSicEstadoUsuario(sicEstadoUsuarioServiceImpl.findOneByDescripcion("Inactivo"));
 					sicUsuarioServiceImpl.insert(user);
+					//AUDITORIA
+					sicAuditoriaServiceImpl.insert
+					(new SicAuditoriaDto
+							("","Administración de usuarios"
+							,"Inactivación del usuario "+user.getSicPersona().getNombre()+", "+user.getSicPersona().getApellido()
+							,format.format(new Date()),
+							sicUsuarioServiceImpl.findByNombreUsuario(httpServletRequest.getRemoteUser())));
+					
 					redirectAttributes.addFlashAttribute("deleteSuccess",true);
 				}
 				else

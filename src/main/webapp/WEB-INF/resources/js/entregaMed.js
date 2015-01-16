@@ -8,6 +8,53 @@ var citaMedica = "";
 
 $( document ).ready(function() 
 {
+	$(".close").click(function(){
+		
+		$(".alert").hide();
+		
+	});
+	
+	$("#formularioRealizarEntrega").validate({
+		errorElement: "span",
+		rules: {
+		   user: 
+		   {
+		     	required: true,
+		     	maxlength: 20,
+		     	minlength: 3
+		   },
+		   pass: 
+		   {
+		        required: true,
+		        maxlength: 20,
+		     	minlength: 3
+		   },
+		   motivo: 
+		   {
+			    required: true,
+			    maxlength: 100,
+		     	minlength: 5
+		   }
+		  },
+		highlight: function(element) {
+			$(element).closest('.form-group')
+			.removeClass('has-success').addClass('has-error');
+		},
+		success: function(element) {
+			element.addClass('help-inline')
+			.closest('.form-group')
+			.removeClass('has-error').addClass('has-success');
+		},
+		submitHandler: function(form)
+		{
+			var user = $("#user").val();
+			var pass= $("#pass").val();
+			var motivo = $("#motivo").val();
+			realizarEntregaAutenticada(user,pass,motivo);	
+		}
+		 
+	});
+	
 	$("#buscar").click(function()
 	{
 		var exp = $("#exp").val().trim(); 
@@ -44,7 +91,7 @@ $( document ).ready(function()
 				/* Si este paciente aun no ha recibido sus
 				 * medicamentos en el periodo estipulado. 
 				 */
-				alert("Entrega registrada");
+				realizarEntrega();
 			}
 			else
 			{
@@ -62,6 +109,70 @@ $( document ).ready(function()
 	});
 });
 
+var realizarEntregaAutenticada = function(user,pass,comentario)
+{
+	
+	$.ajax
+	({
+		type: "POST",
+		url:"/sicmec/farm/entregaMed/entregarTratAutenticada",
+		data : ({tratamiento:citaMedica,cmt:comentario,usuario:user,pass:pass}),
+		success:function(result)
+		{
+			$("#modalRealizarEntrega").modal("hide");
+			$(".alert").hide();
+			
+			if(result == "ok")
+			{
+				doHistory($("#exp").val());
+				$("#entrega").show();
+			}
+			else
+			{
+				$("#errorEntrega").show();
+				$("#mensajeErrorEntrega").html(result);
+			}	
+		},
+		error: function (error) 
+		{
+			$("#modalRealizarEntrega").modal("hide");
+			$("#mensajeErrorEntrega").html(error);
+	    }
+	});
+};
+
+var realizarEntrega = function()
+{
+	$.ajax
+	({
+		type: "POST",
+		url:"/sicmec/farm/entregaMed/entregarTrat",
+		data : ({tratamiento:citaMedica}),
+		success:function(result)
+		{
+			$(".alert").hide();
+			
+			if(result == "ok")
+			{
+				doHistory($("#exp").val());
+				$("#entrega").show();
+				valido = false;
+			}
+			else
+			{
+				$("#errorEntrega").show();
+				$("#mensajeErrorEntrega").html(result);
+			}	
+		},
+		error: function (xhr, ajaxOptions, thrownError) 
+		{
+			$("#mensajeErrorEntrega").html(error);
+	    }
+	});
+};
+
+
+
 var doHistory = function (id)
 {
 	var his = "";
@@ -75,8 +186,8 @@ var doHistory = function (id)
 			{
 				for (var int = 0; int < result.length; int++) 
 				{
-				   his += "<li class='list-group-item'>"+result[int].fxEntregaTratamiento+
-				   "<button style='padding: 2px 6px !important;' class='btn btn-sm btn-default pull-right'><i class='fa fa-search-plus'></i></button></li>";
+				   his += "<li class='list-group-item'>"+result[int].fxEntregaTratamiento+", Tipo: "+result[int].tipo+
+				   "<a title='Ver detalle' style='padding: 2px 6px !important;' target='_blank' href='./detalleEntregaMed/"+result[int].idSicEntregaTratamiento+"' class='btn btn-sm btn-default pull-right onDetail'><i class='fa fa-search-plus'></i></a></li>";
 				}
 				
 			}	
@@ -86,7 +197,13 @@ var doHistory = function (id)
 			}
 			
 			$("#historial").html(his);
-			
+		
+	    		$('.onDetail').qtip({
+	    		    style: 
+	    		    {
+	    		        classes: 'qtip-bootstrap qtip-shadow'
+	    		    }
+	    		});
 		},
 		error: function (xhr, ajaxOptions, thrownError) 
 		{
@@ -109,7 +226,8 @@ var getTreatment = function (id)
 				if(result[0].entregaValida)
 				{
 					valido = true;
-					citaMedica = result[0].fkSicCitaMedica.idSicCitaMedica;
+					//citaMedica = result[0].fkSicCitaMedica.idSicCitaMedica;
+					citaMedica = result[0].idSicTratamiento;
 //					alert(valido + citaMedica);
 					new jBox('Notice', 
 							{
@@ -120,7 +238,8 @@ var getTreatment = function (id)
 				else
 				{
 					valido = false;
-					citaMedica = result[0].fkSicCitaMedica.idSicCitaMedica;
+					//citaMedica = result[0].fkSicCitaMedica.idSicCitaMedica;
+					citaMedica = result[0].idSicTratamiento;
 //					alert(valido + citaMedica);
 					new jBox('Notice', 
 					{

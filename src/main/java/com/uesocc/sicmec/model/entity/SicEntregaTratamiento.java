@@ -44,13 +44,19 @@ public class SicEntregaTratamiento implements Serializable {
     @Basic(optional = false)
     @Column(name = "comentario", nullable = false, length = 300)
     private String comentario;
+    @Column(name = "tipo",length = 100)
+    private String tipo;
     @Column(name = "fx_entrega_tratamiento")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fxEntregaTratamiento;
     @JoinColumn(name = "fk_sic_tratamiento", referencedColumnName = "id_sic_tratamiento", nullable = false)
     @ManyToOne(optional = false)
     private SicTratamiento fkSicTratamiento;
-
+    @JoinColumn(name = "fk_sic_usuario", referencedColumnName = "id_sic_usuario", nullable = true)
+    @ManyToOne(optional = true)
+    private SicUsuario fkSicUsuario;
+    
+    
     public SicEntregaTratamiento() {
     }
 
@@ -119,5 +125,33 @@ public class SicEntregaTratamiento implements Serializable {
     public String toString() {
         return "com.uesocc.sicmec.model.entity.SicEntregaTratamiento[ idSicEntregaTratamiento=" + idSicEntregaTratamiento + " ]";
     }
+
+	/**
+	 * @return the tipo
+	 */
+	public String getTipo() {
+		return tipo;
+	}
+
+	/**
+	 * @param tipo the tipo to set
+	 */
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	/**
+	 * @return the fkSicUsuario
+	 */
+	public SicUsuario getFkSicUsuario() {
+		return fkSicUsuario;
+	}
+
+	/**
+	 * @param fkSicUsuario the fkSicUsuario to set
+	 */
+	public void setFkSicUsuario(SicUsuario fkSicUsuario) {
+		this.fkSicUsuario = fkSicUsuario;
+	}
     
 }

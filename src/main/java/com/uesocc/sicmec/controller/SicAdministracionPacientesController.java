@@ -38,6 +38,7 @@ import com.uesocc.sicmec.model.serviceImpl.SicTipoPatologiaServiceImpl;
 @Controller
 public class SicAdministracionPacientesController {
 	Logger LOGGER = Logger.getLogger(SicAdministracionPacientesController.class);
+	
 	@Autowired
 	private SicMunicipioServiceImpl sicMunicipioServiceImpl;
 	@Autowired

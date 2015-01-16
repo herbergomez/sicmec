@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-
 import com.uesocc.sicmec.model.dto.SicUsuarioDto;
 import com.uesocc.sicmec.model.serviceImpl.SicUsuarioServiceImpl;
+import com.uesocc.sicmec.utils.SicEncriptUtil;
 
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider{
@@ -58,7 +57,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
 					{
 						LOGGER.info("User Active");
 						
-						if(dto.getClave().equals(password))
+						if(dto.getClave().equals(SicEncriptUtil.getStringMessageDigest(password,SicEncriptUtil.MD5)))
+						//if(dto.getClave().equals(password))
 						{
 									
 							List<GrantedAuthority> grantedAuths = new ArrayList<>();

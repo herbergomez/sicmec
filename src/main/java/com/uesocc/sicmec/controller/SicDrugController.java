@@ -48,6 +48,7 @@ public class SicDrugController {
 	public String addDrug (
 			@RequestParam(value="nombre")String sNombre,
 			@RequestParam(value="descripcion")String sDescripcion,
+			@RequestParam(value="tipo")String sTipo,
 			RedirectAttributes redirectAttributes
 			) throws ParseException{
 		//Check the logger
@@ -56,6 +57,7 @@ public class SicDrugController {
 		SicDrugDto oDrug = new SicDrugDto();
 		oDrug.setDrugName(sNombre);
 		oDrug.setDrugDescription(sDescripcion);
+		oDrug.setTipo(sTipo);
 		//Valor por defecto para un medicamento creado, 1 significa activo y 0 falso
 		oDrug.setEstado("1");
 		//Loging
@@ -84,6 +86,7 @@ public class SicDrugController {
 				@RequestParam(value="nombreUpdate")String sDrugName,
 				@RequestParam(value="descripcionUpdate")String sDescription,
 				@RequestParam(value="radio")String iActive,
+				@RequestParam(value="tipo")String iTipo,
 				RedirectAttributes redirectAttributes
 			) throws ParseException {		
 		//Logging
@@ -94,6 +97,7 @@ public class SicDrugController {
 		oDrugDto.setDrugName(sDrugName);
 		oDrugDto.setDrugDescription(sDescription);
 		oDrugDto.setEstado( iActive );
+		oDrugDto.setTipo(iTipo);
 		//Save
 		sicDrugServiceImpl.insert(oDrugDto);
 		//Sending response

@@ -6,6 +6,7 @@ package com.uesocc.sicmec.model.entity;
 
 import java.io.Serializable;
 import java.util.List;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -32,7 +35,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SicMedicamento.findByIdSicMedicamento", query = "SELECT s FROM SicMedicamento s WHERE s.idSicMedicamento = :idSicMedicamento"),
     @NamedQuery(name = "SicMedicamento.findByNombreMedicamento", query = "SELECT s FROM SicMedicamento s WHERE s.nombreMedicamento = :nombreMedicamento"),
     @NamedQuery(name = "SicMedicamento.findByDescripcionMedicamento", query = "SELECT s FROM SicMedicamento s WHERE s.descripcionMedicamento = :descripcionMedicamento")})
-
+	
+@NamedNativeQueries({
+	@NamedNativeQuery(name = "SicMedicamento.findDrugsInPaq", query = "SELECT m.* FROM sic_asignacion_medicamento s INNER JOIN sic_medicamento m ON m.id_sic_medicamento = s.fk_sic_medicamento INNER JOIN sic_cat_medicamentos c ON c.id_sic_cat_medicamentos = s.fk_sic_cat_medicamentos WHERE s.estado = '1' AND c.id_sic_cat_medicamentos = (:catMed)",
+			resultClass=SicMedicamento.class),
+    @NamedNativeQuery(name = "SicMedicamento.findDrugsNotInPaq", query = "SELECT * FROM sic_medicamento m WHERE m.id_sic_medicamento NOT IN ( SELECT s.fk_sic_medicamento FROM sic_asignacion_medicamento s WHERE  s.estado = '1' AND s.fk_sic_cat_medicamentos = (:catMed))",
+    		resultClass=SicMedicamento.class)
+})
 public class SicMedicamento implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

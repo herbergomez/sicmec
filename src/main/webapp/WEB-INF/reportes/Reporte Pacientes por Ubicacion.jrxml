@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte Pacientes por Ubicacion" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a84feb2d-ade1-4ed1-9ec5-ef50c1c50e85">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PaisOrigen" class="java.lang.Integer"/>
+	<parameter name="DepartamentoOrigen" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="MunicipioOrigen" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT sic_persona.nombre,sic_persona.apellido,sic_paciente.id_sic_paciente,
+    sic_paciente.numero_expediente,sic_paciente.telefono_paciente,sic_paciente.direccion_paciente,
+       sic_pais.nombre_pais,sic_departamento.nombre_departamento,sic_municipio.nombre_municipio
+  FROM sic_paciente
+  inner join sic_persona on (sic_paciente.fk_sic_persona=sic_persona.id_sic_persona)
+  inner join sic_estado_paciente on(fk_sic_estado_paciente=sic_estado_paciente.id_sic_estado_paciente)
+  inner join sic_municipio on(sic_paciente.fk_sic_municipio=sic_municipio.id_sic_municipio)
+  inner join sic_departamento on (sic_municipio.fk_sic_departamento=sic_departamento.id_sic_departamento)
+  inner join sic_pais on (sic_departamento.fk_sic_pais=sic_pais.id_sic_pais)
+  where sic_estado_paciente.descripcion='Activo'
+  	and (sic_pais.id_sic_pais=$P{PaisOrigen}
+	and (CASE WHEN ($P{DepartamentoOrigen}!=null)THEN
+	      sic_departamento.id_sic_departamento=$P{DepartamentoOrigen}
+	     ELSE 1=1 END
+	)
+	and (CASE WHEN ($P{MunicipioOrigen} != null)THEN
+	     sic_municipio.id_sic_municipio=$P{MunicipioOrigen}
+	     ELSE 1=1 END)
+	)
+order by sic_departamento.nombre_departamento,sic_municipio.nombre_municipio,sic_persona.nombre,sic_persona.apellido;]]>
+	</queryString>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="apellido" class="java.lang.String"/>
+	<field name="id_sic_paciente" class="java.lang.Integer"/>
+	<field name="numero_expediente" class="java.lang.String"/>
+	<field name="telefono_paciente" class="java.lang.String"/>
+	<field name="direccion_paciente" class="java.lang.String"/>
+	<field name="nombre_pais" class="java.lang.String"/>
+	<field name="nombre_departamento" class="java.lang.String"/>
+	<field name="nombre_municipio" class="java.lang.String"/>
+	<variable name="DireccionSimple" class="java.lang.String">
+		<variableExpression><![CDATA[($P{DepartamentoOrigen}!=null&& $P{MunicipioOrigen}!=null?$F{nombre_pais}+", "+$F{nombre_departamento}+", "+$F{nombre_municipio}:
+( $P{DepartamentoOrigen}!=null&& $P{MunicipioOrigen}==null?$F{nombre_pais}+", "+$F{nombre_departamento} : $F{nombre_pais} ) )]]></variableExpression>
+	</variable>
+	<variable name="NombrePaciente" class="java.lang.String">
+		<variableExpression><![CDATA[$F{nombre}.toUpperCase()+", "+$F{apellido}.toUpperCase()]]></variableExpression>
+	</variable>
+	<variable name="DireccionCompleta" class="java.lang.String">
+		<variableExpression><![CDATA[$F{direccion_paciente}+", "+$F{nombre_municipio}+", "+$F{nombre_departamento}+","+$F{nombre_pais}]]></variableExpression>
+	</variable>
+	<variable name="id_sic_paciente_1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{id_sic_paciente}]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{id_sic_paciente}]]></initialValueExpression>
+	</variable>
+	<group name="Paciente">
+		<groupExpression><![CDATA[$F{id_sic_paciente}]]></groupExpression>
+		<groupHeader>
+			<band height="36">
+				<textField evaluationTime="Group" evaluationGroup="Paciente">
+					<reportElement x="50" y="0" width="100" height="8" uuid="bd6b1c9b-28dd-4e38-903d-8d222d346d7b"/>
+					<textFieldExpression><![CDATA[$V{id_sic_paciente_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="32" y="24" width="495" height="19" uuid="511b248d-dccf-460f-b384-1e4e83dcbd67"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE PACIENTES POR UBICACIÓN]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="4" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement x="32" y="10" width="495" height="20" uuid="e69fe02e-ec43-4184-89fe-623d88c95c97"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{DireccionSimple}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23">
+			<printWhenExpression><![CDATA[$V{id_sic_paciente_1}==new Integer("1")]]></printWhenExpression>
+		</band>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="32" y="4" width="495" height="20" uuid="9e2c6bd6-2aa4-4d08-9130-5b8e99802b1d"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{NombrePaciente}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="21">
+			<printWhenExpression><![CDATA[$F{direccion_paciente}!=null]]></printWhenExpression>
+			<staticText>
+				<reportElement x="50" y="0" width="53" height="20" uuid="0cecc142-5727-4ddf-bd0e-d7e2a321d34a"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dirección:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="103" y="0" width="424" height="20" isRemoveLineWhenBlank="true" uuid="3b73d9ec-3d2c-42b5-93d7-b21d08cf9e23"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{DireccionCompleta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="47" splitType="Stretch">
+			<staticText>
+				<reportElement x="32" y="0" width="495" height="17" uuid="6e88f287-ae8f-4432-9da0-9431264d0ad3"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hospital San Juan de Dios Departamento de Santa Ana: Pacientes con enfermedades Crónicas]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

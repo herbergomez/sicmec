@@ -283,14 +283,14 @@ public class SicPaciente implements Serializable {
          Calendar fechaNacimiento = Calendar.getInstance();
          Calendar fechaActual = Calendar.getInstance();
          fechaNacimiento.setTime(fNac);
-         int años = fechaActual.get(Calendar.YEAR)-fechaNacimiento.get(Calendar.YEAR);
+         int anios = fechaActual.get(Calendar.YEAR)-fechaNacimiento.get(Calendar.YEAR);
          int meses = fechaActual.get(Calendar.MONTH)-fechaNacimiento.get(Calendar.MONTH);
          int dias = fechaActual.get(Calendar.DATE)-fechaNacimiento.get(Calendar.DATE);
          
          if (meses < 0||meses==0&&dias<0){
-             años--;
+        	 anios--;
          }
-         this.setEdad(años);
+         this.setEdad(anios);
     }
 
 	/**

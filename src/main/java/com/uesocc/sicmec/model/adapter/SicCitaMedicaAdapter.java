@@ -34,8 +34,8 @@ public class SicCitaMedicaAdapter implements BaseAdapter<SicCitaMedica, SicCitaM
 		entity.setDiagnostico((obj.getDiagnostico()!=null) ? SicDataTypeFormat.toStringValue(obj.getDiagnostico()):"");
 		entity.setComentario((obj.getComentario()!=null) ? SicDataTypeFormat.toStringValue(obj.getComentario()):"");
 		entity.setSignosSintomas((obj.getSignosSintomas()!=null) ? SicDataTypeFormat.toStringValue(obj.getSignosSintomas()):"");
-		entity.setEstatura((obj.getEstatura()!=null) ? SicDataTypeFormat.toBigDecimalValue(obj.getEstatura()):null);
-		entity.setPeso((obj.getPeso()!=null) ? SicDataTypeFormat.toBigDecimalValue(obj.getPeso()):null);
+		entity.setEstatura((obj.getEstatura()!=null && !obj.getEstatura().equals("")) ? (Double.parseDouble(obj.getEstatura())):null);
+		entity.setPeso((obj.getPeso()!=null && !obj.getEstatura().equals("")) ? Double.parseDouble(obj.getPeso()):null);
 		entity.setFxCitaMedica((obj.getFxCitaMedica()!=null) ? SicDataTypeFormat.toDateTimeValue(obj.getFxCitaMedica()):new Date());
 		entity.setFkSicPaciente((obj.getFkSicPaciente()!=null) ? adp.dtoToEntity(obj.getFkSicPaciente()):null);
 		entity.setFkSicUsuario((obj.getFkSicUsuario()!=null) ? adpp.dtoToEntity(obj.getFkSicUsuario()):null);

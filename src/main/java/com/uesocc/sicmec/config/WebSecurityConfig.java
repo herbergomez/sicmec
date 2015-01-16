@@ -40,7 +40,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// TODO Auto-generated method stub
 		  
 		http.csrf().disable().headers().disable().authorizeRequests()
-				 	//.antMatchers("*/admin/*").hasAnyRole("admin")	//Any URL that starts with "/Administration/" must be an administrative user. For our example, that would be the user "admin".
+				 	.antMatchers("/admin/**").hasAnyRole("Administración")	//Any URL that starts with "/Administration/" must be an administrative user. For our example, that would be the user "admin".
+				 	.antMatchers("/control/**").hasAnyRole("Medico")
+				 	.antMatchers("/farm/**").hasAnyRole("Admin_Farmacia","Farmacia")
 				 		.anyRequest().authenticated()
 				 			.and()
 				 				.formLogin().loginPage("/login").		

@@ -85,7 +85,10 @@ public class SicUsuario implements Serializable {
     private SicPersona fkSicPersona;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkSicUsuario")
     private List<SicCitaMedica> sicCitaMedicaList;
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkSicUsuario")
+    private List<SicEntregaTratamiento> sicEntregaTratamientoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkSicUsuario")
+    private List<SicAuditoria> sicAuditoriaList;
     public SicUsuario() {
     }
 
