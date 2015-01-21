@@ -22,11 +22,11 @@
   	and (sic_pais.id_sic_pais=$P{PaisOrigen}
 	and (CASE WHEN ($P{DepartamentoOrigen}!=null)THEN
 	      sic_departamento.id_sic_departamento=$P{DepartamentoOrigen}
-	     ELSE 1=1 END
+	     END
 	)
 	and (CASE WHEN ($P{MunicipioOrigen} != null)THEN
 	     sic_municipio.id_sic_municipio=$P{MunicipioOrigen}
-	     ELSE 1=1 END)
+	     END)
 	)
 order by sic_departamento.nombre_departamento,sic_municipio.nombre_municipio,sic_persona.nombre,sic_persona.apellido;]]>
 	</queryString>
@@ -40,8 +40,12 @@ order by sic_departamento.nombre_departamento,sic_municipio.nombre_municipio,sic
 	<field name="nombre_departamento" class="java.lang.String"/>
 	<field name="nombre_municipio" class="java.lang.String"/>
 	<variable name="DireccionSimple" class="java.lang.String">
-		<variableExpression><![CDATA[($P{DepartamentoOrigen}!=null&& $P{MunicipioOrigen}!=null?$F{nombre_pais}+", "+$F{nombre_departamento}+", "+$F{nombre_municipio}:
-( $P{DepartamentoOrigen}!=null&& $P{MunicipioOrigen}==null?$F{nombre_pais}+", "+$F{nombre_departamento} : $F{nombre_pais} ) )]]></variableExpression>
+		<variableExpression><![CDATA[(($P{DepartamentoOrigen}!= null && $P{MunicipioOrigen}!=null)?
+           $F{nombre_pais}.toUpperCase()+", "+$F{nombre_departamento}.toUpperCase()
+           +", "+$F{nombre_municipio}.toUpperCase():
+($P{DepartamentoOrigen}!= null&& $P{MunicipioOrigen}==null?
+             $F{nombre_pais}.toUpperCase()+", "+$F{nombre_departamento}.toUpperCase() :
+                $F{nombre_pais}.toUpperCase() ) )]]></variableExpression>
 	</variable>
 	<variable name="NombrePaciente" class="java.lang.String">
 		<variableExpression><![CDATA[$F{nombre}.toUpperCase()+", "+$F{apellido}.toUpperCase()]]></variableExpression>
@@ -51,17 +55,12 @@ order by sic_departamento.nombre_departamento,sic_municipio.nombre_municipio,sic
 	</variable>
 	<variable name="id_sic_paciente_1" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[$F{id_sic_paciente}]]></variableExpression>
-		<initialValueExpression><![CDATA[$F{id_sic_paciente}]]></initialValueExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
 	</variable>
 	<group name="Paciente">
 		<groupExpression><![CDATA[$F{id_sic_paciente}]]></groupExpression>
 		<groupHeader>
-			<band height="36">
-				<textField evaluationTime="Group" evaluationGroup="Paciente">
-					<reportElement x="50" y="0" width="100" height="8" uuid="bd6b1c9b-28dd-4e38-903d-8d222d346d7b"/>
-					<textFieldExpression><![CDATA[$V{id_sic_paciente_1}]]></textFieldExpression>
-				</textField>
-			</band>
+			<band/>
 		</groupHeader>
 	</group>
 	<background>
@@ -86,12 +85,16 @@ order by sic_departamento.nombre_departamento,sic_municipio.nombre_municipio,sic
 		</band>
 	</title>
 	<pageHeader>
-		<band height="4" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="45" splitType="Stretch">
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="23">
+			<printWhenExpression><![CDATA[$V{Paciente_COUNT}==1]]></printWhenExpression>
 			<textField>
-				<reportElement x="32" y="10" width="495" height="20" uuid="e69fe02e-ec43-4184-89fe-623d88c95c97"/>
+				<reportElement isPrintRepeatedValues="false" x="32" y="0" width="495" height="20" uuid="e69fe02e-ec43-4184-89fe-623d88c95c97"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.0"/>
@@ -104,11 +107,6 @@ order by sic_departamento.nombre_departamento,sic_municipio.nombre_municipio,sic
 				</textElement>
 				<textFieldExpression><![CDATA[$V{DireccionSimple}]]></textFieldExpression>
 			</textField>
-		</band>
-	</columnHeader>
-	<detail>
-		<band height="23">
-			<printWhenExpression><![CDATA[$V{id_sic_paciente_1}==new Integer("1")]]></printWhenExpression>
 		</band>
 		<band height="25" splitType="Stretch">
 			<textField>
@@ -139,7 +137,7 @@ order by sic_departamento.nombre_departamento,sic_municipio.nombre_municipio,sic
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="47" splitType="Stretch">
+		<band height="60" splitType="Stretch">
 			<staticText>
 				<reportElement x="32" y="0" width="495" height="17" uuid="6e88f287-ae8f-4432-9da0-9431264d0ad3"/>
 				<box>

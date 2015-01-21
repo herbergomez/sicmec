@@ -75,7 +75,7 @@ public class ReportController {
 	public String parametersReportPatPorDep(Model model)
 	{
 			
-		return "/admin/ReportPatPorDep";
+		return "/admin/reportes/ReportPatPorDep";
 	}	
 	/**
 	 * Carga la pantalla de parametros para obtener un reporte con el resumen de
@@ -88,7 +88,7 @@ public class ReportController {
 	public String parametersReportPacPorDep(Model model)
 	{
 			
-		return "/admin/ReportPacPorDep";
+		return "/admin/reportes/ReportPacPorDep";
 	}
 	
 	/**
@@ -116,9 +116,14 @@ public class ReportController {
 	public String parametersReportPacPorUbic(Model model)
 	{
 			
-		return "/admin/ReportPacPorUbic";
+		return "/admin/reportes/ReportPacPorUbic";
 	}
-	
+	@RequestMapping(value="/parametersReportCitasDoctors",method=RequestMethod.GET)
+	public String parametersReportCitasDoctors(Model model)
+	{
+			
+		return "/admin/reportes/ReportCitasDoctors";
+	}
 	
 	
 
@@ -138,7 +143,7 @@ public class ReportController {
 	}
 	
 	@RequestMapping( value = "/reportPatPorDep",method = RequestMethod.GET)
-	public ModelAndView generateReportPatPacPorDep(ModelAndView modelAndView,
+	public String generateReportPatPacPorDep(ModelAndView modelAndView,
 	    		       HttpServletRequest request, HttpServletResponse response,
 	    		       @RequestParam(value="fdesde")String fdesde,
 	    			@RequestParam(value="fhasta")String fhasta) {
@@ -156,6 +161,8 @@ public class ReportController {
 	        parameterMap.put("fHasta", new Date(outputFormat.format(inputFormat.parse(fhasta))));
 	        ServletContext context = request.getServletContext();
 			String basePath = context.getRealPath("/");
+			String ruta=basePath+"WEB-INF/reportes/";
+			parameterMap.put("ruta", ruta);
 	        jasperReport = JasperCompileManager.compileReport(basePath+"WEB-INF/reportes/Reporte Patologias Pacientes.jrxml");
 	        byte[] reporte = null;
 	 
@@ -170,18 +177,18 @@ public class ReportController {
 	        out.write(reporte, 0, reporte.length);
 	        out.flush();
 	        out.close();
-	        modelAndView = new ModelAndView("/admin/reportes/ReportPatPorDep");
+	      //  modelAndView = new ModelAndView("/admin/reportes/ReportPatPorDep");
 		 } 
 		 catch (Exception ex) 
 		 {
 			 LOGGER.debug("Error al generar el Reporte:" +ex.getMessage());
 		 }
-	        return modelAndView;
+	        return "/admin/reportes/reportes";
 	 
 	    }//generatePdfReport
 	
 	@RequestMapping( value = "/reportPacPorDep",method = RequestMethod.GET)
-	public ModelAndView generateReportPacPorDep(
+	public String generateReportPacPorDep(
 			ModelAndView modelAndView,
 	    		       HttpServletRequest request, HttpServletResponse response,
 	    		       @RequestParam(value="fdesde")String fdesde,
@@ -214,12 +221,12 @@ public class ReportController {
 	        response.getOutputStream().write(reporte,0,reporte.length);
 	        response.flushBuffer();
 
-	        modelAndView = new ModelAndView("/admin/reportes/ReportPacPorDep");
+	//        modelAndView = new ModelAndView("/admin/reportes/ReportPacPorDep");
 	        
 		 } catch (Exception ex) {
 			 LOGGER.debug("Error al generar el Reporte:" +ex.getMessage());
 		 }
-	        return modelAndView;
+	        return "/admin/reportes/reportes";
 	 
 	    }//generatePdfReport
 	
@@ -244,8 +251,10 @@ public class ReportController {
 	        
 	        ServletContext context = request.getServletContext();
 			String basePath = context.getRealPath("/");
-			
-	        jasperReport = JasperCompileManager.compileReport(basePath+"WEB-INF/reportes/Reporte de Prevalencia.jrxml");
+			String ruta=basePath+"WEB-INF/reportes/";
+			parameterMap.put("ruta", ruta);
+			jasperReport = JasperCompileManager.compileReport(basePath+"WEB-INF/reportes/Reporte de Prevalencia.jrxml");
+	    //    jasperReport = JasperCompileManager.compileReport(basePath+"WEB-INF/reportes/reporte.jrxml");
 	        LOGGER.debug(basePath+"WEB-INF/reportes/Reporte de Prevalencia.jrxml");
 	        
 	        byte[] reporte = null;
@@ -272,7 +281,7 @@ public class ReportController {
 	    }//generatePdfReport
 	
 	@RequestMapping( value = "/reportInsidPac",method = RequestMethod.GET)
-	public ModelAndView generateReportInsidPac(ModelAndView modelAndView,
+	public String generateReportInsidPac(ModelAndView modelAndView,
 	    		       HttpServletRequest request, HttpServletResponse response,
 	    		       @RequestParam(value="fdesde")String fdesde,
 	    			@RequestParam(value="fhasta")String fhasta) {
@@ -291,7 +300,8 @@ public class ReportController {
 	        
 	        ServletContext context = request.getServletContext();
 			String basePath = context.getRealPath("/");
-			
+			String ruta=basePath+"WEB-INF/reportes/";
+			parameterMap.put("ruta", ruta);
 	        jasperReport = JasperCompileManager.compileReport(basePath+"WEB-INF/reportes/Reporte de Insidencia.jrxml");
 	        byte[] reporte = null;
 	 
@@ -306,16 +316,15 @@ public class ReportController {
 	        out.write(reporte, 0, reporte.length);
 	        out.flush();
 	        out.close();
-	        modelAndView = new ModelAndView("/admin/reportes/ReportInsidenciaPac");
+	       // modelAndView = new ModelAndView("/admin/reportes/ReportInsidenciaPac");
 		 } catch (Exception ex) {
 			 LOGGER.debug("Error al generar el Reporte:" +ex.getMessage());
 		 }
-	        return modelAndView;
-	 
+		 return "/admin/reportes/reportes"; 
 	    }//generatePdfReport
 	
 	@RequestMapping( value = "/reportPacEstAban",method = RequestMethod.GET)
-	public ModelAndView generateReportPacEstAban(ModelAndView modelAndView,
+	public String generateReportPacEstAban(ModelAndView modelAndView,
 	    		       HttpServletRequest request, HttpServletResponse response) {
 	 
 		 try {
@@ -331,6 +340,8 @@ public class ReportController {
 	        parameterMap.put("fHasta", new Date("10/10/2016"));
 	        ServletContext context = request.getServletContext();
 			String basePath = context.getRealPath("/");
+			String ruta=basePath+"WEB-INF/reportes/";
+			parameterMap.put("ruta", ruta);
 	        jasperReport = JasperCompileManager.compileReport(basePath+"WEB-INF/reportes/Reporte Pacientes en Estado de Abandono.jrxml");
 	        byte[] reporte = null;
 	 
@@ -345,16 +356,57 @@ public class ReportController {
 	        out.write(reporte, 0, reporte.length);
 	        out.flush();
 	        out.close();
-	        modelAndView = new ModelAndView("/admin/reportes/reportes");
+	      //  modelAndView = new ModelAndView("/admin/reportes/reportes");
 		 } catch (Exception ex) {
 			 LOGGER.debug("Error al generar el Reporte:" +ex.getMessage());
 		 }
-	        return modelAndView;
+	        return "/admin/reportes/reportes";
 	 
 	    }//generatePdfReport
 	
-/**
-	@RequestMapping( value = "/admin/reportes/reportPacPorUbic",method = RequestMethod.GET)
+	
+	@RequestMapping( value = "/reportCitasDoctors",method = RequestMethod.GET)
+	public String generateReportCitasReports(ModelAndView modelAndView,
+	    		       HttpServletRequest request, HttpServletResponse response,
+	    		       @RequestParam(value="fdesde")String fdesde,
+	    			@RequestParam(value="fhasta")String fhasta) {
+	 
+		 try {
+		    LOGGER.debug("--------------generate PDF report----------");
+
+		    JasperReport jasperReport;
+	        Map<String, Object> parameterMap = new HashMap<String, Object>();
+	        
+	        DateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy");
+	        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+	        
+	      	parameterMap.put("fDesde", new Date(outputFormat.format(inputFormat.parse(fdesde))));
+	        parameterMap.put("fHasta", new Date(outputFormat.format(inputFormat.parse(fhasta))));
+	        
+	        ServletContext context = request.getServletContext();
+			String basePath = context.getRealPath("/");
+	        jasperReport = JasperCompileManager.compileReport(basePath+"WEB-INF/reportes/Reporte Citas por Doctores.jrxml");
+	        byte[] reporte = null;
+	 
+	        reporte = JasperRunManager.runReportToPdf(jasperReport,parameterMap,applicationContext.dataSource().getConnection());
+	        response.setContentType("application/pdf");
+	        response.setHeader("Content-disposition", "inline; filename=informeDemo.pdf");
+	        response.setHeader("Cache-Control", "max-age=30");
+	        response.setHeader("Pragma", "No-cache");
+	        response.setDateHeader("Expires", 0);
+	        response.setContentLength(reporte.length);
+	        ServletOutputStream out = response.getOutputStream();
+	        out.write(reporte, 0, reporte.length);
+	        out.flush();
+	        out.close();
+	       // modelAndView = new ModelAndView("/admin/reportes/ReportInsidenciaPac");
+		 } catch (Exception ex) {
+			 LOGGER.debug("Error al generar el Reporte:" +ex.getMessage());
+		 }
+		 return "/admin/reportes/reportes"; 
+	    }//generatePdfReport
+
+	@RequestMapping( value = "/reportPacPorUbic",method = RequestMethod.GET)
 	public String executeReportPacPorUbic(ModelAndView modelAndView,
 	    		       HttpServletRequest request, HttpServletResponse response,
 	    		       @RequestParam(value="pais")String pais,
@@ -369,7 +421,9 @@ public class ReportController {
 	        parameterMap.put("PaisOrigen", new Integer("1"));
 	        parameterMap.put("DepartamentoOrigen", new Integer("1"));
 	        parameterMap.put("MunicipioOrigen",new Integer("1"));
-	        jasperReport = JasperCompileManager.compileReport("Reporte Pacientes por Ubicacion.jrxml");
+	        ServletContext context = request.getServletContext();
+			String basePath = context.getRealPath("/");
+	        jasperReport = JasperCompileManager.compileReport(basePath+"WEB-INF/reportes/Reporte Pacientes por Ubicacion.jrxml");
 	        byte[] reporte = null;
 	        
 	        reporte = JasperRunManager.runReportToPdf(jasperReport,parameterMap,applicationContext.dataSource().getConnection());
@@ -387,8 +441,8 @@ public class ReportController {
 		 } catch (Exception ex) {
 			 LOGGER.debug("Error al generar el Reporte:" +ex.getMessage());
 		 }
-		 return "/admin/reportes/ReportPacPorDep";
+		 return "/admin/reportes/reportes";
 	 
 	    }//generatePdfReport
-**/	
+
 }

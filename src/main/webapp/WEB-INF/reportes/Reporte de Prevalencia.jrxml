@@ -6,6 +6,7 @@
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["D:\\\\"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="ruta" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT sic_departamento.id_sic_departamento,sic_departamento.nombre_departamento
   FROM sic_paciente
@@ -16,6 +17,7 @@
   inner join sic_pais on (sic_departamento.fk_sic_pais=sic_pais.id_sic_pais)
   left outer join sic_contacto_paciente on(sic_paciente.fk_sic_contacto_paciente=sic_contacto_paciente.id_sic_contacto_paciente)
   where sic_estado_paciente.descripcion='Activo'
+group by sic_departamento.id_sic_departamento,sic_departamento.nombre_departamento
 order by sic_departamento.nombre_departamento;]]>
 	</queryString>
 	<field name="id_sic_departamento" class="java.lang.Integer"/>
@@ -63,8 +65,11 @@ order by sic_departamento.nombre_departamento;]]>
 				<subreportParameter name="idDepartamento">
 					<subreportParameterExpression><![CDATA[$F{id_sic_departamento}]]></subreportParameterExpression>
 				</subreportParameter>
+				<subreportParameter name="ruta">
+					<subreportParameterExpression><![CDATA[$P{ruta}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["Reporte de Prevalencia_Detalle_Pacientes.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{ruta}+"Reporte de Prevalencia_Detalle_Pacientes.jasper"]]></subreportExpression>
 			</subreport>
 			<textField>
 				<reportElement x="35" y="0" width="498" height="20" uuid="bec62eef-aabe-4138-af7d-5fbfe4455b63"/>

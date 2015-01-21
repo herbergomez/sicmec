@@ -12,6 +12,7 @@
 	<parameter name="fHasta" class="java.util.Date">
 		<defaultValueExpression><![CDATA[new Date()]]></defaultValueExpression>
 	</parameter>
+	<parameter name="ruta" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT sic_paciente.id_sic_paciente,sic_departamento.id_sic_departamento,sic_departamento.nombre_departamento,
 	sic_patologia.id_sic_patologia,sic_patologia.nombre_patologia
@@ -53,7 +54,7 @@ where sic_paciente.fx_creacion>=$P{fDesde} and sic_paciente.fx_creacion<=$P{fHas
 						<subreportParameterExpression><![CDATA[$F{id_sic_departamento}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression><![CDATA["C:/Users/Oswaldo/Reportes/Reporte Patologias Pacientes/patologiasPorDepartamento.jasper"]]></subreportExpression>
+					<subreportExpression><![CDATA[$P{ruta}+"patologiasPorDepartamento.jasper"]]></subreportExpression>
 				</subreport>
 				<textField>
 					<reportElement x="46" y="15" width="702" height="27" backcolor="#CCCCCC" uuid="fb29647f-306b-438e-a2c5-124066e2d344"/>

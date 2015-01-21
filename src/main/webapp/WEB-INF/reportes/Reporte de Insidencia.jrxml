@@ -8,6 +8,7 @@
 	</parameter>
 	<parameter name="fDesde" class="java.util.Date"/>
 	<parameter name="fHasta" class="java.util.Date"/>
+	<parameter name="ruta" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT sic_departamento.id_sic_departamento,sic_departamento.nombre_departamento
   FROM sic_paciente
@@ -19,7 +20,7 @@
   left outer join sic_contacto_paciente on(sic_paciente.fk_sic_contacto_paciente=sic_contacto_paciente.id_sic_contacto_paciente)
   where
      sic_paciente.fx_creacion>=$P{fDesde} and sic_paciente.fx_creacion<=$P{fHasta}
-group by sic_departamento.id_sic_departamento
+group by sic_departamento.id_sic_departamento,sic_departamento.nombre_departamento
 order by sic_departamento.nombre_departamento;]]>
 	</queryString>
 	<field name="id_sic_departamento" class="java.lang.Integer"/>
@@ -101,8 +102,11 @@ order by sic_departamento.nombre_departamento;]]>
 				<subreportParameter name="fDesde">
 					<subreportParameterExpression><![CDATA[$P{fDesde}]]></subreportParameterExpression>
 				</subreportParameter>
+				<subreportParameter name="ruta">
+					<subreportParameterExpression><![CDATA[$P{ruta}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["Reporte de Insidencia_Detalle_Pacientes.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{ruta}+"Reporte de Insidencia_Detalle_Pacientes.jasper"]]></subreportExpression>
 			</subreport>
 			<textField>
 				<reportElement x="35" y="0" width="498" height="20" uuid="bec62eef-aabe-4138-af7d-5fbfe4455b63"/>

@@ -108,14 +108,14 @@
 			<staticText>
 				<reportElement x="15" y="0" width="100" height="20" uuid="bf969987-99b9-4407-80f1-2a230465ac6c"/>
 				<textElement>
-					<font fontName="Arial" size="12" isBold="true"/>
+					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="178" y="0" width="100" height="20" uuid="77a87268-f0c0-45a4-9158-2a4bf75199b8"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" size="12" isBold="true"/>
+					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalPacientes}]]></textFieldExpression>
 			</textField>
