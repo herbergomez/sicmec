@@ -42,14 +42,6 @@ $( document ).ready(function()
             }  
 	});
 	
-	$('#desde').datetimepicker({
-	    dateFormat: "yy-mm-dd",
-	    timeFormat: "HH:mm:ss"
-	   });
-	$('#hasta').datetimepicker({
-	    dateFormat: "yy-mm-dd",
-	    timeFormat: "HH:mm:ss"
-	   });
 	
 	$('#desde').val(function(){
 		  var d = new Date();
