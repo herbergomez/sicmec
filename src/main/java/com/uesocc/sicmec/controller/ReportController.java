@@ -184,6 +184,7 @@ public class ReportController {
 		 catch (Exception ex) 
 		 {
 			 LOGGER.debug("Error al generar el Reporte:" +ex.getMessage());
+			 ex.printStackTrace();
 		 }
 	        return "/admin/reportes/reportes";
 	 
@@ -227,6 +228,7 @@ public class ReportController {
 	        
 		 } catch (Exception ex) {
 			 LOGGER.debug("Error al generar el Reporte:" +ex.getMessage());
+			 ex.printStackTrace();
 		 }
 	        return "/admin/reportes/reportes";
 	 
@@ -276,6 +278,7 @@ public class ReportController {
 	        
 		 } catch (Exception ex) {
 			 LOGGER.debug("Error al generar el Reporte:" +ex.getMessage());
+			 ex.printStackTrace();
 		 }
 	        //return modelAndView;
 		 return "/admin/reportes/reportes";
@@ -321,6 +324,7 @@ public class ReportController {
 	       // modelAndView = new ModelAndView("/admin/reportes/ReportInsidenciaPac");
 		 } catch (Exception ex) {
 			 LOGGER.debug("Error al generar el Reporte:" +ex.getMessage());
+			 ex.printStackTrace();
 		 }
 		 return "/admin/reportes/reportes"; 
 	    }//generatePdfReport
@@ -347,8 +351,8 @@ public class ReportController {
 	         int diaDif = fechaActual.get(Calendar.DATE);
 	         if (mesDif < 0||mesDif==0&&diaDif<0){
 	        	 /**
-	        	  * Si el mes es menor que cero, entonces significa que es de un año anterior, 
-	        	  * por lo que a 12 meses se le suma el mes negativo. De igual manera se resta 1 al año actual.
+	        	  * Si el mes es menor que cero, entonces significa que es de un aï¿½o anterior, 
+	        	  * por lo que a 12 meses se le suma el mes negativo. De igual manera se resta 1 al aï¿½o actual.
 	        	  */
 	        	 anioDif--;	        	
 	        	 mesDif=12+mesDif;
@@ -376,6 +380,7 @@ public class ReportController {
 	      //  modelAndView = new ModelAndView("/admin/reportes/reportes");
 		 } catch (Exception ex) {
 			 LOGGER.debug("Error al generar el Reporte:" +ex.getMessage());
+			 ex.printStackTrace();
 		 }
 	        return "/admin/reportes/reportes";
 	 
@@ -421,6 +426,7 @@ public class ReportController {
 	       // modelAndView = new ModelAndView("/admin/reportes/ReportInsidenciaPac");
 		 } catch (Exception ex) {
 			 LOGGER.debug("Error al generar el Reporte:" +ex.getMessage());
+			 ex.printStackTrace();
 		 }
 		 return "/admin/reportes/reportes"; 
 	    }//generatePdfReport
@@ -487,6 +493,7 @@ public class ReportController {
 	      //  modelAndView = new ModelAndView("/admin/reportes/ReportPacPorDep");
 		 } catch (Exception ex) {
 			 LOGGER.debug("Error al generar el Reporte:" +ex.getMessage());
+			 ex.printStackTrace();
 		 }
 		 return "/admin/reportes/reportes";
 	 

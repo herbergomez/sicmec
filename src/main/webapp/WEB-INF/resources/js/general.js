@@ -9,7 +9,7 @@ $(document).ready(function()
 	 * horas
 	 * */
 	$('.datetimepicker').datetimepicker({
-		dateFormat: "yy-mm-dd",
+		dateFormat: "dd-mm-yy",
 	    timeFormat: "HH:mm:ss",
 	    	currentText: "Ahora",
 	    	closeText: "Listo",
@@ -37,7 +37,7 @@ $(document).ready(function()
         dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
         dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
         weekHeader: 'Sm',
-        dateFormat: 'yy-mm-dd',
+        dateFormat: 'dd-mm-yy',
         firstDay: 1,
         isRTL: false,
         showMonthAfterYear: false,
