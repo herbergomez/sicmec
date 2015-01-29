@@ -95,10 +95,6 @@ order by sic_departamento.nombre_departamento;]]>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<image>
-				<reportElement x="34" y="29" width="85" height="58" uuid="71ef06b8-64df-403d-9db4-06266c2d4f94"/>
-				<imageExpression><![CDATA[$P{ruta}+"/resources/images/SICMEC.png"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>

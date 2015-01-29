@@ -117,10 +117,6 @@
 				</textElement>
 				<text><![CDATA[Fecha de Generación de Reporte:]]></text>
 			</staticText>
-			<image>
-				<reportElement x="44" y="29" width="82" height="58" uuid="f3218e4a-15ef-42e3-9ef9-c90a99efee51"/>
-				<imageExpression><![CDATA[$P{ruta}+"/resources/images/SICMEC.png"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>

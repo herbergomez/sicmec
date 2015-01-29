@@ -8,6 +8,7 @@ $( document ).ready(function() {
 	$(".datatables").DataTable({
 		"scrollY": "350px",
         "scrollCollapse": false,
+        
         "aoColumns": 
         	[
         	 { "sWidth": "10%", "sClass": "center", "bSortable": false },
@@ -39,7 +40,53 @@ $( document ).ready(function() {
                     "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                 }
-            }   
+            },
+            "fnDrawCallback": function() 
+            {
+            	/*Showing the modal view to edit a drug*/
+            	$(".onUpdate").click(function(){
+            		var id = $(this).data("id");
+            		//alert(id);		
+            		$.ajax
+            		({
+            			type: "GET",
+            			url:"/sicmec/admin/drugs/getDrug/"+id,
+            			success:function(result)
+            			{
+            				$("#idUpdate").val(result.idDrug);
+            				$("#nombreUpdate").val(result.drugName);
+            				$("#descripcionUpdate").val(result.drugDescription);
+            				var iActivo  = result.estado;
+            				var iTipo  = result.tipo;
+            				
+            				//Validamos si el medicamento es insitutcional(1) o no(0)
+            				if ( iTipo == 1 ) {
+            					$("#insitucional").prop("checked",true);
+            					$("#noInstitucional").prop("checked",false);
+            				} else {
+            					$("#insitucional").prop("checked",false);
+            					$("#noInstitucional").prop("checked",true);
+            				}
+            				//Validamos si el medicamento esta activo o no
+            				if ( iActivo == 1 ) {
+            					$("#activo").prop("checked",true);
+            					$("#desactivo").prop("checked",false);
+            				} else {
+            					$("#activo").prop("checked",false);
+            					$("#desactivo").prop("checked",true);
+            				}
+            				
+            				//$("#modalUpdateDrug").modal("show");
+            			},
+            			error: function (xhr, ajaxOptions, thrownError) 
+            			{
+            				alert("unable to find server..")
+            		    }
+            		});
+            	});
+            	
+            	
+            }
 	});
 	
 	/*Validation of new drug*/
@@ -123,46 +170,5 @@ $( document ).ready(function() {
 		 
 	});
 	
-	/*Showing the modal view to edit a drug*/
-	$(".onUpdate").click(function(){
-		var id = $(this).data("id");
-		//alert(id);		
-		$.ajax
-		({
-			type: "GET",
-			url:"/sicmec/admin/drugs/getDrug/"+id,
-			success:function(result)
-			{
-				$("#idUpdate").val(result.idDrug);
-				$("#nombreUpdate").val(result.drugName);
-				$("#descripcionUpdate").val(result.drugDescription);
-				var iActivo  = result.estado;
-				var iTipo  = result.tipo;
-				
-				//Validamos si el medicamento es insitutcional(1) o no(0)
-				if ( iTipo == 1 ) {
-					$("#insitucional").prop("checked",true);
-					$("#noInstitucional").prop("checked",false);
-				} else {
-					$("#insitucional").prop("checked",false);
-					$("#noInstitucional").prop("checked",true);
-				}
-				//Validamos si el medicamento esta activo o no
-				if ( iActivo == 1 ) {
-					$("#activo").prop("checked",true);
-					$("#desactivo").prop("checked",false);
-				} else {
-					$("#activo").prop("checked",false);
-					$("#desactivo").prop("checked",true);
-				}
-				
-				$("#modalUpdateDrug").modal("show");
-			},
-			error: function (xhr, ajaxOptions, thrownError) 
-			{
-				alert("unable to find server..")
-		    }
-		});
-	});
 		
 });

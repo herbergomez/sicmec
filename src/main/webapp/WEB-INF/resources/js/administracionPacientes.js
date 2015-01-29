@@ -346,18 +346,7 @@ $( document ).ready(function() {
                 		});
             }   
 	});
-	$('#fcreacion').datetimepicker({
-	    dateFormat: "dd-mm-yy"
-	   });
-	$('#fnacimiento').datetimepicker({
-	    dateFormat: "dd-mm-yy"
-	   });
-	$('#fcreacionUp').datetimepicker({
-	    dateFormat: "dd-mm-yy"
-	   });
-	$('#fnacimientoUp').datetimepicker({
-	    dateFormat: "dd-mm-yy"
-	   });
+	
    $('#fcreacion').val(function(){
 		  var d = new Date();
 		  if((d.getMonth()+1)<10)

@@ -1,6 +1,11 @@
 package com.uesocc.sicmec.controller;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +19,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.uesocc.sicmec.model.dto.SicAuditoriaDto;
 import com.uesocc.sicmec.model.dto.SicContactoPacienteDto;
 import com.uesocc.sicmec.model.dto.SicDepartamentoDto;
 import com.uesocc.sicmec.model.dto.SicMunicipioDto;
 import com.uesocc.sicmec.model.dto.SicPacienteDto;
 import com.uesocc.sicmec.model.dto.SicPersonaDto;
 import com.uesocc.sicmec.model.repository.SicPaisRepository;
+import com.uesocc.sicmec.model.serviceImpl.SicAuditoriaServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicContactoPacienteServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicDepartamentoServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicEstadoPacienteServiceImpl;
@@ -29,6 +36,7 @@ import com.uesocc.sicmec.model.serviceImpl.SicPaisServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicPersonaServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicRolServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicTipoPatologiaServiceImpl;
+import com.uesocc.sicmec.model.serviceImpl.SicUsuarioServiceImpl;
 
 /**
  * @author Herber GÃ³mez
@@ -57,6 +65,10 @@ public class SicAdministracionPacientesController {
 	private SicContactoPacienteServiceImpl sicContactoPacienteServiceImpl;
 	@Autowired
 	private SicTipoPatologiaServiceImpl sicTipoPatologiaServiceImpl;
+	@Autowired
+	private SicAuditoriaServiceImpl sicAuditoriaServiceImpl;
+	@Autowired
+	private SicUsuarioServiceImpl sicUsuarioServiceImpl;
 	
 	@RequestMapping(value="",method=RequestMethod.GET)
 	public String defaultRequest(Model model){
@@ -75,7 +87,7 @@ public class SicAdministracionPacientesController {
 			@RequestParam(value="nombres")String nombres,
 			@RequestParam(value="apellidos")String apellidos,
 			@RequestParam(value="dui")String dui,
-			@RequestParam(value="estado")String estado,
+			@RequestParam(value="estado")int estado,
 			@RequestParam(value="patologia")int idPatologia,
 			@RequestParam(value="sexo")String sexo,
 			@RequestParam(value="municipio")int idmunicipio,
@@ -89,9 +101,14 @@ public class SicAdministracionPacientesController {
 			@RequestParam(value="apContact")String apContact,
 			@RequestParam(value="duiContact")String duiContact,
 			@RequestParam(value="telContact")String telContact,
+			HttpServletRequest httpServletRequest,
 			RedirectAttributes redirectAttributes) throws ParseException {
 		
+		
 		LOGGER.debug("Creando nuevo paciente");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		DateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
+		DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String sex="";
 		if (sexo.equals("Masculino")){
 			sex="M";
@@ -109,10 +126,10 @@ public class SicAdministracionPacientesController {
 		paciente.setDireccionPaciente(direccion);
 		paciente.setSexoPaciente(sex);
 		paciente.setTelefonoPaciente(telefono);
-		paciente.setFxNacimiento(fechaNacimiento);
+		paciente.setFxNacimiento(outputFormat.format(inputFormat.parse(fechaNacimiento)));
+		paciente.setFxCreacion(outputFormat.format(inputFormat.parse(fechaRegistro)));
 		paciente.setDocumentoIdentidad(dui);
-		paciente.setFxCreacion(fechaRegistro);
-		paciente.setFkSicEstadoPaciente(sicEstadoPacienteServiceImpl.findOneByDescripcion("Activo"));
+		paciente.setFkSicEstadoPaciente(sicEstadoPacienteServiceImpl.findById(estado));
 		paciente.setFkSicPersona(sicPersonaServiceImpl.insert(persona));					
 		paciente.setFkSicMunicipio(sicMunicipioServiceImpl.findById(idmunicipio));
 		paciente.setFkSicTipoPatologia(sicTipoPatologiaServiceImpl.findById(idPatologia));
@@ -129,6 +146,14 @@ public class SicAdministracionPacientesController {
 		LOGGER.info(paciente);
 		sicPacienteServiceImpl.insert(paciente);
 		
+		//AUDITORIA
+		sicAuditoriaServiceImpl.insert
+		(new SicAuditoriaDto
+				("","Administración de Pacientes"
+				,"Creación de paciente "+nombres+", "+apellidos
+				,format.format(new Date()),
+				sicUsuarioServiceImpl.findByNombreUsuario(httpServletRequest.getRemoteUser())));
+		
 		redirectAttributes.addFlashAttribute("success",true);
 		
 		return "redirect:/admin/pacientes";
@@ -140,7 +165,7 @@ public class SicAdministracionPacientesController {
 			@RequestParam(value="nombresUp")String nombres,
 			@RequestParam(value="apellidosUp")String apellidos,
 			@RequestParam(value="duiUp")String dui,
-			@RequestParam(value="estadoUp")String estado,
+			@RequestParam(value="estadoUp")int estado,
 			@RequestParam(value="patologiaUp")int idPatologia,
 			@RequestParam(value="sexoUp")String sexo,
 			@RequestParam(value="municipioUp")int idmunicipio,
@@ -155,10 +180,15 @@ public class SicAdministracionPacientesController {
 			@RequestParam(value="apContactUp")String apContact,
 			@RequestParam(value="duiContactUp")String duiContact,
 			@RequestParam(value="telContactUp")String telContact,
+			HttpServletRequest httpServletRequest,
 			RedirectAttributes redirectAttributes) throws ParseException {
 		
 		LOGGER.debug("Actualizando paciente");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	//	SimpleDateFormat formatPac = new SimpleDateFormat("yyyy-MM-dd");
 		
+		DateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
+		DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
 		SicPacienteDto pac_search = sicPacienteServiceImpl.findById(id);
 		
 		if (pac_search!=null) {
@@ -176,8 +206,11 @@ public class SicAdministracionPacientesController {
 			pac_search.setDireccionPaciente(direccion);
 			pac_search.setSexoPaciente(sex);
 			pac_search.setTelefonoPaciente(telefono);
-			pac_search.setFxNacimiento(fechaNacimiento);
-			pac_search.setFxCreacion(fechaRegistro);
+			pac_search.setFxNacimiento(outputFormat.format(inputFormat.parse(fechaNacimiento)));
+			pac_search.setFxCreacion(outputFormat.format(inputFormat.parse(fechaRegistro)));
+		
+			
+			pac_search.setFkSicEstadoPaciente(sicEstadoPacienteServiceImpl.findById(estado));
 		    pac_search.setFkSicPersona(sicPersonaServiceImpl.insert(per_search));
 			pac_search.setFkSicMunicipio(sicMunicipioServiceImpl.findById(idmunicipio));
 			pac_search.setFkSicTipoPatologia(sicTipoPatologiaServiceImpl.findById(idPatologia));	
@@ -209,6 +242,13 @@ public class SicAdministracionPacientesController {
 		  }		
 			LOGGER.info(pac_search);
 		    sicPacienteServiceImpl.insert(pac_search);
+		  //AUDITORIA
+			sicAuditoriaServiceImpl.insert
+			(new SicAuditoriaDto
+					("","Administración de Pacientes"
+					,"Modificación de paciente "+nombres+", "+apellidos
+					,format.format(new Date()),
+					sicUsuarioServiceImpl.findByNombreUsuario(httpServletRequest.getRemoteUser())));
 		    redirectAttributes.addFlashAttribute("upSuccess",true);	
 	     }
 		return "redirect:/admin/pacientes";
@@ -233,6 +273,7 @@ public class SicAdministracionPacientesController {
 		List<SicDepartamentoDto> lst = sicDepartamentoServiceImpl.getDepartamentosPorPais(id);
 		return lst;
 	}
+/**
 	@RequestMapping(value="/delPaciente/{id}",method=RequestMethod.GET)
 	public String delPaciente(@PathVariable(value="id")int id,RedirectAttributes redirectAttributes)
 	{
@@ -267,5 +308,5 @@ public class SicAdministracionPacientesController {
 			
 		}
 	}
-	
+	**/
 }

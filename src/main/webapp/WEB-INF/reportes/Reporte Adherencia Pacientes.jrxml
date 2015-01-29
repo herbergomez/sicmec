@@ -117,10 +117,6 @@ group by sic_paciente.id_sic_paciente,sic_departamento.id_sic_departamento
 				</textElement>
 				<text><![CDATA[Fecha de Generación de Reporte:]]></text>
 			</staticText>
-			<image>
-				<reportElement x="64" y="30" width="89" height="65" uuid="e5e80272-8ce9-49d4-afa3-eed96f37b76e"/>
-				<imageExpression><![CDATA[$P{ruta}+"/resources/images/SICMEC.png"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>
