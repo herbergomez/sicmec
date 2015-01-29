@@ -25,14 +25,26 @@
         			<h4 class="modal-title" style="font-style: normal;color: blue;" th:text="#{admin.reportes.pacientes.parameters}"></h4>
       			</div>
       			<div class="modal-body custom-modal-body" style="height: 200px;">
-      			   <div class="form-group">
+      			   <div class="row">
+      			   <div class="col-md-5 col-xs-2">
         			  <label for="fdesde" th:text="#{admin.reportes.pacientes.parameters.fdesde}"></label>
-    				  <input type="date" class="form-control" id="fdesde" name="fdesde" th:placeholder="#{admin.reportes.pacientes.parameters.fdesde}" />
+    				<!--<input type="date" class="form-control" id="fdesde" name="fdesde" th:placeholder="#{admin.reportes.pacientes.parameters.fdesde}" />-->
+        		  	  <div class='input-group date' id='datetimepicker1'>
+                    			<input data-format="dd-MM-yyyy" type='text' class="form-control" id="fdesde" name="fdesde"/>
+                    			<span class="input-group-addon"><span class="fa fa-calendar"></span>
+                    			</span>
+                			</div>
         		  	</div>
-        		  	<div class="form-group">
+        		  	<div class="col-md-5">
         			  <label for="fhasta" th:text="#{admin.reportes.pacientes.parameters.fhasta}"></label>
-    				  <input type="date" class="form-control" id="fhasta" name="fhasta" th:placeholder="#{admin.reportes.pacientes.parameters.fhasta}" />
+    				<!--<input type="date" class="form-control" id="fhasta" name="fhasta" th:placeholder="#{admin.reportes.pacientes.parameters.fhasta}" />-->
+        		        <div class='input-group date' id='datetimepicker2'>
+                    			<input data-format="dd-MM-yyyy" type='text' class="form-control" id="fhasta" name="fhasta"/>
+                    			<span class="input-group-addon"><span class="fa fa-calendar"></span>
+                    			</span>
+                		</div>
         		  	</div>
+        		  </div>
 				 </div>
 				<div class="modal-footer">
         		  <button type="submit" class="btn btn-primary" th:text="#{general.btn.generateReport}"></button>
@@ -50,5 +62,19 @@
 	<div th:replace="fragments/general :: jsFragment"></div>
 
 <script type="text/javascript" th:src="@{/resources/js/validacionesGenerales.js}"></script>
+<script th:inline="javascript" type="text/javascript">
+$(document).ready(function(){
+  var fdesde = /*[[${fdesde}]]*/;
+  var fhasta= /*[[${fhasta}]]*/;
+  if(fdesde!= null)
+  {
+    $("#fdesde").val(fdesde); 
+  }
+  if(fhasta!= null)
+  {
+    $("#fhasta").val(fhasta); 
+  
+});
+</script>
 </body>
 </html>

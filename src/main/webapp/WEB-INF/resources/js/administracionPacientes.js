@@ -46,11 +46,12 @@ $( document ).ready(function() {
 		   },
 		   mail: 
 		   {
-			    email: true
+			    email: true,
+			    required:false
 		   },
 		   fnacimiento:
 		   {
-			   required: true
+			   required: false
 		   },
 		   pais:
 		   {
@@ -66,11 +67,11 @@ $( document ).ready(function() {
 		   },		   
 		   telefono:
 		   {
-			   required: true
+			   required: false
 		   },
 		   direccion:
 		   {
-			   required: true
+			   required: false
 		   }
 		  },
 		highlight: function(element) {
@@ -84,6 +85,7 @@ $( document ).ready(function() {
 		}
 		 
 	});
+	
 	$('#modificarPacienteForm').validate({
 		errorElement: "span",
 		rules: {
@@ -112,19 +114,20 @@ $( document ).ready(function() {
 		   },
 		   mailUp: 
 		   {
-			    email: true
+			    email: true,
+			    required:false
 		   },
 		   fnacimientoUp:
 		   {
-			   required: true
+			   required: false
 		   },
 		   telefonoUp:
 		   {
-			   required: true
+			   required: false
 		   },
 		   direccionUp:
 		   {
-			   required: true
+			   required: false
 		   }
 		  },
 		highlight: function(element) {
@@ -148,11 +151,11 @@ $( document ).ready(function() {
         	 { "sWidth": "10%" },
         	 { "sWidth": "10%" },
         	 { "sWidth": "10%" },
-        	 { "sWidth": "10%" },
-        	 { "sWidth": "5%" },
-        	 { "sWidth": "10%" },
+        	 { "sWidth": "6%" },
         	 { "sWidth": "10%" },
         	 { "sWidth": "10%" },
+        	 { "sWidth": "10%" },
+        	 { "sWidth": "8%" },
         	// { "sWidth": "5%" },
             ],
             language: {
@@ -179,16 +182,7 @@ $( document ).ready(function() {
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                   } 
                 },
-                "fnDrawCallback": function() {
-                	//$("#tblPaciente tbody" ).on('click', 'tr.clickRow',  function() {
-                //		if ( $(this).hasClass('selected') ) {
-                        //    $(this).removeClass('selected');
-                       // }
-                       // else {
-                      //  	$('#tblPaciente').DataTable().$('tr.selected').removeClass('selected');
-                    //        $(this).addClass('selected');
-                  //      }		 
-                //	});             	         
+                "fnDrawCallback": function() {            	         
                 	$(".onUpdate").click(function(){
                 		var id = $(this).data("id");
                 		
@@ -219,8 +213,12 @@ $( document ).ready(function() {
                 				$("#sexoUp").val(val);
                 				$("#estadoUp").val(result.fkSicEstadoPaciente.idSicEstadoPaciente);
                 				$("#direccionUp").val(result.direccionPaciente);
-                				$("#fnacimientoUp").val(result.fxNacimiento);
-                				$("#fcreacionUp").val(result.fxCreacion);
+                			//	$("#fnacimientoUp").val(result.fxNacimiento);
+                				var fechaCreacion =createDate(result.fxCreacion);
+                			//	$("#fcreacionUp").val(result.fxCreacion);
+                				var fechaNacimiento =createDate(result.fxNacimiento);
+                				$("#fnacimientoUp").val(fechaNacimiento);
+                				$("#fcreacionUp").val(fechaCreacion );
                 				var idMuni= result.fkSicMunicipio.idSicMunicipio;
                 				var idDepa= result.fkSicMunicipio.fkSicDepartamento.idSicDepartamento;
                 				var idPais= result.fkSicMunicipio.fkSicDepartamento.fkSicPais.idSicPais;
@@ -348,9 +346,80 @@ $( document ).ready(function() {
                 		});
             }   
 	});
+	$('#fcreacion').datetimepicker({
+	    dateFormat: "dd-mm-yy"
+	   });
+	$('#fnacimiento').datetimepicker({
+	    dateFormat: "dd-mm-yy"
+	   });
+	$('#fcreacionUp').datetimepicker({
+	    dateFormat: "dd-mm-yy"
+	   });
+	$('#fnacimientoUp').datetimepicker({
+	    dateFormat: "dd-mm-yy"
+	   });
+   $('#fcreacion').val(function(){
+		  var d = new Date();
+		  if((d.getMonth()+1)<10)
+		  {
+			month = "0"+(d.getMonth()+1);  
+		  }
+		  else
+		  {
+			  month = d.getMonth()+1;
+		  }	  
+		  if(d.getDate() < 10)
+		  {
+			  day = "0"+d.getDate();
+		  }
+		  else
+		  {
+			  day = d.getDate();
+		  }
+		  return day + "-" +  (month) + "-" +d.getFullYear();
+		});
+   $('#fnacimiento').val(function(){
+		  var d = new Date();
+		  if((d.getMonth()+1)<10)
+		  {
+			month = "0"+(d.getMonth()+1);  
+		  }
+		  else
+		  {
+			  month = d.getMonth()+1;
+		  }	  
+		  if(d.getDate() < 10)
+		  {
+			  day = "0"+d.getDate();
+		  }
+		  else
+		  {
+			  day = d.getDate();
+		  }
+		  return day + "-" +  (month) + "-" +d.getFullYear();
+		});
 });
 
-
+function createDate(date){
+	 var d = new Date(date);
+	  if((d.getMonth()+1)<10)
+	  {
+		month = "0"+(d.getMonth()+1);  
+	  }
+	  else
+	  {
+		  month = d.getMonth()+1;
+	  }	  
+	  if(d.getDate() < 10)
+	  {
+		  day = "0"+d.getDate();
+	  }
+	  else
+	  {
+		  day = d.getDate();
+	  }
+	  return day + "-" +  (month) + "-" +d.getFullYear();	
+};
 function createMunList(mun)
 {
 	var select = document.getElementById("municipio");
@@ -437,20 +506,4 @@ function getMuniByDep(idDepa,idMuni){
 			$("#municipioUp option").remove();
 	    }
 	});
- };
-
-function onDeleteValidate()
-{
-	if($("#okdelete").is(':checked'))
-	{
-		$("#AreYouSureConfirm").removeAttr("onclick");
-		$("#AreYouSureConfirm").addClass("btn-primary");
-		
-	}
-	else
-	{
-		$("#AreYouSureConfirm").attr("href","#");
-		$("#AreYouSureConfirm").attr("onclick","return false;");
-		$("#AreYouSureConfirm").removeClass("btn-primary");
-	}
 };

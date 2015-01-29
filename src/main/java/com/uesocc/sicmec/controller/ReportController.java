@@ -2,6 +2,7 @@ package com.uesocc.sicmec.controller;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.uesocc.sicmec.config.ApplicationContext;
 import com.uesocc.sicmec.model.dto.SicDepartamentoDto;
 import com.uesocc.sicmec.model.dto.SicMunicipioDto;
+import com.uesocc.sicmec.model.dto.SicPaisDto;
 import com.uesocc.sicmec.model.serviceImpl.SicDepartamentoServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicMunicipioServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicPaisServiceImpl;
@@ -98,11 +100,11 @@ public class ReportController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/parametersReportInsidPac",method=RequestMethod.GET)
+	@RequestMapping(value="/parametersReportIncidPac",method=RequestMethod.GET)
 	public String parametersReportInsidPac(Model model)
 	{
 			
-		return "/admin/reportes/ReportInsidenciaPac";
+		return "/admin/reportes/ReportIncidenciaPac";
 	}
 	
 	/**
@@ -155,13 +157,13 @@ public class ReportController {
 	        Map<String, Object> parameterMap = new HashMap<String, Object>();
 	        
 	        DateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy");
-	        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+	        DateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
 	        
-	        parameterMap.put("fDesde", new Date(outputFormat.format(inputFormat.parse(fdesde))));
-	        parameterMap.put("fHasta", new Date(outputFormat.format(inputFormat.parse(fhasta))));
+			parameterMap.put("fDesde", new Date(outputFormat.format(inputFormat.parse(fdesde))));
+		    parameterMap.put("fHasta", new Date(outputFormat.format(inputFormat.parse(fhasta))));
 	        ServletContext context = request.getServletContext();
 			String basePath = context.getRealPath("/");
-			String ruta=basePath+"WEB-INF/reportes/";
+			String ruta=basePath+"WEB-INF";
 			parameterMap.put("ruta", ruta);
 	        jasperReport = JasperCompileManager.compileReport(basePath+"WEB-INF/reportes/Reporte Patologias Pacientes.jrxml");
 	        byte[] reporte = null;
@@ -200,14 +202,14 @@ public class ReportController {
 		    JasperReport jasperReport;
 	        Map<String, Object> parameterMap = new HashMap<String, Object>();
 	        
-	       // SimpleDateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy");
-	        
-	        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
-	        
-	      	parameterMap.put("fDesde", inputFormat.parse(fdesde));
-	        parameterMap.put("fHasta", inputFormat.parse(fhasta));
+	        DateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy");
+	        DateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
 	        ServletContext context = request.getServletContext();
 			String basePath = context.getRealPath("/");
+			String ruta=basePath+"WEB-INF";
+	        parameterMap.put("fDesde", new Date(outputFormat.format(inputFormat.parse(fdesde))));
+		    parameterMap.put("fHasta", new Date(outputFormat.format(inputFormat.parse(fhasta))));
+			parameterMap.put("ruta", ruta);
 	        jasperReport = JasperCompileManager.compileReport(basePath+"WEB-INF/reportes/Reporte Adherencia Pacientes.jrxml");
 	        byte[] reporte = null;
 	 
@@ -251,7 +253,7 @@ public class ReportController {
 	        
 	        ServletContext context = request.getServletContext();
 			String basePath = context.getRealPath("/");
-			String ruta=basePath+"WEB-INF/reportes/";
+			String ruta=basePath+"WEB-INF";
 			parameterMap.put("ruta", ruta);
 			jasperReport = JasperCompileManager.compileReport(basePath+"WEB-INF/reportes/Reporte de Prevalencia.jrxml");
 	    //    jasperReport = JasperCompileManager.compileReport(basePath+"WEB-INF/reportes/reporte.jrxml");
@@ -280,7 +282,7 @@ public class ReportController {
 		 
 	    }//generatePdfReport
 	
-	@RequestMapping( value = "/reportInsidPac",method = RequestMethod.GET)
+	@RequestMapping( value = "/reportIncidPac",method = RequestMethod.GET)
 	public String generateReportInsidPac(ModelAndView modelAndView,
 	    		       HttpServletRequest request, HttpServletResponse response,
 	    		       @RequestParam(value="fdesde")String fdesde,
@@ -293,16 +295,16 @@ public class ReportController {
 	        Map<String, Object> parameterMap = new HashMap<String, Object>();
 	        
 	        DateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy");
-	        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+	        DateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
 	        
 	      	parameterMap.put("fDesde", new Date(outputFormat.format(inputFormat.parse(fdesde))));
 	        parameterMap.put("fHasta", new Date(outputFormat.format(inputFormat.parse(fhasta))));
 	        
 	        ServletContext context = request.getServletContext();
 			String basePath = context.getRealPath("/");
-			String ruta=basePath+"WEB-INF/reportes/";
+			String ruta=basePath+"WEB-INF";
 			parameterMap.put("ruta", ruta);
-	        jasperReport = JasperCompileManager.compileReport(basePath+"WEB-INF/reportes/Reporte de Insidencia.jrxml");
+	        jasperReport = JasperCompileManager.compileReport(basePath+"WEB-INF/reportes/Reporte de Incidencia.jrxml");
 	        byte[] reporte = null;
 	 
 	        reporte = JasperRunManager.runReportToPdf(jasperReport,parameterMap,applicationContext.dataSource().getConnection());
@@ -332,15 +334,30 @@ public class ReportController {
 
 		    JasperReport jasperReport;
 	        Map<String, Object> parameterMap = new HashMap<String, Object>();
-	        
-	        DateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy");
-	        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
-	        
-	      	parameterMap.put("fDesde", new Date("01/01/1989"));
-	        parameterMap.put("fHasta", new Date("10/10/2016"));
+	        	        
+	         Calendar fechaActual = Calendar.getInstance();
+	         //Se suma 1 para que tome el mes en curso
+	         int anioNormal = fechaActual.get(Calendar.YEAR);
+	         int mesNormal=fechaActual.get(Calendar.MONTH)+1;	     
+	         int diaNormal = fechaActual.get(Calendar.DATE);
+	         
+	         int anioDif = fechaActual.get(Calendar.YEAR);
+	         //3 meses atras, esto no puede ser cierto, puesto que se toman 2 meses atras mas los dias en curso del mes actual.
+	         int mesDif = fechaActual.get(Calendar.MONTH)-2;	     
+	         int diaDif = fechaActual.get(Calendar.DATE);
+	         if (mesDif < 0||mesDif==0&&diaDif<0){
+	        	 /**
+	        	  * Si el mes es menor que cero, entonces significa que es de un año anterior, 
+	        	  * por lo que a 12 meses se le suma el mes negativo. De igual manera se resta 1 al año actual.
+	        	  */
+	        	 anioDif--;	        	
+	        	 mesDif=12+mesDif;
+	         }	         
+	      	parameterMap.put("fDesde", new Date(mesDif+"/"+diaDif+"/"+anioDif));
+	        parameterMap.put("fHasta", new Date(mesNormal+"/"+diaNormal+"/"+anioNormal));
 	        ServletContext context = request.getServletContext();
 			String basePath = context.getRealPath("/");
-			String ruta=basePath+"WEB-INF/reportes/";
+			String ruta=basePath+"WEB-INF";
 			parameterMap.put("ruta", ruta);
 	        jasperReport = JasperCompileManager.compileReport(basePath+"WEB-INF/reportes/Reporte Pacientes en Estado de Abandono.jrxml");
 	        byte[] reporte = null;
@@ -378,13 +395,15 @@ public class ReportController {
 	        Map<String, Object> parameterMap = new HashMap<String, Object>();
 	        
 	        DateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy");
-	        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+	        DateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
 	        
 	      	parameterMap.put("fDesde", new Date(outputFormat.format(inputFormat.parse(fdesde))));
 	        parameterMap.put("fHasta", new Date(outputFormat.format(inputFormat.parse(fhasta))));
 	        
 	        ServletContext context = request.getServletContext();
 			String basePath = context.getRealPath("/");
+			String ruta=basePath+"WEB-INF";
+			parameterMap.put("ruta", ruta);
 	        jasperReport = JasperCompileManager.compileReport(basePath+"WEB-INF/reportes/Reporte Citas por Doctores.jrxml");
 	        byte[] reporte = null;
 	 
@@ -409,20 +428,48 @@ public class ReportController {
 	@RequestMapping( value = "/reportPacPorUbic",method = RequestMethod.GET)
 	public String executeReportPacPorUbic(ModelAndView modelAndView,
 	    		       HttpServletRequest request, HttpServletResponse response,
-	    		       @RequestParam(value="pais")String pais,
-	    			   @RequestParam(value="departamento")String departamento,
-	    			   @RequestParam(value="municipio")String municipio) {
+	    		       @RequestParam(value="pais", required=true)String pais,
+	    			   @RequestParam(value="departamento", required=false)String departamento,
+	    			   @RequestParam(value="municipio",required=false)String municipio,
+	    			   @RequestParam(value="fdesde")String fdesde,
+	    			   @RequestParam(value="fhasta")String fhasta) {
 	 
 		 try {
 		    LOGGER.debug("--------------generate PDF report----------");
 		    
+		    LOGGER.debug("--------------DEPARTAMENTO----------"+departamento);
+		    LOGGER.debug("--------------MUNICIPIO----------"+municipio);
 		    JasperReport jasperReport;
 	        Map<String, Object> parameterMap = new HashMap<String, Object>();
-	        parameterMap.put("PaisOrigen", new Integer("1"));
-	        parameterMap.put("DepartamentoOrigen", new Integer("1"));
-	        parameterMap.put("MunicipioOrigen",new Integer("1"));
+	        SicPaisDto paisSearch= sicPaisServiceImpl.findById(new Integer(pais));
+	        parameterMap.put("PaisOrigen", paisSearch.getNombrePais());
+	        if (departamento==null){
+	        	departamento="";
+	        }
+	        if (municipio==null){
+	        	municipio="";
+	        }
+	      if (!departamento.trim().equals("")){	
+	    	  SicDepartamentoDto depaSearch=sicDepartamentoServiceImpl.findById(new Integer(departamento));
+	        	 parameterMap.put("DepartamentoOrigen", depaSearch.getNombreDepartamento());
+	        } else {
+	        	parameterMap.put("DepartamentoOrigen","");
+	        }
+	        if (!municipio.trim().equals("")){
+	        	SicMunicipioDto muniSearch= sicMunicipioServiceImpl.findById(new Integer(municipio));
+	        	 parameterMap.put("MunicipioOrigen",muniSearch.getNombreMunicipio());
+	        } else{
+	        	parameterMap.put("MunicipioOrigen","");
+	        }
+	        DateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy");
+	        DateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
+	        
+	      	parameterMap.put("fDesde", new Date(outputFormat.format(inputFormat.parse(fdesde))));
+	        parameterMap.put("fHasta", new Date(outputFormat.format(inputFormat.parse(fhasta))));
 	        ServletContext context = request.getServletContext();
 			String basePath = context.getRealPath("/");
+			String ruta=basePath+"WEB-INF";
+			parameterMap.put("ruta", ruta);
 	        jasperReport = JasperCompileManager.compileReport(basePath+"WEB-INF/reportes/Reporte Pacientes por Ubicacion.jrxml");
 	        byte[] reporte = null;
 	        

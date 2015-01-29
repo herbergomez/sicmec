@@ -7,6 +7,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="fHasta" class="java.util.Date"/>
+	<parameter name="ruta" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT sic_persona.id_sic_persona,sic_persona.nombre,sic_persona.apellido,sic_cita_medica.fx_cita_medica,sic_estado_usuario.descripcion,sic_cita_medica.id_sic_cita_medica
   FROM sic_cita_medica
@@ -42,15 +43,17 @@
 			<band height="25">
 				<textField>
 					<reportElement x="437" y="0" width="95" height="20" uuid="d51f2c31-bb98-4417-8e2b-c8c21fcbdd12"/>
+					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="Medico">
 					<reportElement x="316" y="2" width="100" height="20" uuid="d7d63254-5edd-42da-a97f-78dc5f9e89e9"/>
-					<textElement textAlignment="Center"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$V{id_sic_cita_medica_2}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="44" y="2" width="269" height="20" uuid="ce5c2d44-cf9c-49fa-8e01-5de636582d32"/>
+					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$V{Nombre}]]></textFieldExpression>
 				</textField>
 			</band>
@@ -60,18 +63,18 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="67" splitType="Stretch">
+		<band height="89" splitType="Stretch">
 			<staticText>
 				<reportElement x="44" y="27" width="488" height="20" uuid="510450d8-c770-4881-b74a-287feab27b70"/>
 				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
+					<font size="14" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[REPORTE DE CITAS POR MEDICOS]]></text>
 			</staticText>
@@ -100,30 +103,48 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fHasta}]]></textFieldExpression>
 			</textField>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="416" y="67" width="116" height="20" uuid="58df41d2-13d6-4cdd-a0eb-a1d624284e07"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="244" y="67" width="172" height="20" uuid="9e4d56f5-59e0-43c4-96ea-163daf86d1df"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Generación de Reporte:]]></text>
+			</staticText>
+			<image>
+				<reportElement x="44" y="29" width="82" height="58" uuid="f3218e4a-15ef-42e3-9ef9-c90a99efee51"/>
+				<imageExpression><![CDATA[$P{ruta}+"/resources/images/SICMEC.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="7" splitType="Stretch"/>
+		<band height="1" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="21" splitType="Stretch">
 			<staticText>
 				<reportElement x="44" y="0" width="100" height="20" uuid="71df1f6f-2de2-4dc8-a04f-6928870ef4b1"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font isBold="true" isItalic="false" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[MEDICO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="317" y="0" width="100" height="20" uuid="8fa47f42-486f-4b99-90f1-07340186b756"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[CITAS ATENDIDAS]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="437" y="0" width="95" height="20" uuid="61425f86-299f-489e-9c64-bcb743acfd1f"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[ESTADO]]></text>

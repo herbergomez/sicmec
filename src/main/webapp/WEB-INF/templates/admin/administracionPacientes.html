@@ -35,14 +35,14 @@
   					<strong th:utext="#{general.alerta.atencion}"></strong>
   					<p th:utext="#{admin.pacientes.alertas.update.exito}"></p>
 		   </div>
-		   <div th:if="${deleteSuccess}" class="alert alert-info alert-dismissible" role="alert">
+		<!--   <div th:if="${deleteSuccess}" class="alert alert-info alert-dismissible" role="alert">
   					<button type="button" class="close" data-dismiss="alert">
   						<span aria-hidden="true">&times;</span>
   						<span class="sr-only">Close</span>
   					</button>
   					<strong th:utext="#{general.alerta.atencion}"></strong>
   					<p th:utext="#{admin.pacientes.alertas.eliminar.exito}"></p>
-			</div>
+			</div>-->
 		</div>
 		
 		<div class="row">
@@ -144,16 +144,23 @@
         			  <div class="form-group">
         			    <label for="patologia" th:utext="#{admin.pacientes.patologia}"></label>
     				    <select class="form-control" id="patologia" name="patologia" >
-    					   <option></option>
     				       <option th:each="patologia:${patologias}" th:attr="data-id=${patologia.idSicTipoPatologia}"  th:value="${patologia.idSicTipoPatologia}" th:text="${patologia.fkSicPatologia.nombrePatologia}+'-'+${patologia.nombreTipoPatologia}"></option>
     				    </select>
         		     </div>
         			</div>
         			<div class="col-md-5">
-        			   <div class="form-group">
+        				<div class="form-group">
+        				 <label for="fcreacion" th:text="#{admin.pacientes.fcreacion}"></label>
+							<div class='input-group date' id='datetimepicker1'>
+                    			<input data-format="dd-MM-yyyy" type='text' class="form-control" id="fcreacion" name="fcreacion"/>
+                    			<span class="input-group-addon"><span class="fa fa-calendar"></span>
+                    			</span>
+                			</div>
+  						 </div>      			
+        			 <!--  <div class="form-group">
         			     <label for="fcreacion" th:text="#{admin.pacientes.fcreacion}"></label>
     				     <input type="date" class="form-control" id="fcreacion" name="fcreacion" th:placeholder="#{admin.pacientes.fcreacion}" />
-        		      </div>
+        		      </div>-->
         			</div>
         		</div>
         		</div>
@@ -180,7 +187,12 @@
         		 <div class="row">
 		          <div class="col-md-5 col-xs-2">
         			<label for="fnacimiento" th:utext="#{admin.pacientes.fnacimiento}"></label>
-    				<input type="date"  class="form-control" id="fnacimiento" name="fnacimiento"/>
+        			  <div class='input-group date' id='datetimepicker2'>
+                    			<input data-format="dd-MM-yyyy" type='text' class="form-control" id="fnacimiento" name="fnacimiento"/>
+                    			<span class="input-group-addon"><span class="fa fa-calendar"></span>
+                    	      </span>
+                	 </div>
+    			     <!--<input type="date"  class="form-control" id="fnacimiento" name="fnacimiento"/>-->
         		  </div>
         		  <div class="col-md-5">
         			<label for="sexo" th:utext="#{admin.pacientes.sexo}"></label>
@@ -281,7 +293,6 @@
         			<div class="form-group">
         			<label for="estado" th:utext="#{admin.pacientes.estado}"></label>
     				<select class="form-control" id="estadoUp" name="estadoUp" >
-    					<option></option>
     				   <option th:each="estado:${estados}" th:attr="data-id=${estado.idSicEstadoPaciente}"  th:value="${estado.idSicEstadoPaciente}" th:text="${estado.descripcion}"></option>
     				</select>
         		  </div>
@@ -301,7 +312,14 @@
         			<div class="col-md-5">
         			   <div class="form-group">
         			   <label for="fcreacion" th:text="#{admin.pacientes.fcreacion}"></label>
-    				   <input type="date" class="form-control" id="fcreacionUp" name="fcreacionUp" th:placeholder="#{admin.pacientes.fcreacion}" />
+    			          <!--<input type="date" class="form-control" id="fcreacionUp" name="fcreacionUp" th:placeholder="#{admin.pacientes.fcreacion}" />-->
+        		      
+        		      	<div class='input-group date' id='datetimepicker3'>
+                    			<input data-format="dd-MM-yyyy" type='text' class="form-control" id="fcreacionUp" name="fcreacionUp"/>
+                    			<span class="input-group-addon"><span class="fa fa-calendar"></span>
+                    			</span>
+                		</div>
+        		      
         		      </div>
         			</div>
         		</div>
@@ -328,7 +346,12 @@
         		 <div class="row">
 		          <div class="col-md-5 col-xs-2">
         			<label for="fnacimientoUp" th:utext="#{admin.pacientes.fnacimiento}"></label>
-    				<input type="date"  class="form-control" id="fnacimientoUp" name="fnacimientoUp"/>
+    			<!--<input type="date"  class="form-control" id="fnacimientoUp" name="fnacimientoUp"/>-->
+        		     <div class='input-group date' id='datetimepicker4'>
+                    			<input data-format="dd-MM-yyyy" type='text' class="form-control" id="fnacimientoUp" name="fnacimientoUp"/>
+                    			<span class="input-group-addon"><span class="fa fa-calendar"></span>
+                    			</span>
+                	</div> 
         		  </div>
         		  <div class="col-md-5">
         			<label for="sexoUp" th:utext="#{admin.pacientes.sexo}"></label>
@@ -433,5 +456,33 @@
 	<div th:replace="fragments/general :: jsFragment"></div>
 
 <script type="text/javascript" th:src="@{/resources/js/administracionPacientes.js}"></script>
+
+<script th:inline="javascript" type="text/javascript">
+$(document).ready(function(){
+//  var user = /*[[${user}]]*/;
+  var fcreacion = /*[[${fcreacion}]]*/;
+  var fnacimiento= /*[[${fnacimiento}]]*/;
+  var fcreacionUp = /*[[${fcreacionUp}]]*/;
+  var fnacimientoUp= /*[[${fnacimientoUp}]]*/;
+
+  if(fcreacion!= null)
+  {
+    $("#fcreacion").val(fcreacion); 
+  }
+  if(fnacimiento!= null)
+  {
+    $("#fnacimiento").val(fnacimiento); 
+  }
+  if(fcreacion!= null)
+  {
+    $("#fcreacionUp").val(fcreacionUp); 
+  }
+  if(fnacimiento!= null)
+  {
+    $("#fnacimientoUp").val(fnacimientoUp); 
+  }
+  
+});
+</script>
 </body>
 </html>

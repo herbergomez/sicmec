@@ -35,28 +35,46 @@ order by sic_departamento.nombre_departamento;]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="28" splitType="Stretch">
+		<band height="86" splitType="Stretch">
 			<staticText>
-				<reportElement x="34" y="10" width="499" height="18" uuid="56ae452b-e3c4-4a85-9821-5b4e11e874d5"/>
+				<reportElement x="35" y="28" width="499" height="18" uuid="56ae452b-e3c4-4a85-9821-5b4e11e874d5"/>
 				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="14" isBold="true" isUnderline="false"/>
+					<font size="14" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[REPORTE DE PREVALENCIA DE PACIENTES]]></text>
 			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="373" y="46" width="160" height="20" uuid="7edacaed-6eb7-406e-872d-45c887842ddf"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="201" y="46" width="172" height="20" uuid="3756ab66-fd9b-48de-910c-af6c5e5feae3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Generación de Reporte:]]></text>
+			</staticText>
+			<image>
+				<reportElement x="35" y="28" width="78" height="58" uuid="469656b8-aec5-4728-b270-18b3a17f5f44"/>
+				<imageExpression><![CDATA[$P{ruta}+"/resources/images/SICMEC.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="7" splitType="Stretch"/>
+		<band height="2" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="2" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
 		<band height="22" splitType="Stretch">
@@ -69,7 +87,7 @@ order by sic_departamento.nombre_departamento;]]>
 					<subreportParameterExpression><![CDATA[$P{ruta}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{ruta}+"Reporte de Prevalencia_Detalle_Pacientes.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{ruta}+"/reportes/Reporte de Prevalencia_Detalle_Pacientes.jasper"]]></subreportExpression>
 			</subreport>
 			<textField>
 				<reportElement x="35" y="0" width="498" height="20" uuid="bec62eef-aabe-4138-af7d-5fbfe4455b63"/>

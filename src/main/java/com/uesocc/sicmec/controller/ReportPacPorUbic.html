@@ -24,8 +24,8 @@
         			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         			<h4 class="modal-title" style="font-style: normal;color: blue;" th:text="#{admin.reportes.pacientes.parameters}"></h4>
       			</div>
-      			<div class="modal-body custom-modal-body" style="height: 150px;">
-      			   <div class="row">
+      			<div class="modal-body custom-modal-body" style="height: 200px;">
+      			  <div class="row">
         		  <div class="col-md-4 col-xs-1">
         			<label for="pais" th:utext="#{admin.pacientes.pais}"></label>
     				<select class="form-control" id="pais" name="pais" >
@@ -45,9 +45,29 @@
     				</select>				
         		  </div>
         		 </div>
+        		 <div class="row">
+        		 <div class="col-md-6 col-xs-2">
+        			  <label for="fdesde" th:text="#{admin.reportes.pacientes.parameters.fdesde}"></label>
+    				<!--<input type="date" class="form-control" id="fdesde" name="fdesde" th:placeholder="#{admin.reportes.pacientes.parameters.fdesde}" />-->
+        		  	  <div class='input-group date' id='datetimepicker1'>
+                    			<input data-format="dd-MM-yyyy" type='text' class="form-control" id="fdesde" name="fdesde"/>
+                    			<span class="input-group-addon"><span class="fa fa-calendar"></span>
+                    			</span>
+                			</div>
+        		  	</div>
+        		  	<div class="col-md-6">
+        			  <label for="fhasta" th:text="#{admin.reportes.pacientes.parameters.fhasta}"></label>
+    				<!--<input type="date" class="form-control" id="fhasta" name="fhasta" th:placeholder="#{admin.reportes.pacientes.parameters.fhasta}" />-->
+        		        <div class='input-group date' id='datetimepicker2'>
+                    			<input data-format="dd-MM-yyyy" type='text' class="form-control" id="fhasta" name="fhasta"/>
+                    			<span class="input-group-addon"><span class="fa fa-calendar"></span>
+                    			</span>
+                		</div>
+        		  	</div>
+        		   </div>
 				 </div>
 				<div class="modal-footer">
-        		  <button type="submit" class="btn btn-primary" th:text="#{general.btn.guardar}"></button>
+        		  <button type="submit" class="btn btn-primary" th:text="#{general.btn.generateReport}"></button>
       		    </div>
 			</form>
 			</div>
@@ -60,6 +80,20 @@
 	<div th:replace="fragments/general :: footerFragment"></div>
 	<div th:replace="fragments/general :: jsFragment"></div>
 	<script type="text/javascript" th:src="@{/resources/js/FuncionesGenerales.js}"></script>
-	<script type="text/javascript" th:src="@{/resources/js/validacionesGenerales.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/validacionesGenerales.js}"></script>
+<script th:inline="javascript" type="text/javascript">
+$(document).ready(function(){
+  var fdesde = /*[[${fdesde}]]*/;
+  var fhasta= /*[[${fhasta}]]*/;
+  if(fdesde!= null)
+  {
+    $("#fdesde").val(fdesde); 
+  }
+  if(fhasta!= null)
+  {
+    $("#fhasta").val(fhasta); 
+  
+});
+</script>
 </body>
 </html>

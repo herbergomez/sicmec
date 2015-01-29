@@ -14,14 +14,17 @@ public class SicPatologiaAdapter implements BaseAdapter<SicPatologia, SicPatolog
 	@Override
 	public SicPatologia dtoToEntity(SicPatologiaDto obj) throws ParseException {
 		// TODO Auto-generated method stub
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		SicPatologia entidad = new SicPatologia();
 		entidad.setIdSicPatologia((obj.getIdSicPatologia()!=null)?SicDataTypeFormat.toIntValue(obj.getIdSicPatologia()):null);
 		entidad.setNombrePatologia((obj.getNombrePatologia()!=null)?SicDataTypeFormat.toStringValue(obj.getNombrePatologia()):"");
 		entidad.setDescripcionPatologia((obj.getDescripcionPatologia()!=null)?SicDataTypeFormat.toStringValue(obj.getDescripcionPatologia()):"");
 		entidad.setCreadoPor((obj.getCreadoPor()!=null)?SicDataTypeFormat.toStringValue(obj.getCreadoPor()):"");
 		entidad.setModifcadoPor((obj.getModifcadoPor()!=null)?SicDataTypeFormat.toStringValue(obj.getModifcadoPor()):"");
-	//	entidad.setFxCreado((obj.getFxCreado()!=null) ?  SicDataTypeFormat.toDateTimeValue(obj.getFxCreado()):SicDataTypeFormat.toDateTimeValue(new Date().toString()));
-	//	entidad.setFxModicado((obj.getFxModicado()!=null) ? SicDataTypeFormat.toDateTimeValue(obj.getFxModicado()):SicDataTypeFormat.toDateTimeValue(new Date().toString()));
+		entidad.setFxCreado((obj.getFxCreado()!=null) ?  SicDataTypeFormat.toDateTimeValue(obj.getFxCreado()):SicDataTypeFormat.toDateTimeValue(new Date().toString()));
+		if (obj.getFxModicado()!=null) {
+			entidad.setFxModicado((obj.getFxModicado()!=null) ? SicDataTypeFormat.toDateTimeValue(obj.getFxModicado()):SicDataTypeFormat.toDateTimeValue(new Date().toString()));
+		}		
 		return entidad;
 	}
 
@@ -35,8 +38,10 @@ public class SicPatologiaAdapter implements BaseAdapter<SicPatologia, SicPatolog
 		dto.setDescripcionPatologia((obj.getDescripcionPatologia()!=null)?SicDataTypeFormat.toStringValue(obj.getDescripcionPatologia()):"");
 		dto.setCreadoPor((obj.getCreadoPor()!=null)?SicDataTypeFormat.toStringValue(obj.getCreadoPor()):"");
 		dto.setModifcadoPor((obj.getModifcadoPor()!=null)?SicDataTypeFormat.toStringValue(obj.getModifcadoPor()):"");
-	//	dto.setFxCreado((obj.getFxCreado()!=null) ?  format.format(obj.getFxCreado()):format.format(new Date().toString()));
-	//	dto.setFxModicado((obj.getFxModicado()!=null) ? format.format(obj.getFxModicado()):format.format(new Date().toString()));
+		dto.setFxCreado((obj.getFxCreado()!=null) ?  format.format(obj.getFxCreado()):format.format(new Date().toString()));
+		if (obj.getFxModicado()!=null){
+			dto.setFxModicado((obj.getFxModicado()!=null) ?  format.format(obj.getFxModicado()):format.format(new Date().toString()));
+		}		
 		return dto;
 	}
 

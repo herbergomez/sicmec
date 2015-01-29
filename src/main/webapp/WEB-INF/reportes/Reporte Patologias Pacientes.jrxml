@@ -41,9 +41,9 @@ where sic_paciente.fx_creacion>=$P{fDesde} and sic_paciente.fx_creacion<=$P{fHas
 	<group name="Departamento" isStartNewPage="true" keepTogether="true">
 		<groupExpression><![CDATA[$F{id_sic_departamento}]]></groupExpression>
 		<groupHeader>
-			<band height="58">
+			<band height="46">
 				<subreport>
-					<reportElement x="73" y="30" width="677" height="28" uuid="2443ea9a-df3a-4f07-8359-4e6d22ce3be5"/>
+					<reportElement x="75" y="15" width="677" height="28" uuid="2443ea9a-df3a-4f07-8359-4e6d22ce3be5"/>
 					<subreportParameter name="fHasta">
 						<subreportParameterExpression><![CDATA[$P{fHasta}]]></subreportParameterExpression>
 					</subreportParameter>
@@ -54,10 +54,10 @@ where sic_paciente.fx_creacion>=$P{fDesde} and sic_paciente.fx_creacion<=$P{fHas
 						<subreportParameterExpression><![CDATA[$F{id_sic_departamento}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression><![CDATA[$P{ruta}+"patologiasPorDepartamento.jasper"]]></subreportExpression>
+					<subreportExpression><![CDATA[$P{ruta}+"/reportes/patologiasPorDepartamento.jasper"]]></subreportExpression>
 				</subreport>
 				<textField>
-					<reportElement x="46" y="15" width="702" height="27" backcolor="#CCCCCC" uuid="fb29647f-306b-438e-a2c5-124066e2d344"/>
+					<reportElement x="48" y="0" width="702" height="27" backcolor="#CCCCCC" uuid="fb29647f-306b-438e-a2c5-124066e2d344"/>
 					<textElement>
 						<font size="14" isBold="true" isUnderline="true"/>
 					</textElement>
@@ -73,20 +73,20 @@ where sic_paciente.fx_creacion>=$P{fDesde} and sic_paciente.fx_creacion<=$P{fHas
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="84" splitType="Stretch">
+		<band height="100" splitType="Stretch">
 			<staticText>
 				<reportElement x="46" y="26" width="702" height="33" uuid="078a45ac-215d-4043-ade1-b4a35c0dffd4"/>
 				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="SansSerif" size="20" isBold="true"/>
+					<font fontName="SansSerif" size="20" isBold="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[REPORTE PACIENTES:PATOLOGIAS POR DEPARTAMENTO]]></text>
+				<text><![CDATA[REPORTE PATOLOGIAS POR DEPARTAMENTO]]></text>
 			</staticText>
 			<textField pattern="d/M/yyyy">
 				<reportElement x="283" y="59" width="99" height="20" uuid="5978cceb-0205-4866-8b7a-de60fdd27655"/>
@@ -116,6 +116,24 @@ where sic_paciente.fx_creacion>=$P{fDesde} and sic_paciente.fx_creacion<=$P{fHas
 				</textElement>
 				<text><![CDATA[Hasta]]></text>
 			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="539" y="79" width="207" height="20" uuid="51cea4bf-c8dc-4e05-891c-f8014efe9715"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="326" y="79" width="213" height="20" uuid="a84f5586-60d1-4b6f-a5b3-cae52686fb74"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Generación de Reporte:]]></text>
+			</staticText>
+			<image>
+				<reportElement x="46" y="26" width="77" height="67" uuid="1f51ad05-f374-4ec3-9019-cc06e4bfe49d"/>
+				<imageExpression><![CDATA[$P{ruta}+"/resources/images/SICMEC.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>

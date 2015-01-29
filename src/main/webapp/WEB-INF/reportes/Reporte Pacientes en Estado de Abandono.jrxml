@@ -11,13 +11,15 @@
     sic_paciente.numero_expediente,sic_paciente.telefono_paciente,sic_paciente.dui_paciente,sic_paciente.direccion_paciente,
        sic_pais.nombre_pais,sic_departamento.nombre_departamento,sic_municipio.nombre_municipio,
        sic_contacto_paciente.nombre_contacto,sic_contacto_paciente.apellido_contacto,
-       sic_contacto_paciente.telefono
+       sic_contacto_paciente.telefono,sic_patologia.nombre_patologia,sic_tipo_patologia.nombre_tipo_patologia
   FROM sic_paciente
   inner join sic_persona on (sic_paciente.fk_sic_persona=sic_persona.id_sic_persona)
   inner join sic_estado_paciente on(fk_sic_estado_paciente=sic_estado_paciente.id_sic_estado_paciente)
   inner join sic_municipio on(sic_paciente.fk_sic_municipio=sic_municipio.id_sic_municipio)
   inner join sic_departamento on (sic_municipio.fk_sic_departamento=sic_departamento.id_sic_departamento)
   inner join sic_pais on (sic_departamento.fk_sic_pais=sic_pais.id_sic_pais)
+  inner join sic_tipo_patologia on (sic_tipo_patologia.id_sic_tipo_patologia=sic_paciente.fk_sic_tipo_patologia)
+  inner join sic_patologia on(sic_patologia.id_sic_patologia=sic_tipo_patologia.fk_sic_patologia)
   left outer join sic_contacto_paciente on(sic_paciente.fk_sic_contacto_paciente=sic_contacto_paciente.id_sic_contacto_paciente)
   where sic_estado_paciente.descripcion='Abandono'
 order by sic_departamento.nombre_departamento,sic_municipio.nombre_municipio,sic_persona.nombre,sic_persona.apellido;]]>
@@ -36,6 +38,8 @@ order by sic_departamento.nombre_departamento,sic_municipio.nombre_municipio,sic
 	<field name="nombre_contacto" class="java.lang.String"/>
 	<field name="apellido_contacto" class="java.lang.String"/>
 	<field name="telefono" class="java.lang.String"/>
+	<field name="nombre_patologia" class="java.lang.String"/>
+	<field name="nombre_tipo_patologia" class="java.lang.String"/>
 	<variable name="NombrePaciente" class="java.lang.String">
 		<variableExpression><![CDATA[$F{nombre}.toUpperCase()+", "+$F{apellido}.toUpperCase()]]></variableExpression>
 	</variable>
@@ -54,18 +58,17 @@ order by sic_departamento.nombre_departamento,sic_municipio.nombre_municipio,sic
 ( $F{nombre_contacto}.equals(null) && $F{apellido_contacto}.equals(null)? "" :
 ( !$F{nombre_contacto}.equals(null) && $F{apellido_contacto}.equals(null)? $F{nombre_contacto} : $F{apellido_contacto})))]]></variableExpression>
 	</variable>
-	<variable name="TelefonoContacto" class="java.lang.String">
-		<variableExpression><![CDATA[(!$F{telefono}.equals(null)?$F{telefono}:"" )]]></variableExpression>
-		<initialValueExpression><![CDATA[]]></initialValueExpression>
-	</variable>
 	<variable name="documentoPaciente" class="java.lang.String">
 		<variableExpression><![CDATA[(!$F{dui_paciente}.equals(null) ? $F{dui_paciente} :"" )]]></variableExpression>
+	</variable>
+	<variable name="PatologiaPaciente" class="java.lang.String">
+		<variableExpression><![CDATA[$F{nombre_patologia}+" - "+$F{nombre_tipo_patologia}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="46" splitType="Stretch">
+		<band height="69" splitType="Stretch">
 			<staticText>
 				<reportElement x="34" y="2" width="485" height="20" uuid="9c187e63-3e73-4978-bed9-9ad24d18af57"/>
 				<textElement textAlignment="Center">
@@ -101,50 +104,70 @@ order by sic_departamento.nombre_departamento,sic_municipio.nombre_municipio,sic
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fHasta}]]></textFieldExpression>
 			</textField>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="369" y="44" width="152" height="20" uuid="3ed91bf5-33aa-4713-ab5f-968771021831"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="197" y="44" width="172" height="20" uuid="185c0413-f4c1-43b5-b9f8-405b2595444e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Generación de Reporte:]]></text>
+			</staticText>
+			<image>
+				<reportElement x="39" y="9" width="69" height="60" uuid="b26f5a9e-4d0b-453f-bf1c-74ffb3e38e80"/>
+				<imageExpression><![CDATA[$P{ruta}+"/resources/images/SICMEC.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="7" splitType="Stretch"/>
+		<band height="5" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="3" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="93" splitType="Stretch">
+		<band height="86" splitType="Stretch">
 			<staticText>
-				<reportElement x="52" y="26" width="56" height="20" uuid="5cc695b3-503e-4818-b991-3d36bdaa2de3"/>
+				<reportElement x="52" y="26" width="69" height="20" uuid="5cc695b3-503e-4818-b991-3d36bdaa2de3"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Expediente:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="121" y="26" width="121" height="20" uuid="5e86cdfb-a565-4e63-9f6c-26594a767947"/>
+				<reportElement x="121" y="26" width="76" height="20" uuid="5e86cdfb-a565-4e63-9f6c-26594a767947"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{numero_expediente}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="259" y="26" width="76" height="20" uuid="c60f15ab-0b8a-439c-bc8b-de240e8ca196"/>
+				<reportElement x="197" y="26" width="76" height="20" uuid="c60f15ab-0b8a-439c-bc8b-de240e8ca196"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Doc. Identidad:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="52" y="46" width="34" height="20" uuid="aebd1d30-376a-4918-ada4-6fd684320060"/>
+				<reportElement x="52" y="46" width="56" height="20" uuid="aebd1d30-376a-4918-ada4-6fd684320060"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tel/Cel:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="101" y="46" width="316" height="20" uuid="626c133a-86a5-4e88-a7eb-d91a47d976b6"/>
+				<reportElement x="121" y="46" width="398" height="20" uuid="626c133a-86a5-4e88-a7eb-d91a47d976b6">
+					<printWhenExpression><![CDATA[$F{telefono_paciente}!=null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{telefono_paciente}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="39" y="6" width="480" height="20" uuid="680db253-bcdb-4f84-b5f4-fe905089bd68"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true" isUnderline="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{NombrePaciente}]]></textFieldExpression>
@@ -161,14 +184,25 @@ order by sic_departamento.nombre_departamento,sic_municipio.nombre_municipio,sic
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{DireccionPaciente}]]></textFieldExpression>
 			</textField>
-			<subreport>
-				<reportElement x="348" y="26" width="142" height="20" uuid="046dd51f-f323-4802-b17e-7e7707ab365b"/>
-				<subreportParameter name="id_paciente">
-					<subreportParameterExpression><![CDATA[$F{id_sic_paciente}]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{ruta}+"reporte_documento_identidad.jasper"]]></subreportExpression>
-			</subreport>
+			<textField>
+				<reportElement x="273" y="26" width="73" height="20" uuid="745986e5-503c-48cb-a831-232fecde1c06">
+					<printWhenExpression><![CDATA[$F{dui_paciente}!=null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dui_paciente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="346" y="27" width="51" height="20" uuid="4a4fd78a-7853-4077-8ac8-fa17b33fd04a"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patologia:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="398" y="26" width="121" height="22" uuid="5fd34f1a-a58c-4a8c-9ece-6edc1427c515"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{PatologiaPaciente}]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="63">
 			<printWhenExpression><![CDATA[$F{fk_sic_contacto_paciente}!=null]]></printWhenExpression>
@@ -179,11 +213,6 @@ order by sic_departamento.nombre_departamento,sic_municipio.nombre_municipio,sic
 				</textElement>
 				<text><![CDATA[Tel/Cel:]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="128" y="40" width="391" height="20" uuid="b89038a8-0cfc-474b-80f1-c15155970fe2"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{TelefonoContacto}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="75" y="20" width="66" height="20" uuid="6d324cd6-3c01-418a-a894-4f6030addc1c"/>
 				<textElement verticalAlignment="Middle">
@@ -198,11 +227,17 @@ order by sic_departamento.nombre_departamento,sic_municipio.nombre_municipio,sic
 			</textField>
 			<staticText>
 				<reportElement x="75" y="0" width="167" height="20" uuid="35b28373-730f-421f-a4ba-fd01f0083fa5"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Contacto Responsable]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="128" y="40" width="391" height="20" uuid="a5c713ba-4259-4e06-a7a0-0ea102a2c6ea">
+					<printWhenExpression><![CDATA[$F{telefono}!=null]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
