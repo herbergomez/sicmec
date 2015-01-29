@@ -279,7 +279,9 @@ var llenarTablaDeMedicamentos = function (data)
 	
 	for (var int = 0; int < data.length; int++) 
 	{
-		tr += "<tr><td>"+data[int].drugName+"</td></tr>";
+		tr += "<tr><td>"+data[int].drugName+"</td>" +
+		"<td>"+data[int].drugDescription+"</td>"+		
+		"</tr>";
 	}
 	
 	$("#meds").html(tr);
