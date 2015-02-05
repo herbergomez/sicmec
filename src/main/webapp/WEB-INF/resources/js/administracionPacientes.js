@@ -141,25 +141,59 @@ $( document ).ready(function() {
 		}
 		 
 	});
+	
 	$(".datatables").DataTable({
-		"scrollY":        "350px",
-        "scrollCollapse": false,
+		"pagingType": "simple_numbers",
+        'bProcessing': true,
+        'bServerSide': true,
+        "iDisplayLength": 10,
+        "iDisplayStart": 0,
+        "bSortClasses": false,
+//        "ajax": 
+//        {
+//        	"type" : "GET",
+//            "url": "/sicmec/admin/pacientes/pacientes",
+//            "data": function ( d ) 
+//            {
+//                d.tipoBusqueda =  $("#tipoBusqueda").val();
+//            }
+//        },
+        "sAjaxSource": '/sicmec/admin/pacientes/pacientes',
+        'fnServerParams': function ( aoData ) 
+        {
+        	tipoBusqueda = $("#tipoBusqueda").val();
+        	
+            aoData.push( { "name": "tipoBusqueda", "value": tipoBusqueda } );
+              
+        },
+        "bStateSave": true,
+        'bJQueryUI': false,
         "aoColumns": 
         	[
-        	 { "sWidth": "10%", "sClass": "center", "bSortable": false },
-        	 { "sWidth": "10%" },
-        	 { "sWidth": "10%" },
-        	 { "sWidth": "10%" },
-        	 { "sWidth": "10%" },
-        	 { "sWidth": "6%" },
-        	 { "sWidth": "10%" },
-        	 { "sWidth": "10%" },
-        	 { "sWidth": "10%" },
-        	 { "sWidth": "8%" },
+        	 { "sWidth": "8%",data: null,"bSortable": false, render: function ( data, type, row )
+        		 {
+        		 	
+            	 	return '<div class="btn-group"><button type="button" class="btn btn-default btn-sm onUpdate" data-toggle="modal" data-target="#modalUpdatePaciente" data-id="'+data.idSicPaciente+'">'+
+            	 	'<i class="fa fa-pencil-square-o"></i>'+'</button>'+
+            	 	'<a class="btn btn-default btn-sm" href="/sicmec/admin/detallePaciente/'+data.numExpediente+'" target="_blank">'+
+        	 		'<i class="fa fa-search-plus"></i>'+
+        	 		'</a></div>';
+            	 	
+            	 } 
+        	 },
+        	 { "sWidth": "10%",'mData': 'numExpediente' },
+        	 { "sWidth": "10%",'mData': 'fkSicPersona.nombre' },
+        	 { "sWidth": "10%",'mData': 'fkSicPersona.apellido' },
+        	 { "sWidth": "10%",'mData': 'documentoIdentidad' },
+        	 { "sWidth": "6%",'mData': 'edad' },
+        	 { "sWidth": "10%",'mData': 'fkSicMunicipio.fkSicDepartamento.fkSicPais.nombrePais' },
+        	 { "sWidth": "10%",'mData': 'fkSicMunicipio.fkSicDepartamento.nombreDepartamento' },
+        	 { "sWidth": "10%",'mData': 'fkSicMunicipio.nombreMunicipio' },
+        	 { "sWidth": "8%",'mData': 'fkSicEstadoPaciente.descripcion' },
         	// { "sWidth": "5%" },
             ],
             language: {
-                "sProcessing":     "Procesando...",
+            	"sProcessing":     "<i class='fa fa-cog fa-spin'></i>",
                 "sLengthMenu":     "Mostrar _MENU_ registros",
                 "sZeroRecords":    "No se encontraron resultados",
                 "sEmptyTable":     "Ningún dato disponible en esta tabla",
@@ -170,7 +204,7 @@ $( document ).ready(function() {
                 "sSearch":         "Buscar:",
                 "sUrl":            "",
                 "sInfoThousands":  ",",
-                "sLoadingRecords": "Cargando...",
+                "sLoadingRecords": "<i class='fa fa-cog fa-spin fa-4x'></i>",
                 "oPaginate": {
                     "sFirst":    "Primero",
                     "sLast":     "Último",

@@ -41,7 +41,9 @@ public class SicTratamientoAdapter implements
 		// TODO Auto-generated method stub
 		SicCitaMedicaAdapter adp = new SicCitaMedicaAdapter();
 		SicPaqMedAdapter adpp = new SicPaqMedAdapter();
+		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
 		SicTratamientoDto dto = new SicTratamientoDto();
 		dto.setIdSicTratamiento((obj.getIdSicTratamiento()!=null) ?  SicDataTypeFormat.toStringValue(obj.getIdSicTratamiento().toString()):"");
 		dto.setComentario((obj.getComentario()!=null) ? SicDataTypeFormat.toStringValue(obj.getComentario()):"");

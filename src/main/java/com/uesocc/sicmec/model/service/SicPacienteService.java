@@ -2,6 +2,8 @@ package com.uesocc.sicmec.model.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import com.uesocc.sicmec.framework.general.BaseService;
 import com.uesocc.sicmec.model.dto.SicPacienteDto;
 
@@ -24,4 +26,14 @@ public interface SicPacienteService extends BaseService<SicPacienteDto, Integer>
 	 * sea similar o contenga los caracteres ingresados
 	 */
 	List<SicPacienteDto> findAllByExp(String expediente);
+	
+	List<SicPacienteDto> findAll(Pageable page);
+	
+	/**
+	 * @param page
+	 * @param tipoBusqueda
+	 * @return Lista de pacientes que respondan ya sea al nombre, apellido, expediente o DUI.
+	 */
+	List<SicPacienteDto> findAll(Pageable page,String tipoBusqueda, String criterio);
+	
 }

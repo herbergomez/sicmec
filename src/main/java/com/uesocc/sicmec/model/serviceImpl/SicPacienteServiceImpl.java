@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.uesocc.sicmec.model.adapter.SicPacienteAdapter;
@@ -67,7 +68,8 @@ public class SicPacienteServiceImpl implements SicPacienteService  {
 	}
 
 	@Override
-	public List<SicPacienteDto> findAll() {
+	public List<SicPacienteDto> findAll() 
+	{
 		// TODO Auto-generated method stub
 		SicPacienteAdapter adp = new SicPacienteAdapter();
 		List<SicPaciente> list = sicPacienteRepository.findAll();
@@ -75,18 +77,28 @@ public class SicPacienteServiceImpl implements SicPacienteService  {
 		
 		for (SicPaciente sicPaciente : list) 
 		{
+			
 			String sexo=sicPaciente.getSexoPaciente();
-			if (sexo.equals("M")){
+			
+			if (sexo.equals("M"))
+			{
 				sicPaciente.setSexoPaciente("Masculino");
-			} else {
+			} 
+			else 
+			{
 				sicPaciente.setSexoPaciente("Femenino");
 			}
+			
 			list_dto.add(adp.entityToDto(sicPaciente));
 		}
 		
 		return list_dto;
 	}
 
+	
+	
+	
+	
 	@Override
 	public List<SicPacienteDto> findAllByEstado(String descripcion) {
 		// TODO Auto-generated method stub
@@ -166,5 +178,82 @@ public class SicPacienteServiceImpl implements SicPacienteService  {
 		}
 		
 		return list_dto;
+	}
+
+	@Override
+	public List<SicPacienteDto> findAll(Pageable page) 
+	{
+		// TODO Auto-generated method stub
+		SicPacienteAdapter adp = new SicPacienteAdapter();
+		List<SicPaciente> list = sicPacienteRepository.findAllPacientes(page);
+		List<SicPacienteDto> list_dto = new ArrayList<SicPacienteDto>();
+		
+		for (SicPaciente sicPaciente : list) 
+		{
+			
+			String sexo=sicPaciente.getSexoPaciente();
+			
+			if (sexo.equals("M"))
+			{
+				sicPaciente.setSexoPaciente("Masculino");
+			} 
+			else 
+			{
+				sicPaciente.setSexoPaciente("Femenino");
+			}
+			
+			list_dto.add(adp.entityToDto(sicPaciente));
+		}
+		
+		return list_dto;
+	}
+
+	@Override
+	public List<SicPacienteDto> findAll(Pageable page, String tipoBusqueda, String criterio) 
+	{
+		// TODO Auto-generated method stub
+		SicPacienteAdapter adp = new SicPacienteAdapter();
+		List<SicPaciente> list = new ArrayList<SicPaciente>();
+		
+		switch (tipoBusqueda) 
+		{
+		case "Nombres":
+			list = sicPacienteRepository.findAllPacientesByNombre(criterio.toUpperCase(),page);
+		break;
+		case "Apellidos":
+			list = sicPacienteRepository.findAllPacientesByApellido(criterio.toUpperCase(),page);
+			break;
+		case "DUI":
+			list = sicPacienteRepository.findAllPacientesByDUI(criterio.trim(),page );
+			break;
+		case "Expediente":
+			list = sicPacienteRepository.findAllPacientesByexp(criterio.trim(),page );
+			break;
+		default:
+			list = new ArrayList<SicPaciente>();
+			break;
+		}
+		
+		List<SicPacienteDto> list_dto = new ArrayList<SicPacienteDto>();
+		
+		for (SicPaciente sicPaciente : list) 
+		{
+			
+			String sexo=sicPaciente.getSexoPaciente();
+			
+			if (sexo.equals("M"))
+			{
+				sicPaciente.setSexoPaciente("Masculino");
+			} 
+			else 
+			{
+				sicPaciente.setSexoPaciente("Femenino");
+			}
+			
+			list_dto.add(adp.entityToDto(sicPaciente));
+		}
+		
+		return list_dto;
+		
 	}
 }

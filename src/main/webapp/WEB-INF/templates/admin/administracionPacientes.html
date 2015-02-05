@@ -55,6 +55,12 @@
 					<h5 th:utext="#{admin.pacientes.title}"></h5>
 				</div>
 				<div class="widget-content">
+					<select name="tipoBusqueda" id="tipoBusqueda">
+						<option value="Expediente">Expediente</option>
+						<option value="Nombres">Nombres</option>
+						<option value="Apellidos">Apellidos</option>
+						<option value="DUI">DUI</option>
+					</select>
 					<div class="table-responsive">
 					  <table id="tblPaciente" class="table table-hover table-striped table-bordered datatables">
 					     <thead>
@@ -75,12 +81,12 @@
 								</tr>	
 							</thead>
 							<tbody>
-							 <tr th:each="paciente : ${pacientes}">
+							 <!-- <tr th:each="paciente : ${pacientes}">
 							       <td>
 										<div class="btn-group">
-  										   <!--<button type="button" class="btn btn-default onDelete" data-toggle="modal" data-target="#modalEliminarPaciente" th:attr="data-id=${paciente.idSicPaciente}">
+  										   <button type="button" class="btn btn-default onDelete" data-toggle="modal" data-target="#modalEliminarPaciente" th:attr="data-id=${paciente.idSicPaciente}">
   												<i class="fa fa-trash-o"></i>
-  											</button>-->
+  											</button>
    											<button type="button" class="btn btn-default onUpdate" data-toggle="modal" data-target="#modalUpdatePaciente" th:attr="data-id=${paciente.idSicPaciente}">
    												<i class="fa fa-pencil-square-o"></i>
    											</button>
@@ -98,9 +104,9 @@
 								 <td th:text="${paciente.fkSicMunicipio.fkSicDepartamento.nombreDepartamento}"></td>
 								 <td th:text="${paciente.fkSicMunicipio.nombreMunicipio}"></td>
 								 <td th:text="${paciente.fkSicEstadoPaciente.descripcion}"></td>
-								<!-- <td th:text="${paciente.sexoPaciente}"></td>
-							 	-->
-							 </tr>
+								<td th:text="${paciente.sexoPaciente}"></td>
+							 	
+							 </tr> -->
 							</tbody>
 					   </table>
 					</div>

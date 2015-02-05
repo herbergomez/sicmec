@@ -4,11 +4,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,13 +24,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.uesocc.sicmec.model.dto.DataTableObject;
 import com.uesocc.sicmec.model.dto.SicAuditoriaDto;
 import com.uesocc.sicmec.model.dto.SicContactoPacienteDto;
 import com.uesocc.sicmec.model.dto.SicDepartamentoDto;
 import com.uesocc.sicmec.model.dto.SicMunicipioDto;
 import com.uesocc.sicmec.model.dto.SicPacienteDto;
 import com.uesocc.sicmec.model.dto.SicPersonaDto;
-import com.uesocc.sicmec.model.repository.SicPaisRepository;
 import com.uesocc.sicmec.model.serviceImpl.SicAuditoriaServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicContactoPacienteServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicDepartamentoServiceImpl;
@@ -74,15 +79,83 @@ public class SicAdministracionPacientesController {
 	public String defaultRequest(Model model){
 		model.addAttribute("departamentos", sicDepartamentoServiceImpl.findAll());
 		model.addAttribute("municipios",sicMunicipioServiceImpl.findAll() );
-		model.addAttribute("pacientes", sicPacienteServiceImpl.findAll());
+		
+		//model.addAttribute("pacientes", sicPacienteServiceImpl.findAll());
+		
 		model.addAttribute("estados", sicEstadoPacienteServiceImpl.findAll());
 		model.addAttribute("paises", sicPaisServiceImpl.findAll());
 		model.addAttribute("patologias", sicTipoPatologiaServiceImpl.findAll());
 		return "/admin/administracionPacientes";		
 	}
 	
+	@RequestMapping(value="/pacientes",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody DataTableObject<SicPacienteDto> pacientes(
+			HttpServletRequest httpServletRequest,
+			@RequestParam int iDisplayStart,
+            @RequestParam int iDisplayLength,
+            @RequestParam(value="tipoBusqueda",required=false,defaultValue="") String tipoBusqueda,
+            @RequestParam String sEcho,
+            @RequestParam String sSearch,
+            @RequestParam String sSortDir_0,
+            @RequestParam int iSortCol_0,
+            Locale locale)
+	{
+		LOGGER.info(iDisplayStart);
+		LOGGER.info(iDisplayLength);
+		LOGGER.info(sEcho);
+		LOGGER.info(sSearch);
+		LOGGER.info(sSortDir_0);
+		LOGGER.info(iSortCol_0);
+		
+		Integer pageNumber = 0;
+		
+		if(iDisplayStart != 0)
+		{
+			pageNumber = (iDisplayStart/iDisplayLength);
+		}
+		
+    	LOGGER.info(pageNumber);
+    	
+		DataTableObject<SicPacienteDto> dataTableObject = new DataTableObject<SicPacienteDto>();
+		
+		Pageable pageable = 
+				new PageRequest(pageNumber,iDisplayLength,new Sort(((sSortDir_0.equals("asc")) ? Direction.ASC: Direction.DESC),sortField(iSortCol_0)));
+		
+		List<SicPacienteDto> list ;
+		
+		int total;
+		
+		if(sSearch.trim().equals(""))
+		{
+			list = sicPacienteServiceImpl.findAll(pageable);
+			
+			total = list.size();
+			dataTableObject.setAaData(list);
+			dataTableObject.setiTotalRecords(total);
+			dataTableObject.setiTotalDisplayRecords(total);
+			
+		}
+		else
+		{
+			list = sicPacienteServiceImpl.findAll(pageable,tipoBusqueda,sSearch);
+			
+			total = list.size();
+			dataTableObject.setAaData(list);
+			dataTableObject.setiTotalRecords(total);
+			dataTableObject.setiTotalDisplayRecords(total);
+			
+		}
+		
+		dataTableObject.setsEcho(sEcho);
+		
+		return dataTableObject;
+		
+		
+	}
+	
+	
 	@RequestMapping(value="/addPaciente",method=RequestMethod.POST)
-	public String addUser(
+	public String addPac(
 			@RequestParam(value="expediente")String expediente,
 			@RequestParam(value="nombres")String nombres,
 			@RequestParam(value="apellidos")String apellidos,
@@ -149,8 +222,8 @@ public class SicAdministracionPacientesController {
 		//AUDITORIA
 		sicAuditoriaServiceImpl.insert
 		(new SicAuditoriaDto
-				("","Administración de Pacientes"
-				,"Creación de paciente "+nombres+", "+apellidos
+				("","Administraciï¿½n de Pacientes"
+				,"Creaciï¿½n de paciente "+nombres+", "+apellidos
 				,format.format(new Date()),
 				sicUsuarioServiceImpl.findByNombreUsuario(httpServletRequest.getRemoteUser())));
 		
@@ -245,8 +318,8 @@ public class SicAdministracionPacientesController {
 		  //AUDITORIA
 			sicAuditoriaServiceImpl.insert
 			(new SicAuditoriaDto
-					("","Administración de Pacientes"
-					,"Modificación de paciente "+nombres+", "+apellidos
+					("","AdministraciÃ³n de Pacientes"
+					,"ModificaciÃ³n de paciente "+nombres+", "+apellidos
 					,format.format(new Date()),
 					sicUsuarioServiceImpl.findByNombreUsuario(httpServletRequest.getRemoteUser())));
 		    redirectAttributes.addFlashAttribute("upSuccess",true);	
@@ -309,4 +382,55 @@ public class SicAdministracionPacientesController {
 		}
 	}
 	**/
+	
+	public String sortField(int sortColumn)
+	{
+		String sortingField;
+		
+		//Sorting by food group name
+		if(sortColumn == 1)
+		{
+			sortingField = "numeroExpediente";
+		}
+		//Sorting by is enabled ingredient 
+		else if(sortColumn == 2)
+		{
+			sortingField = "fkSicPersona.nombre";
+		}
+		else if(sortColumn == 3)
+		{
+			sortingField = "fkSicPersona.apellido";
+		}
+		else if(sortColumn == 4)
+		{
+			sortingField = "duiPaciente";
+		}
+		else if(sortColumn == 5)
+		{
+			sortingField = "fxNacimiento";
+		}
+		else if(sortColumn == 6)
+		{
+			sortingField = "fkSicMunicipio.fkSicDepartamento.fkSicPais.nombrePais";
+		}
+		else if(sortColumn == 7)
+		{
+			sortingField = "fkSicMunicipio.fkSicDepartamento.nombreDepartamento";
+		}
+		else if(sortColumn == 8)
+		{
+			sortingField = "fkSicMunicipio.nombreMunicipio";
+		}
+		else if(sortColumn == 9)
+		{
+			sortingField = "fkSicEstadoPaciente.idSicEstadoPaciente";
+		}
+		else
+		{
+			sortingField = "fkSicPersona.nombre";
+		}
+		
+		return sortingField;
+	};
+	
 }
