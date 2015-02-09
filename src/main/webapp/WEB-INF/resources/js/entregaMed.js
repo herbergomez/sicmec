@@ -61,16 +61,9 @@ $( document ).ready(function()
 		if(exp!="")
 		{
 			cargando();
-			setTimeout(
-			function()
-			{ 
-				$("#load").remove();
-				$("#content").removeAttr("style");
-				doHistory(exp);
-				getTreatment(exp);
-			},
-			3000);
 			
+			validarPaciente(exp);
+				
 		}
 		
 	});
@@ -261,7 +254,7 @@ var getTreatment = function (id)
 				vaciarTablaMed();
 				new jBox('Notice', 
 						{
-								    content: 'No se encontro paciente con este expediente',
+								    content: 'El paciente no tiene asignado un tratamiento...',
 								    color: 'blue'
 						});
 			}
@@ -307,3 +300,47 @@ var cargando = function ()
 		"<img src='../resources/images/ajax-loader.gif' style='position: absolute; right: 50%; top: 50%;'/></div>");
 };
 
+var validarPaciente = function (exp)
+{
+	$.ajax
+	({
+	type: "POST",
+	url: "/sicmec/Utils/validarExpediente",
+    data : ({expediente:exp}),
+    	success:function(result)
+		{
+    		if(result == false)
+    		{	
+    			setTimeout(
+    					function()
+    					{ 
+    						$("#load").remove();
+    						$("#content").removeAttr("style");
+    						doHistory(exp);
+    						getTreatment(exp);
+    					},
+    					3000);
+    			
+    			}
+    			else
+    			{
+    				$("#load").remove();
+    				$("#content").removeAttr("style");
+    				valido = false;
+    				citaMedica = "";
+    				limpiarFormulario();
+    				vaciarTablaMed();
+    				new jBox('Notice', 
+    						{
+    								    content: 'No se encontro paciente con este expediente',
+    								    color: 'blue'
+    						});
+    			}
+    		
+		},
+		error: function (xhr, ajaxOptions, thrownError) 
+		{
+			return "error";
+	    }
+	});
+};

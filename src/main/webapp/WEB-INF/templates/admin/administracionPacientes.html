@@ -55,12 +55,16 @@
 					<h5 th:utext="#{admin.pacientes.title}"></h5>
 				</div>
 				<div class="widget-content">
-					<select name="tipoBusqueda" id="tipoBusqueda">
-						<option value="Expediente">Expediente</option>
-						<option value="Nombres">Nombres</option>
-						<option value="Apellidos">Apellidos</option>
-						<option value="DUI">DUI</option>
-					</select>
+					<div class="form-inline" style="float: right;">
+						<label>Criterio: </label>
+						<select name="tipoBusqueda" id="tipoBusqueda">
+							<option value="Expediente">Expediente</option>
+							<option value="Nombres">Nombres</option>
+							<option value="Apellidos">Apellidos</option>
+							<option value="DUI">DUI</option>
+						</select>
+					 </div>
+					
 					<div class="table-responsive">
 					  <table id="tblPaciente" class="table table-hover table-striped table-bordered datatables">
 					     <thead>
