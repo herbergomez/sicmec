@@ -61,6 +61,7 @@ $( document ).ready(function()
 		if(exp!="")
 		{
 			cargando();
+			cargandoPaciente();
 			
 			validarPaciente(exp);
 				
@@ -286,10 +287,19 @@ var vaciarTablaMed = function()
 };
 var limpiarFormulario = function()
 {
+	
 	$("#historial li").remove();
 	$("#per").val(""); 
 	$("#dosis").text("");
 	$("#fecha").val("");
+};
+
+var limpiarInfoPaciente = function()
+{
+	$("#nombre").val("");
+	$("#dui").val("");
+	$("#edad").val("");
+	$("#dir").text("");
 };
 
 var cargando = function ()
@@ -300,42 +310,63 @@ var cargando = function ()
 		"<img src='../resources/images/ajax-loader.gif' style='position: absolute; right: 50%; top: 50%;'/></div>");
 };
 
+var cargandoPaciente = function ()
+{
+	$("#paccontent").attr("style","opacity: 0.35;")
+	$("#paccontent").append("<div id='pacload' style='width: 100% height: 100%;"+
+			  "opacity: 0.35;'>" +
+		"<img src='../resources/images/ajax-loader.gif' style='position: absolute; right: 50%; top: 50%;'/></div>");
+};
+
 var validarPaciente = function (exp)
 {
 	$.ajax
 	({
 	type: "POST",
-	url: "/sicmec/Utils/validarExpediente",
+	url: "/sicmec/Utils/validarPacientePorExpediente",
     data : ({expediente:exp}),
     	success:function(result)
 		{
-    		if(result == false)
+    		if(result != "")
     		{	
+    			
+    			
     			setTimeout(
     					function()
-    					{ 
+    					{
+    						$("#nombre").val(result.fkSicPersona.nombre+", "+result.fkSicPersona.apellido);
+    		    			$("#dui").val(result.documentoIdentidad);
+    		    			$("#edad").val(result.edad+" años");
+    		    			$("#dir").text(result.direccionPaciente+", "+result.fkSicMunicipio.nombreMunicipio+", "+result.fkSicMunicipio.fkSicDepartamento.nombreDepartamento
+    		    					+", "+result.fkSicMunicipio.fkSicDepartamento.fkSicPais.nombrePais);
+    		    			
     						$("#load").remove();
     						$("#content").removeAttr("style");
+    						$("#pacload").remove();
+    						$("#paccontent").removeAttr("style");
     						doHistory(exp);
     						getTreatment(exp);
     					},
     					3000);
     			
-    			}
-    			else
-    			{
+    		}
+    		else
+    		{
     				$("#load").remove();
     				$("#content").removeAttr("style");
     				valido = false;
     				citaMedica = "";
     				limpiarFormulario();
+    				limpiarInfoPaciente();
+    				$("#pacload").remove();
+					$("#paccontent").removeAttr("style");
     				vaciarTablaMed();
     				new jBox('Notice', 
     						{
     								    content: 'No se encontro paciente con este expediente',
     								    color: 'blue'
     						});
-    			}
+    		}
     		
 		},
 		error: function (xhr, ajaxOptions, thrownError) 

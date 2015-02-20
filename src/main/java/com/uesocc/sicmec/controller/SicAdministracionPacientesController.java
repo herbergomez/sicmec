@@ -431,6 +431,6 @@ public class SicAdministracionPacientesController {
 		}
 		
 		return sortingField;
-	};
+	}
 	
 }

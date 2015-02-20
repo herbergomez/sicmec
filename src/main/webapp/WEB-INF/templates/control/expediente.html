@@ -1,0 +1,365 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/general :: headerFragment">
+	
+</head>
+<link media="all" th:href="@{/resources/libs/jquery.mCustomScrollbar/css/jquery.mCustomScrollbar.css}" rel="stylesheet"/>
+
+<body>
+	<div th:replace="fragments/general :: navFragment"></div>
+	<div class="container" style="min-height: 600px; height: auto;">
+		<div class="row">
+						<div class="col-md-12 col-xs-12">
+						<div id="alertaError" class="alert alert-danger alert-dismissible" role="alert" style="display: none;">
+  								<button type="button" class="close">
+  									<span aria-hidden="true">&times;</span>
+  									<span class="sr-only">Close</span>
+  								</button>
+  							<strong th:utext="#{general.alerta.atencion}"></strong>
+  							<p th:utext="#{control.paciente.error}"></p>
+							</div>
+							<div id="citaSuccess" class="alert alert-info alert-dismissible" role="alert" style="display: none;">
+  							<button type="button" class="close">
+  							<span aria-hidden="true">&times;</span>
+  							<span class="sr-only">Close</span>
+  							</button>
+  							<strong th:utext="#{general.alerta.atencion}"></strong>
+  							<p th:utext="#{control.paciente.addcita}"></p>
+							</div>
+							<div id="citaError" class="alert alert-danger alert-dismissible" role="alert" style="display: none;">
+  							<button type="button" class="close">
+  								<span aria-hidden="true">&times;</span>
+  								<span class="sr-only">Close</span>
+  							</button>
+  							<strong th:utext="#{general.alerta.atencion}"></strong>
+  							<p th:utext="#{control.paciente.errorcita}"></p>
+							</div>
+						</div>
+							
+						</div>
+					
+		<div class="row">
+		  <div class="col-md-12 col-xs-12">
+		     <div class="widget-box">
+		  	   <div class="widget-title">
+					<span class="icon">
+						<i class="fa fa-ambulance"></i>
+					</span>
+					<h5 th:utext="#{control.paciente.title}"></h5>
+				</div>
+				<div class="widget-content" style="min-height: 580px; height: auto;">
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#detallePac" role="tab" data-toggle="tab">Detalle de paciente</a></li>
+  						<li role="presentation"><a href="#controlCita" role="tab" data-toggle="tab" th:text="#{control.paciente.control}"></a></li>
+  						<li role="presentation"><a href="#historico" role="tab" data-toggle="tab">Graficos de progresivos de salud</a></li>
+					</ul>
+				<div class="tab-content">
+					<div id="detallePac" role="tabpanel" class="tab-pane fade in active" >
+						
+						<input id="id" th:value="${paciente.idSicPaciente}" style="display: none;"/>
+						
+					<div class="row">
+						<div class="col-md-8" style="padding-top: 2%; padding-left: 2%;">
+							<h5 class="modal-title" style="padding-left: 15px; font-size: 12px; font-weight: 700; color: #959595; text-transform: uppercase;letter-spacing: 1px;">Informaci&oacute;n del paciente</h5>
+							<img th:src="@{/resources/images/paciente.png}"/>
+							<h3 id="nombrePaciente" th:text="${paciente.fkSicPersona.nombre}+', '+${paciente.fkSicPersona.apellido}" style="display: inline-block;"></h3>
+						</div>
+						<div class="col-md-4" style="padding-top: 13%; padding-left: 2%;">
+							<h5 class="modal-title" style="padding-left: 15px; font-size: 12px; font-weight: 700; color: #959595; text-transform: uppercase;letter-spacing: 1px;">Detalle de contacto</h5>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col-md-4" style="padding-top: 1%; padding-left: 4%;">
+							<div class="form-group">
+								<label for="exp" th:utext="#{admin.pacientes.detalle.exp}"></label>
+    							<input id="exp" class="form-control" th:value="${paciente.numExpediente}" name="diagnostico" disabled="disabled"/>
+							</div>
+							<div class="form-group">
+								<label th:utext="#{admin.pacientes.detalle.dui}"></label>
+    							<input class="form-control" th:value="${paciente.documentoIdentidad}" disabled="disabled"/>
+							</div>
+							<div class="form-group">
+								<label th:text="#{admin.pacientes.detalle.sex}"></label>
+    							<input class="form-control" th:value="${paciente.sexoPaciente}" disabled="disabled"/>
+							</div>
+							<div class="form-group">
+								<label th:utext="#{admin.pacientes.detalle.dir}"></label>
+    							<textarea class="form-control" rows="3" th:text="${paciente.direccionPaciente}+',
+						  				'+${paciente.fkSicMunicipio.nombreMunicipio}+', '+${paciente.fkSicMunicipio.fkSicDepartamento.nombreDepartamento}
+						  				+', '+${paciente.fkSicMunicipio.fkSicDepartamento.fkSicPais.nombrePais}" disabled="disabled">
+						  		</textarea>		
+							</div>
+						</div>
+						<div class="col-md-4" style="padding-top: 1%; padding-left: 4%;">
+							<div class="form-group">
+								<label th:text="#{admin.pacientes.detalle.pat}"></label>
+    							<input class="form-control" th:value="${paciente.fkSicTipoPatologia.fkSicPatologia.nombrePatologia}+', '+${paciente.fkSicTipoPatologia.nombreTipoPatologia}" disabled="disabled"/>
+							</div>
+							<div class="form-group">
+								<label  th:text="#{admin.pacientes.detalle.estado}"></label>
+    							<input class="form-control" th:value="${paciente.fkSicEstadoPaciente.descripcion}" disabled="disabled"/>
+							</div>	
+							<div class="form-group">
+								<label   th:text="#{admin.pacientes.detalle.edad}"></label>
+    							<input class="form-control" th:value="${paciente.edad}+' años'" disabled="disabled"/>
+							</div>
+							<div class="form-group">
+								<label  th:text="#{admin.pacientes.detalle.mail}"></label>
+    							<input class="form-control" th:value="${paciente.fkSicPersona.email}" disabled="disabled"/>
+							</div>
+						</div>
+						<div class="col-md-4" style="padding-top: 1%; padding-left: 4%;">
+							<div class="form-group">
+								<label  th:text="#{admin.pacientes.detalle.nombre}"></label>
+    							<input class="form-control" th:value="${paciente.fkSicContactoPaciente != null}?
+  									${paciente.fkSicContactoPaciente.nombreContacto}+', '+
+  									${paciente.fkSicContactoPaciente.apellidoContacto} : '-------'" disabled="disabled"/>
+							</div>
+							<div class="form-group">
+								<label  th:text="#{admin.pacientes.detalle.dui}"></label>
+    							<input class="form-control" th:value="${paciente.fkSicContactoPaciente != null} ? ${paciente.fkSicContactoPaciente.dui}:'-------'" disabled="disabled"/>
+							</div>
+							<div class="form-group">
+								<label  th:utext="#{admin.pacientes.detalle.tel}"></label>
+    							<input class="form-control" th:value="${paciente.fkSicContactoPaciente != null} ? ${paciente.fkSicContactoPaciente.telefono}:'-------'" disabled="disabled"/>
+							</div>
+						</div>
+					</div>	
+						
+						
+					</div>
+					<div id="controlCita" role="tabpanel" class="tab-pane fade" >
+						<div class="col-md-5">
+							<div class="widget-box">
+								<div class="widget-content">
+									<span id="tituloHistorial" class="historialTratamientos" th:text="#{control.paciente.historial}"></span>
+									
+									<div id="historial" class="panel-group" role="tablist" aria-multiselectable="true">
+								
+									</div>
+								</div>
+							</div>	
+						</div>
+						<div class="col-md-7">
+							<div class="widget-box" style="height: 496px;">
+								<div class="widget-content">
+									<form id="nuevaCitaForm">
+											<div class="row">
+												<div class="col-md-6">
+													<h5 class="historialTratamientos" th:text="#{control.paciente.citaTitulo}" style="top: 0px; "></h5>
+													
+													<div class="form-group" style="padding-top: 10%;">
+        												<label for="diagnostico" th:utext="#{control.paciente.diagnostico}"></label>
+    													<textarea class="form-control" id="diagnostico" name="diagnostico" rows="2">
+    													</textarea>
+        											</div>
+												</div>
+												<div class="col-md-6">
+													<h5 class="historialTratamientos" th:text="#{control.paciente.tratamiento.titulo}" style="top: 0px; "></h5>
+													<div class="form-group" style="padding-top: 10%;">
+        												<label for="tratamiento" th:utext="#{control.paciente.tratamiento}"></label>
+    													<select class="form-control" id="tratamiento" name="tratamiento">
+    														<option th:each="paqMed : ${paqMedList}" th:text="${paqMed.name}" th:value="${paqMed.idPaq}"></option>
+    													</select>
+        											</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group">
+        												<label for="signosSintomas" th:utext="#{control.paciente.signos}"></label>
+    													<textarea class="form-control" id="signosSintomas" name="signosSintomas" rows="2">
+    													</textarea>
+        											</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+        												<label for="dosis" th:utext="#{control.paciente.dosis}"></label>
+    													<textarea class="form-control" id="dosis" name="dosis" rows="2">
+    													</textarea>
+        											</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group">
+        												<label for="comentario" th:utext="#{control.paciente.comentario}"></label>
+    													<textarea class="form-control" id="comentario" name="comentario" rows="2">
+    													</textarea>
+        											</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+        												<label for="periodisidad" th:utext="#{control.paciente.periodisidad}"></label>
+    													<select class="form-control" id="periodisidad" name="periodisidad">
+    														<option th:value="#{control.paciente.periodisidad.value0}" th:text="#{control.paciente.periodisidad.value0}"></option>
+    														<option th:value="#{control.paciente.periodisidad.value1}" th:text="#{control.paciente.periodisidad.value1}"></option>
+    														<option th:value="#{control.paciente.periodisidad.value2}" th:text="#{control.paciente.periodisidad.value2}"></option>
+    														<option th:value="#{control.paciente.periodisidad.value3}" th:text="#{control.paciente.periodisidad.value3}"></option>
+    														<option th:value="#{control.paciente.periodisidad.value4}" th:text="#{control.paciente.periodisidad.value4}"></option>
+    													</select>
+        											</div>
+												</div>
+											</div>
+        									<div class="row">
+        										<h5 class="modal-title" style="padding-left: 15px; font-size: 12px; font-weight: 700; color: #959595; text-transform: uppercase;letter-spacing: 1px;">Signos vitales</h5>
+        										<div class="col-md-6">
+        											
+        											<div class="form-group">
+            											<label for="peso" th:utext="#{control.paciente.peso}"></label>
+            											<input type="text" class="input-small form-control" placeholder="Peso" id="peso" name="peso" />
+        											</div>
+        										</div>
+        										<div class="col-md-6">
+        											<div class="form-group">
+            											<label for="estatura" th:utext="#{control.paciente.estatura}"></label>
+            											<input type="text" class="input-small form-control" placeholder="Estatura" id="estatura" name="estatura" />
+    												</div>
+        										</div>
+        									</div>
+										 <button  type="button" id="limpiarFormulario" class="btn btn-default" th:text="#{general.btn.cancelar}" style="margin-left: 71%;"></button>
+        								 <button type="submit" class="btn btn-success" th:text="#{general.btn.guardar}"></button>
+									</form>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+						<div id="historico" role="tabpanel" class="tab-pane fade" >
+						<div class="container" style="padding-top: 1%; overflow: auto;">
+							<div class="col-md-12 col-xs-12">
+								<div class="form-inline" style="padding-top: 2%">
+									<div class="form-group">
+										<select  class="form-control" id="tipoExamenGrafico" >
+											<option value="0">Indice de masa corporal</option>
+											<option th:each="exam :${tipoExamsList}" th:text="${exam.descripcion}" th:value="${exam.idSicTipoExamen}"></option>
+										</select>
+									</div>
+									<button id="doChart" class="btn btn-primary" >Generar Gr&aacute;fico</button>
+								</div>
+								<div id="printHistorico" style="padding-top: 2%; width: 90%; height: 375px;">
+										<table id="historicTable" class="highchart table table-bordered" data-graph-container-before="1" data-graph-type="area" data-graph-height="340" style='display: none;' >
+											<caption id="title"></caption>
+											<thead>
+      											<tr>
+          											<th>Fecha</th>
+          											<th>Resultado</th>
+      											</tr>	
+   											</thead>
+   											<tbody id="historicChart">
+   											</tbody>
+										</table>
+										<table id="historicPreasureTable" class="highchart table table-bordered" data-graph-container-before="1" data-graph-type="column" data-graph-height="340" style='display: none;' >
+											<caption id="preasuretitle"></caption>
+											<thead>
+      											<tr>
+          											<th>Fecha</th>
+          											<th>Sist&oacute;lica</th>
+          											<th>Diast&oacute;lica</th>
+      											</tr>	
+   											</thead>
+   											<tbody id="historicPreasureChart">
+   											</tbody>
+										</table>
+								</div>								
+								<div class='pull-right' style="padding-right: 5%">
+									<button class='btn btn-warning' id="printGraph"><i class="fa fa-print"></i> Imprimir grafico</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					</div>
+					
+				</div>
+					
+				</div>
+		    </div>	
+		  </div>
+		</div>
+
+
+
+<div class="modal fade" id="modalExamen" tabindex="-1" role="dialog" aria-labelledby="NuevaCita" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" th:utext="#{control.paciente.examenes.title}" style="font-style: normal;color: blue;"></h4>
+      </div>
+      <div class="modal-body">
+      	<div style="padding-bottom: 2%;">
+      		<div id="alertaExamSuccess" class="alert alert-success alert-dismissible" role="alert" style="display: none;">
+  				<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  				<p th:utext="#{control.exam.success}"></p>
+			</div>
+			<div id="alertaExamDelete" class="alert alert-info alert-dismissible" role="alert" style="display: none;">
+  				<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  				<p th:utext="#{control.exam.delSuccess}"></p>
+			</div>
+			<div id="alertaExamDeleteError" class="alert alert-danger alert-dismissible" role="alert" style="display: none;">
+  				<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  				<p th:utext="#{control.exam.delError}"></p>
+			</div>
+			
+			<div id="alertaExamError" class="alert alert-danger alert-dismissible" role="alert" style="display: none; ">
+  				<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  				<p th:utext="#{control.exam.error}"></p>
+			</div>
+      	</div>
+      	<form id="formExamen">
+      	<div class="form-group">
+        	<label for="tipo" th:utext="#{control.paciente.tipoExamen}"></label>
+        	<select class="form-control" id="tipo" name="tipo">
+    			<option th:each="exam :${tipoExamsList}" th:text="${exam.descripcion}" th:value="${exam.idSicTipoExamen}"></option>
+    		</select>
+        </div>
+        <div class="form-group">
+        	<label id="resMessage" for="result" th:utext="#{control.paciente.resultadoExamen}"></label>        		
+     		<input class="form-control" id="result" name="result" />
+        </div>
+        <div class="form-group">
+        	<label  for="comentarioExm" th:utext="#{control.paciente.comentario}"></label>
+        	<input class="form-control" id="comentarioExm" name="comentarioExm" />
+        </div>
+      
+      <div class="row" style="padding-top: 1%; padding-left: 2.5%">
+		<button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{general.btn.cancelar}"></button>
+        <button type="submit" class="btn btn-primary" th:text="#{general.btn.guardar}"></button>      		
+      </div>
+      </form>
+      <table id="tableExams" class="table table-bordered">
+      	<thead>
+      		<tr>
+      			<th width="5%"></th>
+      			<th width="30%">Tipo de exam&eacute;n</th>
+      			<th width="25%">Resultado</th>
+      			<th width="50%">Comentario</th>
+      		</tr>
+      	</thead>
+      	<tbody id="tbodyExams">
+      	</tbody>
+      </table>
+      	
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+	<div th:replace="fragments/general :: footerFragment"></div>
+	<div th:replace="fragments/general :: jsFragment"></div>
+	<script type="text/javascript" th:src="@{/resources/libs/jquery-highchartTable/highcharts.js}"></script>
+	<script type="text/javascript" th:src="@{/resources/libs/jquery-highchartTable/jquery.highchartTable.js}"></script>
+	<script type="text/javascript" th:src="@{/resources/libs/jquery.mCustomScrollbar/js/jquery.mCustomScrollbar.js}"></script>
+	<script type="text/javascript" th:src="@{/resources/libs/jspdf/FileSaver.js}"></script>
+	<script type="text/javascript" th:src="@{/resources/libs/jspdf/jspdf.js}"></script>
+	<script type="text/javascript" th:src="@{/resources/libs/jspdf/jspdf.plugin.standard_fonts_metrics.js}"></script>
+	<script type="text/javascript" th:src="@{/resources/libs/jspdf/jspdf.plugin.split_text_to_size.js}"></script>
+	<script type="text/javascript" th:src="@{/resources/libs/jspdf/jspdf.plugin.from_html.js}"></script>
+	<script type="text/javascript" th:src="@{/resources/js/expediente.js}"></script>
+</body>
+</html>

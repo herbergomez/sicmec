@@ -4,8 +4,11 @@
 package com.uesocc.sicmec.model.serviceImpl;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -50,7 +53,8 @@ public class SicTratamientoServiceImpl implements SicTratamientoService {
 	 */
 	@Override
 	public SicTratamientoDto insert(SicTratamientoDto entity)
-			throws ParseException {
+			throws ParseException 
+	{
 		// TODO Auto-generated method stub
 		SicTratamientoAdapter adp = new SicTratamientoAdapter();
 		SicTratamiento obj = adp.dtoToEntity(entity);
@@ -120,7 +124,12 @@ public class SicTratamientoServiceImpl implements SicTratamientoService {
 		
 		for (SicTratamiento sicTratamiento : list) 
 		{
-			list_dto.add(adp.entityToDto(sicTratamiento));
+			SimpleDateFormat format = 
+				    new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy", new Locale("es", "ES"));
+			Date oldDate = sicTratamiento.getFkSicCitaMedica().getFxCitaMedica();
+			SicTratamientoDto trat = adp.entityToDto(sicTratamiento); 
+			trat.getFkSicCitaMedica().setFxCitaMedica(format.format(oldDate));
+			list_dto.add(trat);
 		}
 		
 		return list_dto;

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.uesocc.sicmec.model.dto.SicAuditoriaDto;
+import com.uesocc.sicmec.model.dto.SicPacienteDto;
 import com.uesocc.sicmec.model.dto.SicUsuarioDto;
 import com.uesocc.sicmec.model.serviceImpl.SicAuditoriaServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicDrugServiceImpl;
@@ -55,7 +56,7 @@ public class SicUtilsController
 	 */
 	@RequestMapping(value="/validarUsername",method=RequestMethod.POST)
 	public @ResponseBody boolean validacionUsuario
-						(@RequestParam(value="usuario")String nombreUsuario)
+						(@RequestParam(value="usuario") String nombreUsuario)
 	{
 		
 		return sicUsuarioServiceImpl.validacionDenombreUsuario(nombreUsuario);
@@ -68,12 +69,20 @@ public class SicUtilsController
 	 */
 	@RequestMapping(value="/validarExpediente",method=RequestMethod.POST)
 	public @ResponseBody boolean validacionExpediente
-						(@RequestParam(value="expediente")String expediente)
+						(@RequestParam(value="expediente") String expediente)
 	{
 		
 		return sicPacienteServiceImpl.validacionExpedientePaciente(expediente);
 		
 	}
+	
+	@RequestMapping(value="/validarPacientePorExpediente",method=RequestMethod.POST)
+	public @ResponseBody SicPacienteDto obtenerPacientePorExpediente
+						(@RequestParam(value="expediente") String expediente)
+	{
+		return sicPacienteServiceImpl.findOneBynumeroExpediente(expediente);	
+	}
+	
 	/**
 	 * @param nombre de patologia
 	 * @return Verdadero si la patologia esta libre y 

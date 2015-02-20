@@ -41,7 +41,7 @@
 					</span>
 					<h5 th:utext="#{farm.entrega.title}"></h5>
 				</div>
-				<div class="widget-content" >
+				<div class="widget-content">
 					<div class="row">
 						<div class="col-md-4 col-xs-4"></div>
 						<div class="col-md-6 col-xs-6">
@@ -57,6 +57,36 @@
 							</div>
 						</div>
 						<div class="col-md-2 col-xs-2"></div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 col-xs-12">
+							<div class="widget-box">
+								<div class="widget-content" id="paccontent">
+									<span class="historialTratamientos">Informaci&oacute;n del paciente</span>
+									
+									<div class="col-md-6 col-xs-6" style="padding-top: 3%;">
+										<div class="form-group">
+    										<label for="nombre" th:text="#{farm.entrega.pac.nombreCompleto}"></label>
+    										<input type="text" class="form-control" id="nombre" disabled="disabled" />
+  										</div>
+  										<div class="form-group">
+    										<label for="dui" th:text="#{farm.entrega.pac.dui}"></label>
+    										<input type="text" class="form-control" id="dui" disabled="disabled" />
+  										</div>
+									</div>
+									<div class="col-md-6 col-xs-6" style="padding-top: 3%;">
+										<div class="form-group">
+    										<label for="edad" th:text="#{farm.entrega.pac.edad}"></label>
+    										<input type="text" class="form-control" id="edad" disabled="disabled" />
+  										</div>
+										<div class="form-group">
+    										<label for="dir" th:utext="#{farm.entrega.pac.direccion}"></label>
+    										<textarea rows="2" class="form-control" id="dir" disabled="disabled"></textarea>
+  										</div>
+									</div>
+								</div>
+							</div>	
+						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-4 col-xs-4">

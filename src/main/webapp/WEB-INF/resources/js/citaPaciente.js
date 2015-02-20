@@ -9,7 +9,6 @@ $( document ).ready(function()
 {
 	$("#printGraph").click(function()
 	{
-		
 		 var expPac = $("#pacTable tbody tr.selected td:nth-child(2)").html();
 		 var namePac = $("#pacTable tbody tr.selected td:nth-child(3)").html() +", "+$("#pacTable tbody tr.selected td:nth-child(4)").html();
 		

@@ -170,7 +170,7 @@ $( document ).ready(function() {
         'bJQueryUI': false,
         "aoColumns": 
         	[
-        	 { "sWidth": "8%",data: null,"bSortable": false, render: function ( data, type, row )
+        	 { "sWidth": "6%",data: null,"bSortable": false, render: function ( data, type, row )
         		 {
         		 	
             	 	return '<div class="btn-group"><button type="button" class="btn btn-default btn-sm onUpdate" data-toggle="modal" data-target="#modalUpdatePaciente" data-id="'+data.idSicPaciente+'">'+
@@ -187,8 +187,8 @@ $( document ).ready(function() {
         	 { "sWidth": "10%",'mData': 'documentoIdentidad' },
         	 { "sWidth": "6%",'mData': 'edad' },
         	 { "sWidth": "10%",'mData': 'fkSicMunicipio.fkSicDepartamento.fkSicPais.nombrePais' },
-        	 { "sWidth": "10%",'mData': 'fkSicMunicipio.fkSicDepartamento.nombreDepartamento' },
-        	 { "sWidth": "10%",'mData': 'fkSicMunicipio.nombreMunicipio' },
+        	 //{ "sWidth": "10%",'mData': 'fkSicMunicipio.fkSicDepartamento.nombreDepartamento' },
+        	 //{ "sWidth": "10%",'mData': 'fkSicMunicipio.nombreMunicipio' },
         	 { "sWidth": "8%",'mData': 'fkSicEstadoPaciente.descripcion' },
         	// { "sWidth": "5%" },
             ],

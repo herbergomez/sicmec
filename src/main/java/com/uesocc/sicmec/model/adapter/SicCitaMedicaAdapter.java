@@ -51,9 +51,9 @@ public class SicCitaMedicaAdapter implements BaseAdapter<SicCitaMedica, SicCitaM
 		SicCitaMedicaDto dto = new SicCitaMedicaDto();
 		SicPacienteAdapter adp = new SicPacienteAdapter();
 		SicUsuarioAdapter adpp = new SicUsuarioAdapter();
-		//SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		SimpleDateFormat format = 
-			    new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy", new Locale("es", "ES"));
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		//SimpleDateFormat format = 
+		//	    new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy", new Locale("es", "ES"));
 		
 		dto.setIdSicCitaMedica((obj.getIdSicCitaMedica()!=null) ? SicDataTypeFormat.toStringValue(obj.getIdSicCitaMedica().toString()):"");
 		dto.setDiagnostico((obj.getDiagnostico()!=null) ? SicDataTypeFormat.toStringValue(obj.getDiagnostico()):"");

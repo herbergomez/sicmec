@@ -354,4 +354,12 @@ body
   border-radius: 0;
 }
 
+#paccontent
+{
+	min-height: 205px !important; height: auto;
+}
 
+#historial
+{
+	height: 449px; padding-top: 6%; overflow: auto;
+}

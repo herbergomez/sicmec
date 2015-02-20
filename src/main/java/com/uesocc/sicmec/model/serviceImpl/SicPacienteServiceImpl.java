@@ -125,9 +125,10 @@ public class SicPacienteServiceImpl implements SicPacienteService  {
 	// TODO Auto-generated method stub
 	SicPacienteAdapter adp = new SicPacienteAdapter();
 	List<SicPaciente> list = sicPacienteRepository.findAllBynumeroExpediente(exp);
+	SicPacienteDto pac= null;
 		if (!list.isEmpty())
 		{
-			SicPacienteDto pac = adp.entityToDto(list.get(0));
+			pac = adp.entityToDto(list.get(0));
 			String sexo=pac.getSexoPaciente();
 			if (sexo.equals("M"))
 			{
@@ -140,9 +141,9 @@ public class SicPacienteServiceImpl implements SicPacienteService  {
 			return pac;
 		}
 		else
-		{
-	return null;
-	}
+		{	
+			return pac;
+		}
 	}
 
 	@Override

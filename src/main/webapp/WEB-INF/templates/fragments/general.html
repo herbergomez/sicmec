@@ -37,7 +37,7 @@
         
         <div id="navbarCollapse" class="collapse navbar-collapse">
         <!-- Menu para admin -->
-            <ul class="nav navbar-nav" th:if="${#httpServletRequest.isUserInRole('ROLE_Administración')}">
+            <ul class="nav navbar-nav" th:if="${#httpServletRequest.isUserInRole('ROLE_Admin')}">
                 <li th:class="${#strings.endsWith(#httpServletRequest.requestURL, '/')} ? 'active': ''">
                 	<a th:href="@{/}">Home</a>
                 </li>

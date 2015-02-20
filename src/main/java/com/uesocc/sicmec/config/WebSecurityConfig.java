@@ -41,8 +41,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		  
 		http.csrf().disable().headers().disable().authorizeRequests()
 		
-					.antMatchers("/admin/detallePaciente/**").hasAnyRole("Administración","Medico")
-				 	.antMatchers("/admin/**").hasAnyRole("Administración")	//Any URL that starts with "/Administration/" must be an administrative user. For our example, that would be the user "admin".
+					.antMatchers("/admin/detallePaciente/**").hasAnyRole("Admin","Medico")
+				 	.antMatchers("/admin/**").hasAnyRole("Admin")	//Any URL that starts with "/Administration/" must be an administrative user. For our example, that would be the user "admin".
 				 	.antMatchers("/control/**").hasAnyRole("Medico")
 				 	.antMatchers("/farm/**").hasAnyRole("Admin_Farmacia","Farmacia")
 				 		.anyRequest().authenticated()
