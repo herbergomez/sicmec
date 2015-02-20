@@ -5,6 +5,10 @@
 
 $( document ).ready(function() 
 {
+	$(".sintomasList").mCustomScrollbar({
+		    theme:"dark"
+		});
+	
 	$(".close").click(function(){
 		$(".alert").hide();
 	});
@@ -84,13 +88,24 @@ $( document ).ready(function()
  		{
  				var paciente = $("#id").val();
  				var diagnostico = $("#diagnostico").val();
- 				var signosSintomas = $("#signosSintomas").val();
+ 				
+ 				var signosSintomas = "";
+ 				
+ 				$("input[name='signosSintomas']:checked").each(function( index ) 
+ 		 				{
+ 							signosSintomas += $(this).attr('value');
+ 							signosSintomas += ", ";
+ 		 				});
+ 		 				
+ 				signosSintomas += $("#otrosSignosSintomas").val();
+ 		 				
  				var peso = $("#peso").val();
  				var estatura = $("#estatura").val();
  				var comentario = $("#comentario").val();
  				var tratamiento = $("#tratamiento").val();
  				var dosis = $("#dosis").val();
  				var periodisidad = $("#periodisidad").val();
+ 				
  				
  				$.ajax({
  	 		 	    type: "POST",

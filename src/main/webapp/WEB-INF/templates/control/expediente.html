@@ -169,8 +169,20 @@
 												<div class="col-md-6">
 													<div class="form-group">
         												<label for="signosSintomas" th:utext="#{control.paciente.signos}"></label>
-    													<textarea class="form-control" id="signosSintomas" name="signosSintomas" rows="2">
-    													</textarea>
+    													<!-- <textarea class="form-control" id="signosSintomas" name="signosSintomas" rows="2">
+    													</textarea> -->
+    													<div class="sintomasList">
+    														<div style="padding-left: 2%;padding-bottom: 4%;padding-top: 2%;">
+      														<label class="sintomas-checkbox" th:each="sintomas:${sintomasList}">
+       															 <input type="checkbox" name="signosSintomas" th:value="${sintomas.nombre}" th:text="${sintomas.nombre}"/>
+      														</label>
+      														<label class="sintomas-checkbox">
+       															 Otros <input type="text" class="form-control" id="otrosSignosSintomas"/>
+      														</label>
+      														</div>
+													    </div>
+    													<div>
+    													</div>
         											</div>
 												</div>
 												<div class="col-md-6">
@@ -250,7 +262,9 @@
    											<tbody id="historicChart">
    											</tbody>
 										</table>
-										<table id="historicPreasureTable" class="highchart table table-bordered" data-graph-container-before="1" data-graph-type="column" data-graph-height="340" style='display: none;' >
+										<table id="historicPreasureTable" class="highchart table table-bordered" 
+										data-graph-container-before="1" data-graph-type="area" data-graph-height="340" 
+										data-graph-color-1="#6699CC" data-graph-color-2="#9999FF" style='display: none;' >
 											<caption id="preasuretitle"></caption>
 											<thead>
       											<tr>

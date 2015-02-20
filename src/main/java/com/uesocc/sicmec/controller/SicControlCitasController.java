@@ -5,6 +5,7 @@ package com.uesocc.sicmec.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -30,6 +31,7 @@ import com.uesocc.sicmec.model.dto.SicCitaMedicaDto;
 import com.uesocc.sicmec.model.dto.SicExamenDto;
 import com.uesocc.sicmec.model.dto.SicGraficosDto;
 import com.uesocc.sicmec.model.dto.SicPacienteDto;
+import com.uesocc.sicmec.model.dto.SicSignosSintomasDto;
 import com.uesocc.sicmec.model.dto.SicTratamientoDto;
 import com.uesocc.sicmec.model.serviceImpl.SicCitaMedicaServiceImpl;
 import com.uesocc.sicmec.model.serviceImpl.SicExamenServiceImpl;
@@ -73,13 +75,30 @@ public class SicControlCitasController {
 		return "/control/busquedaPacientes";
 	}
 	
+	/**
+	 * @param exp
+	 * @param model
+	 * @return Retorna la pagina principal del modulo de pacientes
+	 * En esta pantalla se listan la información del paciente
+	 * y se permite ver un historial y agregar nuevas citas medicas.
+	 */
+	
 	@RequestMapping(value="/expediente",method=RequestMethod.POST)
 	public String detailRequest(@RequestParam(value="exp")String exp, Model model)
 	{
 		SicPacienteDto paciente = sicPacienteServiceImpl.findOneBynumeroExpediente(exp);
 		
+		//Lista de signos y sintomas que el sistema soporta.
+		List<SicSignosSintomasDto>sintomasList = new ArrayList<SicSignosSintomasDto>();
+		sintomasList.add(new SicSignosSintomasDto("Aumento de la sed", "Aumento de la sed"));
+		sintomasList.add(new SicSignosSintomasDto("Sangrado nasal", "Dolor de cabeza"));
+		sintomasList.add(new SicSignosSintomasDto("Manchas en los ojos", "Manchas en los ojos"));
+		sintomasList.add(new SicSignosSintomasDto("Pérdida de peso", "Pérdida de peso"));
+		
+		
 		model.addAttribute("paqMedList",sicPaqMedServiceImpl.findAll());
 		model.addAttribute("tipoExamsList", sicTipoExamenServiceImpl.findAll());
+		model.addAttribute("sintomasList", sintomasList);
 		
 		if(paciente!=null)
 		{
