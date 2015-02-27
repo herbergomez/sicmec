@@ -34,7 +34,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12 col-xs-12">
-			<div class="widget-box" style="min-height:570px; overflow: auto;">
+			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon">
 						<i class="fa fa-medkit"></i>
@@ -56,36 +56,8 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-2 col-xs-2"></div>
-					</div>
-					<div class="row">
-						<div class="col-md-12 col-xs-12">
-							<div class="widget-box">
-								<div class="widget-content" id="paccontent">
-									<span class="historialTratamientos">Informaci&oacute;n del paciente</span>
-									
-									<div class="col-md-6 col-xs-6" style="padding-top: 3%;">
-										<div class="form-group">
-    										<label for="nombre" th:text="#{farm.entrega.pac.nombreCompleto}"></label>
-    										<input type="text" class="form-control" id="nombre" disabled="disabled" />
-  										</div>
-  										<div class="form-group">
-    										<label for="dui" th:text="#{farm.entrega.pac.dui}"></label>
-    										<input type="text" class="form-control" id="dui" disabled="disabled" />
-  										</div>
-									</div>
-									<div class="col-md-6 col-xs-6" style="padding-top: 3%;">
-										<div class="form-group">
-    										<label for="edad" th:text="#{farm.entrega.pac.edad}"></label>
-    										<input type="text" class="form-control" id="edad" disabled="disabled" />
-  										</div>
-										<div class="form-group">
-    										<label for="dir" th:utext="#{farm.entrega.pac.direccion}"></label>
-    										<textarea rows="2" class="form-control" id="dir" disabled="disabled"></textarea>
-  										</div>
-									</div>
-								</div>
-							</div>	
+						<div class="col-md-2 col-xs-2">
+							<button class="btn btn-primary" id="verDetallePac">Detalle paciente</button>
 						</div>
 					</div>
 					<div class="row">
@@ -201,6 +173,42 @@
       		</div>
     	</div><!-- modal-content -->
     	</form>  
+  	</div><!-- modal-dialog -->   
+</div><!-- modal -->
+
+<div class="modal fade" id="modalDetallePac" tabindex="-1" role="dialog" aria-labelledby="modalUpdateDrug" aria-hidden="true">
+  	<div class="modal-dialog">
+    	<div class="modal-content">
+      			<div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        			<h4 class="modal-title">Informaci&oacute;n del paciente</h4>
+      			</div>
+	      		<div class="modal-body" style="height: 350px;">
+	      			<div class="widget-content" id="paccontent">
+										<div class="form-group">
+    										<label for="nombre" th:text="#{farm.entrega.pac.nombreCompleto}"></label>
+    										<input type="text" class="form-control" id="nombre" disabled="disabled" />
+  										</div>
+  										<div class="form-group">
+    										<label for="dui" th:text="#{farm.entrega.pac.dui}"></label>
+    										<input type="text" class="form-control" id="dui" disabled="disabled" />
+  										</div>
+									
+										<div class="form-group">
+    										<label for="edad" th:text="#{farm.entrega.pac.edad}"></label>
+    										<input type="text" class="form-control" id="edad" disabled="disabled" />
+  										</div>
+										<div class="form-group">
+    										<label for="dir" th:utext="#{farm.entrega.pac.direccion}"></label>
+    										<textarea rows="2" class="form-control" id="dir" disabled="disabled"></textarea>
+  										</div>
+								</div>      		
+        		</div>        		
+      		<div class="modal-footer">
+        		<button type="button" class="btn btn-danger" data-dismiss="modal" th:text="#{general.btn.cerrar}"></button>
+      		</div>
+      	
+    	</div><!-- modal-content -->  
   	</div><!-- modal-dialog -->   
 </div><!-- modal -->
 

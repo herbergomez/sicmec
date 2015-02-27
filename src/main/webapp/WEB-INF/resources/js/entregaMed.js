@@ -8,6 +8,12 @@ var citaMedica = "";
 
 $( document ).ready(function() 
 {
+	$("#verDetallePac").click(function(){
+		
+		$("#modalDetallePac").modal('show');
+		
+	});
+	
 	$(".close").click(function(){
 		
 		$(".alert").hide();
