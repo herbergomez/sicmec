@@ -207,8 +207,7 @@ public class SicAdministracionPacientesController {
 		paciente.setFkSicMunicipio(sicMunicipioServiceImpl.findById(idmunicipio));
 		paciente.setFkSicTipoPatologia(sicTipoPatologiaServiceImpl.findById(idPatologia));
 		
-		if (!(nomContact.trim().equals("")&& apContact.trim().equals("")
-				&& duiContact.trim().equals("")&&telContact.trim().equals(""))){
+		if (!(nomContact.trim().equals("")&& !apContact.trim().equals(""))){
 			SicContactoPacienteDto contacto = new SicContactoPacienteDto();
 			contacto.setNombreContacto(nomContact);
 			contacto.setApellidoContacto(apContact);
@@ -222,8 +221,8 @@ public class SicAdministracionPacientesController {
 		//AUDITORIA
 		sicAuditoriaServiceImpl.insert
 		(new SicAuditoriaDto
-				("","Administraciï¿½n de Pacientes"
-				,"Creaciï¿½n de paciente "+nombres+", "+apellidos
+				("","Administración de Pacientes"
+				,"Creación de paciente "+nombres+", "+apellidos
 				,format.format(new Date()),
 				sicUsuarioServiceImpl.findByNombreUsuario(httpServletRequest.getRemoteUser())));
 		
@@ -291,17 +290,16 @@ public class SicAdministracionPacientesController {
 			
 			//Si el contacto existe, entonces lo actualiza.
 			//Si el contacto no existe, lo inserta en caso que se hallan llenado los campos especificados.
+			//Es obligatorio ingresar Nombres y Apellidos de contacto
 			if (contact_search != null) {
-				if (!(nomContact.trim().equals("")&& apContact.trim().equals("")
-						&& duiContact.trim().equals("")&&telContact.trim().equals(""))){
+				if (!(nomContact.trim().equals("")&& !apContact.trim().equals(""))){
 					contact_search.setNombreContacto(nomContact);
 					contact_search.setApellidoContacto(apContact);
 					contact_search.setDui(duiContact);
 					contact_search.setTelefono(telContact);
 					pac_search.setFkSicContactoPaciente(sicContactoPacienteServiceImpl.insert(contact_search));
 				} else {
-				if (!(nomContact.trim().equals("")&& apContact.trim().equals("")
-						&& duiContact.trim().equals("")&&telContact.trim().equals(""))){
+				if (!(nomContact.trim().equals("")&& !apContact.trim().equals(""))){
 					SicContactoPacienteDto contacto = new SicContactoPacienteDto();
 					contacto.setNombreContacto(nomContact);
 					contacto.setApellidoContacto(apContact);
@@ -431,6 +429,6 @@ public class SicAdministracionPacientesController {
 		}
 		
 		return sortingField;
-	}
+	};
 	
 }

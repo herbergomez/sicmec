@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +75,19 @@ public class SicControlCitasController {
 		
 		return "/control/busquedaPacientes";
 	}
+	
+	
+	/**
+	 * Carga la pantalla por defecto para el manual de usuario control de citas
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/manualControlCitas",method=RequestMethod.GET)
+	public String defaultRequest(Model model,HttpServletRequest request, HttpServletResponse response)
+	{	
+		return "/control/ayudaControlCitas";
+	}
+	
 	
 	/**
 	 * @param exp

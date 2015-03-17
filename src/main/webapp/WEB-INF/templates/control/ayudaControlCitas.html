@@ -1,0 +1,435 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/general :: headerFragment">
+	<meta charset="utf-8" />
+</head>
+<body>
+	<div th:replace="fragments/general :: navFragment"></div>
+
+	<div class="container" style="min-height: 300px; overflow: auto;">
+	 <div class="row">
+	     <!--COLUMNA PARA AGREGAR TEXTO REFERENTE AL CONTENIDO -->
+	     <div class="col-md-8 " style="text-align: justify;  float: right;">
+	       <div id="homeManual">
+	        <div class="row" style="text-align: center;">
+              <h1> <b>Sistema de control y monitoreo de pacientes con enfermedades cr&oacute;nicas SICMEC.</b></h1>	         
+	        </div>
+	        <div class="row" >
+	          <p> Este manual describe las distintas funcionalidades y procedimientos que se
+	           pueden desarrollar dentro del Sistema de control y monitoreo de pacientes 
+	           con enfermedades cr&oacute;nicas <b>SICMEC</b> para el hospital <b>San Juan de Dios de 
+	           Santa Ana</b> y pretende ser una gu&iacute;a detallada paso a paso que el usuario
+	           puede consultar al momento de tener alguna duda o de presentarse alguna 
+	           eventualidad. </p>
+	        </div>	         
+	       </div>
+	       
+	        <div>
+	        
+	        	<div id="buscarPac">
+	        		<div class="row">
+                  <h3><b>1. Busqueda de pacientes</b></h3>
+                </div> 
+	        	<div class="row">
+                 <ul>
+                    <li> Para buscar un paciente dento del sistema se debe ingresar en el men&uacute; principal de la aplicaci&oacute;n a la opci&oacute;n
+                     <b> Control de citas</b>.</li>
+                 </ul>
+               </div>
+               <div class="row">    
+                  <div class="col-md-12 col-xs-4">            
+               		<img style="width: 100%; max-width: 400px;"  th:src="@{/resources/images/manualControlCitas/menu.png}"/>    
+               	  </div>           
+               </div>
+               <div class="row">
+                  <ul><li>
+                   En la pantalla de control de citas colocar el cursor del rat&oacute;n en la caja de texto para b&uacute;squeda de pacientes.
+                    &#40;Por defecto el sistema mostrara la lista de pacientes registrados en una tabla paginada. &#41;
+                  </li></ul>
+                </div>                  
+                <div class="row">
+                     <ul><li>	
+                     	Presionar el bot&oacute;n <b>Agregar Nueva Patolog&iacute;a</b>, el sistema mostrar&aacute; una ventana 
+                     	modal para describir la nueva patolog&iacute;a.
+                     </li></ul>
+                 </div> 
+                 <div class="row">  
+                     <div class="col-md-12 col-xs-4">            
+               		   <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manualControlCitas/listaPac.png}"/>
+               	      </div>          
+                 </div> 
+				 <div class="row">
+                   <ul><li>
+                   	   Digitar el expediente, nombres, apellidos o documento de identidad y presionar el bot&oacute;n Buscar.
+                   	</li></ul>
+                 </div>
+                  <div class="row">
+                   <ul><li>
+                    	El sistema refrescara la tabla con los pacientes que respondan al criterio de b&uacute;squeda.
+                   	</li></ul>
+                 </div>
+				 <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manualControlCitas/buscarPac.png}"/> 
+               		</div>       
+                 </div>
+                 <div class="row">
+                    <ul><li>
+                 	   Seleccione el paciente dentro de la tabla al que se le registrara una nueva cita &#40;
+                 	   Esto se realiza haciendo un click en la fila que contiene el registro del paciente&#41;.
+                  	</li></ul>
+                 </div>
+                 
+                  <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manualControlCitas/nuevaCita.png}"/> 
+               		</div>       
+                 </div> 
+                  <div class="row">
+                    <ul><li>
+                 	   El sistema abrir&aacute; una nueva ventana que contendr&aacute; 3 pesta&ntilde;as, la primera referente al expediente del paciente, la segunda de control de citas y la tercera de graficos.
+                  	</li></ul>
+                 </div>
+                 <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manualControlCitas/principal.png}"/> 
+               		</div>       
+                 </div>
+	        	
+	        	</div>
+	        
+	           <div  id="nuevaCita">
+	            <div class="row">
+                  <h3><b>2. Registro de nueva cita</b></h3>
+                </div> 
+                <div class="row">
+                 <ul>
+                    <li> Para registrar una nueva cita se debe ingresar en el menú principal de la aplicación a la opci&oacute;n
+                     <b> Control de citas</b>.</li>
+                 </ul>
+               </div>
+               <div class="row">    
+                  <div class="col-md-12 col-xs-4">            
+               		<img style="width: 100%;max-width: 400px;"  th:src="@{/resources/images/manualControlCitas/menu.png}"/>    
+               	  </div>           
+               </div>
+               <div class="row">
+                  <ul><li>
+                   En la pantalla de control de citas colocar el cursor del rat&oacute;n en la caja de texto para búsqueda de pacientes.
+                    &#40;Por defecto el sistema mostrara la lista de pacientes registrados en una tabla paginada. &#41;
+                  </li></ul>
+                </div>                  
+                <div class="row">
+                     <ul><li>	
+                     	Presionar el bot&oacute;n <b>Agregar Nueva Patolog&iacute;a</b>, el sistema mostrar&aacute; una ventana 
+                     	modal para describir la nueva patolog&iacute;a.
+                     </li></ul>
+                 </div> 
+                 <div class="row">  
+                     <div class="col-md-12 col-xs-4">            
+               		   <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manualControlCitas/listaPac.png}"/>
+               	      </div>          
+                 </div> 
+				 <div class="row">
+                   <ul><li>
+                   	   Digitar el expediente, nombres, apellidos o documento de identidad y presionar el bot&oacute;n Buscar.
+                   	</li></ul>
+                 </div>
+                  <div class="row">
+                   <ul><li>
+                    	El sistema refrescara la tabla con los pacientes que respondan al criterio de búsqueda.
+                   	</li></ul>
+                 </div>
+				 <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manualControlCitas/buscarPac.png}"/> 
+               		</div>       
+                 </div>
+                 <div class="row">
+                    <ul><li>
+                 	   Seleccione el paciente dentro de la tabla al que se le registrara una nueva cita &#40;
+                 	   Esto se realiza haciendo un click en la fila que contiene el registro del paciente&#41;.
+                  	</li></ul>
+                 </div>
+                 
+                  <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manualControlCitas/nuevaCita.png}"/> 
+               		</div>       
+                 </div> 
+                  <div class="row">
+                    <ul><li>
+                 	   El sistema abrir&aacute; una nueva ventana que contendr&aacute; 3 pesta&ntilde;as, la primera referente al expediente del paciente, la segunda de control de citas y la tercera de graficos.
+                  	</li></ul>
+                 </div>
+                 <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manualControlCitas/principal.png}"/> 
+               		</div>       
+                 </div> 
+                 <div class="row">
+                    <ul><li>
+                 	   Haz un click en la pesta&ntilde;a Control de citas el sistema presenta un hist&oacute;rico &#40;si existe&#41; de las ultimas 20 citas m&eacute;dicas registradas para este paciente.
+                 	   
+                  	</li>
+                  	<li>
+                  		Al lado se encontrara el formulario de agregaci&oacute;n de nuevas citas.
+                  	</li>
+                  	</ul>
+                 </div>
+                 <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manualControlCitas/historialPac.png}"/> 
+               		</div>       
+                 </div> 
+                 <div class="row">
+                  	<b>Ingrese todos los campos obligatorios &#40;&#42;&#41;</b>
+                    <ul>
+                    <li>
+						Diagnostico  &#40;&#42;&#41;</li><li>
+						Peso &#40;&#42;&#41;</li><li>
+						Estatura &#40;&#42;&#41;</li><li>
+						Tratamiento &#40;&#42;&#41;</li><li>
+						Dosis &#40;&#42;&#41;</li><li>
+						Periodicidad &#40;&#42;&#41;</li>
+                  	</ul>
+                 </div>
+                 <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manualControlCitas/guardarCita.png}"/> 
+               		</div>       
+                 </div> 
+                 
+                 <div class="row">
+                    <ul>
+                    <li>
+						Luego de agregar esta informaci&oacute;n se debe presionar el bot&oacute;n Guardar.
+                  	</li>
+                  	<li>
+           				El sistema mostrara una alerta con el resultado de la operaci&oacute;n anterior.
+                  	</li>
+                  	</ul>
+                 </div>
+                 
+                 <div class="row">
+                 
+               </div>
+	          </div>
+	          
+	          
+	         <div  id="verDetalle">
+	           <div class="row">
+                  <h3><b>3.	Ver detalle de citas anteriores</b></h3>
+               </div>
+               <div class="row">
+                 <ul><li>
+                   Para ver el detalle de citas anteriores se debe ingresar en el men&uacute; principal de la aplicaci&oacute;n a la opci&oacute;n Control de citas 
+                </li></ul>                 
+               </div>
+               
+                 <div class="row">                  
+                     <ul><li>
+                    	Haz un click en la pesta&ntilde;a Control de citas el sistema presenta un hist&oacute;rico &#40;si existe&#41; de las ultimas 20 citas m&eacute;dicas registradas para este paciente. 
+                 	 </li></ul>  
+                 </div>
+                 <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manualControlCitas/historialPac.png}"/> 
+               		</div>       
+                 </div> 
+                 <div class="row">
+                     <ul><li>
+                 		Haz un click en título de la cita que deseas detallar. El sistema desplegara en forma de drop down el detalle de la misma
+                 	 </li></ul> 
+                 </div>
+                 
+                 <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manualControlCitas/dropdownHisto.png}"/> 
+               		</div>       
+                 </div>
+                 <div class="row">
+                 </div>
+	          </div>
+	          
+	         <div  id="impCitasHisto">
+	          <div class="row">
+                  <h3><b>4. Imprimir citas hist&oacute;ricas</b></h3>
+              </div>
+              <div class="row">
+              	<ul><li>
+              	 	Para imprimir el detalle de citas anteriores se debe ingresar en el men&uacute; principal de la aplicación a la opci&oacute;n Control de citas, luego se debe continuar con los siguientes pasos 
+              	</li></ul>               	
+              </div>
+              <div class="row">    
+                  <div class="col-md-12 col-xs-4">            
+               		<img style="width: 100%;max-width: 400px;"  th:src="@{/resources/images/manualControlCitas/menu.png}"/>    
+               	  </div>           
+               </div>
+             <div class="row">                  
+                     <ul><li>
+                    	Haz un click en la pesta&ntilde;a Control de citas el sistema presenta un hist&oacute;rico &#40;si existe&#41; de las ultimas 20 citas m&eacute;dicas registradas para este paciente. 
+                 	 </li></ul>  
+                 </div>
+                 <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manualControlCitas/historialPac.png}"/> 
+               		</div>       
+              </div> 
+              <div class="row">
+                   <div class="col-md-12 ">
+              		   <ul>
+              		   	<li>
+              				Presiona el bot&oacute;n Imprimir Informe  al lado de la cita escogida.	
+              			</li>
+              			<li>
+              			El sistema dependiendo del navegador del cliente mostrara una vista previa en formato PDF o abrir&aacute; una caja de dialogo de impresi&oacute;n.
+              			</li>
+              		  </ul> 
+              	    </div>
+              	</div>
+              	
+              	<div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manualControlCitas/impCita.png}"/> 
+               		</div>       
+              </div>
+              	<div class="row">
+              	</div>
+             </div>
+	         
+	        <div id="examCita">
+	          <div class="row">
+                  <h3><b>5. Anexar el resultado de un examen a una cita m&eacute;dica</b></h3>
+              </div>
+              <div class="row">
+              	<ul><li>
+              		Para registrar el resultado de un examen a una cita m&eacute;dica se debe ir al meno principal principal de la aplicación a la opci&oacute;n Control de citas 
+              	</li></ul>            	
+              </div>
+              <div class="row">    
+                  <div class="col-md-12 col-xs-4">            
+               		<img style="width: 100%;max-width: 400px;"  th:src="@{/resources/images/manualControlCitas/menu.png}"/>    
+               	  </div>           
+               </div>
+              <div class="row">                  
+                     <ul><li>
+                    	Haz un click en la pesta&ntilde;a Control de citas el sistema presenta un hist&oacute;rico &#40;si existe&#41; de las ultimas 20 citas m&eacute;dicas registradas para este paciente. 
+                 	 </li></ul>  
+                 </div>
+                 <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manualControlCitas/historialPac.png}"/> 
+               		</div>       
+              </div> 
+              <div class="row">
+                <div class="col-md-12 ">
+                 <ul><li>
+              		Presiona el bot&ocuate;n Agregar Ex&aacute;menes   al lado de la cita m&eacute;dica a la cual se desea anexar resultados de ex&aacute;menes. El sistema despliega una pantalla modal con el formulario de agregaci&oacute;n de ex&aacute;menes y la lista de los ex&aacute;menes que esta cita ya tiene registrados.
+              	  </li></ul>
+               </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 ">
+              	 <ul>
+              	 <li>
+              		<img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manualControlCitas/exam2.png}"/>
+              	  </li>
+              	 
+              	  </ul>
+              	 </div>
+              </div>
+              <div class="row">
+               <div class="col-md-12 ">
+                Ingrese todos los campos obligatorios &#40;&#42;&#41;
+                <ul>
+                <li>
+				Tipo de examen &#40;&#42;&#41;: Ex&aacute;menes ya definidos dentro del sistema.
+				</li>
+				<li>
+				Resultado &#40;&#42;&#41;: Las unidades dependen del tipo de examen.
+				</li>		
+				<li>
+				Comentario.
+              	</li></ul>
+               </div>
+              </div>
+              
+              <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		
+              		<img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manualControlCitas/exam.png}"/>
+              	  
+               		</div>       
+              </div>
+	         </div>
+	         
+	        <div id="grafCita">
+	          <div class="row">
+                  <h3><b>6.	Ver gr&aacute;ficos de progresi&oacute;n de salud</b></h3>
+              </div>
+              <div class="row">
+                <ul><li>
+                  Para ver el detalle de citas anteriores se debe ingresar en el men&uacute; principal de la aplicaci&oacute;n a la opci&oacute;n Control de citas
+                </li></ul>
+              </div>
+              <div class="row">    
+                  <div class="col-md-12 col-xs-4">            
+               		<img style="width: 100%;max-width: 400px;"  th:src="@{/resources/images/manualControlCitas/menu.png}"/>    
+               	  </div>           
+               </div>
+               
+              <div class="row">
+                 <ul><li>
+                 	Haz un click en la pesta&ntilde;a Hist&oacute;rico el sistema presenta una lista de los ex&aacute;menes y signos vitales que el sistema soporta.
+                 </li></ul>
+              </div>
+              <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manualControlCitas/grafPantalla.png}"/> 
+               		</div>       
+              </div>
+              
+              <div class="row">
+                 <ul><li>
+                 	Al presionar el bot&oacute;n Imprimir Grafico El sistema imprime el grafico en pantalla.
+                  </li></ul>
+              </div>
+              <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manualControlCitas/graf.png}"/> 
+               		</div>       
+              </div>
+              
+              <div class="row">
+             </div>  
+	        </div>    
+	        </div>
+        </div>
+        <div class="col-md-3 " style="text-align: left; float:left; position: fixed;">  
+	      <div class="table-responsive">
+			 <table  class="table table-hover table-striped table-bordered">
+			   <thead style="text-align: center;">
+			   	 <tr class="head">
+			   	 	<th>Tabla de Contenido</th>
+			   	 </tr>
+			   </thead>
+			   <tbody>
+			     <tr><td><a href="#buscarPac">  1. Buscar un paciente/Ver expediente del paciente</a></td></tr>
+			   	 <tr><td><a href="#nuevaCita">  2. Registro de nueva cita</a></td></tr>
+				 <tr><td><a href="#verDetalle">  3. Ver detalle de citas anteriores</a></td></tr>
+				 <tr><td><a href="#impCitasHisto">  4. Imprimir citas hist&oacute;ricas</a></td></tr>
+				 <tr><td><a href="#examCita">  5. Anexar el resultado de un examen a una cita m&eacute;dica</a></td></tr>
+				 <tr><td><a href="#grafCita">  6. Ver gráficos de progresión de salud</a></td></tr>
+			   </tbody>
+			 </table>
+	      </div>
+	     </div>  
+	   </div>
+	   </div>
+	<div th:replace="fragments/general :: footerFragment"></div>
+	<div th:replace="fragments/general :: jsFragment"></div>
+
+</body>
+</html>

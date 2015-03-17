@@ -1,0 +1,1637 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/general :: headerFragment">
+	<meta charset="utf-8" />
+</head>
+<body>
+	<div th:replace="fragments/general :: navFragment"></div>
+
+	<div class="container" style="min-height: 300px; overflow: auto;">
+	 <div class="row">
+	     <!--COLUMNA PARA AGREGAR TEXTO REFERENTE AL CONTENIDO -->
+	     <div class="col-md-8 " style="text-align: justify;  float: right;">
+	       <div id="homeManual">
+	        <div class="row" style="text-align: center;">
+              <h1> <b>Sistema de control y monitoreo de pacientes con enfermedades cr&oacute;nicas SICMEC.</b></h1>	         
+	        </div>
+	        <div class="row" >
+	          <p> Este manual describe las distintas funcionalidades y procedimientos que se
+	           pueden desarrollar dentro del Sistema de control y monitoreo de pacientes 
+	           con enfermedades cr&oacute;nicas <b>SICMEC</b> para el hospital <b>San Juan de Dios de 
+	           Santa Ana</b> y pretende ser una gu&iacute;a detallada paso a paso que el usuario
+	           puede consultar al momento de tener alguna duda o de presentarse alguna 
+	           eventualidad. </p>
+	        </div>	         
+	       </div>
+	       
+	        <div id="manejoPatologias">     
+	           <div class="row">
+	             <h2><b>1. MANEJO DE PATOLOG&Iacute;AS</b></h2>
+	           </div>
+	           <div id="descripcionPatologias">
+	            <div class="row">
+	              <h3><b>Descripci&oacute;n breve</b></h3>
+	            </div>
+	            <div class="row">
+					<p>El manejo de patolog&iacute;as consiste en el mantenimiento de la informaci&oacute;n 
+						que tiene que ver con las enfermedades principales que el sistema soporta,
+						As&iacute; como tambi&eacute;n las distintas clasificaciones en las cuales se desglosa
+						cada enfermedad.</p>
+	            </div> 
+                <div class="row">
+                  <h3><b>Precondiciones</b></h3>
+                </div> 
+                <div class="row">
+                        <p>Autenticarse dentro de la plataforma con un usuario de rol <b>Administrador</b>.</p>                
+	            </div>
+	           </div>
+	           <div  id="agregarPatologia">
+	            <div class="row">
+                  <h3><b>1.1 Agregar Patolog&iacute;a</b></h3>
+                </div> 
+                <div class="row">
+                 <ul>
+                    <li> Se debe ingresar a la opci&oacute;n <b>Acciones</b>. Dar click en la opci&oacute;n <b>Patolog&iacute;as</b></li>
+                 </ul>
+               </div>
+               <div class="row">    
+                  <div class="col-md-12 col-xs-4">            
+               		<img style="width: 100%;max-width: 400px;"  th:src="@{/resources/images/manual/patologias/menuPatologias.jpg}"/>    
+               	  </div>           
+               </div>
+               <div class="row">
+                  <ul><li>
+                    A la izquierda de la pantalla se mostrar&aacute; la lista de patolog&iacute;as generales que 
+                    el sistema soporta.
+                  </li></ul>
+                </div>                  
+                <div class="row">
+                     <ul><li>	
+                     	Presionar el bot&oacute;n <b>Agregar Nueva Patolog&iacute;a</b>, el sistema mostrar&aacute; una ventana 
+                     	modal para describir la nueva patolog&iacute;a.
+                     </li></ul>
+                 </div> 
+                 <div class="row">  
+                     <div class="col-md-12 col-xs-4">            
+               		   <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manual/patologias/listaPatologias.jpg}"/>
+               	      </div>          
+                 </div>                 
+                 <div class="row">
+                   <ul><li>	
+                	   Ingrese todos los campos obligatorios (*).
+                   </li></ul>                    
+                 </div>
+                 <div class="row">
+                    <div class="col-md-12 ">
+                      <ul><li>	
+						Nombre de la patolog&iacute;a (*).
+					  </li></ul>
+					</div>
+				 </div>
+				 <div class="row">
+				  <div class="col-md-12 ">
+				   <ul><li>
+						Descripci&oacute;n de la patolog&iacute;a (*). 
+					</li></ul>
+				  </div>
+				 </div>  
+				 <div class="row">
+                   <ul><li>
+                   	  Luego de agregar esta informaci&oacute;n se debe presionar el bot&oacute;n <b>Guardar</b>.
+                   	</li></ul>
+                 </div>
+				 <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manual/patologias/nuevaPatologia.jpg}"/> 
+               		</div>       
+                 </div> 
+                 
+                 <div class="row">
+                   <ul><li>
+                    	Si no se han llenado todos los campos obligatorios el sistema no permitir&aacute; el guardado
+                        y mostrar&aacute; mensajes de alerta.
+                   	</li></ul>
+                 </div>
+                 <div class="row">
+                    <ul><li>
+                 	   Al ingresar todos los campos obligatorios y presionar el bot&oacute;n <b>Guardar</b> el sistema almacenar&aacute;
+                       los datos y mostrar&aacute; una alerta de confirmaci&oacute;n indicando si el registro se guard&oacute; con &eacute;xito.
+                  	</li></ul>
+                 </div>
+                 
+                  <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manual/patologias/patologiaAgregada.jpg}"/> 
+               		</div>       
+                 </div> 
+                 
+                 <div class="row">
+                 
+               </div>
+	          </div>
+	          
+	          
+	         <div  id="buscarPatologia">
+	           <div class="row">
+                  <h3><b>1.2 Buscar Patolog&iacute;a</b></h3>
+               </div>
+               <div class="row">
+                 <ul><li>
+                   Del lado izquierdo de la pantalla se muestra la lista de patolog&iacute;as generales soportadas por 
+                   el sistema, para poder filtrar dentro de la tabla se deben seguir estos pasos:
+                </li></ul>                 
+               </div>
+               
+                 <div class="row">                  
+                     <ul><li>
+                    	Colocarse en la caja de texto Buscar.
+                 	 </li></ul>  
+                 </div>
+                 <div class="row">
+                     <ul><li>
+                 		Ingresar nombre o descripci&oacute;n.
+                 	</li></ul>  
+                 </div>
+                 <div class="row">
+                     <ul><li>
+                 		El sistema refresca la tabla para mostrar las patolog&iacute;as que coinciden con el criterio
+                 	    de b&uacute;squeda.
+                 	 </li></ul> 
+                 </div>
+                 
+                 <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manual/patologias/busquedaPatologia.jpg}"/> 
+               		</div>       
+                 </div> 
+                 <div class="row">
+                      <ul><li>
+                 		Dentro de la tabla se pueden apreciar peque&#241;os controles sobre los t&iacute;tulos de las 
+                 	   columnas para poder sortear u ordenar  los registros.
+                 	</li></ul> 
+                 </div>
+                 <div class="row">
+                 </div>
+	          </div>
+	          
+	         <div  id="editarPatologia">
+	          <div class="row">
+                  <h3><b>1.3 Editar Patolog&iacute;a</b></h3>
+              </div>
+              <div class="row">
+              	<ul><li>
+              	 	Ingresar a la opci&oacute;n <b>Acciones</b>, luego a <b>Patolog&iacute;as</b> en el men&uacute; del sistema. 
+              	 	A la izquierda de la pantalla se mostrar&aacute; la lista de patolog&iacute;as generales que el 
+              	 	sistema soporta.
+              	</li></ul>               	
+              </div>
+              
+              <div class="row">
+                 <ul><li>
+              		Presionar el bot&oacute;n de edici&oacute;n <img  th:src="@{/resources/images/manual/botonEditar.jpg}"/> 
+              	    dentro del registro que se requiere editar, el sistema mostrar&aacute; una ventana modal para editar la patolog&iacute;a.
+              	  </li></ul> 
+              </div>
+              <div class="row">
+                 <ul><li>
+              			Modifique los campos necesarios (*).
+              	 </li></ul>            		
+              </div>
+              <div class="row">
+                   <div class="col-md-12 ">
+              		   <ul><li>
+              				Nombre de la patolog&iacute;a (*).
+              			</li></ul> 
+              	     </div>
+              	</div>
+              	<div class="row">
+              	    <div class="col-md-12 ">
+              		 <ul><li>
+              				Descripci&oacute;n de la patolog&iacute;a (*).
+              		  </li></ul> 
+              		</div>
+              	</div>
+              	<div class="row">
+              	  <ul><li>
+              		Luego de agregar esta informaci&oacute;n se debe presionar el bot&oacute;n <b>Guardar</b>.
+              	   </li></ul> 
+              	</div>
+              	<div class="row">
+              	   <ul><li>
+              		 Si no se han llenado todos los campos obligatorios el sistema no 
+              		  permitir&aacute; el guardado y mostrar&aacute; mensajes de alerta.
+              		</li></ul> 
+              	</div>
+              	<div class="row">
+              	   <ul><li>
+              		 Al ingresar todos los campos obligatorios y presionar el bot&oacute;n <b>Guardar</b> 
+              		 el sistema almacenar&aacute; los datos y mostrar&aacute; una alerta de confirmaci&oacute;n indicando 
+              		 si el registro se modific&oacute; con &eacute;xito.
+              		</li></ul>
+              	</div>
+              	<div class="row">
+              	</div>
+             </div>
+	         
+	        <div id="agregarClasificacion">
+	          <div class="row">
+                  <h3><b>1.4 Agregar Clasificaci&oacute;n de Patolog&iacute;a</b></h3>
+              </div>
+              <div class="row">
+              	<ul><li>
+              		Ingresar a la opci&oacute;n <b>Acciones</b>, luego a <b>Patolog&iacute;as</b> en el men&uacute; del sistema. 
+              		A la izquierda de la pantalla se mostrar&aacute; la lista de patolog&iacute;as generales que 
+              		el sistema soporta y a la derecha la lista de sub divisiones definidas para cada 
+              		patolog&iacute;a a la izquierda junto con su respectiva descripci&oacute;n. 
+              	</li></ul>            	
+              </div>
+              <div class="row">
+                  <ul><li>
+              		Presionar el bot&oacute;n <b>Agregar nueva clasificaci&oacute;n</b>, el sistema mostrar&aacute; una 
+              		ventana modal para describir la nueva clasificaci&oacute;n.
+              	 </li></ul>
+              </div>
+              <div class="row">
+                 <ul><li>
+              		Ingrese todos los campos obligatorios (*).
+              	  </li></ul>
+              </div>
+              <div class="row">
+                <div class="col-md-12 ">
+                 <ul><li>
+              		Nombre de la clasificaci&oacute;n (*).
+              	  </li></ul>
+               </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 ">
+              	 <ul><li>
+              		Descripci&oacute;n de la clasificaci&oacute;n (*).
+              	  </li></ul>
+              	 </div>
+              </div>
+              <div class="row">
+               <div class="col-md-12 ">
+                <ul><li>
+              		Patolog&iacute;a de la clasificaci&oacute;n (*).
+              	</li></ul>
+               </div>
+              </div>
+              
+              <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manual/patologias/nuevaClasificacion.jpg}"/> 
+               		</div>       
+              </div>
+              <div class="row">
+              	  <ul><li>
+              		Luego de agregar esta informaci&oacute;n se debe presionar el bot&oacute;n <b>Guardar</b>.
+              	   </li></ul>
+              	</div>
+              	<div class="row">
+              	  <ul><li>
+              		Si no se han llenado todos los campos obligatorios el sistema no 
+              		permitir&aacute; el guardado y mostrar&aacute; mensajes de alerta.
+              	   </li></ul>
+              	</div>
+              	<div class="row">
+              	  <ul><li>
+              		Al ingresar todos los campos obligatorios y presionar el bot&oacute;n <b>Guardar</b> el 
+              		sistema almacenar&aacute; los datos y mostrar&aacute; una alerta de confirmaci&oacute;n indicando 
+              		si el registro se guard&oacute; con &eacute;xito.
+              	   </li></ul>
+              	</div>
+              	<div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manual/patologias/clasificacionAgregada.jpg}"/> 
+               		</div>       
+                </div>
+	         </div>
+	         
+	        <div id="buscarClasificacion">
+	          <div class="row">
+                  <h3><b>1.5 Buscar Clasificaci&oacute;n de Patolog&iacute;a</b></h3>
+              </div>
+              <div class="row">
+                <ul><li>
+                   Del lado derecho de la pantalla se muestra la lista de clasificaciones de patolog&iacute;as 
+                   soportadas por el sistema.
+                </li></ul>
+              </div>
+              <div class="row">
+                 <ul><li>
+                	Colocarse en la caja de texto Buscar.
+                 </li></ul>
+              </div>
+               
+              <div class="row">
+                 <ul><li>
+                 	Ingresar nombre, descripci&oacute;n o patolog&iacute;a a la cual pertenece.
+                 </li></ul>
+              </div>
+              <div class="row">
+                 <ul><li>
+                 	El sistema refresca la tabla para mostrar los tipos de patolog&iacute;as que coinciden con el criterio
+                 	 de b&uacute;squeda.
+                  </li></ul>
+              </div>
+              <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manual/patologias/busquedaClasificacion.jpg}"/> 
+               		</div>       
+              </div>
+              <div class="row">
+                 <ul><li>
+                 	Dentro de la tabla se pueden apreciar peque&#241;os controles sobre los t&iacute;tulos de las 
+                 	columnas para poder sortear u ordenar  los registros.
+                 </li></ul>
+              </div>
+              <div class="row">
+             </div>  
+	        </div>
+	         
+	         <div id="editarClasificacion">
+	           <div class="row">
+                  <h3><b>1.6 Editar Clasificaci&oacute;n de Patolog&iacute;a</b></h3>
+               </div>
+               <div class="row">
+               	 <ul><li>
+               	 	Se debe ingresar a la opci&oacute;n <b>Acciones</b>, luego a <b>Patolog&iacute;as</b> en el men&uacute; del sistema. 
+               	 	A la izquierda de la pantalla se mostrar&aacute; la lista de patolog&iacute;as generales que
+               	 	el sistema soporta y a la derecha la lista de sub divisiones definidas para cada 
+               	 	patolog&iacute;a a la izquierda junto con su respectiva descripci&oacute;n. 
+               	 </li></ul>             	
+	           </div>
+	           <div class="row">
+	               <ul><li>
+               	 	 Presionar el bot&oacute;n de edici&oacute;n <img  th:src="@{/resources/images/manual/botonEditar.jpg}"/>
+               	 	 dentro del registro que se requiere editar, el sistema mostrar&aacute; una ventana modal para editar la clasificaci&oacute;n.
+               	  </li></ul> 
+                </div>
+                <div class="row">
+                   <ul><li>
+               	 	 Modifique los campos necesarios (*).
+               	   </li></ul>                	 	
+                </div>
+                <div class="row">
+                   <div class="col-md-12 ">
+                      <ul><li>
+               	 		Nombre de la clasificaci&oacute;n (*).
+               	      </li></ul>
+               	    </div> 
+               	</div>
+               	<div class="row">
+               	   <div class="col-md-12 ">
+               	    <ul><li>
+               	 		Descripci&oacute;n de la clasificaci&oacute;n (*).
+               	 	</li></ul> 
+               	   </div>
+               	</div>
+               	<div class="row">
+               	   <div class="col-md-12 ">
+               	     <ul><li>
+               	 		Patolog&iacute;a de la clasificaci&oacute;n (*).
+               	 	 </li></ul> 
+               	   </div>
+               	 </div>
+               	 <div class="row">
+               	    <ul><li>
+               	    	Luego de agregar esta informaci&oacute;n se debe presionar el bot&oacute;n <b>Guardar</b>.
+               	    </li></ul>
+               	 </div>
+               	 <div class="row">
+               	    <ul><li>
+               	 		Si no se han llenado todos los campos obligatorios el sistema no 
+               	 	    permitir&aacute; el guardado y mostrar&aacute; mensajes de alerta.
+               	 	</li></ul>
+               	 </div>
+               	 <div class="row">
+               	    <ul><li>
+               	    	Al ingresar todos los campos obligatorios y presionar el bot&oacute;n <b>Guardar</b> 
+               	        el sistema almacenar&aacute; los datos y mostrar&aacute; una alerta de confirmaci&oacute;n 
+               	 	    indicando si el registro se modific&oacute; con &eacute;xito.
+               	 	 </li></ul>
+               	 </div>
+               	 <div class="row">
+               	 </div>
+	         </div>  
+	        </div>
+	        <!-- FIN DE ADMINISTRACION DE PATOLOGIAS -->
+	        <!-- FIN DE ADMINISTRACION DE PACIENTES -->
+	        <div id="manejoPacientes">  
+	           <div class="row">
+	             <h2><b>2. MANEJO DE PACIENTES</b></h2>
+	           </div>
+	            <div class="row">
+	              <h3><b>Descripci&oacute;n breve</b></h3>
+	            </div>
+	            <div class="row">
+					<p> El manejo de pacientes se refiere al mantenimiento de toda la informaci&oacute;n de los
+					 pacientes que ser&aacute;n parte del sistema, aquellos con enfermedades cr&oacute;nicas.</p>
+	            </div> 
+                <div class="row">
+                  <h3><b>Precondiciones</b></h3>
+                </div> 
+                <div class="row">
+                        <p>   Autenticarse dentro de la plataforma con un usuario de rol <b>Administrador</b>.</p>
+                </div>
+                
+               <!-- AREGAR NUEVO PACIENTE -->
+               <div id="agregarPaciente">
+	             <div class="row">
+                   <h3><b>2.1 Agregar Nuevo Paciente</b></h3>
+                 </div>
+                 <div class="row">
+               	   <ul><li>
+               	 	 Se debe ingresar a la opci&oacute;n <b>Pacientes</b> en el men&uacute; del sistema. El sistema mostrar&aacute; la 
+               	 	 lista de pacientes registrados dentro del sistema.
+               	  </li></ul>              	 
+                 </div>
+                 <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img  style="width: 100%;max-width: 800px;" th:src="@{/resources/images/manual/pacientes/menuPacientes.jpg}"/> 
+               		</div>       
+                 </div>
+                 <div class="row">
+               	   <ul><li>
+               	 	 El sistema mostrar&aacute; la lista de pacientes registrados dentro del sistema.
+               	  </li></ul>              	 
+                 </div>
+                 <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 850px;" th:src="@{/resources/images/manual/pacientes/listaPacientes.jpg}"/> 
+               		</div>       
+                 </div>
+                 <div class="row">
+                   <ul><li>
+               	 	 Presionar el bot&oacute;n <b>Agregar nuevo paciente</b>, el sistema mostrar&aacute; una pantalla modal con el 
+               	 	 formulario de agregaci&oacute;n de nuevo paciente.
+               	 	</li></ul>
+               	 </div>
+               	 <div class="row">
+               	  <ul><li>
+               	 	Ingrese los datos del paciente. Los campos (*) son requeridos. 
+               	   </li></ul>              	 	
+               	 </div>
+               	 <div class="row">
+               	    <div class="col-md-12 ">
+               	     <ul><li>
+               	 		N&uacute;mero de expediente (*).
+               	 	  </li></ul>
+               	 	 </div>
+               	 </div>
+               	 <div class="row">
+               	   <div class="col-md-12 ">
+               	 	 <ul><li>
+               	 		Estado del paciente (*): Activo se refiere a un paciente con estado normal, 
+               	 		Muerto es un paciente que ha fallecido, Inactivo es aquel paciente que tiene 
+               	 		m&aacute;s de 6 meses de no retirar su medicamento y Abandono es aquel paciente que 
+               	 		tiene 3 meses de no retirar su medicamento.
+               	 	  </li></ul>
+               	 	 </div>
+               	 </div>
+               	 <div class="row">
+               	   <div class="col-md-12 ">
+               	 	  <ul><li>
+               	 		Patolog&iacute;a (*): Se refiere a la enfermedad que padece este paciente.
+               	 	  </li></ul>
+               	   </div>
+               	 </div>
+               	 <div class="row">
+               	   <div class="col-md-12 ">
+               	 	  <ul><li>
+               	 		Fecha de registro.
+               	 	  </li></ul>
+               	 	</div>
+               	 </div>
+               	 <div class="row">
+               	   <div class="col-md-12 ">
+               	 	  <ul><li>
+               	 		Nombres (*).
+               	 	  </li></ul>
+               	 	</div>
+               	 </div>
+               	 <div class="row">
+               	   <div class="col-md-12 ">
+               	 	  <ul><li>
+               	 		Apellidos (*).
+               	 	  </li></ul>
+               	   </div>
+               	 </div>
+               	 <div class="row">
+               	   <div class="col-md-12 ">
+               	 	  <ul><li>
+               	 		Documento de Identidad.
+               	 	  </li></ul>
+               	 	</div>
+               	  </div>
+               	  <div class="row">
+               	    <div class="col-md-12 ">
+               	 	  <ul><li>
+               	 		Correo electr&oacute;nico.
+               	 	  </li></ul>
+               	 	 </div>
+               	   </div>
+               	 <div class="row">
+               	   <div class="col-md-12 ">
+               	 	  <ul><li>
+               	 		Fecha de nacimiento (*).
+               	 	  </li></ul>
+               	   </div>
+               	 </div>
+               	 <div class="row">
+               	   <div class="col-md-12 ">
+               	 	  <ul><li>
+               	 		Sexo (*).
+               	 	  </li></ul>
+               	   </div>
+               	  </div>
+               	 <div class="row">
+               	   <div class="col-md-12 ">
+               	 	  <ul><li>
+               	 		Pa&iacute;s (*).
+               	 	  </li></ul>
+               	   </div>
+               	 </div>
+               	 <div class="row">
+               	   <div class="col-md-12 ">
+               	 	  <ul><li>
+               	 		Departamento (*).
+               	 	  </li></ul>
+               	 	</div>
+               	 </div>
+               	 <div class="row">
+               	  <div class="col-md-12 ">
+               	 	  <ul><li>
+               	 		Municipio (*).
+               	 	  </li></ul>
+               	 	</div>
+               	 </div>
+               	 <div class="row">
+               	   <div class="col-md-12 ">
+               	      <ul><li>
+               	    	Tel&eacute;fono.
+               	      </li></ul>
+               	    </div>
+               	 </div>
+               	 <div class="row">
+               	  <div class="col-md-12 ">
+               	      <ul><li>
+               	    	Direcci&oacute;n.
+               	       </li></ul>
+               	   </div>
+               	 </div>
+               	 <div class="row">
+               	  <div class="col-md-12 ">
+               	      <ul><li>
+               	    		Informaci&oacute;n de contacto.
+               	      </li></ul>
+               	   </div>
+               	 </div>   
+               	 <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manual/pacientes/nuevoPaciente.jpg}"/> 
+               		</div>       
+                 </div>            	               	
+               	 <div class="row">
+               	  <ul><li>
+               	 	Luego de agregar esta informaci&oacute;n se debe presionar el bot&oacute;n <b>Guardar</b>.
+               	  </li></ul>
+               	 </div>
+               	 <div class="row">
+               	   <ul><li>
+               	    	Si no se han llenado todos los campos obligatorios el sistema no 
+               	 	   permitir&aacute; el guardado y mostrar&aacute; mensajes de alerta.
+               	 	</li></ul>
+               	 </div>
+               	 <div class="row">
+               	   <ul><li>
+               	    	Al ingresar todos los campos obligatorios y presionar el bot&oacute;n <b>Guardar</b> 
+               	 	   el sistema almacenar&aacute; los datos y mostrar&aacute; una alerta de confirmaci&oacute;n 
+               	 	   indicando si el registro se guard&oacute; con &eacute;xito.
+               	 	</li></ul>
+               	 </div>
+               	 <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 850px;" th:src="@{/resources/images/manual/pacientes/pacienteAgregado.jpg}"/> 
+               		</div>       
+                 </div>
+               	 <div class="row">
+               	</div>
+	          </div>  
+	           <!-- FIN AGREGAR PACIENTE --> 
+	           
+	          <!-- INICIO BUSCAR PACIENTE --> 
+	          <div id="buscarPaciente">
+	            <div class="row">
+                   <h3><b>2.2 Buscar Paciente</b></h3>
+                </div>
+                <div class="row">
+                  <ul><li>
+                  	Se debe ingresar a la opci&oacute;n <b>Pacientes</b> en el men&uacute; del sistema. 
+                  	El sistema mostrar&aacute; la lista de pacientes registrados dentro del sistema. 
+                  	Luego deber&aacute; continuar con los siguientes pasos:
+                  </li></ul>                
+                </div>
+                <div class="row">
+                  <ul><li>
+                   	Seleccionar en la lista desplegable el campo por el cual se realizar&aacute; la b&uacute;squeda.
+                  </li></ul>
+                </div>
+                <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 450px;"  th:src="@{/resources/images/manual/pacientes/criterioBusqueda.jpg}"/> 
+               		</div>       
+                 </div>
+                <div class="row">
+                  <ul><li>
+                   		Colocarse en la caja de texto Buscar.
+                  </li></ul>
+                </div>
+                <div class="row">
+                  <ul><li>
+                   	Ingresar nombre, apellido, DUI o expediente seg&uacute;n opci&oacute;n seleccionada en lista desplegable.
+                  </li></ul>
+                 </div>
+                 <div class="row">
+                   <ul><li>
+                   	  El sistema refresca la tabla para mostrar los pacientes 
+                   	  que coinciden con el criterio de b&uacute;squeda.
+                   	</li></ul>
+                 </div>
+                 <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 850px;" th:src="@{/resources/images/manual/pacientes/resultadoBusqueda.jpg}"/> 
+               		</div>       
+                 </div>
+                 <div class="row">
+                   <ul><li>
+                   	 Dentro de la tabla se pueden apreciar peque&#241;os controles sobre los
+                   	 t&iacute;tulos de las columnas para poder sortear los registros.
+                   </li></ul>
+                 </div>
+                 <div class="row">
+                 </div>
+	        </div>
+	        <!-- FIN BUSCAR PACIENTE --> 
+	        <!-- INICIO EDITAR PACIENTE --> 
+	         <div id="editarPaciente">
+	             <div class="row">
+                    <h3><b>2.3 Editar Paciente</b></h3>
+                 </div>
+                 <div class="row">
+               	   <ul><li>
+               	 	 Se debe ingresar a la opci&oacute;n <b>Pacientes</b> en el men&uacute; del sistema. El sistema mostrar&aacute; la 
+               	 	 lista de pacientes registrados dentro del sistema.
+               	   </li></ul>              	 
+                 </div>
+                 <div class="row">
+               	   <ul><li>
+               	 	 Identificar el paciente que se quiere editar y luego presionar el bot&oacute;n de edici&oacute;n 
+               	 	 <img  th:src="@{/resources/images/manual/botonEditar.jpg}"/>, luego de esto el sistema despliega una pantalla modal con los datos del paciente.
+               	  </li></ul>              	 
+                 </div>
+                 <div class="row">
+               	   <ul><li>
+               	 	 Modifique los datos del paciente que usted desea. Los campos (*) son requeridos.
+               	  </li></ul>              	 
+                 </div>
+               	 <div class="row">
+               	    <div class="col-md-12 ">
+               	     <ul><li>
+               	 		N&uacute;mero de expediente (*).
+               	 	  </li></ul>
+               	 	 </div>
+               	  </div>
+               	  <div class="row">
+               	   <div class="col-md-12 ">
+               	 	 <ul><li>
+               	 		Estado del paciente (*): Activo se refiere a un paciente con estado normal, 
+               	 		Muerto es un paciente que ha fallecido, Inactivo es aquel paciente que tiene 
+               	 		m&aacute;s de 6 meses de no retirar su medicamento y Abandono es aquel paciente que 
+               	 		tiene 3 meses de no retirar su medicamento.
+               	 	  </li></ul>
+               	 	 </div>
+               	 </div>
+               	 <div class="row">
+               	   <div class="col-md-12 ">
+               	 	  <ul><li>
+               	 		Patolog&iacute;a (*): Se refiere a la enfermedad que padece este paciente.
+               	 	  </li></ul>
+               	   </div>
+               	 </div>
+               	 <div class="row">
+               	   <div class="col-md-12 ">
+               	 	  <ul><li>
+               	 		Fecha de registro.
+               	 	  </li></ul>
+               	 	</div>
+               	 </div>
+               	 <div class="row">
+               	   <div class="col-md-12 ">
+               	 	  <ul><li>
+               	 		Nombres (*).
+               	 	  </li></ul>
+               	 	</div>
+               	 </div>
+               	 <div class="row">
+               	   <div class="col-md-12 ">
+               	 	  <ul><li>
+               	 		Apellidos (*).
+               	 	  </li></ul>
+               	   </div>
+               	 </div>
+               	 <div class="row">
+               	   <div class="col-md-12 ">
+               	 	  <ul><li>
+               	 		Documento de Identidad.
+               	 	  </li></ul>
+               	 	</div>
+               	  </div>
+               	  <div class="row">
+               	    <div class="col-md-12 ">
+               	 	  <ul><li>
+               	 		Correo electr&oacute;nico.
+               	 	  </li></ul>
+               	 	 </div>
+               	   </div>
+               	 <div class="row">
+               	   <div class="col-md-12 ">
+               	 	  <ul><li>
+               	 		Fecha de nacimiento (*).
+               	 	  </li></ul>
+               	   </div>
+               	 </div>
+               	 <div class="row">
+               	   <div class="col-md-12 ">
+               	 	  <ul><li>
+               	 		Sexo (*).
+               	 	  </li></ul>
+               	   </div>
+               	  </div>
+               	 <div class="row">
+               	   <div class="col-md-12 ">
+               	 	  <ul><li>
+               	 		Pa&iacute;s (*).
+               	 	  </li></ul>
+               	   </div>
+               	 </div>
+               	 <div class="row">
+               	   <div class="col-md-12 ">
+               	 	  <ul><li>
+               	 		Departamento (*).
+               	 	  </li></ul>
+               	 	</div>
+               	 </div>
+               	 <div class="row">
+               	  <div class="col-md-12 ">
+               	 	  <ul><li>
+               	 		Municipio (*).
+               	 	  </li></ul>
+               	 	</div>
+               	 </div>
+               	 <div class="row">
+               	   <div class="col-md-12 ">
+               	      <ul><li>
+               	    	Tel&eacute;fono.
+               	      </li></ul>
+               	    </div>
+               	 </div>
+               	 <div class="row">
+               	  <div class="col-md-12 ">
+               	      <ul><li>
+               	    	Direcci&oacute;n.
+               	       </li></ul>
+               	   </div>
+               	 </div>
+               	 <div class="row">
+               	  <div class="col-md-12 ">
+               	      <ul><li>
+               	    		Informaci&oacute;n de contacto.
+               	      </li></ul>
+               	   </div>
+               	 </div>             	               	
+               	 <div class="row">
+               	  <ul><li>
+               	 	Luego de agregar esta informaci&oacute;n se debe presionar el bot&oacute;n <b>Guardar</b>.
+               	  </li></ul>
+               	 </div>
+               	 <div class="row">
+               	   <ul><li>
+               	    	Si no se han llenado todos los campos obligatorios el sistema no 
+               	 	   permitir&aacute; el guardado y mostrar&aacute; mensajes de alerta.
+               	 	</li></ul>
+               	 </div>
+               	 <div class="row">
+               	   <ul><li>
+               	    	Al ingresar todos los campos obligatorios y presionar el bot&oacute;n <b>Guardar</b> 
+               	 	   el sistema almacenar&aacute; los datos y mostrar&aacute; una alerta de confirmaci&oacute;n 
+               	 	   indicando si el registro se modific&oacute; con &eacute;xito.
+               	 	</li></ul>
+               	 </div>
+               	 <div class="row">
+               	</div>
+	          </div>
+	          
+	          <!-- FIN EDITAR PACIENTE --> 
+	         <!-- INICIO DETALLE PACIENTE --> 
+	         <div  id="detallePaciente">
+	           <div class="row">
+                  <h3><b>2.3 Ver Detalle de Paciente</b></h3>
+               </div>
+               <div class="row">
+               	 <ul><li>
+               	 	 Se debe ingresar a la opci&oacute;n <b>Pacientes</b> en el men&uacute; del sistema. El sistema mostrar&aacute; la 
+               	 	 lista de pacientes registrados dentro del sistema.
+               	</li></ul>               	 
+                </div>
+                <div class="row">
+                  <ul><li>
+               	 	Dentro del sistema identifique el paciente del cual requiere informaci&oacute;n adicional.
+               	  </li></ul> 
+                </div>
+                <div class="row">
+                 <ul><li>
+               	 	Presione el bot&oacute;n Ver detalle  <img  th:src="@{/resources/images/manual/botonDetalle.jpg}"/> .
+               	 </li></ul> 
+                </div>
+                <div class="row">
+                  <ul><li>
+               	 	El sistema abrir&aacute; una pesta&#241;a en la que se podr&aacute; ver el detalle de toda la informaci&oacute;n del paciente,
+               	 	adem&aacute;s de poder imprimir dicho detalle.
+               	  	</li></ul> 
+               	</div>
+               	<div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img style="width: 100%;max-width: 750px;" th:src="@{/resources/images/manual/pacientes/detallePaciente.jpg}"/> 
+               		</div>       
+                 </div>
+                 <div class="row">  
+                 </div>
+              </div>
+	         <!-- FIN DETALLE PACIENTE -->	         
+	        </div>
+	         <!-- INICIO MANEJO DE USUARIOS -->  
+	         <div id="manejoUsuarios" style="text-align: justify;">  
+	           <div class="row">
+	             <h2><b>3. MANEJO DE USUARIOS</b></h2>
+	           </div>
+	            <div class="row">
+	              <h3><b>Descripci&oacute;n breve</b></h3>
+	            </div>
+	            <div class="row">
+					<p> El manejo de usuario se refiere al control y acceso que se le dar&aacute; a los usuarios para usar
+					la aplicaci&oacute;n.</p>
+	            </div> 
+                <div class="row">
+                  <h3><b>Precondiciones</b></h3>
+                </div> 
+                <div class="row">
+                        <p>   Autenticarse dentro de la plataforma con un usuario de rol <b>Administrador</b>.</p>                
+	            </div>
+	            
+	            <!-- INICIO AGREGAR USUARIO -->
+	           <div  id="agregarUsuario"> 
+	         	<div class="row">
+	             	<h3><b>3.1 Agregar Nuevo Usuario</b></h3>
+	            </div>
+	            <div class="row">
+	            	<ul>
+	            	  <li>
+	            	    Se debe ingresar a la opci&oacute;n <b>Usuarios</b> en el men&uacute; del sistema. 
+	            		El sistema mostrar&aacute; la lista de usuarios registrados dentro del sistema con sus distintos roles. 
+	            	  </li>
+	            	</ul>
+	              </div>
+	              <div class="row">  
+				       <div class="col-md-12 col-xs-4">        
+               		    <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manual/usuarios/menuUsuarios.png}"/> 
+               		   </div>       
+                   </div>
+                   <div class="row"> 
+                   </div>
+                   <div class="row">  
+				       <div class="col-md-12 col-xs-4">        
+               		    <img style="width: 100%;max-width: 850px;" th:src="@{/resources/images/manual/usuarios/listaUsuarios.png}"/> 
+               		   </div>       
+                   </div>
+                   <div class="row">
+                    <ul>
+	            	  <li>	Presiona el bot&oacute;n <b>Agregar nuevo usuario</b>, el sistema mostrar&aacute; una ventana modal 
+	            		con el formulario de agregaci&oacute;n de usuarios.
+	            	  </li>
+	            	  <li>
+	            	   Ingrese los datos del usuario. Los campos (*) son requeridos.
+	            	  </li>
+	            	</ul>	            		            
+	             </div>
+	             <div class="row">
+	               <div class="col-md-12 ">
+	                 <ul>
+	            	  <li>
+	            	     Nombres (*).
+	            	  </li>
+	            	  <li>
+	            	     Apellidos (*).
+	            	  </li>
+	            	  <li>
+	            	     Usuario (*).
+	            	  </li>
+	            	  <li>
+	            	     Contrase&ntilde;a (*).
+	            	  </li>
+	            	  <li>
+	            	     Correo electr&oacute;nico.
+	            	  </li>
+	            	  <li>
+	            	     Rol (*).
+	            	  </li>
+	            	 </ul>
+	               </div>
+	              </div>
+	              <div class="row">  
+				       <div class="col-md-12 col-xs-4">        
+               		    <img style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manual/usuarios/nuevoUsuario.png}"/> 
+               		   </div>       
+                   </div>
+                  <div class="row">
+                    <ul>
+                   	  <li>
+                   	    Luego de agregar esta informaci&oacute;n se debe presionar el bot&oacute;n <b>Guardar</b>.
+                  	  </li>
+                  	  <li>
+                  	    Si no se han llenado todos los campos obligatorios el sistema no 
+	            		permitir&aacute; el guardado y mostrar&aacute; mensajes de alerta.
+                  	  </li>
+                  	  <li>
+                  	    Al ingresar todos los campos obligatorios y presionar el bot&oacute;n <b>Guardar</b> 
+	            		el sistema almacenar&aacute; los datos y mostrar&aacute; una alerta de confirmaci&oacute;n 
+	            		indicando si el registro se guard&oacute; con &eacute;xito.
+                  	  </li>
+                    </ul>
+                  </div>
+                  <div class="row">  
+				       <div class="col-md-12 col-xs-4">        
+               		    <img style="width: 100%;max-width: 850px;" th:src="@{/resources/images/manual/usuarios/usuarioAgregado.png}"/> 
+               		   </div>       
+                   </div>
+	              <div class="row">
+	              </div>
+	           </div>
+	           <!-- FIN  AGREGAR USUARIO -->
+	           <!-- INICIO BUSCAR USUARIO -->
+	           <div  id="buscarUsuario">
+	         	<div class="row">
+	          	   <h3><b>3.2 Buscar Usuario</b></h3>
+	            </div>
+	            <div class="row">
+	              <ul>
+	            	<li>
+	            		Luego de que el sistema presenta la lista de usuarios dentro del sistema,
+	            		se debe proseguir con los siguientes pasos:
+	            	</li>
+	            	<li>
+	            		Colocarse en la caja de texto <b>Buscar</b>.
+	            	</li>
+	            	<li>
+	            		Ingresar nombre, apellido, usuario o rol.
+	            	</li>
+	            	<li>
+	            		El sistema refresca la tabla para mostrar los usuarios que coinciden 
+	            		con el criterio de b&uacute;squeda.
+	            	</li>
+	            	<li>
+	            		Dentro de la tabla se pueden apreciar peque&ntilde;os controles sobre los 
+	            		t&iacute;tulos de las columnas para poder sortear los registros.
+	            	</li>
+	               </ul>            	
+	            </div>
+	              <div class="row">  
+				       <div class="col-md-12 col-xs-4">        
+               		    <img style="width: 100%;max-width: 850px;" th:src="@{/resources/images/manual/usuarios/resultadoBusqueda.png}"/> 
+               		   </div>       
+                 </div>	          
+	            <div class="row">
+	            </div>
+	          </div>
+	           <!-- FIN  BUSCAR USUARIO -->
+	           <!-- INICIO EDITAR USUARIO -->
+	           <div  id="editarUsuario"> 
+	         	<div class="row">
+	             	<h3><b>3.3 Editar Usuario</b></h3>
+	            </div>
+	            <div class="row">
+	            	<ul>
+	            	  <li>
+	            	    Se debe ingresar a la opci&oacute;n <b>Usuarios</b> en el men&uacute; del sistema. 
+	            		El sistema mostrar&aacute; la lista de usuarios registrados dentro del sistema con sus distintos roles. 
+	            	  </li>
+	            	  <li>	
+	            	    Identificar al usuario que se quiere editar y luego presionar el bot&oacute;n de edici&oacute;n 
+	            	    <img  th:src="@{/resources/images/manual/botonEditar.jpg}"/> , 
+	          	 	    luego de esto el sistema despliega una pantalla modal. Editar usuario con los datos del usuario.
+	            	  </li>
+	            	  <li>
+	            	   Ingrese los datos del usuario. Los campos (*) son requeridos.
+	            	  </li>
+	            	</ul>	            		            
+	             </div>
+	             <div class="row">
+	               <div class="col-md-12 ">
+	                 <ul>
+	            	  <li>
+	            	     Nombres (*).
+	            	  </li>
+	            	  <li>
+	            	     Apellidos (*).
+	            	  </li>
+	            	  <li>
+	            	     Usuario (*).
+	            	  </li>
+	            	  <li>
+	            	     Contrase&ntilde;a (*).
+	            	  </li>
+	            	  <li>
+	            	     Correo electr&oacute;nico.
+	            	  </li>
+	            	  <li>
+	            	     Rol (*).
+	            	  </li>
+	            	 </ul>
+	               </div>
+	              </div>
+                  <div class="row">
+                    <ul>
+                   	  <li>
+                   	    Luego de agregar esta informaci&oacute;n se debe presionar el bot&oacute;n <b>Guardar</b>.
+                  	  </li>
+                  	  <li>
+                  	    Si no se han llenado todos los campos obligatorios el sistema no 
+	            		permitir&aacute; el guardado y mostrar&aacute; mensajes de alerta.
+                  	  </li>
+                  	  <li>
+                  	    Al ingresar todos los campos obligatorios y presionar el bot&oacute;n <b>Guardar</b> 
+	            		el sistema almacenar&aacute; los datos y mostrar&aacute; una alerta de confirmaci&oacute;n 
+	            		indicando si el registro se guard&oacute; con &eacute;xito.
+                  	  </li>
+                    </ul>
+                  </div>
+	              <div class="row">
+	              </div>
+	           </div>
+	           <!-- FIN  EDITAR USUARIO -->
+	           <!-- INICIO INACTIVAR USUARIO -->
+	           <div  id="inactivarUsuario">
+	             <div class="row">
+	          	  <h3><b>3.4 Inactivar Usuario</b></h3>
+	            </div>
+	            <div class="row">
+	           		<ul>
+                   	  <li>
+	           			Luego de identificar al usuario que se necesitar inactivar dentro de 
+	           			la lista de usuarios del sistema.
+	           		  </li>
+	                  <li>
+	           			Presionar el bot&oacute;n de inactivaci&oacute;n <img  th:src="@{/resources/images/manual/usuarios/botonInactivarUsuario.png}"/> al lado del registro requerido.
+	           		  </li>
+	           		  <li>
+	           			El sistema presentara un modal que requiere de confirmaci&oacute;n.
+	           		  </li>
+	           		  <li>
+	           			Al confirmar dentro del modal y presionar el bot&oacute;n aceptar el sistema 
+	           			inactivara el usuario mostrando una alerta para confirmar la acci&oacute;n.
+	           		  </li>
+	           		</ul>	
+	           	</div> 
+	           	  <div class="row">  
+				       <div class="col-md-12 col-xs-4">        
+               		    <img style="width: 100%;max-width: 400px;" th:src="@{/resources/images/manual/usuarios/inactivarUsuario.png}"/> 
+               		   </div>       
+                 </div>
+                 <div class="row">
+	           	</div> 
+	           		  <div class="row">  
+				       <div class="col-md-12 col-xs-4">        
+               		    <img style="width: 100%;max-width: 850px;" th:src="@{/resources/images/manual/usuarios/resultadoInactivarUsuario.png}"/> 
+               		   </div>       
+                 </div>
+	           	<div class="row">
+	           	</div>         		
+	          </div>
+	          <!-- FIN INACTIVAR USUARIO -->
+	        </div>
+	        <!-- FIN MANEJO DE USUARIOS --> 
+	        
+	        <!-- INICIO MANEJO DE MEDICAMENTOS --> 
+	        <div id="manejoMedicamentos">
+	          <div class="row">
+	             <h2><b>4. MANEJO DE MEDICAMENTOS</b></h2>
+	           </div>
+	            <div class="row">
+	              <h2><b>Descripci&oacute;n breve</b></h2>
+	            </div>
+	            <div class="row">
+					<p> El manejo de los medicamentos se refiere al mantenimiento todos los f&aacute;rmacos que 
+					el sistema soporta para poder ser agrupados y entregados a los pacientes con enfermedades cr&oacute;nicas.</p>
+	            </div> 
+                <div class="row">
+                  <h2><b>Precondiciones</b></h2>
+                </div> 
+                <div class="row">
+                        <p>   Autenticarse dentro de la plataforma con un usuario de rol <b>Administrador</b>.</p>                
+	            </div>
+	            
+	            <!-- INICIO AGREGAR MEDICAMENTOS --> 
+	            <div id="agregarMedicamento">
+	               <div class="row">
+	                 <h3><b>4.1 Agregar Nuevo Medicamento</b></h3>
+	               </div>
+	               <div class="row">
+	            	<ul>
+	            	  <li>
+	            	    Se debe ingresar a la opci&oacute;n <b>Medicamentos</b> en el men&uacute; del sistema y luego presionar 
+	            		la sub opci&oacute;n <b>Manejo de medicamentos</b>. El sistema mostrar&aacute; la lista de medicamentos
+	            		registrados dentro del sistema en sus distintas presentaciones. 
+	            	  </li>
+	            	 </ul>
+	            	</div>  
+	            	<div class="row">  
+				      <div class="col-md-12 col-xs-4">        
+               		   <img  style="width: 100%;max-width: 900px;" th:src="@{/resources/images/manual/medicamentos/listaMedicamentos.png}"/> 
+               		  </div>       
+                    </div>
+                    <div class="row">
+	            	<ul>
+	            	  <li>
+	            	  	Presionar el bot&oacute;n <b>Agregar nuevo medicamento</b>, 
+	            	 	el sistema desplegar&aacute; una pantalla modal con el formulario de agregaci&oacute;n de medicamentos.
+	            	  </li>
+	            	  <li>
+	            	  	Ingrese los datos del medicamento. Los campos (*) son requeridos.
+	            	  </li>
+	            	</ul>            	
+	               </div>
+	              <div class="row">
+	               <div class="col-md-12 ">
+	                 <ul>
+	            	  <li>
+	            	     Nombre (*).
+	            	  </li>
+	            	  <li>
+	            	     Descripci&oacute;n / Presentaci&oacute;n (*).
+	            	  </li>
+	            	  <li>
+	            	     Tipo: Institucional (Comprado por el MINED) o No institucional (Privado).
+	            	  </li>
+	            	 </ul>
+	                </div>
+	               </div>
+	              <div class="row">  
+				      <div class="col-md-12 col-xs-4">        
+               		   <img  style="width: 100%;max-width: 550px;" th:src="@{/resources/images/manual/medicamentos/nuevoMedicamento.png}"/> 
+               		  </div>       
+                  </div>
+	             <div class="row">
+	             	<ul>
+	             	  	<li>
+	             	  		Luego de agregar esta informaci&oacute;n se debe presionar el bot&oacute;n <b>Guardar</b>.
+	             	  	</li>
+	             		<li>
+	             			Si no se han llenado todos los campos obligatorios el sistema no permitir&aacute; 
+	            	 		el guardado y mostrar&aacute; mensajes de alerta.
+	             	  	</li>
+	             	  	<li>
+	             	  		Al ingresar todos los campos obligatorios y presionar el bot&oacute;n <b>Guardar</b> el sistema
+	            	 	 	almacenar&aacute; los datos y mostrar&aacute; una alerta de confirmaci&oacute;n indicando si el 
+	            	 	 	registro se agreg&oacute; con &eacute;xito.
+	             	  	</li>
+	             	</ul>
+	             </div> 
+	             <div class="row">  
+				      <div class="col-md-12 col-xs-4">        
+               		   <img  style="width: 100%;max-width: 900px;" th:src="@{/resources/images/manual/medicamentos/medicamentoAgregado.png}"/> 
+               		  </div>       
+                  </div>
+	             <div class="row">
+	             </div>
+	           </div>
+	           <!-- FIN AGREGAR MEDICAMENTOS --> 
+	           <!-- INICIO BUSCAR MEDICAMENTOS --> 
+	           <div  id="buscarMedicamento">
+	         	<div class="row">
+	              <h3><b>4.2 Buscar Medicamento</b></h3>
+	            </div>
+	            <div class="row">
+	              <ul>
+	            	<li>
+	            		Se presenta la lista de medicamentos dentro del sistema.
+	            	</li>
+	            	<li>
+	            		Colocarse en la caja de texto <b>Buscar</b>.
+	            	</li>
+	            	<li>
+	            		Ingresar nombre, descripci&oacute;n, estado o tipo.
+	            	</li>
+	            	<li>
+	            		El sistema refresca la tabla para mostrar los medicamentos que coinciden 
+	            	 	con el criterio de b&uacute;squeda.
+	            	</li>
+	            	<li>
+	            		Dentro de la tabla se pueden apreciar peque&ntilde;os controles sobre los t&iacute;tulos de
+	            	 	las columnas para poder sortear los registros.
+	            	</li>
+	              </ul>	            	 
+	            </div>
+	            <div class="row">  
+				   <div class="col-md-12 col-xs-4">        
+               		   <img  style="width: 100%;max-width: 900px;" th:src="@{/resources/images/manual/medicamentos/resultadoBusqueda.png}"/> 
+               	  </div>       
+                </div>
+	            <div class="row">
+	            </div>          
+	         </div>
+	         <!-- FIN BUSCAR MEDICAMENTOS -->
+	         <div id="editarMedicamento">
+	         	<div class="row">
+	              <h3><b>4.3 Editar Medicamento</b></h3>
+	            </div>
+	            <div class="row">
+	            	<ul>
+	            		<li>
+	            			Identificar dentro de la tabla de medicamentos aquel f&aacute;rmaco que se necesita modificar.
+	            		</li>
+	            		<li>
+	            			Presione el bot&oacute;n de Edici&oacute;n <img  th:src="@{/resources/images/manual/botonEditar.jpg}"/> 
+	            		 	al lado del medicamento a modificar, 
+	            			el sistema mostrara una ventana modal con la informaci&oacute;n del medicamento.
+	            		</li>
+	            		<li>
+	            			Una vez en el modal puede modificar los siguientes datos, 
+	            			los marcados con un asterisco son obligatorios:
+	            		</li>	            		
+	            	</ul>	            		            	
+	            </div>
+				<div class="row">
+					<div class="col-md-12 ">
+	                 <ul>
+	            	  <li>
+	            	     Nombre (*).
+	            	  </li>
+	            	  <li>
+	            	     Descripci&oacute;n / Presentaci&oacute;n (*).
+	            	  </li>
+	            	  <li>
+	            	     Tipo: Institucional (Comprado por el MINED) o No institucional (Privado).
+	            	  </li>
+	            	 </ul>
+	                </div>
+				</div>
+				<div class="row">  
+				      <div class="col-md-12 col-xs-4">        
+               		   <img  style="width: 100%;max-width: 550px;" th:src="@{/resources/images/manual/medicamentos/editarMedicamento.png}"/> 
+               		  </div>       
+                </div>
+	            <div class="row">
+	            	<ul>
+	            		<li>
+	            			Luego al modificar los campos necesarios se procede a presionar el bot&oacute;n <b>Guardar</b>.
+	            		</li>
+	            		<li>
+	            			El sistema almacenara los datos y mostrara una alerta de confirmaci&oacute;n indicando
+	            		 	si el registro se modific&oacute; con &eacute;xito.
+	            		</li>
+	            	</ul>
+	            </div>	
+	          </div> 
+	          <!-- FIN 	EDITAR MEDICAMENTOS -->
+	        </div>
+	        <!-- FIN MANEJO DE MEDICAMENTOS --> 
+	        <!-- INICIO MANEJO DE PAQUETES DE MEDICAMENTOS --> 
+	        <div id="manejoPaqMedicamentos" > 
+	           <div class="row">
+	             <h2><b>5. MANEJO DE PAQUETES DE MEDICAMENTOS</b></h2>
+	           </div>
+	           <div class="row">
+	              <h3><b>Descripci&oacute;n breve</b></h3>
+	           </div>
+	           <div class="row">
+					<p> El manejo de los paquetes de medicamentos se refiere al mantenimiento todas 
+					las agrupaciones de f&aacute;rmacos que el sistema soporta para poder ser entregados 
+					a los pacientes cr&oacute;nicos.
+					</p>
+	            </div> 
+                <div class="row">
+                  <h3><b>Precondiciones</b></h3>
+                </div> 
+                <div class="row">
+                     <p>Autenticarse dentro de la plataforma con un usuario de rol <b>Administrador</b>.</p>               
+	            </div>
+	            
+	            <div id="agregarPaqMedicamento"> 
+	         	  <div class="row">
+	         		 <h3><b>5.1 Agregar Nuevo Paquete de Medicamento</b>s</h3>
+	         	  </div>
+	         	  <div class="row">
+	         		<ul>
+	         			<li>
+	         				Se debe ingresar a la opci&oacute;n <b>Medicamentos</b> en el men&uacute; del sistema y luego presionar la 
+	         				sub opci&oacute;n <b>Manejo de paquetes m&eacute;dicos</b>. El sistema mostrar&aacute; una lista de paquetes 
+	         				de medicamento previamente registrados dentro del sistema. 
+	         			</li>
+	         		</ul>
+	         	  </div>	
+	         	  <div class="row">  
+				   <div class="col-md-12 col-xs-4">        
+               		   <img  style="width: 100%;max-width: 700px;" th:src="@{/resources/images/manual/paqMedicamentos/listaPaqMedicos.png}"/> 
+               	    </div>       
+                  </div>
+                 <div class="row">
+	         		<ul>
+	         			<li>
+	         				Presiona el bot&oacute;n <b>Agregar nuevo paquete</b>, el sistema mostrar&aacute; una pantalla modal en 
+	         				la cual se deber&aacute; agregar los siguientes campos, aquellos marcados con (*) son obligatorios.	         			
+	         			</li>
+	         		</ul>
+				  </div>
+				  <div class="row">
+				  	<div class="col-md-12 ">
+	                 <ul>
+	            	  <li>
+	            	     Nombre del paquete (*).
+	            	  </li>
+	            	  <li>
+	            	     Descripci&oacute;n del paquete (*).
+	            	  </li>
+	            	 </ul>
+	                </div>
+				   </div>
+				   <div class="row">  
+				   <div class="col-md-12 col-xs-4">        
+               		   <img  style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manual/paqMedicamentos/nuevoPaqMedicamento.png}"/> 
+               	    </div>       
+                   </div>
+	         	   <div class="row">
+	         	     <ul>
+	         	     	<li>
+	         	     		Luego de agregar esta informaci&oacute;n se debe presionar el bot&oacute;n <b>Guardar</b>.
+	         	     	</li>
+	         	     	<li>
+	         	     		Si no se han llenado todos los campos obligatorios el sistema no permitir&aacute; el 
+	         				guardado y mostrara mensajes de alerta.
+	         	     	</li>
+	         	     	<li>
+	         	     		Al ingresar todos los campos obligatorios y presionar el bot&oacute;n <b>Guardar</b> el 
+	         				sistema almacenara los datos y mostrar&aacute; una alerta de confirmaci&oacute;n indicando si 
+	         				el registro se modific&oacute; con &eacute;xito.
+	         	     	</li>
+	         	     </ul>
+	             </div>
+	             <div class="row">
+	         	 </div>
+	         </div>
+	         <!-- FIN AGREGAR PAQUETES DE MEDICAMENTOS --> 
+	         <!-- INICIO EDITAR PAQUETES DE MEDICAMENTOS --> 
+	         <div  id="editarPaqMedicamento"> 
+	         	<div class="row">
+	         		<h3><b>5.2 Editar Paquete de Medicamentos</b></h3>
+	         	</div>
+	         	<div class="row">
+	         		<p>Para realizar esta acci&oacute;n se deben realizar los siguientes pasos:</p>
+	         		<ul>
+	         			<li>
+	         				Seleccionar dentro de la lista el paquete m&eacute;dico que se quiere editar.
+	         			</li>
+	         			<li>
+	         				Presionar el bot&oacute;n <b>Modificar paquete</b>, el sistema desplegar&aacute; una 
+	         				pantalla modal con la informaci&oacute;n del paquete m&eacute;dico.
+	         			</li>
+	         			<li>
+	         				Modificar la informaci&oacute;n del paquete.
+	         			</li>
+	         			<li>
+	         				Presionar el bot&oacute;n <b>Guardar</b> el sistema mostrar&aacute; un mensaje de confirmaci&oacute;n indicando el resultado de la operaci&oacute;n.
+	         			</li>
+	         		</ul>
+	         	</div>
+	         	<div class="row">  
+				   <div class="col-md-12 col-xs-4">        
+               		   <img  style="width: 100%;max-width: 550px;" th:src="@{/resources/images/manual/paqMedicamentos/editarPaquete.png}"/> 
+               	    </div>       
+                 </div>
+	         	<div class="row">
+	         	</div>
+	         </div>
+	          <!-- FIN EDITAR PAQUETES DE MEDICAMENTOS --> 
+	          <!-- INICIO AGREGAR-REMOVER MEDICAMENTO DE PAQUETES -->
+	          <div id="agregarRemoverMedicamentoPaquete"> 
+	          	<div class="row">
+	         		<h3><b>5.3 Agregar/Remover Medicamento de Paquete</b></h3>
+	         	</div>
+	         	<div class="row">
+	         		<ul>
+	         			<li>
+	         				Ingresar a la opci&oacute;n <b>Medicamentos</b> en el men&uacute; del sistema y luego presionar 
+	         				la sub opci&oacute;n <b>Manejo de paquetes m&eacute;dicos</b>. El sistema mostrar&aacute; una lista de paquetes 
+	         				de medicamento previamente registrados dentro del sistema, al seleccionar uno de 
+	         				ellos dentro de la lista, el sistema mostrar&aacute; en el cuadro inferior izquierdo la 
+	         				lista de medicamentos que pertenecen a este paquete y en el cuadro inferior derecho 
+	         				la lista de medicamentos disponibles para este paquete. 
+	         			</li>
+	         			<li>
+	         				Seleccionar en la lista un paquete m&eacute;dico.
+	         			</li>
+	         			<li>
+	         				Seleccionar en los cuadros inferiores el medicamento que se quiere agregar o eliminar 
+	         				del paquete y presionar el bot&oacute;n <b>Eliminar del paquete</b> &oacute; <b>Agregar al paquete</b> dependiendo de la operaci&oacute;n.
+	         			</li>
+	         		  </ul>
+	         	    </div>
+	         		<div class="row">  
+				      <div class="col-md-12 col-xs-4">        
+               		    <img  style="width: 100%;max-width: 700px;" th:src="@{/resources/images/manual/paqMedicamentos/listaMedicamentos.png}"/> 
+               	      </div>       
+                    </div>
+                    <div class="row">  
+				      <div class="col-md-12 col-xs-4">        
+               		    <img  style="width: 100%;max-width: 700px;" th:src="@{/resources/images/manual/paqMedicamentos/medicamentoAgregadoAlPaquete.png}"/> 
+               	      </div>       
+                    </div>
+                    <div class="row">  
+                     <ul>
+	         			<li>
+	         				Al terminar el proceso presione el bot&oacute;n <b>Guardar Cambios</b> en la parte inferior de la pantalla, 
+	         				el sistema mostrar&aacute; un mensaje de confirmaci&oacute;n indicando el resultado de la operaci&oacute;n.
+	         			</li>
+	         		</ul>	         		
+	         	</div>
+	         	<div class="row">
+	         	</div>
+	          </div>
+	          <!-- FIN AGREGAR-REMOVER MEDICAMENTO DE PAQUETES -->
+	        </div>
+	        <!-- FIN MANEJO DE PAQUETES DE MEDICAMENTOS --> 
+	        <!-- INICIO AUDITORIA DE SISTEMA -->
+	        <div id="auditoriaSistema">
+	        	<div class="row">
+	             <h2><b>6. AUDITOR&iacute;A DE SISTEMA</b></h2>
+	           </div>
+	            <div class="row">
+	              <h3><b>Descripci&oacute;n breve</b></h3>
+	            </div>
+	            <div class="row">
+					<p> Se refiere al registro y posterior an&aacute;lisis de las acciones de los usuarios dentro del sistema.
+					</p>
+	            </div> 
+                <div class="row">
+                  <h3><b>Precondiciones</b></h3>
+                </div> 
+                <div class="row">
+                        <p>   Autenticarse dentro de la plataforma con un usuario de rol <b>Administrador</b>.</p>
+                </div>
+                
+                <!-- INICIO CONSULTA DE AUDITORIA DE SISTEMA -->
+                <div  id="consultaAuditoria"> 
+	         	 <div class="row">
+	               <h3><b>6.1 CONSULTA DE AUDITOR&Iacute;A</b></h3>
+	             </div> 
+	             <div class="row">
+	           	  <ul>
+	           		<li>
+	           			Ingresar a la opci&oacute;n Acciones en el men&uacute; del sistema y luego 
+	           			presionar la sub opci&oacute;n <b>Auditori</b>a. 
+	           			El sistema mostrar&aacute; la lista de usuarios registrados dentro del sistema, 
+	           			seguido de dos campos con formato de fecha y hora para realizar las consultas
+	           		</li>
+	           		<li>
+	           			Seleccione un usuario dentro de la lista.
+	           		</li>
+	           		<li>
+	           			Coloque los rangos de fecha para los cuales se necesita realizar la consulta de acciones.
+	           		</li>
+	           		<li>
+	           			Presione el bot&oacute;n <b>Buscar</b>.
+	           		</li>
+	           		<li>
+	           			El sistema refrescara la tabla en la parte inferior con el detalle de auditoria de acciones
+	           	  	 	para el usuario seleccionado en el rango de fecha requerido.
+	           		</li>
+	           		<li>
+	           			En caso de no encontrarse ning&uacute;n registro de actividad, la tabla mostrara el mensaje 
+	           	  		"Ning&uacute;n dato disponible en esta tabla".
+	           		</li>
+	           	  </ul>
+	             </div> 
+	             <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img  style="width: 100%;max-width: 900px;" th:src="@{/resources/images/manual/auditoria/resultadoBusqueda.png}"/> 
+               		</div>       
+                 </div>            
+	           	 <div class="row">
+	           	 </div>
+	            </div>
+	            <!-- FIN CONSULTA DE AUDITORIA DE SISTEMA -->
+	        </div> 
+	        <!-- FIN AUDITORIA DE SISTEMA --> 
+	        
+	        <!-- INICIO MUDULO DE REPORTES-->
+	        <div id="Reportes"> 
+	        	<div class="row">
+	             <h2><b>7. REPORTES</b></h2>
+	           </div>
+	            <div class="row">
+	              <h3><b>Descripci&oacute;n breve</b></h3>
+	            </div>
+	            <div class="row">
+					<p> 
+						Muestra los diferentes reportes que fasicilitan el analisis al personal encargado para ello.
+					</p>
+	            </div> 
+                <div class="row">
+                  <h3><b>Precondiciones</b></h3>
+                </div> 
+                <div class="row">
+                        <p>   Autenticarse dentro de la plataforma con un usuario de rol <b>Administrador</b>.</p>               
+	           </div>
+	           
+	           <!-- INICIO VERIFICAR REPORTES-->
+	           <div id="verReportes">  
+	         	<div class="row" >
+			  		<h3><b>7.1	Verificar Reporte</b></h3>
+		   		</div>
+		   		<div class="row" >
+		   		  <ul>
+		   		  	<li>
+		   		  		Se debe ingresar a la opci&oacute;n <b>Acciones</b> en el men&uacute; del sistema y luego presionar la sub opci&oacute;n <b>Reporte</b>s. 
+		   				El sistema mostrar&aacute; la lista de reportes soportados por el sistema
+		   		  	</li>
+		   		   </ul>
+		   		</div>
+		   		<div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img  style="width: 100%;max-width: 900px;" th:src="@{/resources/images/manual/reportes/listaReportes.png}"/> 
+               		</div>       
+                </div>
+		   		<div class="row" >
+		   		  <ul>
+		   		  	<li>
+		   		  		Identificar el reporte que se quiere consultar.
+		   		  	</li>
+		   		  	<li>
+		   		  		Presionar el bot&oacute;n Ver <img  th:src="@{/resources/images/manual/botonEditar.jpg}"/>   al lado del reporte.
+		   		  	</li>
+		   		  	<li>
+		   		  		En el caso de los reportes que no requieran par&aacute;metros el sistema los mostrara en formato PDF
+		   				en una pesta&ntilde;a diferente en el navegador.
+		   		  	</li>
+		   		  	<li>
+		   		  		Para aquellos reportes que se requieran par&aacute;metros como limites fechas, 
+		   				departamentos o municipios el sistema mostrara una pantalla extra en una pesta&ntilde;a del navegador.
+		   		  	</li>
+		   		  	<li>
+		   		  		Presiona el bot&oacute;n <b>Generar Reporte</b>.
+		   		  	</li>
+		   		  	<li>
+		   		  		El sistema mostrar&aacute; el reporte en formato PDF.	
+		   		  	</li>
+		   		  </ul>		   			
+		   		 </div>
+		   		 <div class="row">  
+				    <div class="col-md-12 col-xs-4">        
+               		  <img  style="width: 100%;max-width: 600px;" th:src="@{/resources/images/manual/reportes/parametrosReportes.png}"/> 
+               		</div>       
+                 </div>
+		   		 <div class="row" >
+		   		 </div>
+	           </div>
+	           <!-- FIN VERIFICAR REPORTES-->
+	        </div> 	        
+	    </div>	 
+	         <!--COLUMNA PARA AGREGAR  CONTENIDO -->
+	    <div class="col-md-3 " style="text-align: left; float:left; position: fixed;">  
+	      <div class="table-responsive">
+			 <table  class="table table-hover table-striped table-bordered">
+			   <thead style="text-align: center;">
+			   	 <tr class="head">
+			   	 	<th>Tabla de Contenido</th>
+			   	 </tr>
+			   </thead>
+			   <tbody>
+			   	 <tr><td><a href="#manejoPatologias">  1. Manejo de patolog&iacute;as</a></td></tr>
+				 <tr><td><a href="#manejoPacientes">  2. Manejo de pacientes</a></td></tr>
+				 <tr><td><a href="#manejoUsuarios">  3. Manejo de usuarios</a></td></tr>
+				 <tr><td><a href="#manejoMedicamentos">  4. Manejo de Medicamentos</a></td></tr>
+				 <tr><td><a href="#manejoPaqMedicamentos">  5. Manejo de Paquetes de Medicamentos</a></td></tr>
+				 <tr><td><a href="#auditoriaSistema">  6. Auditor&iacute;a del Sistema</a></td></tr>
+				 <tr><td><a href="#Reportes">  7. Reportes</a></td></tr>
+			   </tbody>
+			 </table>
+	      </div>
+	     </div>  
+        </div>
+	   </div>
+	<div th:replace="fragments/general :: footerFragment"></div>
+	<div th:replace="fragments/general :: jsFragment"></div>
+
+</body>
+</html>

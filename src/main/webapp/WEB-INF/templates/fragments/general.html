@@ -114,6 +114,18 @@
 					</a>
 					<ul class="dropdown-menu">
   						<li><a href="#" data-toggle="modal" data-target="#modalCambioClave"><i class="fa fa-lock"></i> Cambiar contrase&ntilde;a</a></li>
+  						
+  						<li th:if="${#httpServletRequest.isUserInRole('ROLE_Admin')}" >
+  							<a th:href="@{/admin/manualAdministracion}">
+  								<i class="fa fa-ambulance"></i> Ayuda al usuario
+  							</a>
+  						</li>
+  						<li th:if="${#httpServletRequest.isUserInRole('ROLE_Medico')}" >
+  							<a th:href="@{/control/manualControlCitas}">
+  								<i class="fa fa-ambulance"></i> Ayuda al usuario
+  							</a>
+  						</li>
+  						
   					</ul>
 				</li>	
                 <li>
