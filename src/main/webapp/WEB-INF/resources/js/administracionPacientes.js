@@ -146,6 +146,7 @@ $( document ).ready(function() {
 		"pagingType": "simple_numbers",
         'bProcessing': true,
         'bServerSide': true,
+        'responsive': true,
         "iDisplayLength": 10,
         "iDisplayStart": 0,
         "bSortClasses": false,
