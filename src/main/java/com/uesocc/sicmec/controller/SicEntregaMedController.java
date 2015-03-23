@@ -6,12 +6,14 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -47,6 +49,18 @@ public class SicEntregaMedController
 	{
 		
 		return "/farm/entregaMed";
+	}
+	
+
+	/**
+	 * Carga la pantalla por defecto para el manual de usuario para Entrega de Medicamentos
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/manualEntregaMedicamentos",method=RequestMethod.GET)
+	public String defaultRequest(Model model,HttpServletRequest request, HttpServletResponse response)
+	{	
+		return "/farm/ayudaEntregaMed";
 	}
 	
 	@RequestMapping(value="/entregarTrat",method=RequestMethod.POST)

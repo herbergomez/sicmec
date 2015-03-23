@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/general :: headerFragment">
+	<meta charset="utf-8" />
+</head>
+<body>
+	<div th:replace="fragments/general :: navFragment"></div>
+
+	<div class="container" style="min-height: 300px; overflow: auto;">
+	   <div class="row">
+	     <!--COLUMNA PARA AGREGAR TEXTO REFERENTE AL CONTENIDO -->
+	     <div class="col-md-8 " style="text-align: justify;  float: right;">
+	       <div id="homeManual">
+	         <div class="row" style="text-align: center;">
+               <h1> <b>Sistema de control y monitoreo de pacientes con enfermedades cr&oacute;nicas SICMEC.</b></h1>	         
+	         </div>
+	         <div class="row" >
+	          <p> Este manual describe las distintas funcionalidades y procedimientos que se
+	           pueden desarrollar dentro del Sistema de control y monitoreo de pacientes 
+	           con enfermedades cr&oacute;nicas <b>SICMEC</b> para el hospital <b>San Juan de Dios de 
+	           Santa Ana</b> y pretende ser una gu&iacute;a detallada paso a paso que el usuario
+	           puede consultar al momento de tener alguna duda o de presentarse alguna 
+	           eventualidad. </p>
+	        </div>	         
+	       </div>
+	       
+	       <div>
+	       	 <div id="buscarPac">
+	            <div class="row">
+                  <h3><b>1. Busqueda/Detalle de paciente</b></h3>
+                </div> 
+	        	<div class="row">
+                 <ul>
+                    <li> Para buscar un paciente dento del sistema se debe ingresar en el men&uacute; principal de la aplicaci&oacute;n a la opci&oacute;n
+                     <b>Entrega de Medicamentos</b>. El sistema mostrar&aacute; la pantalla principal de entrega de medicamentos.
+                 	</li>
+                 </ul>
+               </div>
+               <div class="row">    
+                  <div class="col-md-12 col-xs-4">            
+               		<img style="width: 100%; max-width: 400px;"  th:src="@{/resources/images/manualFarmacia/menu.png}"/>    
+               	  </div>           
+               </div>
+               <div class="row"> 
+               </div>
+               <div class="row">    
+                  <div class="col-md-12 col-xs-4">            
+               		<img style="width: 100%; max-width: 800px;"  th:src="@{/resources/images/manualFarmacia/principalPantFarmacia.png}"/>    
+               	  </div>           
+               </div>
+               <div class="row"> 
+               </div>
+               <div class="row">
+                  <ul>
+                  	<li>
+                   		Colocar el cursor del rat&oacute;n en la caja de texto para b&uacute;squeda de pacientes.                 
+                  	</li>
+                  	<li>
+                  		Colocar el N&uacute;mero de Expediente y dar click al boton <b>Buscar</b>. El sistema mostrar&aacute; el detalle de
+                  		tratamiento que reset&oacute; el doctor que atendi&oacute; al paciente asi como tambien puede verse el historial de entregas de medicamento.
+                  	</li>
+                  </ul>
+                </div>  
+                <div class="row"> 
+                </div>                
+                <div class="row">  
+                     <div class="col-md-12 col-xs-4">            
+               		   <img style="width: 100%;max-width: 800px;" th:src="@{/resources/images/manualFarmacia/busquedaPacientes.png}"/>
+               	      </div>          
+                </div> 
+                <div class="row"> 
+                </div>
+				 <div class="row">
+                   <ul><li>
+                   	  Puede ver la informaci&oacute;n del paciente dando click al bot&oacute;n <b>Detalle paciente</b>. 
+                   	  El sistema mostrar&aacute; la informaci&oacute;n respectiva.
+                   	</li></ul>
+                 </div>
+                  <div class="row"> 
+                  </div>
+                 <div class="row">  
+                     <div class="col-md-12 col-xs-4">            
+               		   <img style="width: 100%;max-width: 800px;" th:src="@{/resources/images/manualFarmacia/detallePaciente.png}"/>
+               	      </div>          
+                 </div>
+                  <div class="row"> 
+                  </div>
+	        	</div>
+	         
+	           <!-- NUEVA ENTREGA DE MEDICAMENTO -->
+	           <div id="nuevaEntrega">
+	             <div class="row">
+                   <h3><b>2.  Entrega de Medicamento</b></h3>
+                 </div>
+                 <div class="row">
+                  <ul>
+                    <li> Realizar una entrega de medicamento requiere primeramente buscar un paciente mediante su 
+                       n&uacute;mero de expediente. Vea <b><a href="#buscarPac">Buscar un paciente/Ver expediente del paciente</a></b>.
+                    </li>
+                    <li> 
+                    	Dar click al bot&oacute;n <b>Realizar Entrega</b>. El sistema mostrar&aacute; una ventana en la que se
+                    	encuentra el detalle del tratamiento, dosis, paquete de medicamento. Dar click al bot&oacute;n <b>Guardar</b>
+                    </li>
+                    <li> 
+                    	El sistema registrar&aacute; la entrega y mostrar&aacute; en la parte izquierda de la pantalla
+                    	la lista de entregas hechas para dicho paciente. 
+                    </li>
+                  </ul>
+                </div>
+                <div class="row"> 
+                </div>
+                 <div class="row">  
+                     <div class="col-md-12 col-xs-4">            
+               		   <img style="width: 100%;max-width: 400px;" th:src="@{/resources/images/manualFarmacia/historialEntregas.png}"/>
+               	      </div>          
+                 </div>
+                 <div class="row"> 
+                 </div>
+                 <div class="row"> 
+                  	 <ul>
+                  	 	<li>
+                  	 	  Si se requiere realizar una entrega de medicamento antes de la sigueinte entrega, entonces 
+                          ser&aacute; necesario realizar tal acci&oacute;n bajo aprobaci&oacute;n, para ello
+                          el sistema mostrar&aacute; una ventana en la que debe de ingresar el usuario y contraseña asi como
+                          tambien el motivo por el cual se esta realizando una enrega antes del tiempo estipulado.
+                          En caso que el sistema le muestre el mensaje <b>Usuario o contrase&ntilde;a incorrecta</b> es necesario
+                          comunicarse con el Administrador de Farmacia.  
+                  	 	</li>
+                  	 </ul>
+                  </div>
+                  <div class="row"> 
+                  </div>
+               </div>
+               
+                <!-- NUEVA ENTREGA DE MEDICAMENTO -->
+	           <div id="detalleEntrega">
+	             <div class="row">
+                   <h3><b>3. Historial/Detalle de Entregas</b></h3>
+                 </div>
+                 <div class="row">
+                  <ul>
+                    <li> Para ver el historial de entregas realizadas a un paciente primero se debe de buscar dento del sistema para ello se debe ingresar en el men&uacute; principal de la aplicaci&oacute;n a la opci&oacute;n
+                      <b>Entrega de Medicamentos</b>. El sistema mostrar&aacute; la pantalla principal de entrega de medicamentos. Busque el paciente. Vea <b><a href="#buscarPac">Buscar un paciente/Ver expediente del paciente</a></b>.          
+                 	</li>
+                 	<li> 
+                    	El sistema mostrar&aacute; en la parte izquierda de la pantalla
+                    	la lista de entregas hechas para dicho paciente. 
+                    </li>
+                 </ul>
+                 </div>
+                 <div class="row"> 
+                </div>
+                 <div class="row">  
+                     <div class="col-md-12 col-xs-4">            
+               		   <img style="width: 100%;max-width: 400px;" th:src="@{/resources/images/manualFarmacia/historialEntregas.png}"/>
+               	      </div>          
+                 </div>
+                  <div class="row"> 
+                  </div>
+                  <div class="row"> 
+                  	 <ul>
+                  	 	<li>
+                  	 		Hacer click en el bot&oacute;n <img  th:src="@{/resources/images/manualFarmacia/botonDetalle.jpg}"/> para ver detalle de entrega.
+                  	 	</li>
+                  	 	<li>
+                  	 		El sistema mostrar&aacute; la informaci&oacute;n de dicha entrega en una nueva ventana dando la opci&oacute;n de Imprimir dicho detalle.
+                  	 	</li>
+                  	 </ul>
+                  </div>
+                  <div class="row">  
+                     <div class="col-md-12 col-xs-4">            
+               		   <img style="width: 100%;max-width: 800px;" th:src="@{/resources/images/manualFarmacia/detalleEntregaMedicamento.png}"/>
+               	      </div>          
+                  </div>
+                  <div class="row"> 
+                  </div>                 
+                </div>
+	       </div>
+	     </div>
+	     
+	      <!--COLUMNA PARA TABLA DE CONTENIDO -->
+	      <div class="col-md-3 " style="text-align: left; float:left; position: fixed;">  
+	      <div class="table-responsive">
+			 <table  class="table table-hover table-striped table-bordered">
+			   <thead style="text-align: center;">
+			   	 <tr class="head">
+			   	 	<th>Tabla de Contenido</th>
+			   	 </tr>
+			   </thead>
+			   <tbody>
+			     <tr><td><a href="#buscarPac">  1. Buscar un paciente/Ver expediente del paciente</a></td></tr>
+			   	 <tr><td><a href="#nuevaEntrega">  2. Entrega de Medicamento</a></td></tr>
+			   	  <tr><td><a href="#detalleEntrega">  3. Historial/Detalle de Entregas</a></td></tr>
+			   </tbody>
+			 </table>
+	      </div>
+	     </div> 
+	   </div>
+	</div>
+	
+	<div th:replace="fragments/general :: footerFragment"></div>
+	<div th:replace="fragments/general :: jsFragment"></div>
+</body>
+</html>
