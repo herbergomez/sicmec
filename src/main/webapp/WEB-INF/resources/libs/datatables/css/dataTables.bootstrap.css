@@ -71,7 +71,7 @@ table.dataTable thead .sorting_desc,
 table.dataTable thead .sorting_asc_disabled,
 table.dataTable thead .sorting_desc_disabled {
 	cursor: pointer;
-	position: relative;
+	/*position: relative;*/
 }
 
 table.dataTable thead .sorting:after,
@@ -81,7 +81,7 @@ table.dataTable thead .sorting_desc:after {
 	top: 8px;
 	right: 8px;
 	display: block;
-	font-family: 'Glyphicons Halflings';
+	/*font-family: 'Glyphicons Halflings';*/
 	opacity: 0.5;
 }
 table.dataTable thead .sorting:after {

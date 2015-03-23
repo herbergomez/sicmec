@@ -140,8 +140,8 @@ $( document ).ready(function()
 			{
 				 var expPac = $("#exp").val();
 				 var namePac = $("#nombrePaciente").text();
-				 alert($("#exp").val());
-				 alert($("#nombrePaciente").text());
+				 //alert($("#exp").val());
+				 //alert($("#nombrePaciente").text());
 				 var headElements = "<p><span>Numero de expediente: "+expPac+"</span></p><p><span>Nombre del paciente: "+namePac+"</span></p>";
 				 
 				 var options = { mode : 'popup', popClose : true ,extraHead : headElements,popTitle : '' };
