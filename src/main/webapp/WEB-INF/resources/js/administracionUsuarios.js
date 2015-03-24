@@ -132,8 +132,8 @@ $('#modificarUsuarioForm').validate({
 });
 
 	$(".datatables").DataTable({
-		"scrollY": "350px",
         "scrollCollapse": false,
+        'responsive': true,
         "aoColumns": 
         	[
         	 { "sWidth": "10%", "sClass": "center", "bSortable": false },

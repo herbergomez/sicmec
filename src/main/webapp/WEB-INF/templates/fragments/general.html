@@ -122,6 +122,11 @@
   								<i class="fa fa-ambulance"></i> Ayuda al usuario
   							</a>
   						</li>
+  						<li th:if="${#httpServletRequest.isUserInRole('ROLE_Farmacia')} or ${#httpServletRequest.isUserInRole('ROLE_Admin_Farmacia')}" >
+  							<a th:href="@{/farm/entregaMed/manualEntregaMedicamentos}">
+  								<i class="fa fa-ambulance"></i> Ayuda al usuario
+  							</a>
+  						</li>
   						
   					</ul>
 				</li>	
