@@ -3,9 +3,10 @@ package com.uesocc.sicmec.model.adapter;
 import com.uesocc.sicmec.framework.general.BaseAdapter;
 import com.uesocc.sicmec.framework.general.SicDataTypeFormat;
 import com.uesocc.sicmec.model.dto.SicPaqMedDto;
+import com.uesocc.sicmec.model.entity.SicAsignacionMedicamento;
 import com.uesocc.sicmec.model.entity.SicCatMedicamentos;
-
 import java.text.ParseException;
+import java.util.List;
 
 public class SicPaqMedAdapter implements BaseAdapter<SicCatMedicamentos, SicPaqMedDto>{
 	
@@ -24,10 +25,18 @@ public class SicPaqMedAdapter implements BaseAdapter<SicCatMedicamentos, SicPaqM
 	public SicPaqMedDto entityToDto ( SicCatMedicamentos ent ) 
 	{
 		SicPaqMedDto paqDto = new SicPaqMedDto();
+		List<SicAsignacionMedicamento> sicAsignacionMedicamentoList = ent.getSicAsignacionMedicamentoList();
+		
 		paqDto.setIdPaq( ent.getIdSicCatMedicamentos() != null ? SicDataTypeFormat.toStringValue( ent.getIdSicCatMedicamentos().toString() ) : "" );
 		paqDto.setName( ent.getNombre() != null ? SicDataTypeFormat.toStringValue( ent.getNombre() ) : "" );
 		paqDto.setDescription( ent.getDescripcion() != null ? SicDataTypeFormat.toStringValue( ent.getDescripcion() ) : "" );
 		paqDto.setActive( ent.getEstado() != null ? SicDataTypeFormat.toStringValue( ent.getEstado() ) : "" );
+		String meds = "";
+		for (SicAsignacionMedicamento md : sicAsignacionMedicamentoList) 
+		{
+			meds += md.getFkSicMedicamento().getNombreMedicamento()+","+md.getFkSicMedicamento().getDescripcionMedicamento()+" ";
+		}
+		paqDto.setListMed(meds);
 		return paqDto;		
 	}
 

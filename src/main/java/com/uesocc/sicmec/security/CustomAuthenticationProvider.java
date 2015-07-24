@@ -56,11 +56,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
 					if(format.parse(dto.getFxActivacion()).before(cal.getTime()) && format.parse(dto.getFxDesactivacion()).after(cal.getTime()))
 					{
 						LOGGER.info("User Active");
-						
-						if(dto.getClave().equals(SicEncriptUtil.getStringMessageDigest(password,SicEncriptUtil.MD5)))
-						//if(dto.getClave().equals(password))
-						{
-									
+						//Autenticacion con clave encriptada o sin encriptar
+						//if(dto.getClave().equals(SicEncriptUtil.getStringMessageDigest(password,SicEncriptUtil.MD5)))
+						if(dto.getClave().equals(password))
+						{		
 							List<GrantedAuthority> grantedAuths = new ArrayList<>();
 							grantedAuths.add(new CustomGrantedAuthority("ROLE_"+dto.getSicRol().getNombreRol()));
 							auth = new UsernamePasswordAuthenticationToken(username, password, grantedAuths);

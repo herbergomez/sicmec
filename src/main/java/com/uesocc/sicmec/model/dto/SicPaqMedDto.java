@@ -1,6 +1,9 @@
 package com.uesocc.sicmec.model.dto;
 
 import java.io.Serializable;
+import java.util.List;
+
+import com.uesocc.sicmec.model.entity.SicAsignacionMedicamento;
 
 /**
  * 
@@ -18,6 +21,7 @@ public class SicPaqMedDto implements Serializable{
 	private String name;
 	private String description;
 	private String active;
+	private String listMed;
 	/**
 	 * @return the idPaq
 	 */
@@ -75,5 +79,12 @@ public class SicPaqMedDto implements Serializable{
 		return "SicPaqMedDto [idPaq=" + this.idPaq + ", name="
 				+ this.name + "desctiption="+ this.description +", active=" + this.active + "]";
 	}
+	public String getListMed() {
+		return listMed;
+	}
+	public void setListMed(String listMed) {
+		this.listMed = listMed;
+	}
+	
 
 }

@@ -54,8 +54,7 @@ public class SicPaciente implements Serializable {
     private Integer idSicPaciente;
     @Column(name = "numero_expediente")
     private String numeroExpediente;
-    @Basic(optional = false)
-    @Column(name = "telefono_paciente", nullable = false, length = 10)
+    @Column(name = "telefono_paciente", length = 10)
     private String telefonoPaciente;
     @Column(name = "direccion_paciente", length = 100)
     private String direccionPaciente;

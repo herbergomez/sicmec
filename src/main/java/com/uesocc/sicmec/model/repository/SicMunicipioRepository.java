@@ -20,4 +20,11 @@ public interface SicMunicipioRepository extends
 * @return Lista de municipios que responden a este departamento
 */
 List <SicMunicipio> findAllByfkSicDepartamento_idSicDepartamento(int id);
+
+/**
+ * @param name
+ * @return lista de municipios por nombre
+ */
+List <SicMunicipio> findAllBynombreMunicipio(String name);
+
 }

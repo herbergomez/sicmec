@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/general :: headerFragment">
+	
+</head>
+<body>
+	<div th:replace="fragments/general :: navFragment"></div>
+	
+	<div class="container" style="min-height: 600px; overflow: auto;">
+		<div class="row">
+			<div class="col-md-12 col-xs-12">
+				<form class="form-inline" th:action="@{/admin/importar/subir}" enctype="multipart/form-data" method="post">
+				
+  					<div class="form-group">
+    					<label class="sr-only" for="exampleInputAmount"></label>
+    					<div class="input-group">
+      					<div class="input-group-addon"><i class="fa fa-cloud-upload fa-lg"></i></div>
+      					<input type="file" class="form-control" id="archivoCsv" name="archivoCsv" placeholder="Archivo a subir"/>
+      					<div class="input-group-addon">.xls,.xlsx</div>
+    					</div>
+  					</div>
+  					<button type="submit" id="sub" class="btn btn-primary" th:text="#{admin.importar.subirArchivo}"></button>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 col-xs-12">
+				<div id="loading" class="alert alert-danger" role="alert" style="display: none;">
+  					<button type="button" class="close" data-dismiss="alert">
+  						<span aria-hidden="true">&times;</span>
+  						<span class="sr-only">Close</span>
+  					</button>
+  					<i class="fa fa-cog fa-lg fa-2x" style="padding-left: 50%; padding-right: 50%;"></i>
+				</div>
+			</div>	
+		</div>
+		<div class="row">
+			<div class="col-md-12 col-xs-12">
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon">
+						<i class="fa fa-users"></i>
+					</span>
+					<h5 th:utext="#{admin.importar.title}"></h5>
+				</div>
+				<div class="widget-content">
+				<div >
+						<div class="col-md-4">
+							
+							<div class="form-group">
+								<label for="totalMigrados" >Pacientes migrados al sistema</label>
+    							<input id="totalMigrados" class="form-control" th:value="${totalMigrados}" disabled="disabled"/>
+							</div>
+							<div class="form-group">
+								<label for="totalIgnorados" >Pacientes ignorados por el proceso de migrado</label>
+    							<input id="totalIgnorados" class="form-control" th:value="${totalIgnorados}" disabled="disabled"/>
+							</div>
+							<div class="form-group">
+								<label for="totalIgnorados" >Pacientes sin poder guardarse</label>
+								<p th:if="${totalError > 0}">Revise los campos del archivo, posibles causas: Falta de datos obligatorios y/o cadenas de gran tama&ntilde;o</p>
+    							<input id="totalIgnorados" class="form-control" th:value="${totalError}" disabled="disabled"/>
+							</div>
+							
+						</div>
+						<div class="col-md-8">
+							<div class="form-group">
+								<label for="log" >Registro de eventos</label>
+								<textarea id="log" class="form-control" rows="15" th:text="${log}" disabled="disabled">
+							
+								</textarea>
+							</div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+			</div>	
+						
+			</div>
+		</div>
+			
+	</div>
+	
+	<div th:replace="fragments/general :: footerFragment"></div>
+	<div th:replace="fragments/general :: jsFragment"></div>
+
+<script type="text/javascript" >
+	$(document).ready(function(){
+		$("#sub").click(function(){
+			$("#loading").show();
+		});
+		$(".close").click(function(){
+			$("#loading").hide();
+		});
+	});
+</script>
+
+	
+</body>
+</html>

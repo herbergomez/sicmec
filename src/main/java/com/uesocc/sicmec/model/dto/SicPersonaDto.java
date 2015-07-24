@@ -46,14 +46,11 @@ public class SicPersonaDto implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
-		return "SicPersonaDto [idSicPersona=" + idSicPersona + ", nombre="
-				+ nombre + ", apellido=" + apellido + ", email=" + email + "]";
+		return nombre + ", "+ apellido;
 	}
+	
 
 
 }

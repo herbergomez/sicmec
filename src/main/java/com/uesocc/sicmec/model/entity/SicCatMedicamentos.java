@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -49,7 +50,7 @@ public class SicCatMedicamentos implements Serializable {
     @Basic(optional = false)
     @Column(name = "estado")
     private String estado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkSicCatMedicamentos")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkSicCatMedicamentos",fetch=FetchType.EAGER)
     private List<SicAsignacionMedicamento> sicAsignacionMedicamentoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkSicCatMedicamentos")
     private List<SicTratamiento> sicTratamientoList;

@@ -10,6 +10,34 @@ import com.uesocc.sicmec.model.entity.SicContactoPaciente;
 
 public class SicPacienteDto implements Serializable{
 
+	public SicPacienteDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public SicPacienteDto(String idSicPaciente, String numExpediente,
+			String telefonoPaciente, String direccionPaciente,
+			String sexoPaciente, String fxNacimiento,
+			SicPersonaDto fkSicPersona, SicMunicipioDto fkSicMunicipio,
+			String documentoIdentidad, String edad, String fxCreacion,
+			SicEstadoPacienteDto fkSicEstadoPaciente,
+			SicContactoPacienteDto fkSicContactoPaciente,
+			SicTipoPatologiaDto fkSicTipoPatologia) {
+		super();
+		this.idSicPaciente = idSicPaciente;
+		this.numExpediente = numExpediente;
+		this.telefonoPaciente = telefonoPaciente;
+		this.direccionPaciente = direccionPaciente;
+		this.sexoPaciente = sexoPaciente;
+		this.fxNacimiento = fxNacimiento;
+		this.fkSicPersona = fkSicPersona;
+		this.fkSicMunicipio = fkSicMunicipio;
+		this.documentoIdentidad = documentoIdentidad;
+		this.edad = edad;
+		this.fxCreacion = fxCreacion;
+		this.fkSicEstadoPaciente = fkSicEstadoPaciente;
+		this.fkSicContactoPaciente = fkSicContactoPaciente;
+		this.fkSicTipoPatologia = fkSicTipoPatologia;
+	}
 	/**
 	 * 
 	 */
@@ -203,23 +231,46 @@ public class SicPacienteDto implements Serializable{
 	public void setFxCreacion(String fxCreacion) {
 		this.fxCreacion = fxCreacion;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime
+				* result
+				+ ((documentoIdentidad == null) ? 0 : documentoIdentidad
+						.hashCode());
+		result = prime * result
+				+ ((numExpediente == null) ? 0 : numExpediente.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SicPacienteDto other = (SicPacienteDto) obj;
+		if (documentoIdentidad == null) {
+			if (other.documentoIdentidad != null)
+				return false;
+		} else if (!documentoIdentidad.equals(other.documentoIdentidad))
+			return false;
+		if (numExpediente == null) {
+			if (other.numExpediente != null)
+				return false;
+		} else if (!numExpediente.equals(other.numExpediente))
+			return false;
+		return true;
+	}
 	@Override
 	public String toString() {
-		return "SicPacienteDto [idSicPaciente=" + idSicPaciente
-				+ ", numExpediente=" + numExpediente + ", telefonoPaciente="
-				+ telefonoPaciente + ", direccionPaciente=" + direccionPaciente
-				+ ", sexoPaciente=" + sexoPaciente + ", fxNacimiento="
-				+ fxNacimiento + ", fkSicPersona=" + fkSicPersona
-				+ ", fkSicMunicipio=" + fkSicMunicipio
-				+ ", documentoIdentidad=" + documentoIdentidad + ", edad="
-				+ edad + ", fxCreacion=" + fxCreacion
-				+ ", fkSicEstadoPaciente=" + fkSicEstadoPaciente
-				+ ", fkSicContactoPaciente=" + fkSicContactoPaciente
-				+ ", fkSicTipoPatologia=" + fkSicTipoPatologia + "]";
+		return "Exp:" + numExpediente;
+				
 	}
+
 	
 	    
 }

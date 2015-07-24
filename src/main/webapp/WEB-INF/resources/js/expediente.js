@@ -5,6 +5,15 @@
 
 $( document ).ready(function() 
 {
+	var $selected = $(this).find(':selected');
+	$("#paqMedDes").html($selected.data('description'));
+	
+	$("#tratamiento").change(function()
+	{
+		var $selected = $(this).find(':selected');
+		$("#paqMedDes").html($selected.data('description'));
+	});
+	
 	$(".sintomasList").mCustomScrollbar({
 		    theme:"dark"
 		});

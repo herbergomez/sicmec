@@ -159,21 +159,21 @@ public class SicAdministracionPacientesController {
 			@RequestParam(value="expediente")String expediente,
 			@RequestParam(value="nombres")String nombres,
 			@RequestParam(value="apellidos")String apellidos,
-			@RequestParam(value="dui")String dui,
+			@RequestParam(value="dui",defaultValue="",required=false)String dui,
 			@RequestParam(value="estado")int estado,
 			@RequestParam(value="patologia")int idPatologia,
 			@RequestParam(value="sexo")String sexo,
 			@RequestParam(value="municipio")int idmunicipio,
-			@RequestParam(value="direccion")String direccion,
-			@RequestParam(value="mail")String mail,
-			@RequestParam(value="telefono")String telefono,
-			@RequestParam(value="fnacimiento")String fechaNacimiento,
-			@RequestParam(value="fcreacion")String fechaRegistro,
+			@RequestParam(value="direccion",defaultValue="",required=false)String direccion,
+			@RequestParam(value="mail",defaultValue="",required=false)String mail,
+			@RequestParam(value="telefono",defaultValue="",required=false)String telefono,
+			@RequestParam(value="fnacimiento",defaultValue="",required=false)String fechaNacimiento,
+			//@RequestParam(value="fcreacion")String fechaRegistro,
 			//Datos de Responsable de Paciente
-			@RequestParam(value="nomContact")String nomContact,
-			@RequestParam(value="apContact")String apContact,
-			@RequestParam(value="duiContact")String duiContact,
-			@RequestParam(value="telContact")String telContact,
+			@RequestParam(value="nomContact",defaultValue="",required=false)String nomContact,
+			@RequestParam(value="apContact",defaultValue="",required=false)String apContact,
+			@RequestParam(value="duiContact",defaultValue="",required=false)String duiContact,
+			@RequestParam(value="telContact",defaultValue="",required=false)String telContact,
 			HttpServletRequest httpServletRequest,
 			RedirectAttributes redirectAttributes) throws ParseException {
 		
@@ -200,14 +200,15 @@ public class SicAdministracionPacientesController {
 		paciente.setSexoPaciente(sex);
 		paciente.setTelefonoPaciente(telefono);
 		paciente.setFxNacimiento(outputFormat.format(inputFormat.parse(fechaNacimiento)));
-		paciente.setFxCreacion(outputFormat.format(inputFormat.parse(fechaRegistro)));
+		paciente.setFxCreacion(outputFormat.format(new Date()));
 		paciente.setDocumentoIdentidad(dui);
 		paciente.setFkSicEstadoPaciente(sicEstadoPacienteServiceImpl.findById(estado));
 		paciente.setFkSicPersona(sicPersonaServiceImpl.insert(persona));					
 		paciente.setFkSicMunicipio(sicMunicipioServiceImpl.findById(idmunicipio));
 		paciente.setFkSicTipoPatologia(sicTipoPatologiaServiceImpl.findById(idPatologia));
 		
-		if (!(nomContact.trim().equals("")&& !apContact.trim().equals(""))){
+		if (!nomContact.trim().equals("") && !apContact.trim().equals(""))
+		{
 			SicContactoPacienteDto contacto = new SicContactoPacienteDto();
 			contacto.setNombreContacto(nomContact);
 			contacto.setApellidoContacto(apContact);
@@ -215,6 +216,7 @@ public class SicAdministracionPacientesController {
 			contacto.setTelefono(telContact);
 			paciente.setFkSicContactoPaciente(sicContactoPacienteServiceImpl.insert(contacto));
 		}
+		
 		LOGGER.info(paciente);
 		sicPacienteServiceImpl.insert(paciente);
 		
@@ -242,16 +244,16 @@ public class SicAdministracionPacientesController {
 			@RequestParam(value="sexoUp")String sexo,
 			@RequestParam(value="municipioUp")int idmunicipio,
 			@RequestParam(value="departamentoUp")int iddepartamento,
-			@RequestParam(value="direccionUp")String direccion,
-			@RequestParam(value="mailUp")String mail,
-			@RequestParam(value="telefonoUp")String telefono,
-			@RequestParam(value="fnacimientoUp")String fechaNacimiento,
-			@RequestParam(value="fcreacionUp")String fechaRegistro,
+			@RequestParam(value="direccionUp",defaultValue="",required=false)String direccion,
+			@RequestParam(value="mailUp",defaultValue="",required=false)String mail,
+			@RequestParam(value="telefonoUp",defaultValue="",required=false)String telefono,
+			@RequestParam(value="fnacimientoUp",defaultValue="",required=false)String fechaNacimiento,
+			//@RequestParam(value="fcreacionUp")String fechaRegistro,
 			//Datos de Responsable de Paciente
-			@RequestParam(value="nomContactUp")String nomContact,
-			@RequestParam(value="apContactUp")String apContact,
-			@RequestParam(value="duiContactUp")String duiContact,
-			@RequestParam(value="telContactUp")String telContact,
+			@RequestParam(value="nomContactUp",defaultValue="",required=false)String nomContact,
+			@RequestParam(value="apContactUp",defaultValue="",required=false)String apContact,
+			@RequestParam(value="duiContactUp",defaultValue="",required=false)String duiContact,
+			@RequestParam(value="telContactUp",defaultValue="",required=false)String telContact,
 			HttpServletRequest httpServletRequest,
 			RedirectAttributes redirectAttributes) throws ParseException {
 		
@@ -263,7 +265,6 @@ public class SicAdministracionPacientesController {
 		DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
 		SicPacienteDto pac_search = sicPacienteServiceImpl.findById(id);
 		
-		if (pac_search!=null) {
 			String sex="";
 			if (sexo.equals("Masculino")){
 				sex="M";
@@ -274,14 +275,10 @@ public class SicAdministracionPacientesController {
 			per_search.setNombre(nombres);
 			per_search.setApellido(apellidos);
 			per_search.setEmail(mail);
-			
 			pac_search.setDireccionPaciente(direccion);
 			pac_search.setSexoPaciente(sex);
 			pac_search.setTelefonoPaciente(telefono);
 			pac_search.setFxNacimiento(outputFormat.format(inputFormat.parse(fechaNacimiento)));
-			pac_search.setFxCreacion(outputFormat.format(inputFormat.parse(fechaRegistro)));
-		
-			
 			pac_search.setFkSicEstadoPaciente(sicEstadoPacienteServiceImpl.findById(estado));
 		    pac_search.setFkSicPersona(sicPersonaServiceImpl.insert(per_search));
 			pac_search.setFkSicMunicipio(sicMunicipioServiceImpl.findById(idmunicipio));
@@ -291,26 +288,30 @@ public class SicAdministracionPacientesController {
 			//Si el contacto existe, entonces lo actualiza.
 			//Si el contacto no existe, lo inserta en caso que se hallan llenado los campos especificados.
 			//Es obligatorio ingresar Nombres y Apellidos de contacto
-			if (contact_search != null) {
-				if (!(nomContact.trim().equals("")&& !apContact.trim().equals(""))){
+			if (contact_search != null)
+			{
+				if (!nomContact.trim().equals("")&& !apContact.trim().equals(""))
+				{
 					contact_search.setNombreContacto(nomContact);
 					contact_search.setApellidoContacto(apContact);
 					contact_search.setDui(duiContact);
 					contact_search.setTelefono(telContact);
 					pac_search.setFkSicContactoPaciente(sicContactoPacienteServiceImpl.insert(contact_search));
-				} else {
-				if (!(nomContact.trim().equals("")&& !apContact.trim().equals(""))){
+				} 
+				
+			}
+			else
+			{
+				if (!nomContact.trim().equals("") && !apContact.trim().equals("")){
 					SicContactoPacienteDto contacto = new SicContactoPacienteDto();
 					contacto.setNombreContacto(nomContact);
 					contacto.setApellidoContacto(apContact);
 					contacto.setDui(duiContact);
 					contacto.setTelefono(telContact);
 					pac_search.setFkSicContactoPaciente(sicContactoPacienteServiceImpl.insert(contacto));
-				}				  
-			   }
-		   } else {
-			LOGGER.info("Error al actualizar paciente");
-		  }		
+				}	
+			}
+			
 			LOGGER.info(pac_search);
 		    sicPacienteServiceImpl.insert(pac_search);
 		  //AUDITORIA
@@ -321,7 +322,6 @@ public class SicAdministracionPacientesController {
 					,format.format(new Date()),
 					sicUsuarioServiceImpl.findByNombreUsuario(httpServletRequest.getRemoteUser())));
 		    redirectAttributes.addFlashAttribute("upSuccess",true);	
-	     }
 		return "redirect:/admin/pacientes";
 	}
 	

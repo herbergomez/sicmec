@@ -93,4 +93,11 @@ public class SicMunicipioServiceImpl implements SicMunicipioService{
 		
 		return list_dto;
 	}
+
+	@Override
+	public SicMunicipioDto findOneBynombreMunicipio(String name) {
+		// TODO Auto-generated method stub
+		SicMunicipioAdapter adp = new SicMunicipioAdapter();
+		return adp.entityToDto(sicMunicipioRepository.findAllBynombreMunicipio(name).get(0));
+	}
 }

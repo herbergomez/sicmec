@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.uesocc.sicmec.framework.general.BaseService;
 import com.uesocc.sicmec.model.dto.SicMunicipioDto;
+import com.uesocc.sicmec.model.entity.SicMunicipio;
 
 public interface SicMunicipioService extends BaseService<SicMunicipioDto, Integer>{
 
@@ -13,4 +14,6 @@ public interface SicMunicipioService extends BaseService<SicMunicipioDto, Intege
 	* @return Lista de Municipios.
 	*/
 	List <SicMunicipioDto> getMunicipiosPorDepartamento(int idDepartamento);
+
+	SicMunicipioDto findOneBynombreMunicipio(String name);
 }

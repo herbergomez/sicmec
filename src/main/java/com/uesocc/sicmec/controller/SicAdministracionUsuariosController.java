@@ -86,7 +86,8 @@ public class SicAdministracionUsuariosController
 		
 		SicUsuarioDto user = new SicUsuarioDto();
 		user.setNombreUsuario(usuario);
-		user.setClave(SicEncriptUtil.getStringMessageDigest(pass,SicEncriptUtil.MD5));
+		//user.setClave(SicEncriptUtil.getStringMessageDigest(pass,SicEncriptUtil.MD5));
+		user.setClave(pass);
 		user.setFxActivacion(simpleformat.format(new Date()));
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.YEAR, 2);

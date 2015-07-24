@@ -107,7 +107,7 @@ public class SicControlCitasController {
 		sintomasList.add(new SicSignosSintomasDto("Aumento de la sed", "Aumento de la sed"));
 		sintomasList.add(new SicSignosSintomasDto("Sangrado nasal", "Dolor de cabeza"));
 		sintomasList.add(new SicSignosSintomasDto("Manchas en los ojos", "Manchas en los ojos"));
-		sintomasList.add(new SicSignosSintomasDto("Pérdida de peso", "Pérdida de peso"));
+		sintomasList.add(new SicSignosSintomasDto("Perdida de peso", "Perdida de peso"));
 		
 		
 		model.addAttribute("paqMedList",sicPaqMedServiceImpl.findAll());

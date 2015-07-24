@@ -160,8 +160,9 @@
 													<div class="form-group" style="padding-top: 10%;">
         												<label for="tratamiento" th:utext="#{control.paciente.tratamiento}"></label>
     													<select class="form-control" id="tratamiento" name="tratamiento">
-    														<option th:each="paqMed : ${paqMedList}" th:text="${paqMed.name}" th:value="${paqMed.idPaq}"></option>
+    														<option th:each="paqMed : ${paqMedList}" th:text="${paqMed.name}" th:value="${paqMed.idPaq}" data-th-attr="data-description=${paqMed.listMed}"></option>
     													</select>
+    													<p id="paqMedDes" style="padding-left: 2%;"></p>
         											</div>
 												</div>
 											</div>
